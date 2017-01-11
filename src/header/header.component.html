@@ -1,0 +1,14 @@
+<div class="header-container">
+  <div class="title-container">
+    <img src="/assets/img/logo.png" alt="Logo icon">
+  </div>
+
+  <div class="menu-container" *ngFor="let item of menuItems;">
+    <span class="menu-item-container">{{item}}</span>
+  </div>
+
+  <div class="login-container">
+    <app-login-modal></app-login-modal>
+    <app-signup-modal></app-signup-modal>
+  </div>
+</div>

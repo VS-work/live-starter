@@ -1,0 +1,39 @@
+<button type="button" class="signup-button" (click)="staticModal.show()">Sign Up</button>
+
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sign up to LiveStarter</h4>
+      </div>
+      <div class="modal-body">
+        <input class="form-control"
+               type="text"
+               [(ngModel)]="signupForm.userEmail"
+               #email
+               placeholder="* Email Address">
+        <input class="form-control"
+               type="text"
+               [(ngModel)]="signupForm.userType"
+               #usertype
+               placeholder="* Fan or Artist?">
+        <input class="form-control"
+               type="text"
+               [(ngModel)]="signupForm.userPassword"
+               #pwd
+               placeholder="* Think of a strong password">
+        <input class="form-control"
+               type="text"
+               [(ngModel)]="signupForm.userPasswordConfirm"
+               #pwdconfirm
+               placeholder="* Try to repeat your password">
+        <span class="error-msg">{{userErrorMessage}}</span>
+        <button type="submit" (click)="submitData(signupForm)">Let's Rock</button>
+      </div>
+    </div>
+  </div>
+</div>

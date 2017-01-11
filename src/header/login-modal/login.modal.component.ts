@@ -1,0 +1,47 @@
+import {Component, ViewChild} from '@angular/core';
+import {Subscription} from 'rxjs/Rx';
+import {LoginService} from './login.modal.service';
+import { ModalDirective } from 'ng2-bootstrap';
+
+@Component({
+  selector: 'app-login-modal',
+  templateUrl: './login.modal.component.html',
+  styleUrls: ['./login.modal.component.css']
+})
+export class LoginModalComponent {
+  @ViewChild('staticModal') public staticModal: ModalDirective;
+
+  public userPassword: string;
+  public userEmail: string;
+  public userErrorMessage: string;
+
+  public loginService: LoginService;
+  public loginServiceSubscribe: Subscription;
+
+  public constructor(loginService: LoginService) {
+    this.loginService = loginService;
+  }
+
+  public closeModal (): void {
+    this.staticModal.hide();
+
+    this.userEmail = '';
+    this.userPassword = '';
+  }
+
+  public submitData(email, password): void {
+    const loginData = {email: email, pwd: password};
+
+    this.loginServiceSubscribe = this.loginService.loginUser(loginData)
+      .subscribe((res: any): void => {
+        const userData: any = res.data;
+        if (userData.error) {
+          this.userPassword = '';
+          this.userErrorMessage = userData.error;
+          return;
+        }
+        this.staticModal.hide();
+        this.userPassword = '';
+      });
+  }
+}

@@ -1,0 +1,32 @@
+<button type="button" class="login-button" (click)="staticModal.show()">Login</button>
+
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Login</h4>
+      </div>
+      <div class="modal-body">
+        <input class="form-control"
+               type="text"
+               [(ngModel)]="userEmail"
+               #email
+               placeholder="Email">
+        <input class="form-control"
+               type="text"
+               [(ngModel)]="userPassword"
+               #pwd
+               placeholder="Password">
+        <span class="error-msg">{{userErrorMessage}}</span>
+        <div>
+          <a class="forgot-password">Forgot password</a>
+        </div>
+        <button type="submit" (click)="submitData(email.value, pwd.value)">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

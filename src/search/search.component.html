@@ -1,0 +1,15 @@
+<div class="search-container">
+  <div class="search-info-container">
+    <div class="search-info-header">Watch live music</div>
+  </div>
+  <div class="search-info">Where your favorite artists perform live stream concerts based on demand</div>
+  <div class="search-button-container">
+    <input type="search"
+           placeholder=" Search your favorite musicians, genre... "
+           (click)="search()">
+    <img src="/assets/img/forma-1.svg" alt="Search icon">
+  </div>
+  <span *ngFor="let style of styles">
+    <button class="music-style-button-search">{{style}}</button>
+  </span>
+</div>
