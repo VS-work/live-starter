@@ -14,6 +14,9 @@ export class SignUpModalComponent {
 	public signupForm: any = {};
 	public userErrorMessage: string;
 
+	public firstStepSuccess: boolean = false;
+	public isTypeArtist: boolean = false;
+
 	public signupService: SignUpService;
 	public signupServiceSubscribe: Subscription;
 
@@ -27,8 +30,30 @@ export class SignUpModalComponent {
 		this.signupForm = {};
 	}
 
+	public backToFisrtStep(): void {
+		this.firstStepSuccess = !this.firstStepSuccess;
+	}
+
+	public isUserArtist(type: boolean): void {
+		this.isTypeArtist = type;
+	}
+
+	public socialLogin(socialType): void {
+		console.log('Login via ', socialType);
+		this.closeModal();
+	}
+
 	public submitData(newUser): void {
-		const signupData = newUser;
+		this.firstStepSuccess = true;
+
+		const signupData = {email: newUser.email,
+												type: newUser.type,
+												password: newUser.password};
+
+		if (newUser.password !== newUser.passwordConfirm) {
+			this.userErrorMessage = 'Confirmed password does not match password.';
+			return;
+		}
 
 		this.signupServiceSubscribe = this.signupService.signupUser(signupData)
 			.subscribe((res: any): void => {
@@ -37,14 +62,15 @@ export class SignUpModalComponent {
 				console.log(userData);
 
 				if (userData.error) {
-					this.signupForm.userPassword = '';
-					this.signupForm.userPasswordConfirm = '';
+					this.signupForm.password = '';
+					this.signupForm.passwordConfirm = '';
 					this.userErrorMessage = userData.error;
 					return;
 				}
 				this.staticModal.hide();
 				this.signupForm = {};
 				this.userErrorMessage = '';
+				this.firstStepSuccess = true;
 			});
 	}
 }

@@ -1,47 +1,55 @@
 import {Component, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs/Rx';
 import {LoginService} from './login.modal.service';
-import { ModalDirective } from 'ng2-bootstrap';
+import {ModalDirective} from 'ng2-bootstrap';
 
 @Component({
-  selector: 'app-login-modal',
-  templateUrl: './login.modal.component.html',
-  styleUrls: ['./login.modal.component.css']
+	selector: 'app-login-modal',
+	templateUrl: './login.modal.component.html',
+	styleUrls: ['./login.modal.component.css']
 })
 export class LoginModalComponent {
-  @ViewChild('staticModal') public staticModal: ModalDirective;
+	@ViewChild('staticModal') public staticModal: ModalDirective;
 
-  public userPassword: string;
-  public userEmail: string;
-  public userErrorMessage: string;
+	public userPassword: string;
+	public userEmail: string;
+	public userErrorMessage: string;
 
-  public loginService: LoginService;
-  public loginServiceSubscribe: Subscription;
+	public loginService: LoginService;
+	public loginServiceSubscribe: Subscription;
 
-  public constructor(loginService: LoginService) {
-    this.loginService = loginService;
-  }
+	public constructor(loginService: LoginService) {
+		this.loginService = loginService;
+	}
 
-  public closeModal (): void {
-    this.staticModal.hide();
+	public closeModal(): void {
+		this.staticModal.hide();
+		this.userEmail = '';
+		this.userPassword = '';
+		this.userErrorMessage = '';
+	}
 
-    this.userEmail = '';
-    this.userPassword = '';
-  }
+	public socialLogin(socialType): void {
+		console.log('Login via ', socialType);
+		this.closeModal();
+	}
 
-  public submitData(email, password): void {
-    const loginData = {email: email, pwd: password};
+	public submitData(email, password): void {
+		const loginData = {email: email, pwd: password};
 
-    this.loginServiceSubscribe = this.loginService.loginUser(loginData)
-      .subscribe((res: any): void => {
-        const userData: any = res.data;
-        if (userData.error) {
-          this.userPassword = '';
-          this.userErrorMessage = userData.error;
-          return;
-        }
-        this.staticModal.hide();
-        this.userPassword = '';
-      });
-  }
+		this.loginServiceSubscribe = this.loginService.loginUser(loginData)
+			.subscribe((res: any): void => {
+				const userData: any = res;
+
+				if (userData.err) {
+					this.userPassword = '';
+					this.userErrorMessage = userData.err;
+					return;
+				}
+				this.staticModal.hide();
+				this.userPassword = '';
+
+			});
+		this.userErrorMessage = '';
+	}
 }
