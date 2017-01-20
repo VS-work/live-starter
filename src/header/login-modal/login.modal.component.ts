@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, Output, EventEmitter} from '@angular/core';
 import {Subscription} from 'rxjs/Rx';
 import {LoginService} from './login.modal.service';
 import {ModalDirective} from 'ng2-bootstrap';
@@ -15,8 +15,14 @@ export class LoginModalComponent {
 	public userEmail: string;
 	public userErrorMessage: string;
 
+	public userLoggedIn: boolean = false;
+	public userName: string;
+
 	public loginService: LoginService;
 	public loginServiceSubscribe: Subscription;
+
+	@Output('user')
+	public user: EventEmitter<any> = new EventEmitter<any>();
 
 	public constructor(loginService: LoginService) {
 		this.loginService = loginService;
@@ -46,10 +52,12 @@ export class LoginModalComponent {
 					this.userErrorMessage = userData.err;
 					return;
 				}
-				this.staticModal.hide();
-				this.userPassword = '';
 
+				if (userData.data) {
+						this.user.emit(userData.data);
+				}
+
+				this.closeModal();
 			});
-		this.userErrorMessage = '';
 	}
 }

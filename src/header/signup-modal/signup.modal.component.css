@@ -11,9 +11,13 @@
 
 .back-button-container {
 	cursor: pointer;
-	width: 10px;
+	width: 20px;
 	float: left;
 	margin: 15px 10px 0 0;
+}
+
+.back-button {
+	width: 20px;
 }
 
 .avatar-container {
@@ -36,7 +40,7 @@
 	text-align: center;
 }
 
-.modal-body input, .modal-body select {
+.modal-body input, .modal-body select, app-genres-filter.form-control {
 	width: 70%;
 	display: inline-block;
 	margin: 5px 0;
@@ -176,3 +180,4 @@
 	font-size: 16px;
 	vertical-align: middle;
 }
+
