@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
         const styles: any[] = res.data;
-        this.styles = styles;
+        this.styles = styles[0].genres;
       });
   }
 

@@ -19,4 +19,18 @@ export class SignUpService {
       return {err: parseRes.error, data: parseRes.data};
     });
   }
+
+  public isEmailExist(query: any): Observable<any> {
+    return this.http.post(`${Config.api}/signup/check-email`, query).map((res: any) => {
+      let parseRes = JSON.parse(res._body);
+      return {err: parseRes.error, data: parseRes.data};
+    });
+  }
+
+	public signupGetLocations(): Observable<any> {
+		return this.http.get(`${Config.api}/signup/get-locations`).map((res: any) => {
+			let parseRes = JSON.parse(res._body);
+			return {err: parseRes.error, data: parseRes.data};
+		});
+	}
 }

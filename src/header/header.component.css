@@ -39,7 +39,7 @@
     font-weight: 400;
 }
 
-.login-container {
+.login-container, .current-user-container {
     width: 20%;
     float: right;
     margin: 15px 0;
