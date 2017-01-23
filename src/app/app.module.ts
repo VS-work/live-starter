@@ -12,6 +12,7 @@ import {SignUpService} from '../header/signup-modal/signup.modal.service';
 import {SignUpModalComponent} from '../header/signup-modal/signup.modal.component';
 import {SearchComponent} from '../search/search.component';
 import {SearchService} from '../search/search.service';
+import {SharedModule} from '../shared';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {SearchService} from '../search/search.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    SharedModule
   ],
   providers: [SearchService, LoginService, SignUpService],
   bootstrap: [AppComponent]

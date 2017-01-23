@@ -7,8 +7,13 @@
     <span class="menu-item-container">{{item}}</span>
   </div>
 
-  <div class="login-container">
-    <app-login-modal></app-login-modal>
+  <div class="current-user-container" *ngIf="currentUser.email">
+    {{currentUser.username || currentUser.email}}
+    <a href="" (click)="location.reload()">Log Out</a>
+  </div>
+
+  <div class="login-container" *ngIf="!currentUser.email">
+    <app-login-modal (user)="getUser($event)"></app-login-modal>
     <app-signup-modal></app-signup-modal>
   </div>
 </div>

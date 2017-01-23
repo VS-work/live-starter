@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +7,14 @@ import {Component} from '@angular/core';
 })
 
 export class HeaderComponent {
-  public title: string = 'LiveStarter Logo';
+	@Output('user')
+	public user: EventEmitter<any> = new EventEmitter<any>();
+
+	public currentUser: any = {};
   public menuItems: any[] = ['Artists', 'Genres', 'How it works', 'Fund', 'Blog', 'Contact'];
 
-  public signUp(): void {
-    console.log('Open sign up popup');
+	public getUser(options: any): void {
+		this.currentUser = options;
+		this.user.emit(options);
   }
 }
