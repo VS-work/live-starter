@@ -1,1 +1,6 @@
-<svg id="SvgjsSvg1000" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="2800" height="1000"><defs id="SvgjsDefs1001"></defs><path id="SvgjsPath1007" d="M0 1172L0 172L2800 172L2800 1172Z " fill="#1c2e36" transform="matrix(1,0,0,1,0,-172)"></path></svg>
+<svg id="SvgjsSvg1000" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:svgjs="http://svgjs.com/svgjs" width="2800" height="1000">
+    <defs id="SvgjsDefs1001"></defs>
+    <path id="SvgjsPath1007" d="M0 1172L0 172L2800 172L2800 1172Z " fill="#1c2e36"
+          transform="matrix(1,0,0,1,0,-172)"></path>
+</svg>

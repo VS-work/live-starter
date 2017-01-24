@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,9 @@ import {Component} from '@angular/core';
 
 export class AppComponent {
   public currentUser: any = {};
-	public getUser(options: any): void {
-		this.currentUser = options;
-		console.log(typeof this.currentUser);
-	}
+
+  public getUser(options: any): void {
+    this.currentUser = options;
+    console.log(typeof this.currentUser);
+  }
 }

@@ -65,8 +65,8 @@
 }
 
 .signup-by-socials hr {
-	width:42%;
-	height:1px;
+	width: 42%;
+	height: 1px;
 	background: #e5e5e5;
 	margin-top: 10px;
 }
@@ -132,7 +132,7 @@
 
 .user-type-selector-container .question-tip:hover:after {
 	background: #333;
-	background: rgba(0,0,0,.8);
+	background: rgba(0, 0, 0, .8);
 	border-radius: 5px;
 	bottom: 26px;
 	color: #fff;

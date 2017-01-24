@@ -1,66 +1,89 @@
 .header-container {
-    width: 100%;
-    border-bottom: 1px solid steelblue;
-    display: inline-block;
-    vertical-align: top;
-    padding: 10px 0;
+	width: 100%;
+	border-bottom: 1px solid steelblue;
+	display: inline-block;
+	vertical-align: top;
+	padding: 10px 0;
 }
 
 .title-container {
-    cursor: pointer;
-    float: left;
-    width: 20%;
-    text-align: right;
-    margin: 7px 28px 0 0;
+	cursor: pointer;
+	float: left;
+	width: 20%;
+	text-align: right;
+	margin: 7px 28px 0 0;
 }
 
 .title-container img {
-    width: 87px;
+	width: 87px;
 }
 
 .menu-container, .login-button, .signup-button {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 .menu-container {
-    width: 80%;
+	width: 80%;
 }
 
-.menu-item-container, .login-button, .signup-button {
-    cursor: pointer;
+.menu-item-container, .login-button, .signup-button, .user-menu {
+	cursor: pointer;
 }
 
 .menu-item-container {
-    display: inline-block;
-    float: left;
-    margin: 21px 10px;
-    color: #1c2e36;
-    font-size: 16px;
-    font-weight: 400;
+	display: inline-block;
+	float: left;
+	margin: 21px 10px;
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
 }
 
-.login-container, .current-user-container {
-    width: 20%;
-    float: right;
-    margin: 15px 0;
+.login-container {
+	width: 20%;
+	float: right;
+	margin: 15px 0;
+}
+
+.current-user-container {
+	width: 20%;
+	float: right;
+	margin: 10px 0;
 }
 
 app-login-modal >>> .login-button {
-    border-radius: 16px;
-    background-color: transparent;
-    border: 1px solid #fc6337;
-    padding: 7px 24px;
-    color: #1c2e36;
-    font-size: 16px;
-    font-weight: 400;
+	border-radius: 16px;
+	background-color: transparent;
+	border: 1px solid #fc6337;
+	padding: 7px 24px;
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
 }
 
 app-signup-modal >>> .signup-button {
-    border: transparent;
-    background-color: transparent;
-    color: #1c2e36;
-    font-size: 16px;
-    font-weight: 400;
-    margin-left: 10px;
+	border: transparent;
+	background-color: transparent;
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
+	margin-left: 10px;
+}
+
+.header-avatar-container {
+	width: 40px;
+	border-radius: 40px;
+	display: inline-block;
+	position: relative;
+	margin-right: 10px;
+}
+
+.header-avatar-container img {
+	width: 40px;
+}
+
+.dropdown {
+	float: right;
+	margin-right: 10px;
 }
 

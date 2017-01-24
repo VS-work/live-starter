@@ -5,21 +5,25 @@ import { CommonModule } from '@angular/common';
 
 import { GenresFilterComponent } from './genres-filter/genres-filter.component';
 import { GenresFilterPipe } from './genres-filter/genres-filter.pipe';
+import { SearchComponent, SearchService } from './search';
 
 @NgModule({
   declarations: [
-	  GenresFilterComponent,
-	  GenresFilterPipe
+    GenresFilterComponent,
+    GenresFilterPipe,
+    SearchComponent
   ],
   imports: [
     HttpModule,
     RouterModule,
     CommonModule
   ],
-  providers: [],
+  providers: [SearchService],
   exports: [
-  	GenresFilterComponent,
-	  GenresFilterPipe]
+    GenresFilterComponent,
+    SearchComponent,
+    GenresFilterPipe
+  ]
 })
 
 export class SharedModule {
