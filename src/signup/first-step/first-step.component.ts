@@ -1,98 +1,47 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { ModalDirective } from 'ng2-bootstrap';
+import { SignUpService } from '../../header/signup-modal/signup.modal.service';
 import * as _ from 'lodash';
 import { AuthService } from '../../auth/auth.service';
 
-import { SignUpService } from './signup.modal.service';
-import { SearchService } from '../../shared/search/search.service';
 import { LocalStorageService } from '../../auth/localStorage.service';
 
 @Component({
-  selector: 'app-signup-modal',
-  templateUrl: '././signup.modal.component.html',
-  styleUrls: ['./signup.modal.component.css']
+  selector: 'app-first-step-signup',
+  templateUrl: './first-step.component.html',
+  styleUrls: ['./first-step.component.css']
 })
-export class SignUpModalComponent implements OnInit, OnDestroy {
-  @ViewChild('staticModal') public staticModal: ModalDirective;
-
+export class FirstStepComponent implements OnInit, OnDestroy {
   public signupForm: any = {};
   public userErrorMessage: string;
 
   public firstStepSuccess: boolean = false;
   public isTypeArtist: boolean = false;
   public userType: any;
-  public countries: any;
-  public cities: any;
   public userProfile: any;
 
-  public signupService: SignUpService;
   public userProfileService: LocalStorageService;
   public signupServiceSubscribe: Subscription;
   public isEmailExistSignupServiceSubscribe: Subscription;
   public getLocationsSignupServiceSubscribe: Subscription;
 
-  public searchService: SearchService;
-  public searchServiceSubscribe: Subscription;
+  public signupService: SignUpService;
   public genres: any;
-
   private auth: AuthService;
+  private router: Router;
 
   public constructor(signupService: SignUpService,
-                     searchService: SearchService,
                      auth: AuthService,
-                     userProfileService: LocalStorageService) {
-    this.signupService = signupService;
-    this.searchService = searchService;
+                     userProfileService: LocalStorageService,
+                     router: Router) {
     this.userProfileService = userProfileService;
+    this.signupService = signupService;
     this.auth = auth;
+    this.router = router;
   }
 
   public ngOnInit(): void {
-    this.getLocationsSignupServiceSubscribe = this.signupService.signupGetLocations()
-      .subscribe((res): void => {
-        const locations = res.data;
-        this.countries = locations.getCountries;
-        this.cities = locations.getCities;
-      });
-
-    this.searchServiceSubscribe = this.searchService.getMusicStyles()
-      .subscribe((res: any): void => {
-        const styles: any[] = res.data;
-        this.genres = styles[0].genres;
-      });
-  }
-
-  public closeModal(): void {
-    this.staticModal.hide();
-    this.userErrorMessage = '';
-    this.signupForm = {};
-    this.firstStepSuccess = false;
-  }
-
-  // public backToFisrtStep(): void {
-  //   this.firstStepSuccess = !this.firstStepSuccess;
-  //   this.signupForm.password = '';
-  //   this.signupForm.passwordConfirm = '';
-  // }
-
-  public isUserArtist(type: boolean): void {
-    this.userType = {type: type ? 'artist' : 'fan'};
-    this.isTypeArtist = type;
-    _.extend(this.signupForm, this.userType);
-  }
-
-  public getUserSocialProfile(): void {
-    const userProfile: any = this.userProfileService.getItem('profile');
-
-    if (userProfile) {
-      this.userProfile = JSON.parse(userProfile);
-    }
-
-    this.userProfileService.getItemEvent().subscribe((userData) => {
-      this.userProfile = JSON.parse(userData.value);
-    });
-
   }
 
   public socialLogin(socialType): void {
@@ -109,8 +58,6 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
         console.log('Login via ', socialType);
         break;
     }
-
-    this.closeModal();
   }
 
   public isEmailExist(credentials: any): void {
@@ -148,7 +95,6 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
     this.signupServiceSubscribe = this.signupService.signupUser(this.signupForm)
       .subscribe((): void => {
         this.auth.signUp(this.signupForm.email, this.signupForm.password);
-        this.staticModal.hide();
         this.signupForm = {};
         this.userErrorMessage = '';
         this.firstStepSuccess = false;

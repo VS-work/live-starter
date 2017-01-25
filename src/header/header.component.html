@@ -1,6 +1,6 @@
 <div class="header-container">
   <div class="title-container">
-    <img src="/assets/img/logo.png" alt="Logo icon">
+    <img src="/assets/img/logo.png" alt="Logo icon" (click)="router.navigate(['/home'])">
   </div>
 
   <div class="menu-container" *ngFor="let item of menuItems;">
@@ -9,7 +9,11 @@
 
   <div class="login-container" *ngIf="!auth.authenticated()">
     <app-login-modal></app-login-modal>
-    <app-signup-modal></app-signup-modal>
+    <!--<app-first-step-signup></app-first-step-signup>-->
+    <button type="button"
+            class="signup-button"
+            (click)="router.navigate(['/first-step'])"
+            *ngIf="!auth.authenticated()">Sign Up</button>
   </div>
 
   <div class="current-user-container">
@@ -18,7 +22,7 @@
 
         <span class="user-menu" *ngIf="userProfile">
           <img class="header-avatar-container" [src]="userProfile?.picture" alt="">
-          {{userProfile?.email}}<span class="caret"></span>
+          {{userProfile?.name || userProfile?.email}}<span class="caret"></span>
         </span>
       </span>
       <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">

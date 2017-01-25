@@ -17,15 +17,15 @@
         </div>
 
         <div [ngStyle]="{display: firstStepSuccess ? 'block' : 'none'}">
-          <div class="back-button-container" (click)="backToFisrtStep()">
-            <img class="back-button" src="/assets/img/back.png" alt="back">
-          </div>
+          <!--<div class="back-button-container" (click)="backToFisrtStep()">-->
+            <!--<img class="back-button" src="/assets/img/back.png" alt="back">-->
+          <!--</div>-->
           <div class="avatar-container">
             <img src="/assets/img/default-avatar.png" alt="Avatar">
           </div>
           <div class="user-data-container">
-            <div class="user-name-container">User Name</div>
-            <div class="user-email-container">{{signupForm.email}}</div>
+            <div class="user-name-container">{{signupForm?.username}}</div>
+            <div class="user-email-container">{{signupForm?.email}}</div>
           </div>
         </div>
       </div>
@@ -65,9 +65,7 @@
 
           <div class="error-msg">{{userErrorMessage}}</div>
           <div>
-            <!--<button type="submit" class="submit-signup" (click)="isEmailExist(signupForm)">Let's Rock!</button>-->
-            <button type="submit" class="submit-signup" (click)="auth.signUp(userEmail.value, pwd.value)">Let's Rock!
-            </button>
+            <button type="submit" class="submit-signup" (click)="isEmailExist(signupForm)">Let's Rock!</button>
           </div>
         </div>
 

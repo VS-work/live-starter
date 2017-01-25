@@ -34,11 +34,6 @@ export class LoginModalComponent {
     this.userErrorMessage = '';
   }
 
-  public socialLogin(socialType): void {
-    console.log('Login via ', socialType);
-    this.closeModal();
-  }
-
   public submitData(email, password): void {
     const loginData = {email: email, pwd: password};
 

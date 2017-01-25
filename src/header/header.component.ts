@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
-import { LocalStorageService } from '../auth/userProfile.service';
+import { LocalStorageService } from '../auth/localStorage.service';
 
 @Component({
   selector: 'app-header',
@@ -16,9 +17,11 @@ export class HeaderComponent implements OnInit {
   public userProfileService: LocalStorageService;
 
   private auth: AuthService;
+  private router: Router;
 
-  public constructor(auth: AuthService, userProfileService: LocalStorageService) {
+  public constructor(auth: AuthService, userProfileService: LocalStorageService, router: Router) {
     this.auth = auth;
+    this.router = router;
     this.userProfileService = userProfileService;
   }
 
@@ -29,8 +32,12 @@ export class HeaderComponent implements OnInit {
       this.userProfile = JSON.parse(userProfile);
     }
 
-    this.userProfileService.getItemEvent().subscribe((red) => {
-      this.userProfile = JSON.parse(red.value);
+    this.userProfileService.getItemEvent().subscribe((userData) => {
+      this.userProfile = JSON.parse(userData.value);
     });
+  }
+
+  public goToMain(): void {
+    this.router.navigate(['/home']);
   }
 }
