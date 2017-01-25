@@ -6,12 +6,14 @@ import { CommonModule } from '@angular/common';
 import { GenresFilterComponent } from './genres-filter/genres-filter.component';
 import { GenresFilterPipe } from './genres-filter/genres-filter.pipe';
 import { SearchComponent, SearchService } from './search';
+import { FeaturedArtistsComponent } from './featured-artists/featured-artists.component';
 
 @NgModule({
   declarations: [
     GenresFilterComponent,
     GenresFilterPipe,
-    SearchComponent
+    SearchComponent,
+    FeaturedArtistsComponent
   ],
   imports: [
     HttpModule,
@@ -22,7 +24,8 @@ import { SearchComponent, SearchService } from './search';
   exports: [
     GenresFilterComponent,
     SearchComponent,
-    GenresFilterPipe
+    GenresFilterPipe,
+    FeaturedArtistsComponent
   ]
 })
 

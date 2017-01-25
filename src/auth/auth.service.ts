@@ -86,6 +86,7 @@ export class AuthService {
       responseType: 'token',
       email: username,
       password: password,
+      callbackURL: 'http://localhost:4200/second-step'
     }, function (err) {
       if (err) {
         alert('something went wrong: ' + err.message);
@@ -95,8 +96,7 @@ export class AuthService {
 
   public googleLogin() {
     this.auth0.login({
-      connection: 'google-oauth2',
-      callbackURL: '/home'
+      connection: 'google-oauth2'
     }, function (err) {
       if (err) {
         alert('something went wrong: ' + err.message);
@@ -106,14 +106,14 @@ export class AuthService {
 
   public googleSignup() {
     this.auth0.login({
-      connection: 'google-oauth2'
+      connection: 'google-oauth2',
+      callbackURL: 'http://localhost:4200/second-step'
     }, function (err) {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
     });
   }
-
 
   public facebookLogin() {
     this.auth0.login({

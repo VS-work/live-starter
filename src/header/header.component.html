@@ -9,7 +9,7 @@
 
   <div class="login-container" *ngIf="!auth.authenticated()">
     <app-login-modal></app-login-modal>
-    <!--<app-first-step-signup></app-first-step-signup>-->
+    <!--<app-signup-modal></app-signup-modal>-->
     <button type="button"
             class="signup-button"
             (click)="router.navigate(['/first-step'])"

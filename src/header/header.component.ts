@@ -38,6 +38,6 @@ export class HeaderComponent implements OnInit {
   }
 
   public goToMain(): void {
-    this.router.navigate(['/home']);
+
   }
 }

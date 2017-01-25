@@ -16,11 +16,6 @@ export class FirstStepComponent implements OnInit, OnDestroy {
   public signupForm: any = {};
   public userErrorMessage: string;
 
-  public firstStepSuccess: boolean = false;
-  public isTypeArtist: boolean = false;
-  public userType: any;
-  public userProfile: any;
-
   public userProfileService: LocalStorageService;
   public signupServiceSubscribe: Subscription;
   public isEmailExistSignupServiceSubscribe: Subscription;
@@ -77,33 +72,24 @@ export class FirstStepComponent implements OnInit, OnDestroy {
           this.userErrorMessage = emailError;
           return;
         }
-        this.signupForm = {
-          email: signupData.email,
-          password: signupData.password,
-          type: 'fan',
-          country: '',
-          city: '',
-          genres: '',
-          username: ''
-        };
-        this.userErrorMessage = '';
-        this.firstStepSuccess = true;
-      });
-  }
 
-  public submitData(): void {
-    this.signupServiceSubscribe = this.signupService.signupUser(this.signupForm)
-      .subscribe((): void => {
-        this.auth.signUp(this.signupForm.email, this.signupForm.password);
-        this.signupForm = {};
+
+        this.auth.signUp(signupData.email, signupData.password);
         this.userErrorMessage = '';
-        this.firstStepSuccess = false;
       });
   }
 
   public ngOnDestroy(): void {
-    this.getLocationsSignupServiceSubscribe.unsubscribe();
-    this.isEmailExistSignupServiceSubscribe.unsubscribe();
-    this.signupServiceSubscribe.unsubscribe();
+    if (this.getLocationsSignupServiceSubscribe) {
+      this.getLocationsSignupServiceSubscribe.unsubscribe();
+    }
+
+    if (this.isEmailExistSignupServiceSubscribe) {
+      this.isEmailExistSignupServiceSubscribe.unsubscribe();
+    }
+
+    if (this.signupServiceSubscribe) {
+      this.signupServiceSubscribe.unsubscribe();
+    }
   }
 }

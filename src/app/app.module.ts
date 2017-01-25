@@ -20,6 +20,7 @@ import { AuthService } from '../auth/auth.service';
 import { LocalStorageService } from '../auth/localStorage.service';
 import { routing } from '../routes';
 import { FirstStepComponent } from '../signup/first-step/first-step.component';
+import { SecondStepComponent } from '../signup/second-step/second-step.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { FirstStepComponent } from '../signup/first-step/first-step.component';
     HeaderComponent,
     LoginModalComponent,
     SignUpModalComponent,
-    FirstStepComponent
+    FirstStepComponent,
+    SecondStepComponent
   ],
   imports: [
     BrowserModule,
