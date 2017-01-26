@@ -1,4 +1,8 @@
-import {Component, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../auth/auth.service';
+import { LocalStorageService } from '../auth/localStorage.service';
 
 @Component({
   selector: 'app-header',
@@ -6,15 +10,34 @@ import {Component, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
-	@Output('user')
-	public user: EventEmitter<any> = new EventEmitter<any>();
+export class HeaderComponent implements OnInit {
+  public userProfile: any;
 
-	public currentUser: any = {};
   public menuItems: any[] = ['Artists', 'Genres', 'How it works', 'Fund', 'Blog', 'Contact'];
+  public userProfileService: LocalStorageService;
 
-	public getUser(options: any): void {
-		this.currentUser = options;
-		this.user.emit(options);
+  private auth: AuthService;
+  private router: Router;
+
+  public constructor(auth: AuthService, userProfileService: LocalStorageService, router: Router) {
+    this.auth = auth;
+    this.router = router;
+    this.userProfileService = userProfileService;
+  }
+
+  public ngOnInit(): void {
+    const userProfile: any = this.userProfileService.getItem('profile');
+
+    if (userProfile) {
+      this.userProfile = JSON.parse(userProfile);
+    }
+
+    this.userProfileService.getItemEvent().subscribe((userData) => {
+      this.userProfile = JSON.parse(userData.value);
+    });
+  }
+
+  public goToMain(): void {
+
   }
 }

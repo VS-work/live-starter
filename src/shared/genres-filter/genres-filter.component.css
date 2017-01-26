@@ -1,19 +1,19 @@
 #genres-filter {
 	width: 100%;
-  display: inline-block;
-  position: relative;
-  vertical-align: bottom;
+	display: inline-block;
+	position: relative;
+	vertical-align: bottom;
 }
 
 #genres-filter .genres-filter-button {
-  overflow: hidden;
-  text-align: center;
-  padding: 9px 35px 10px 14px;
-  position: relative;
-  cursor: pointer;
-  color: #374551;
-  font-size: 28px;
-  line-height: 20px;
+	overflow: hidden;
+	text-align: center;
+	padding: 9px 35px 10px 14px;
+	position: relative;
+	cursor: pointer;
+	color: #374551;
+	font-size: 28px;
+	line-height: 20px;
 }
 
 #genres-filter .genres-filter-button span.arrow {
@@ -28,32 +28,32 @@
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+	width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: #ced1d5;;
+	border-radius: 4px;
+	background-color: #ced1d5;;
 }
 
 ::-webkit-input-placeholder {
-  color: #767d86;
-  font-family: 'Font Regular', sans-serif;
+	color: #767d86;
+	font-family: 'Font Regular', sans-serif;
 }
 
 ::-moz-placeholder {
-  color: #767d86;
-  font-family: 'Font Regular', sans-serif;
+	color: #767d86;
+	font-family: 'Font Regular', sans-serif;
 }
 
 /* Firefox 19+ */
 :-moz-placeholder {
-  color: #767d86;
-  font-family: 'Font Regular', sans-serif;
+	color: #767d86;
+	font-family: 'Font Regular', sans-serif;
 }
 
 /* Firefox 18- */
 :-ms-input-placeholder {
-  color: #767d86;
-  font-family: 'Font Regular', sans-serif;
+	color: #767d86;
+	font-family: 'Font Regular', sans-serif;
 }

@@ -1,19 +1,38 @@
 <div class="header-container">
   <div class="title-container">
-    <img src="/assets/img/logo.png" alt="Logo icon">
+    <img src="/assets/img/logo.png" alt="Logo icon" (click)="router.navigate(['/home'])">
   </div>
 
   <div class="menu-container" *ngFor="let item of menuItems;">
     <span class="menu-item-container">{{item}}</span>
   </div>
 
-  <div class="current-user-container" *ngIf="currentUser.email">
-    {{currentUser.username || currentUser.email}}
-    <a href="" (click)="location.reload()">Log Out</a>
+  <div class="login-container" *ngIf="!auth.authenticated()">
+    <app-login-modal></app-login-modal>
+    <!--<app-signup-modal></app-signup-modal>-->
+    <button type="button"
+            class="signup-button"
+            (click)="router.navigate(['/first-step'])"
+            *ngIf="!auth.authenticated()">Sign Up</button>
   </div>
 
-  <div class="login-container" *ngIf="!currentUser.email">
-    <app-login-modal (user)="getUser($event)"></app-login-modal>
-    <app-signup-modal></app-signup-modal>
+  <div class="current-user-container">
+    <div *ngIf="auth.authenticated()" dropdown>
+      <span id="simple-dropdown" dropdownToggle>
+
+        <span class="user-menu" *ngIf="userProfile">
+          <img class="header-avatar-container" [src]="userProfile?.picture" alt="">
+          {{userProfile?.name || userProfile?.email}}<span class="caret"></span>
+        </span>
+      </span>
+      <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
+        <li role="menuitem"><a class="dropdown-item" href="#">My account</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">My events</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Payments</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Following</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem"><a class="dropdown-item" href="#" (click)="auth.logout()" *ngIf="auth.authenticated()">Log out</a></li>
+      </ul>
+    </div>
   </div>
 </div>

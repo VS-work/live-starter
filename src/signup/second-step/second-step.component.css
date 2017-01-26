@@ -1,12 +1,33 @@
-.modal-content {
+.signup-container {
 	width: 500px;
+	text-align: center;
+	margin: auto;
+	padding: 10px;
+	border: 1px solid #fc6337;
+	border-radius: 10px;
+	overflow: hidden;
 }
 
-.modal-header h4 {
+.signup-container h4 {
 	color: #1c2e36;
 	font-size: 20px;
 	font-weight: 500;
 	text-align: center;
+}
+
+.user-data-container {
+	text-align: left;
+}
+
+.user-email-container {
+	color: #555555;
+}
+
+.signup-container input , .signup-container select, app-genres-filter.form-control {
+	width: 70%;
+	display: inline-block;
+	margin: 5px 0;
+	padding: 5px;
 }
 
 .back-button-container {
@@ -25,26 +46,16 @@
 	float: left;
 	display: inline-block;
 	position: relative;
-	margin-right: 10px;
+	margin: 0 10px;
 }
 
 .avatar-container img {
 	width: 50px;
+	border-radius: 50px;
 }
 
 .user-name-container {
 	padding-top: 5px;
-}
-
-.modal-body {
-	text-align: center;
-}
-
-.modal-body input, .modal-body select, app-genres-filter.form-control {
-	width: 70%;
-	display: inline-block;
-	margin: 5px 0;
-	padding: 5px;
 }
 
 .signup-by-socials {
@@ -89,7 +100,7 @@
 	margin: 10px 5px;
 }
 
-.modal-body .submit-signup {
+.submit-signup {
 	width: 40%;
 	font-size: 16px;
 	font-weight: 400;
@@ -146,6 +157,7 @@
 
 .user-seletor-header {
 	font-size: 24px;
+	margin: 5px;
 }
 
 .user-type-button {
