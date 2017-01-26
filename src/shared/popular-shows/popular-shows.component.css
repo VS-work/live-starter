@@ -15,9 +15,11 @@
 	width: 25%;
 	float: left;
 	display: inline-block;
-	font-size: 24px;
-	font-weight: 700;
+	font-size: 25px;
+	font-weight: 600;
 	text-align: center;
+	color: #1c2e36;
+	line-height: 40px;
 }
 
 .title-body {
@@ -49,7 +51,7 @@
 }
 
 .popular-show {
-	width: 350px;
+	width: 369px;
 	height: 466px;
 	display: inline-block;
 	position: relative;
@@ -57,7 +59,7 @@
 	border: 1px solid #dadce8;
 	border-radius: 14px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
-	margin: 20px;
+	margin: 15px;
 }
 
 .images-container {

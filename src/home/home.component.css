@@ -1,6 +1,8 @@
 .home-container {
 	width: 100%;
-	padding: 0 50px;
 	background-color: #fafafb;
 }
 
+.actions-container {
+	padding: 0 50px;
+}
