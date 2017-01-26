@@ -12,6 +12,7 @@ import { ArtistsYouMayLikeComponent } from './artists-you-may-like/artists-you-m
 import { UpcomingShowsComponent } from './upcoming-shows/upcoming-shows.component';
 import { HowItWasComponent } from './how-it-was/how-it-was.component';
 import { WhatTheySayComponent } from './what-they-say/what-they-say.component';
+import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { WhatTheySayComponent } from './what-they-say/what-they-say.component';
     ArtistsYouMayLikeComponent,
     UpcomingShowsComponent,
     HowItWasComponent,
-    WhatTheySayComponent
+    WhatTheySayComponent,
+    HowItWorksComponent
   ],
   imports: [
     HttpModule,
@@ -40,7 +42,8 @@ import { WhatTheySayComponent } from './what-they-say/what-they-say.component';
     ArtistsYouMayLikeComponent,
     UpcomingShowsComponent,
     HowItWasComponent,
-    WhatTheySayComponent
+    WhatTheySayComponent,
+    HowItWorksComponent
   ]
 })
 

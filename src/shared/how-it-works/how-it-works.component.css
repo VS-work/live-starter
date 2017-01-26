@@ -1,18 +1,14 @@
-.what-they-say-container {
+.how-it-works-container {
 	width: 100%;
+	background-image: url('/assets/img/layer-1192.png');
+	background-color: white;
 	display: block;
 	position: relative;
 	vertical-align: top;
-	padding: 30px 0;
-}
-.what-they-say-container .commas {
-	right: 30px;
-	top: -10px;
-	width: 77px;
-	position: absolute;
+	padding: 30px;
 }
 
-.what-they-say-title {
+.how-it-works-title {
 	width: 100%;
 	text-align: right;
 }
@@ -36,21 +32,15 @@
 	font-weight: 400;
 }
 
-.what-they-say-list {
+.how-it-works-list {
 	width: 100%;
 	display: inline-block;
 	text-align: center;
-	margin: 15px 0;
-}
 
-.what-they-say-list {
-	width: 100%;
-	display: inline-block;
-	text-align: center;
 }
 
 .notes-row-container {
-	width: 33%;
+	width: 49%;
 	margin: 0;
 	position: relative;
 	display: inline-block;
@@ -58,7 +48,8 @@
 }
 
 .sayer-note {
-	width: 370px;
+	width: 580px;
+	height: 220px;
 	display: inline-block;
 	position: relative;
 	background-color: white;
@@ -70,48 +61,78 @@
 }
 
 .sayer-info-container {
-	padding: 10px 15px;
+
 }
 
 .sayer-avatar {
+	width: 38%;
 	float: left;
+	display: block;
+	position: relative;
 	margin-right: 10px;
 }
 
 .sayer-avatar img {
-	width: 50px;
-	height: 50px;
-	border-radius: 50px;
+	border-top-left-radius: 14px;
+	border-bottom-left-radius: 14px;
+	width: 220px;
+	height: 218px;
+}
+
+.sayer-avatar .arrow {
+	width: 0;
+	height: 0;
+	border-left: 65px solid transparent;
+	border-top: 220px solid white;
+	position: absolute;
+	top: 0;
+	left: 155px;
+}
+
+.info-container {
+	width: 60%;
+	position: relative;
+	display: block;
+	float: right;
+	padding: 55px 20px;
 }
 
 .sayer-info {
-	margin: 5px;
 	padding-bottom: 10px;
 	text-align: left;
-	border-bottom: 1px solid #e5e5e5;
+	margin: 5px;
 }
 
 .sayer-name {
 	color: #1c2e36;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 600;
-	line-height: 22px;
-
+	line-height: 21px;
+	text-align: center;
+	text-transform: uppercase;
 }
 
-.sayer-type {
+.note-container {
+	text-align: center;
+	padding-right: 15px;
 	color: #62686b;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 400;
 	line-height: 21px;
 }
 
-.note-container {
-	padding: 0 15px 15px;
-	text-align: justify;
-	color: #62686b;
-	font-size: 14px;
+.fan-text {
+	color: #fc6337;
+	font-size: 18px;
 	font-weight: 400;
-	line-height: 22px;
+	border-bottom: 2px solid #fc6337;
 }
+
+.fan-artists {
+	color: #62686b;
+	font-size: 18px;
+	font-weight: 400;
+	border-bottom: 2px solid #fc6337;
+}
+
 
