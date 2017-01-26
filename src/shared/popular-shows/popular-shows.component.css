@@ -1,4 +1,4 @@
-.featured-artists-container {
+.popular-shows-container {
 	width: 100%;
 	display: block;
 	position: relative;
@@ -6,7 +6,7 @@
 	padding: 30px 0;
 }
 
-.featured-artists-title {
+.popular-shows-title {
 	width: 100%;
 	text-align: right;
 }
@@ -42,13 +42,13 @@
 	color: #fafafb;
 }
 
-.featured-artists-list {
+.popular-shows-list {
 	width: 100%;
 	display: inline-block;
 	text-align: center;
 }
 
-.featured-artist {
+.popular-show {
 	width: 350px;
 	height: 466px;
 	display: inline-block;
