@@ -8,6 +8,7 @@ import { GenresFilterPipe } from './genres-filter/genres-filter.pipe';
 import { SearchComponent, SearchService } from './search';
 import { FeaturedArtistsComponent } from './featured-artists/featured-artists.component';
 import { PopularShowsComponent } from './popular-shows/popular-shows.component';
+import { ArtistsYouMayLikeComponent } from './artists-you-may-like/artists-you-may-like.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PopularShowsComponent } from './popular-shows/popular-shows.component';
     GenresFilterPipe,
     SearchComponent,
     FeaturedArtistsComponent,
-    PopularShowsComponent
+    PopularShowsComponent,
+    ArtistsYouMayLikeComponent
   ],
   imports: [
     HttpModule,
@@ -28,7 +30,8 @@ import { PopularShowsComponent } from './popular-shows/popular-shows.component';
     SearchComponent,
     GenresFilterPipe,
     FeaturedArtistsComponent,
-    PopularShowsComponent
+    PopularShowsComponent,
+    ArtistsYouMayLikeComponent
   ]
 })
 
