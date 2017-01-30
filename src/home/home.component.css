@@ -3,6 +3,20 @@
 	background-color: #fafafb;
 }
 
-.actions-container {
-	padding: 0 50px;
+
+.fans >>> .how-it-works-container-fans,
+.artists >>> .how-it-works-container-artists {
+	display: block;
+}
+
+.fans >>> .benefits-container-fans,
+.artists >>> .benefits-container-artists {
+	display: flex;
+}
+
+.fans >>> .benefits-container-artists,
+.fans >>> .how-it-works-container-artists,
+.artists >>> .benefits-container-fans,
+.artists >>> .how-it-works-container-fans {
+	display: none;
 }

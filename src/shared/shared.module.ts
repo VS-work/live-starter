@@ -13,6 +13,9 @@ import { UpcomingShowsComponent } from './upcoming-shows/upcoming-shows.componen
 import { HowItWasComponent } from './how-it-was/how-it-was.component';
 import { WhatTheySayComponent } from './what-they-say/what-they-say.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
+import { BenefitsComponent } from './benefits/benefits.component';
+import { PrefooterComponent } from './prefooter/prefooter.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
     UpcomingShowsComponent,
     HowItWasComponent,
     WhatTheySayComponent,
-    HowItWorksComponent
+    HowItWorksComponent,
+    BenefitsComponent,
+    PrefooterComponent,
+    FooterComponent
   ],
   imports: [
     HttpModule,
@@ -43,7 +49,10 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
     UpcomingShowsComponent,
     HowItWasComponent,
     WhatTheySayComponent,
-    HowItWorksComponent
+    HowItWorksComponent,
+    BenefitsComponent,
+    PrefooterComponent,
+    FooterComponent
   ]
 })
 

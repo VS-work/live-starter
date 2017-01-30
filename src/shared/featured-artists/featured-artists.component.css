@@ -1,10 +1,10 @@
-.featured-artists-container {
-	width: 100%;
-	display: block;
-	position: relative;
-	vertical-align: top;
-	padding: 30px 0;
-}
+/*.featured-artists-container {*/
+	/*width: 100%;*/
+	/*display: block;*/
+	/*position: relative;*/
+	/*vertical-align: top;*/
+	/*padding: 30px 0;*/
+/*}*/
 
 .featured-artists-title {
 	width: 100%;
@@ -50,16 +50,20 @@
 	text-align: center;
 }
 
+.featured-artists-container {
+	padding: 14px;
+}
+
 .featured-artist {
-	width: 369px;
-	height: 466px;
+	/*width: 369px;*/
+	/*height: 466px;*/
 	display: inline-block;
 	position: relative;
 	background-color: white;
 	border: 1px solid #dadce8;
 	border-radius: 14px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
-	margin: 15px;
+	/*margin: 15px;*/
 }
 
 .images-container {

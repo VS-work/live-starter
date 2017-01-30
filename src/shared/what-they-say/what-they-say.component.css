@@ -58,14 +58,14 @@
 }
 
 .sayer-note {
-	width: 370px;
+	/*width: 370px;*/
 	display: inline-block;
 	position: relative;
 	background-color: white;
 	border: 1px solid #dadce8;
 	border-radius: 14px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
-	margin: 15px;
+	margin: 10px 0;
 	vertical-align: top;
 }
 
