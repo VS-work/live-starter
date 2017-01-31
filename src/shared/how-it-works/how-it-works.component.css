@@ -1,11 +1,10 @@
 .how-it-works-container-fans, .how-it-works-container-artists {
-	/*width: 100%;*/
-	/*background-image: url('/assets/img/layer-1192.png');*/
-	/*background-color: white;*/
+	background: url(/assets/img/layer-1192.png) no-repeat 0 130px;
+	background-size: 100% 60%;
+	background-color: white;
 	display: block;
 	position: relative;
 	vertical-align: top;
-	/*padding: 30px;*/
 }
 
 .how-it-works-title {
@@ -84,7 +83,7 @@
 }
 
 .info-container {
-	width: 60%;
+	width: 59%;
 	position: relative;
 	display: block;
 	float: right;

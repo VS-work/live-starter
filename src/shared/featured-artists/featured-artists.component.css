@@ -1,14 +1,18 @@
-/*.featured-artists-container {*/
-	/*width: 100%;*/
-	/*display: block;*/
-	/*position: relative;*/
-	/*vertical-align: top;*/
-	/*padding: 30px 0;*/
-/*}*/
-
 .featured-artists-title {
 	width: 100%;
 	text-align: right;
+}
+
+.featured-artists-title button {
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.see-all {
+	width: 15px;
+	margin-left: 5px;
+	vertical-align: baseline;
 }
 
 .title-head {
@@ -33,10 +37,11 @@
 	border-radius: 16px;
 	background-color: transparent;
 	border: 1px solid #1c2e36;
-	padding: 5px 10px;
+	padding: 5px 15px;
 	color: #1c2e36;
-	font-size: 12px;
+	font-size: 15px;
 	font-weight: 400;
+	margin-top: 5px;
 }
 
 .title-body button:hover {
@@ -55,15 +60,12 @@
 }
 
 .featured-artist {
-	/*width: 369px;*/
-	/*height: 466px;*/
 	display: inline-block;
 	position: relative;
 	background-color: white;
 	border: 1px solid #dadce8;
 	border-radius: 14px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
-	/*margin: 15px;*/
 }
 
 .images-container {

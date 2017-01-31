@@ -1,4 +1,4 @@
-import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import { LoginService } from './login.modal.service';
 import { ModalDirective } from 'ng2-bootstrap';
