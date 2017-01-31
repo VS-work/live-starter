@@ -1,18 +1,10 @@
-.featured-artists-title {
+.popular-shows-container {
+	padding: 14px;
+}
+
+.popular-shows-title {
 	width: 100%;
 	text-align: right;
-}
-
-.featured-artists-title button {
-	color: #1c2e36;
-	font-size: 16px;
-	font-weight: 400;
-}
-
-.see-all {
-	width: 15px;
-	margin-left: 5px;
-	vertical-align: baseline;
 }
 
 .title-head {
@@ -49,23 +41,28 @@
 	color: #fafafb;
 }
 
-.featured-artists-list {
+.see-all {
+	width: 15px;
+	margin-left: 5px;
+	vertical-align: baseline;
+}
+
+.popular-shows-list {
 	width: 100%;
 	display: inline-block;
 	text-align: center;
 }
 
-.featured-artists-container {
-	padding: 14px;
-}
-
-.featured-artist {
+.popular-show {
+	/*width: 369px;*/
+	/*height: 466px;*/
 	display: inline-block;
 	position: relative;
 	background-color: white;
 	border: 1px solid #dadce8;
 	border-radius: 14px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
+	/*margin: 15px;*/
 }
 
 .images-container {
@@ -118,7 +115,6 @@
 	float: right;
 	text-align: left;
 	margin-top: 40px;
-
 	color: #62686b;
 	font-size: 13px;
 	font-weight: 400;

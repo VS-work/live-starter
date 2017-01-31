@@ -1,0 +1,104 @@
+.benefits-container-fans {
+	width: 100%;
+	background-color: #fff;
+	position: relative;
+	vertical-align: top;
+	display: flex;
+	min-height: 490px;
+	align-items: center;
+}
+
+.benefits-container-artists {
+	width: 100%;
+	background-color: #fff;
+	position: relative;
+	vertical-align: top;
+	display: flex;
+	min-height: 490px;
+	align-items: center;
+	flex-direction: row-reverse;
+}
+
+.orange-frame {
+	margin-left: -30px;
+	padding: 20px;
+	background-color: #fafafb;
+}
+
+.orange-frame.of-reverse {
+	margin-left: 0;
+	margin-right: -30px;
+}
+
+.benefits {
+	padding: 0 15px;
+	display: flex;
+	max-width: 780px;
+	flex-wrap: wrap;
+	color: #62686b;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+}
+
+.benefits-title {
+	position: relative;
+	vertical-align: middle;
+	flex: 0 0 calc(100% - 555px);
+	align-self: center;
+	margin-left: -35px;
+	padding: 20px 0;
+	border: 3px solid #fc6337;
+	border-right: none;
+}
+
+.benefits-title.reverse {
+	margin-left: 0;
+	margin-right: -35px;
+	border-left: none;
+	border-right: 3px solid #fc6337;
+}
+
+.title-head {
+	width: 100%;
+	display: inline-block;
+	font-size: 30px;
+	font-weight: 600;
+	text-align: left;
+	color: #1c2e36;
+	line-height: 40px;
+	padding: 0 25px 25px;
+}
+
+.icon-container {
+	width: 100%;
+	float: left;
+	display: block;
+	position: relative;
+	margin-right: 10px;
+}
+
+.icon-container img {
+	height: 46px;
+}
+
+.benefit-container {
+	flex: 0 0 50%;
+	padding: 10px;
+}
+
+.benefit-title {
+	color: #1c2e36;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 40px;
+}
+
+.benefit-text {
+	color: #62686b;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+}
+
+

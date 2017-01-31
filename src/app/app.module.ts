@@ -13,8 +13,6 @@ import { LoginService } from '../header/login-modal/login.modal.service';
 import { SignUpService } from '../header/signup-modal/signup.modal.service';
 import { SignUpModalComponent } from '../header/signup-modal/signup.modal.component';
 
-
-
 import { SharedModule } from '../shared';
 import { AuthService } from '../auth/auth.service';
 import { LocalStorageService } from '../auth/localStorage.service';

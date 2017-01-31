@@ -1,0 +1,48 @@
+.footer-container {
+	text-align: center;
+	background-color: #1c2e36;
+	padding: 60px;
+}
+
+.title {
+	color: white;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 22px;
+	text-transform: uppercase;
+	padding: 15px;
+}
+
+.info {
+	color: #afb9bd;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 34px;
+	cursor: pointer;
+}
+
+.info:hover {
+	color: #939da1;
+}
+
+.info-starter {
+	color: #afb9bd;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+	padding-top: 10px;
+}
+
+.privacy {
+	padding-top: 25px;
+}
+
+.all-rights-reserved {
+	text-align: center;
+	background-color: #1a2930;
+	color: #53636b;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 34px;
+	padding: 10px;
+}

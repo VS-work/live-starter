@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalDirective } from 'ng2-bootstrap';
 
+import { Config } from '../app.config';
 import { AuthService } from '../auth/auth.service';
 import { LocalStorageService } from '../auth/localStorage.service';
 
@@ -11,6 +13,8 @@ import { LocalStorageService } from '../auth/localStorage.service';
 })
 
 export class HeaderComponent implements OnInit {
+  @ViewChild('staticModal') public staticModal: ModalDirective;
+
   public userProfile: any;
 
   public menuItems: any[] = ['Artists', 'Genres', 'How it works', 'Fund', 'Blog', 'Contact'];
@@ -37,7 +41,17 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  public goToMain(): void {
-
+  public loginModal(e: MouseEvent): void {
+    this.scrollTop(e);
+    this.staticModal.show();
   }
+
+  public closeModal(): void {
+    this.staticModal.hide();
+  }
+
+  public scrollTop(e: MouseEvent): void {
+    e.preventDefault();
+    Config.animateScroll('scrollBackToTop', 20, 1000);
+  };
 }

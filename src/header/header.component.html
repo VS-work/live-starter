@@ -1,23 +1,29 @@
-<div class="header-container">
-  <div class="title-container">
-    <img src="/assets/img/logo.png" alt="Logo icon" (click)="router.navigate(['/home'])">
-  </div>
+<div class="header-container container">
+  <div class="container">
+    <div class="title-container">
+      <img src="/assets/img/logo.png" alt="Logo icon" (click)="router.navigate(['/home'])">
+    </div>
 
-  <div class="menu-container" *ngFor="let item of menuItems;">
-    <span class="menu-item-container">{{item}}</span>
-  </div>
+    <div class="menu-container" *ngFor="let item of menuItems;">
+      <span class="menu-item-container">{{item}}</span>
+    </div>
 
-  <div class="login-container" *ngIf="!auth.authenticated()">
-    <app-login-modal></app-login-modal>
-    <!--<app-signup-modal></app-signup-modal>-->
-    <button type="button"
-            class="signup-button"
-            (click)="router.navigate(['/first-step'])"
-            *ngIf="!auth.authenticated()">Sign Up</button>
-  </div>
+    <div class="login-container" *ngIf="!auth.authenticated()">
+      <!--<app-login-modal></app-login-modal>-->
+      <button type="button"
+              class="login-button"
+              (click)="loginModal($event)">Login
+      </button>
 
-  <div class="current-user-container">
-    <div *ngIf="auth.authenticated()" dropdown>
+      <!--<app-signup-modal></app-signup-modal>-->
+      <button type="button"
+              class="signup-button"
+              (click)="router.navigate(['/first-step'])">Sign Up
+      </button>
+    </div>
+
+    <div class="current-user-container">
+      <div *ngIf="auth.authenticated()" dropdown>
       <span id="simple-dropdown" dropdownToggle>
 
         <span class="user-menu" *ngIf="userProfile">
@@ -25,14 +31,75 @@
           {{userProfile?.name || userProfile?.email}}<span class="caret"></span>
         </span>
       </span>
-      <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
-        <li role="menuitem"><a class="dropdown-item" href="#">My account</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">My events</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Payments</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Following</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item" href="#" (click)="auth.logout()" *ngIf="auth.authenticated()">Log out</a></li>
-      </ul>
+        <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
+          <li role="menuitem"><a class="dropdown-item" href="#">My account</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">My events</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Payments</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Following</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" href="#" (click)="auth.logout()" *ngIf="auth.authenticated()">Log
+            out</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Login to LiveStarter</h4>
+      </div>
+      <div class="modal-body">
+        <div class="login-by-socials">
+          Get in via socials
+          <div>
+            <button (click)="auth.googleLogin()">
+              <img src="/assets/img/google.svg" alt="Google+ icon"/>
+            </button>
+
+            <button (click)="auth.facebookLogin()">
+              <img src="/assets/img/fb.svg" alt="Facebook icon"/>
+            </button>
+
+            <button (click)="auth.twitterLogin()">
+              <img src="/assets/img/tw.svg" alt="Twitter icon"/>
+            </button>
+          </div>
+          <div class="login-devider-container">
+            <hr>
+            <span class="login-or">OR</span>
+            <hr>
+          </div>
+        </div>
+        <input class="form-control"
+               type="email"
+               [(ngModel)]="userEmail"
+               #email
+               placeholder="Email">
+        <input class="form-control"
+               type="password"
+               [(ngModel)]="userPassword"
+               #pwd
+               placeholder="Password">
+        <div class="error-msg">{{userErrorMessage}}</div>
+
+        <div class="forgot-password-container">
+          <a class="forgot-password">Forgot password</a>
+        </div>
+        <div>
+          <button type="submit"
+                  class="submit-login"
+                  (click)="auth.login(email.value, pwd.value)">
+            Let's Rock!
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

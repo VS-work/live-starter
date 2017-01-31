@@ -19,7 +19,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   public countries: any;
   public cities: any;
   public isTypeArtist: boolean = false;
-  public userType: any;
+  public userType: any = {type: 'fan'};
   public userProfile: any;
 
   public userProfileService: LocalStorageService;
@@ -83,7 +83,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   public submitData(): void {
     this.signupForm = {
       email: this.userProfile.email,
-      type: this.signupForm.type,
+      type: this.signupForm.type || this.userType.type,
       country: this.userProfile.country || this.signupForm.country,
       city: this.userProfile.city || this.signupForm.city,
       genres: this.signupForm.genres,

@@ -8,6 +8,14 @@ import { GenresFilterPipe } from './genres-filter/genres-filter.pipe';
 import { SearchComponent, SearchService } from './search';
 import { FeaturedArtistsComponent } from './featured-artists/featured-artists.component';
 import { PopularShowsComponent } from './popular-shows/popular-shows.component';
+import { ArtistsYouMayLikeComponent } from './artists-you-may-like/artists-you-may-like.component';
+import { UpcomingShowsComponent } from './upcoming-shows/upcoming-shows.component';
+import { HowItWasComponent } from './how-it-was/how-it-was.component';
+import { WhatTheySayComponent } from './what-they-say/what-they-say.component';
+import { HowItWorksComponent } from './how-it-works/how-it-works.component';
+import { BenefitsComponent } from './benefits/benefits.component';
+import { PrefooterComponent } from './prefooter/prefooter.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +23,15 @@ import { PopularShowsComponent } from './popular-shows/popular-shows.component';
     GenresFilterPipe,
     SearchComponent,
     FeaturedArtistsComponent,
-    PopularShowsComponent
+    PopularShowsComponent,
+    ArtistsYouMayLikeComponent,
+    UpcomingShowsComponent,
+    HowItWasComponent,
+    WhatTheySayComponent,
+    HowItWorksComponent,
+    BenefitsComponent,
+    PrefooterComponent,
+    FooterComponent
   ],
   imports: [
     HttpModule,
@@ -28,7 +44,15 @@ import { PopularShowsComponent } from './popular-shows/popular-shows.component';
     SearchComponent,
     GenresFilterPipe,
     FeaturedArtistsComponent,
-    PopularShowsComponent
+    PopularShowsComponent,
+    ArtistsYouMayLikeComponent,
+    UpcomingShowsComponent,
+    HowItWasComponent,
+    WhatTheySayComponent,
+    HowItWorksComponent,
+    BenefitsComponent,
+    PrefooterComponent,
+    FooterComponent
   ]
 })
 
