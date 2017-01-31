@@ -1,6 +1,6 @@
 export class Config {
-  // public static api: string = '//192.168.1.57:3000';
-  public static api = '//vs-work.github.io/live-starter-api:3000';
+  public static api = '//192.168.1.57:3000';
+  // public static api = '//vs-work.github.io/live-starter-api:3000';
 
   public static animateScroll(id: string, inc: number, duration: number): any {
     const elem = document.getElementById(id);
