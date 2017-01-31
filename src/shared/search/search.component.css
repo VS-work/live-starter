@@ -2,7 +2,7 @@
 	width: 100%;
 	position: relative;
 	display: block;
-	background: linear-gradient(rgba(35, 60, 75, 0.5), rgba(35, 60, 75, 0.5)), url("/assets/img/search-background.png") center center;
+	background: linear-gradient(rgba(35, 60, 75, 0.5), rgba(35, 60, 75, 0.5)), url("//vs-work.github.io/live-starter/assets/img/search-background.png") center center;
 	height: 500px;
 	text-align: center;
 }
