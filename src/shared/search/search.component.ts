@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs/Rx';
-import {SearchService} from './search.service';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
+import { SearchService } from './search.service';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
         const styles: any[] = res.data;
-        this.styles = styles;
+        this.styles = styles[0].genres;
       });
   }
 

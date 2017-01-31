@@ -1,4 +1,7 @@
-<button type="button" class="login-button" (click)="staticModal.show()">Login</button>
+<button type="button"
+        class="login-button"
+        (click)="staticModal.show()"
+        *ngIf="!auth.authenticated()">Login</button>
 
 <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -8,24 +11,51 @@
         <button type="button" class="close" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Login</h4>
+        <h4 class="modal-title">Login to LiveStarter</h4>
       </div>
       <div class="modal-body">
+        <div class="login-by-socials">
+          Get in via socials
+          <div>
+            <button (click)="auth.googleLogin()">
+              <img src="/assets/img/google.svg" alt="Google+ icon"/>
+            </button>
+
+            <button (click)="auth.facebookLogin()">
+              <img src="/assets/img/fb.svg" alt="Facebook icon"/>
+            </button>
+
+            <button (click)="auth.twitterLogin()">
+              <img src="/assets/img/tw.svg" alt="Twitter icon"/>
+            </button>
+          </div>
+          <div class="login-devider-container">
+            <hr>
+            <span class="login-or">OR</span>
+            <hr>
+          </div>
+        </div>
         <input class="form-control"
-               type="text"
+               type="email"
                [(ngModel)]="userEmail"
                #email
                placeholder="Email">
         <input class="form-control"
-               type="text"
+               type="password"
                [(ngModel)]="userPassword"
                #pwd
                placeholder="Password">
-        <span class="error-msg">{{userErrorMessage}}</span>
-        <div>
+        <div class="error-msg">{{userErrorMessage}}</div>
+
+        <div class="forgot-password-container">
           <a class="forgot-password">Forgot password</a>
         </div>
-        <button type="submit" (click)="submitData(email.value, pwd.value)">Submit</button>
+        <div>
+          <button type="submit"
+                  class="submit-login"
+                  (click)="auth.login(email.value, pwd.value)">
+            Let's Rock!</button>
+        </div>
       </div>
     </div>
   </div>

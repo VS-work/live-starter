@@ -1,7 +1,7 @@
-import {Inject, Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {Config} from '../../app.config';
+import { Inject, Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Config } from '../../app.config';
 
 import 'rxjs/add/operator/map';
 

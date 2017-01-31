@@ -1,4 +1,10 @@
-import {Component} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalDirective } from 'ng2-bootstrap';
+
+import { Config } from '../app.config';
+import { AuthService } from '../auth/auth.service';
+import { LocalStorageService } from '../auth/localStorage.service';
 
 @Component({
   selector: 'app-header',
@@ -6,11 +12,46 @@ import {Component} from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
-  public title: string = 'LiveStarter Logo';
-  public menuItems: any[] = ['Artists', 'Genres', 'How it works', 'Fund', 'Blog', 'Contact'];
+export class HeaderComponent implements OnInit {
+  @ViewChild('staticModal') public staticModal: ModalDirective;
 
-  public signUp(): void {
-    console.log('Open sign up popup');
+  public userProfile: any;
+
+  public menuItems: any[] = ['Artists', 'Genres', 'How it works', 'Fund', 'Blog', 'Contact'];
+  public userProfileService: LocalStorageService;
+
+  private auth: AuthService;
+  private router: Router;
+
+  public constructor(auth: AuthService, userProfileService: LocalStorageService, router: Router) {
+    this.auth = auth;
+    this.router = router;
+    this.userProfileService = userProfileService;
   }
+
+  public ngOnInit(): void {
+    const userProfile: any = this.userProfileService.getItem('profile');
+
+    if (userProfile) {
+      this.userProfile = JSON.parse(userProfile);
+    }
+
+    this.userProfileService.getItemEvent().subscribe((userData) => {
+      this.userProfile = JSON.parse(userData.value);
+    });
+  }
+
+  public loginModal(e: MouseEvent): void {
+    this.scrollTop(e);
+    this.staticModal.show();
+  }
+
+  public closeModal(): void {
+    this.staticModal.hide();
+  }
+
+  public scrollTop(e: MouseEvent): void {
+    e.preventDefault();
+    Config.animateScroll('scrollBackToTop', 20, 1000);
+  };
 }

@@ -1,66 +1,179 @@
 .header-container {
-    width: 100%;
-    border-bottom: 1px solid steelblue;
-    display: inline-block;
-    vertical-align: top;
-    padding: 10px 0;
+	display: block;
+	vertical-align: top;
+	padding: 5px 24px;
+	background: white;
+	z-index: 99;
+	border-bottom: 1px solid #dadce8;
+	position: fixed;
+	width: 100%;
 }
 
 .title-container {
-    cursor: pointer;
-    float: left;
-    width: 20%;
-    text-align: right;
-    margin: 7px 28px 0 0;
+	cursor: pointer;
+	float: left;
+	width: 10%;
+	margin-top: 7px;
 }
 
 .title-container img {
-    width: 87px;
+	width: 87px;
 }
 
 .menu-container, .login-button, .signup-button {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 .menu-container {
-    width: 80%;
+	width: 80%;
 }
 
-.menu-item-container, .login-button, .signup-button {
-    cursor: pointer;
+.menu-item-container, .login-button, .signup-button, .user-menu {
+	cursor: pointer;
 }
 
 .menu-item-container {
-    display: inline-block;
-    float: left;
-    margin: 21px 10px;
-    color: #1c2e36;
-    font-size: 16px;
-    font-weight: 400;
+	display: inline-block;
+	float: left;
+	margin: 21px 10px;
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
 }
 
 .login-container {
-    width: 20%;
-    float: right;
-    margin: 15px 0;
+	width: 20%;
+	float: right;
+	margin: 15px 0;
+}
+
+.current-user-container {
+	width: 20%;
+	float: right;
+	margin: 10px 0;
 }
 
 app-login-modal >>> .login-button {
-    border-radius: 16px;
-    background-color: transparent;
-    border: 1px solid #fc6337;
-    padding: 7px 24px;
-    color: #1c2e36;
-    font-size: 16px;
-    font-weight: 400;
+	border-radius: 16px;
+	background-color: transparent;
+	border: 1px solid #fc6337;
+	padding: 7px 24px;
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
 }
 
-app-signup-modal >>> .signup-button {
-    border: transparent;
-    background-color: transparent;
-    color: #1c2e36;
-    font-size: 16px;
-    font-weight: 400;
-    margin-left: 10px;
+app-signup-modal >>> .signup-button, .signup-button {
+	border: transparent;
+	background-color: transparent;
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
+	margin-left: 10px;
 }
 
+.header-avatar-container {
+	width: 40px;
+	border-radius: 40px;
+	display: inline-block;
+	position: relative;
+	margin-right: 10px;
+}
+
+.header-avatar-container img {
+	width: 40px;
+}
+
+.dropdown {
+	float: right;
+	margin-right: 10px;
+}
+
+.login-button {
+	border-radius: 16px;
+	background-color: transparent;
+	border: 1px solid #fc6337;
+	padding: 7px 24px;
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.modal-header h4 {
+	color: #1c2e36;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: center;
+}
+
+.modal-body {
+	text-align: center;
+}
+
+.modal-body input {
+	width: 100%;
+	margin: 5px 0;
+	padding: 5px;
+}
+
+.forgot-password-container {
+	text-align: left;
+}
+
+.forgot-password, .login-by-socials {
+	cursor: pointer;
+}
+
+.forgot-password {
+	width: 100%;
+}
+
+.login-devider-container {
+	margin: 15px 0;
+}
+
+.login-by-socials hr {
+	width: 42%;
+	height: 1px;
+	background: #e5e5e5;
+	margin-top: 8px;
+}
+
+.login-by-socials hr:first-child {
+	float: left;
+}
+
+.login-by-socials hr:last-child {
+	float: right;
+}
+
+.login-or {
+	color: #b7b7ba;
+}
+
+.login-by-socials button {
+	border: none;
+	background: transparent;
+	margin: 10px 5px;
+}
+
+.modal-body .submit-login {
+	width: 45%;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: center;
+	color: white;
+	border-radius: 20px;
+	background-color: #fc6337;
+	border: none;
+	padding: 10px;
+	margin-top: 15px;
+}
+
+.error-msg {
+	width: 100%;
+	text-align: left;
+	color: red;
+	font-size: 10px;
+	font-weight: 200;
+}

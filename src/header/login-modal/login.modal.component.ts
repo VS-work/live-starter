@@ -1,7 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
-import {Subscription} from 'rxjs/Rx';
-import {LoginService} from './login.modal.service';
+import { Component, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
+import { LoginService } from './login.modal.service';
 import { ModalDirective } from 'ng2-bootstrap';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -18,15 +19,19 @@ export class LoginModalComponent {
   public loginService: LoginService;
   public loginServiceSubscribe: Subscription;
 
-  public constructor(loginService: LoginService) {
+  private auth: AuthService;
+
+  public constructor(loginService: LoginService,
+                     auth: AuthService) {
     this.loginService = loginService;
+    this.auth = auth;
   }
 
-  public closeModal (): void {
+  public closeModal(): void {
     this.staticModal.hide();
-
     this.userEmail = '';
     this.userPassword = '';
+    this.userErrorMessage = '';
   }
 
   public submitData(email, password): void {
@@ -34,14 +39,15 @@ export class LoginModalComponent {
 
     this.loginServiceSubscribe = this.loginService.loginUser(loginData)
       .subscribe((res: any): void => {
-        const userData: any = res.data;
-        if (userData.error) {
+        const userData: any = res;
+
+        if (userData.err) {
           this.userPassword = '';
-          this.userErrorMessage = userData.error;
+          this.userErrorMessage = userData.err;
           return;
         }
-        this.staticModal.hide();
-        this.userPassword = '';
+
+        this.closeModal();
       });
   }
 }
