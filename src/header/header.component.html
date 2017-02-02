@@ -1,7 +1,7 @@
 <div class="header-container container">
   <div class="container">
     <div class="title-container">
-      <img src="/assets/img/logo.png" alt="Logo icon" (click)="router.navigate(['/home'])">
+      <img src="/assets/img/logo.png" alt="Logo icon" (click)="goToTop($event)">
     </div>
 
     <div class="menu-container" *ngFor="let item of menuItems;">
@@ -12,7 +12,7 @@
       <!--<app-login-modal></app-login-modal>-->
       <button type="button"
               class="login-button"
-              (click)="loginModal($event)">Login
+              (click)="loginModal()">Login
       </button>
 
       <!--<app-signup-modal></app-signup-modal>-->

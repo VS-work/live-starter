@@ -118,9 +118,11 @@
 	color: #62686b;
 	font-size: 18px;
 	font-weight: 400;
+	cursor: pointer;
 }
 
 .orange-underlined-text {
 	border-bottom: 2px solid #fc6337;
 	color: #fc6337;
+	cursor: default;
 }

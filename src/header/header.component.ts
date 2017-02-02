@@ -41,8 +41,12 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  public loginModal(e: MouseEvent): void {
+  public goToTop(e: MouseEvent): void {
     this.scrollTop(e);
+    this.router.navigate(['/home']);
+  }
+
+  public loginModal(): void {
     this.staticModal.show();
   }
 
