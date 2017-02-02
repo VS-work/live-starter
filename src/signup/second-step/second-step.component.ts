@@ -51,6 +51,9 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     this.getLocationsSignupServiceSubscribe = this.signupService.signupGetLocations()
       .subscribe((res): void => {
         const locations = res.data;
+
+        console.log('HHHHHHHHLOCATIONS', res.data);
+
         this.countries = locations.getCountries;
         this.cities = locations.getCities;
       });
@@ -58,7 +61,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
         const styles: any[] = res.data;
-        this.genres = styles[0].genres;
+        this.genres = styles;
       });
 
     if (userProfile) {

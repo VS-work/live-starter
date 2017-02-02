@@ -27,5 +27,4 @@ export class SearchComponent implements OnInit {
   public search(): void {
     console.log('search womething with me. :) ');
   }
-
 }

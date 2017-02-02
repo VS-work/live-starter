@@ -86,7 +86,7 @@ export class AuthService {
       responseType: 'token',
       email: username,
       password: password,
-      callbackURL: 'http://localhost:4200/second-step'
+      callbackURL: 'https://livestarter-bf456.firebaseapp.com/second-step'
     }, function (err) {
       if (err) {
         alert('something went wrong: ' + err.message);
@@ -107,7 +107,8 @@ export class AuthService {
   public googleSignup() {
     this.auth0.login({
       connection: 'google-oauth2',
-      callbackURL: 'http://localhost:4200/second-step'
+      callbackURL: 'https://livestarter-bf456.firebaseapp.com/second-step'
+      // callbackURL: 'http://localhost:4200/second-step'
     }, function (err) {
       if (err) {
         alert('something went wrong: ' + err.message);

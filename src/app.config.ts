@@ -5,7 +5,7 @@ export class Config {
   public static animateScroll(id: string, inc: number, duration: number): any {
     const elem = document.getElementById(id);
     const startScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const endScroll = elem.offsetTop;
+    const endScroll = elem.offsetTop - 70;
     const step = (endScroll - startScroll) / duration * inc;
 
     window.requestAnimationFrame(this.goToScroll(step, duration, inc));
