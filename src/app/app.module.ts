@@ -19,6 +19,8 @@ import { LocalStorageService } from '../auth/localStorage.service';
 import { routing } from '../routes';
 import { FirstStepComponent } from '../signup/first-step/first-step.component';
 import { SecondStepComponent } from '../signup/second-step/second-step.component';
+import { UserProfileModule } from '../user-profile/user-profile.module';
+import { ArtistsComponent } from '../artists/artists.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { SecondStepComponent } from '../signup/second-step/second-step.component
     LoginModalComponent,
     SignUpModalComponent,
     FirstStepComponent,
-    SecondStepComponent
+    SecondStepComponent,
+    ArtistsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { SecondStepComponent } from '../signup/second-step/second-step.component
     ModalModule.forRoot(),
     DropdownModule.forRoot(),
     SharedModule,
+    UserProfileModule,
     RouterModule,
     HomeModule,
     routing

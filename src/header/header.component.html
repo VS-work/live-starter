@@ -5,7 +5,7 @@
     </div>
 
     <div class="menu-container" *ngFor="let item of menuItems;">
-      <span class="menu-item-container">{{item}}</span>
+      <span class="menu-item-container" (click)="routeTo(item)">{{item}}</span>
     </div>
 
     <div class="login-container" *ngIf="!auth.authenticated()">

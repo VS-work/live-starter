@@ -1,0 +1,22 @@
+.home-container {
+	width: 100%;
+	background-color: #fafafb;
+}
+
+
+.fans >>> .how-it-works-container-fans,
+.artists >>> .how-it-works-container-artists {
+	display: block;
+}
+
+.fans >>> .benefits-container-fans,
+.artists >>> .benefits-container-artists {
+	display: flex;
+}
+
+.fans >>> .benefits-container-artists,
+.fans >>> .how-it-works-container-artists,
+.artists >>> .benefits-container-fans,
+.artists >>> .how-it-works-container-fans {
+	display: none;
+}
