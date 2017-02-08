@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Config } from '../../app.config';
@@ -8,14 +8,12 @@ import { Config } from '../../app.config';
   templateUrl: './prefooter.component.html',
   styleUrls: ['./prefooter.component.css']
 })
-export class PrefooterComponent implements OnInit {
+
+export class PrefooterComponent {
   private router: Router;
 
   public constructor(router: Router) {
     this.router = router;
-  }
-
-  ngOnInit(): void {
   }
 
   public scrollTop(e: MouseEvent): void {

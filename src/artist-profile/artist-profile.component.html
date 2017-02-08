@@ -1,11 +1,11 @@
 <div class="artist-profile-container">
   <div class="header-container container">
-    <div class="header">
+    <div class="header row">
       <div class="image-container col-lg-3 col-md-3 col-sm-3 col-xs-3">
         <img src="http://www.billboard.com/files/media/shawn-mendes-MSG-sept-2016-billboard-1548.jpg" alt="">
       </div>
       <div class="artist-info-container col-lg-9 col-md-9 col-sm-9 col-xs-9">
-        <div class="body-info-container">
+        <div class="body-info-container row">
           <div class="artist-info col-lg-5 col-md-5 col-sm-5 col-xs-5">
             <div class="artist-name">Shawn Mendes</div>
             <div class="artist-position">Singer, Song-Writer</div>
@@ -18,7 +18,7 @@
           </div>
 
           <div class="artist-statistics col-lg-7 col-md-7 col-sm-7 col-xs-7">
-            <div class="counter-container">
+            <div class="counter-container row">
               <div class="views col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 <div class="number-container">4233</div>
                 <div class="unit-container">Total views</div>
@@ -96,136 +96,108 @@
 
   <div class="tabs-container">
     <div class="tabs container">
-      <tabset>
-        <tab (select)="true" (deselect)="false">
-          <template tabHeading>Bio</template>
-          <div class="col-lg-9 col-md-10 col-sm-10 col-xs-10">
-            <app-bio-tab></app-bio-tab>
+      <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+          <tabset>
+            <tab (select)="true" (deselect)="false">
+              <template tabHeading>Bio</template>
+              <app-bio-tab></app-bio-tab>
+            </tab>
+
+            <tab (select)="true" (deselect)="false">
+              <template tabHeading>Music</template>
+              <app-music-tab></app-music-tab>
+            </tab>
+
+            <tab (select)="true" (deselect)="false">
+              <template tabHeading>Coming Shows</template>
+              <app-shows-tab [showType]="'coming'"></app-shows-tab>
+            </tab>
+
+            <tab (select)="true" (deselect)="false">
+              <template tabHeading>Backed Shows</template>
+              <app-shows-tab [showType]="'backed'"></app-shows-tab>
+            </tab>
+
+            <tab (select)="true" (deselect)="false">
+              <template tabHeading>Recorded Shows</template>
+              <app-shows-tab [showType]="'recorded'"></app-shows-tab>
+            </tab>
+
+            <tab (select)="true" (deselect)="false">
+              <template tabHeading>Comments</template>
+              <app-comments-tab></app-comments-tab>
+            </tab>
+
+            <tab (select)="true" (deselect)="false">
+              <template tabHeading>Tips</template>
+              <app-tips-tab></app-tips-tab>
+            </tab>
+
+            <tab (select)="true" (deselect)="false">
+              <template tabHeading>Contacts</template>
+              <app-contacts-tab></app-contacts-tab>
+            </tab>
+          </tabset>
+        </div>
+
+        <div class="side-bar-container col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <div class="title">On the Web</div>
+          <div class="socials">
+            <div class="site">
+              <div class="icon-container">
+                <img src="/assets/img/get-link.png" alt="">
+              </div>
+              <div class="share-word">
+                <a href="www.mendes.com">Mendes site</a>
+              </div>
+            </div>
+            <div class="fb-share">
+              <div class="icon-container">
+                <img src="/assets/img/fb-icon.png" alt="">
+              </div>
+              <div class="fb-share">
+                Facebook
+              </div>
+            </div>
+            <div class="tw-share">
+              <div class="icon-container">
+                <img src="/assets/img/tw-icon.png" alt="">
+              </div>
+              <div class="tw-share">
+                Twitter
+              </div>
+            </div>
+            <div class="gg-share">
+              <div class="icon-container">
+                <img src="/assets/img/YoutubeButton.png" alt="">
+              </div>
+              <div class="gg-share">
+                Youtube
+              </div>
+            </div>
           </div>
-        </tab>
 
-        <tab (select)="true" (deselect)="false">
-          <template tabHeading>Music</template>
-          <div class="col-lg-9 col-md-10 col-sm-10 col-xs-10">
-            <app-music-tab></app-music-tab>
+          <div class="tip-artist">
+            <div class="title">Tip Shawn Mendes</div>
+            <div class="tip-bar">$2 $5 $10 $15 $20 $30</div>
+            <div class="buttons-container">
+              <div class="btn-group">
+                <label class="btn tip-button" [(ngModel)]="radioModel" btnRadio="permonth">Per Month</label>
+                <label class="btn tip-button" [(ngModel)]="radioModel" btnRadio="once">Once</label>
+              </div>
+              <button class="support-button">Support</button>
+            </div>
+            <div class="tips-info">
+              The Official package includes:
+              <ul>
+                <li>A heartfelt "Thank you"</li>
+                <li>An discount of 10% for next show</li>
+                <li>Access to the LiveStarter page where all of your messages/questions will be answered</li>
+              </ul>
+            </div>
           </div>
-        </tab>
-
-        <tab (select)="true" (deselect)="false">
-          <template tabHeading>Coming Shows</template>
-          <div class="col-lg-9 col-md-10 col-sm-10 col-xs-10">
-            <app-shows-tab [showType]="'coming'"></app-shows-tab>
-          </div>
-        </tab>
-
-        <tab (select)="true" (deselect)="false">
-          <template tabHeading>Backed Shows</template>
-          <div class="col-lg-9 col-md-10 col-sm-10 col-xs-10">
-            <app-shows-tab [showType]="'backed'"></app-shows-tab>
-          </div>
-        </tab>
-
-        <tab (select)="true" (deselect)="false">
-          <template tabHeading>Recorded Shows</template>
-          <div class="col-lg-9 col-md-10 col-sm-10 col-xs-10">
-            <app-shows-tab [showType]="'recorded'"></app-shows-tab>
-          </div>
-        </tab>
-
-        <tab (select)="true" (deselect)="false">
-          <template tabHeading>Comments</template>
-          <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-            <app-comments-tab></app-comments-tab>
-          </div>
-        </tab>
-
-        <tab (select)="true" (deselect)="false">
-          <template tabHeading>Tips</template>
-          <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-            <app-tips-tab></app-tips-tab>
-          </div>
-        </tab>
-
-        <tab (select)="true" (deselect)="false">
-          <template tabHeading>Contacts</template>
-          <div class="col-lg-9 col-md-10 col-sm-10 col-xs-10">
-            <app-contacts-tab></app-contacts-tab>
-          </div>
-        </tab>
-      </tabset>
-    </div>
-  </div>
-
-  <div class="side-bar-container col-lg-2 col-md-2 col-sm-2 col-xs-2">
-    <div class="title">On the Web</div>
-    <div class="socials">
-      <div class="site">
-        <div class="icon-container">
-          <img src="/assets/img/get-link.png" alt="">
         </div>
-        <div class="share-word">
-          www.mendes-site.com
-        </div>
-      </div>
-      <div class="fb-share">
-        <div class="icon-container">
-          <img src="/assets/img/fb-icon.png" alt="">
-        </div>
-        <div class="fb-share">
-          Facebook
-        </div>
-      </div>
-      <div class="tw-share">
-        <div class="icon-container">
-          <img src="/assets/img/tw-icon.png" alt="">
-        </div>
-        <div class="tw-share">
-          Twitter
-        </div>
-      </div>
-      <div class="gg-share">
-        <div class="icon-container">
-          <img src="/assets/img/YoutubeButton.png" alt="">
-        </div>
-        <div class="gg-share">
-          Youtube
-        </div>
-      </div>
-    </div>
-
-    <div class="tip-artist">
-      <div class="title">Tip Shawn Mendes</div>
-      <div class="tip-bar">$2 $5 $10 $15 $20 $30
-
-        <!--<div>-->
-          <!--<input id="option" type="radio" name="tip" value="option">-->
-          <!--<label for="option"><span><span></span></span>$2</label>-->
-        <!--</div>-->
-
-
-        <!--<div class="btn-group">-->
-          <!--<label type="radio" class="radio" [(ngModel)]="radioModel" btnRadio="2">2</label>-->
-          <!--<label class="radio" [(ngModel)]="radioModel" btnRadio="5">5</label>-->
-          <!--<label class="radio" [(ngModel)]="radioModel" btnRadio="10">10</label>-->
-          <!--<label class="radio" [(ngModel)]="radioModel" btnRadio="15">15</label>-->
-          <!--<label class="radio" [(ngModel)]="radioModel" btnRadio="20">20</label>-->
-          <!--<label class="radio" [(ngModel)]="radioModel" btnRadio="30">30</label>-->
-        <!--</div>-->
-      </div>
-      <div class="buttons-container">
-        <div class="btn-group">
-          <label class="btn tip-button" [(ngModel)]="radioModel" btnRadio="permonth">Per Month</label>
-          <label class="btn tip-button" [(ngModel)]="radioModel" btnRadio="once">Once</label>
-        </div>
-        <button class="support-button">Support</button>
-      </div>
-      <div class="tips-info">
-        The Official package includes:
-        <ul>
-          <li>A heartfelt "Thank you"</li>
-          <li>An discount of 10% for next show</li>
-          <li>Access to the LiveStarter page where all of your messages/questions will be answered</li>
-        </ul>
       </div>
     </div>
   </div>

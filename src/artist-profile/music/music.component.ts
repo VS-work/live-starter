@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-music-tab',
@@ -7,14 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./music.component.css']
 })
 
-export class MusicComponent implements OnInit {
-
-  public constructor() {
-
-  }
-
-  ngOnInit(): void {
-  }
+export class MusicComponent {
 
 }
 

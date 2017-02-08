@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-bio-tab',
@@ -7,14 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bio.component.css']
 })
 
-export class BiographyComponent implements OnInit {
-
-  public constructor() {
-
-  }
-
-  ngOnInit(): void {
-  }
+export class BiographyComponent {
 
 }
 

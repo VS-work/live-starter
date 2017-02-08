@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tips-tab',
@@ -7,14 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tips.component.css']
 })
 
-export class TipsComponent implements OnInit {
-
-  public constructor() {
-
-  }
-
-  ngOnInit(): void {
-  }
+export class TipsComponent {
 
 }
 

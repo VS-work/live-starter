@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-contacts-tab',
@@ -7,14 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contacts.component.css']
 })
 
-export class ContactsComponent implements OnInit {
-
-  public constructor() {
-
-  }
-
-  ngOnInit(): void {
-  }
+export class ContactsComponent {
 
 }
 

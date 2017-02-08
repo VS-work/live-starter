@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-show-tip',
@@ -6,11 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./show-tip.component.css']
 })
 
-export class ShowsTipComponent implements OnInit {
+export class ShowsTipComponent {
 
-  public constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 }

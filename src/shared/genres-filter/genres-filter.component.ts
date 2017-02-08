@@ -1,9 +1,6 @@
 import {
   Component,
-  HostListener,
-  ElementRef,
-  OnInit,
-  NgZone
+  HostListener
 } from '@angular/core';
 
 @Component({
@@ -12,22 +9,11 @@ import {
   styleUrls: ['./genres-filter.component.css']
 })
 
-export class GenresFilterComponent implements OnInit {
+export class GenresFilterComponent {
 
   public genres: any[];
-  public search: string = '';
-  public isOpenGenresFilter: boolean = false;
-  public element: HTMLElement;
-  public zone: NgZone;
-
-  public constructor(zone: NgZone,
-                     element: ElementRef) {
-    this.element = element.nativeElement;
-    this.zone = zone;
-  }
-
-  public ngOnInit(): void {
-  }
+  public search = '';
+  public isOpenGenresFilter = false;
 
   @HostListener('document:click', ['$event'])
 

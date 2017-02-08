@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-show-backed',
@@ -6,11 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./show-backed.component.css']
 })
 
-export class ShowsBackedComponent implements OnInit {
+export class ShowsBackedComponent {
 
-  public constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 }

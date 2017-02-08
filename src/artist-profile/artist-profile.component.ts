@@ -10,9 +10,6 @@ import { Component, OnInit } from '@angular/core';
 export class ArtistProfileComponent implements OnInit {
   public radioModel: string;
 
-  public constructor() {
-  }
-
   public ngOnInit(): void {
     this.radioModel = 'permonth';
   }

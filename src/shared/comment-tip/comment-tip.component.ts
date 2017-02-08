@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-comment-tip',
   templateUrl: './comment-tip.component.html',
   styleUrls: ['./comment-tip.component.css']
 })
-export class CommentTipComponent implements OnInit {
+export class CommentTipComponent {
 
-  public constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 }

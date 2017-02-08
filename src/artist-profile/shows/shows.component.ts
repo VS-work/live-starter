@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-shows-tab',
@@ -6,13 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./shows.component.css']
 })
 
-export class ShowsComponent implements OnInit {
+export class ShowsComponent {
   @Input('showType')
   public showType: string;
 
-  public constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 }

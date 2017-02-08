@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Config } from '../../app.config';
 
 @Component({
@@ -6,18 +6,9 @@ import { Config } from '../../app.config';
   templateUrl: './how-it-works.component.html',
   styleUrls: ['./how-it-works.component.css']
 })
-export class HowItWorksComponent implements OnInit {
-
-  public constructor() {
-  }
-
-  public ngOnInit(): void {
-  }
+export class HowItWorksComponent {
 
   public gotoElement(e: MouseEvent, id: string): void {
-
-    console.log('ID: ', id);
-
     this.scrollTop(e, id);
   }
 
