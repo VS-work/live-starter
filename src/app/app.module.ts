@@ -6,13 +6,12 @@ import { ModalModule, DropdownModule, TabsModule, ButtonsModule } from 'ng2-boot
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { HomeModule } from '../home/home.module';
+import { HomeModule } from '../home';
 import { HeaderComponent } from '../header/header.component';
 import { LoginModalComponent } from '../header/login-modal/login.modal.component';
 import { LoginService } from '../header/login-modal/login.modal.service';
 import { SignUpService } from '../header/signup-modal/signup.modal.service';
 import { SignUpModalComponent } from '../header/signup-modal/signup.modal.component';
-
 import { SharedModule } from '../shared';
 import { AuthService } from '../auth/auth.service';
 import { LocalStorageService } from '../auth/localStorage.service';
@@ -21,7 +20,7 @@ import { FirstStepComponent } from '../signup/first-step/first-step.component';
 import { SecondStepComponent } from '../signup/second-step/second-step.component';
 import { ArtistProfileComponent } from '../artist-profile/artist-profile.component';
 import { ArtistsComponent } from '../artists/artists.component';
-import { ArtistTabsModule } from '../artist-profile/tabs.module';
+import { ArtistTabsModule } from '../artist-profile';
 
 @NgModule({
   declarations: [
@@ -54,8 +53,7 @@ import { ArtistTabsModule } from '../artist-profile/tabs.module';
     AuthService,
     LocalStorageService
   ],
-  bootstrap: [AppComponent],
-  exports: [TabsModule]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

@@ -60,9 +60,7 @@ export class HeaderComponent implements OnInit {
   };
 
   public routeTo(route: string): void {
-
     const redirectTo = route.toLowerCase();
-    console.log('route: ', redirectTo);
     this.router.navigate(['/' + redirectTo]);
   }
 }

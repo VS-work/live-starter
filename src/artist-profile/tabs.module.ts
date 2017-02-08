@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ButtonsModule } from 'ng2-bootstrap';
+import { ButtonsModule, TabsModule } from 'ng2-bootstrap';
 
 import { SharedModule } from '../shared';
 import { BiographyComponent } from './bio/bio.component';
@@ -24,6 +24,7 @@ import { TipsComponent } from './tips/tips.component';
     BrowserModule,
     SharedModule,
     ButtonsModule.forRoot(),
+    TabsModule.forRoot(),
     FormsModule
   ],
   providers: [],
