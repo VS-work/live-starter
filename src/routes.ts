@@ -6,11 +6,14 @@ import { FirstStepComponent } from './signup/first-step/first-step.component';
 import { SecondStepComponent } from './signup/second-step/second-step.component';
 import { ArtistsComponent } from './artists/artists.component';
 
+import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
+
 export const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'first-step', component: FirstStepComponent},
   {path: 'second-step', component: SecondStepComponent},
   {path: 'artists', component: ArtistsComponent},
+  {path: 'artist-profile', component: ArtistProfileComponent},
   {path: '**', redirectTo: 'home'}
 ];
 

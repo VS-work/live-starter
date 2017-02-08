@@ -1,72 +1,4 @@
-.artists-container {
-	background-color: #fafafb;
-height: 100vh;
-}
-
-.filter-container {
-	text-align: center;
-	background-color: #dadce8;
-	padding: 10px;
-}
-
-.select-title {
-	position: relative;
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 5px;
-}
-
-.location, .genre, .new-artists {
-	position: relative;
-	display: inline-block;
-	margin: 0 10px;
-}
-
-.select-container {
-	position: relative;
-	display: inline-block;
-	width: 150px;
-}
-
-.btn-filter {
-	background-color: #fff;
-	border: 1px solid #49494c;
-}
-
-.search-btns {
-	width: 100%;
-}
-
-.show-all {
-	width: 80%;
-	text-align: left;
-}
-
-.btn-select {
-	background-color: #dadce8;
-}
-
-.dropdown-menu {
-	right: 0;
-	left: auto;
-}
-
-.explore {
-	margin: 20px 0;
-	font-size: 24px;
-	line-height: 30px;
-	font-weight: 500;
-}
-
-.artists-amount {
-	font-weight: 700;
-}
-
-.ai-container {
-	position: relative;
-}
-
-.artist {
+.show-container {
 	display: inline-block;
 	position: relative;
 	background-color: white;
@@ -78,8 +10,8 @@ height: 100vh;
 
 .artist-avatar {
 	float: left;
-	display: block;
-	position: absolute;
+	position: relative;
+	display: inline-block;
 	padding-top: 5px;
 }
 
@@ -92,33 +24,25 @@ height: 100vh;
 .info-container {
 	position: relative;
 	display: inline-block;
-	padding: 8px 0 0 170px;
+	padding: 10px 0 0 10px;
 }
 
-.artist-name {
+.show-base-info {
+	position: relative;
+	display: inline-block;
+}
+
+.show-name {
 	font-size: 18px;
 	font-weight: 700;
 	cursor: pointer;
-}
-
-.artist-position {
-	font-size: 12px;
-	color: #8e8e9a;
-}
-
-.artist-genres {
-	font-size: 12px;
-}
-
-.genres {
-	font-weight: 700;
 }
 
 .artist-short-info-container {
 	margin: 10px 0;
 }
 
-.show-container {
+.show-data-container {
 	position: relative;
 	display: inline-block;
 	padding: 20px;
@@ -126,6 +50,7 @@ height: 100vh;
 
 .show-info {
 	width: 100%;
+	height: 125px;
 	position: relative;
 	display: inline-block;
 	border-left: 2px solid #8e8e9a;
@@ -182,4 +107,23 @@ height: 100vh;
 .purchase-button:hover {
 	background-color: #fc6337;
 	color: white;
+}
+
+.appreciations-container {
+	font-size: 14px;
+	position: relative;
+	display: inline-block;
+	float: right;;
+}
+
+.appreciations, .views {
+	margin: 3px;
+	position: relative;
+	display: inline-block;
+}
+
+.appreciations img, .views img {
+	margin: 2px;
+	width: 14px;
+	vertical-align: top;
 }

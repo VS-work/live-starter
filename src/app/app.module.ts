@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { ModalModule, DropdownModule } from 'ng2-bootstrap';
+import { ModalModule, DropdownModule, TabsModule, ButtonsModule } from 'ng2-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -19,9 +19,9 @@ import { LocalStorageService } from '../auth/localStorage.service';
 import { routing } from '../routes';
 import { FirstStepComponent } from '../signup/first-step/first-step.component';
 import { SecondStepComponent } from '../signup/second-step/second-step.component';
-import { UserProfileModule } from '../user-profile/user-profile.module';
+import { ArtistProfileComponent } from '../artist-profile/artist-profile.component';
 import { ArtistsComponent } from '../artists/artists.component';
-
+import { ArtistTabsModule } from '../artist-profile/tabs.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { ArtistsComponent } from '../artists/artists.component';
     SignUpModalComponent,
     FirstStepComponent,
     SecondStepComponent,
-    ArtistsComponent
+    ArtistsComponent,
+    ArtistProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -39,10 +40,12 @@ import { ArtistsComponent } from '../artists/artists.component';
     HttpModule,
     ModalModule.forRoot(),
     DropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ButtonsModule.forRoot(),
     SharedModule,
-    UserProfileModule,
     RouterModule,
     HomeModule,
+    ArtistTabsModule,
     routing
   ],
   providers: [
@@ -51,7 +54,8 @@ import { ArtistsComponent } from '../artists/artists.component';
     AuthService,
     LocalStorageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [TabsModule]
 })
 export class AppModule {
 }

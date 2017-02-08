@@ -1,0 +1,22 @@
+.show-container {
+	display: inline-block;
+	position: relative;
+	background-color: white;
+	border-radius: 14px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
+	vertical-align: top;
+	padding: 15px;
+}
+
+.recent-tracks {
+	margin: 15px;
+	font-size: 25px;
+}
+
+.song-name {
+	position: relative;
+	display: inline-block;
+	font-weight: 700;
+	padding: 0 15px;
+	bottom: 10px;
+}

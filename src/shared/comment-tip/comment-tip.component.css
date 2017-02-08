@@ -1,18 +1,12 @@
-.what-they-say-container {
+.comments-container {
 	width: 100%;
 	display: block;
 	position: relative;
 	vertical-align: top;
 	padding: 30px 0;
 }
-.what-they-say-container .commas {
-	right: 30px;
-	top: -10px;
-	width: 77px;
-	position: absolute;
-}
 
-.what-they-say-title {
+.comments-title {
 	width: 100%;
 	text-align: right;
 }
@@ -20,36 +14,21 @@
 .title-head {
 	width: 100%;
 	display: inline-block;
-	font-size: 25px;
-	font-weight: 600;
 	text-align: center;
-	color: #1c2e36;
-	line-height: 40px;
-}
-
-.title-body {
-	width: 100%;
-	display: inline-block;
-	text-align: center;
+	line-height: 20px;
 	color: #62686b;
-	font-size: 18px;
-	font-weight: 400;
+	font-size: 17px;
+	font-weight: 700;
 }
 
-.what-they-say-list {
+.comments-list {
 	width: 100%;
 	display: inline-block;
 	text-align: center;
 	margin: 15px 0;
 }
 
-.what-they-say-list {
-	width: 100%;
-	display: inline-block;
-	text-align: center;
-}
-
-.notes-row-container {
+.comments-row-container {
 	width: 33%;
 	margin: 0;
 	position: relative;
@@ -112,4 +91,28 @@
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 22px;
+}
+
+.rate {
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.rate-double-container {
+	text-align: right;
+	width: 50%;
+	float: left;
+	padding: 0 15px 0 0;
+}
+
+.rate-double-container:first-child {
+	padding: 0 0 0 15px;
+}
+
+.video-stars, .sound-stars, .connection-stars, .show-stars,
+.text, .rates {
+	position: relative;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
 }

@@ -1,0 +1,7 @@
+<rating [(ngModel)]="rate"
+        [max]="max"
+        [readonly]="isReadonly"
+        (onHover)="hoveringOver($event)"
+        (onLeave)="resetStar()"
+        [titles]="['Not impressed','Not bad','Meh...', 'Good, worth of money', 'Excellent!']">
+</rating>

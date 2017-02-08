@@ -1,8 +1,8 @@
-.popular-shows-container {
+.upcoming-shows-container {
 	padding: 14px;
 }
 
-.popular-shows-title {
+.upcoming-shows-title {
 	width: 100%;
 	text-align: right;
 }
@@ -47,22 +47,19 @@
 	vertical-align: baseline;
 }
 
-.popular-shows-list {
+.upcoming-shows-list {
 	width: 100%;
 	display: inline-block;
 	text-align: center;
 }
 
-.popular-show {
-	/*width: 369px;*/
-	/*height: 466px;*/
+.upcoming-show {
 	display: inline-block;
 	position: relative;
 	background-color: white;
 	border: 1px solid #dadce8;
 	border-radius: 14px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
-	/*margin: 15px;*/
 }
 
 .images-container {
@@ -174,7 +171,6 @@
 	color: white;
 	font-size: 15px;
 	font-weight: 400;
-
 	position: absolute;
 	width: 210px;
 	height: 26px;
