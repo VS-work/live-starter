@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 @Component({
   selector: 'app-comments-tab',
   templateUrl: './comments.component.html',
@@ -10,4 +9,3 @@ import { Component } from '@angular/core';
 export class CommentsComponent {
 
 }
-

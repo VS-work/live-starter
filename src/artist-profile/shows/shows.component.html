@@ -1,16 +1,11 @@
-<div class="shows-container">
-  <div class="shows-to-see">
+<div *ngIf="showType === 'coming'" class="coming-shows">
+  <app-show-tip></app-show-tip>
+</div>
 
-    <div *ngIf="showType === 'coming'" class="coming-shows">
-      <app-show-tip></app-show-tip>
-    </div>
+<div *ngIf="showType === 'backed'" class="coming-shows">
+  <app-show-backed></app-show-backed>
+</div>
 
-    <div *ngIf="showType === 'backed'" class="coming-shows">
-      <app-show-backed></app-show-backed>
-    </div>
-
-    <div *ngIf="showType === 'recorded'" class="coming-shows">
-      <app-show-recorded></app-show-recorded>
-    </div>
-  </div>
+<div *ngIf="showType === 'recorded'" class="coming-shows">
+  <app-show-recorded></app-show-recorded>
 </div>

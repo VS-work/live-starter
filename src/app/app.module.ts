@@ -18,9 +18,8 @@ import { LocalStorageService } from '../auth/localStorage.service';
 import { routing } from '../routes';
 import { FirstStepComponent } from '../signup/first-step/first-step.component';
 import { SecondStepComponent } from '../signup/second-step/second-step.component';
-import { ArtistProfileComponent } from '../artist-profile/artist-profile.component';
+import { ArtistProfileComponent, ArtistTabsModule } from '../artist-profile';
 import { ArtistsComponent } from '../artists/artists.component';
-import { ArtistTabsModule } from '../artist-profile';
 
 @NgModule({
   declarations: [

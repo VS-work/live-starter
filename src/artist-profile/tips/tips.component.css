@@ -22,21 +22,15 @@
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
 	margin: 10px 0;
 	vertical-align: top;
-}
-
-.pledger-info-container {
 	padding: 10px 15px;
 }
 
-.pledger-avatar {
-	float: left;
-	margin-right: 10px;
-}
-
-.pledger-avatar img {
+.pledger img {
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
+	float: left;
+	margin-right: 10px;
 }
 
 .pledger-info {
