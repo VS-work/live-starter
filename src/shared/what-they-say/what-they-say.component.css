@@ -58,7 +58,6 @@
 }
 
 .sayer-note {
-	/*width: 370px;*/
 	display: inline-block;
 	position: relative;
 	background-color: white;
@@ -114,4 +113,3 @@
 	font-weight: 400;
 	line-height: 22px;
 }
-

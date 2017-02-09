@@ -16,6 +16,13 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { BenefitsComponent } from './benefits/benefits.component';
 import { PrefooterComponent } from './prefooter/prefooter.component';
 import { FooterComponent } from './footer/footer.component';
+import { ShowsTipComponent } from './show-tip/show-tip.component';
+import { ShowsBackedComponent } from './show-backed/show-backed.component';
+import { ShowsRecordedComponent } from './show-recorded/show-recorded.component';
+import { CommentTipComponent } from './comment-tip/comment-tip.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
+import { RatingModule } from 'ng2-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,12 +38,19 @@ import { FooterComponent } from './footer/footer.component';
     HowItWorksComponent,
     BenefitsComponent,
     PrefooterComponent,
-    FooterComponent
+    FooterComponent,
+    ShowsTipComponent,
+    ShowsBackedComponent,
+    ShowsRecordedComponent,
+    CommentTipComponent,
+    StarRatingComponent
   ],
   imports: [
     HttpModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    FormsModule,
+    RatingModule.forRoot()
   ],
   providers: [SearchService],
   exports: [
@@ -52,7 +66,12 @@ import { FooterComponent } from './footer/footer.component';
     HowItWorksComponent,
     BenefitsComponent,
     PrefooterComponent,
-    FooterComponent
+    FooterComponent,
+    ShowsTipComponent,
+    ShowsBackedComponent,
+    ShowsRecordedComponent,
+    CommentTipComponent,
+    StarRatingComponent
   ]
 })
 

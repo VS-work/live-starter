@@ -1,0 +1,78 @@
+.pledgers-list {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin: 30px 0;
+}
+
+.pledgers-container {
+	margin: 0;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.pledger {
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	background-color: white;
+	border: 1px solid #dadce8;
+	border-radius: 14px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
+	margin: 10px 0;
+	vertical-align: top;
+	padding: 10px 15px;
+}
+
+.pledger img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	float: left;
+	margin-right: 10px;
+}
+
+.pledger-info {
+	margin: 5px;
+	padding-bottom: 10px;
+	text-align: left;
+}
+
+.pledger-name {
+	color: #1c2e36;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 22px;
+}
+
+.pledger-type {
+	position: relative;
+	display: inline-block;
+	color: #fff;
+	background-color: #8e8e9a;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 21px;
+	border-radius: 5px;
+	padding: 0 5px;
+}
+
+.pledger-location {
+	position: relative;
+	display: inline-block;
+	color: #62686b;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 21px;
+	padding: 0 5px;
+}
+
+.pledger-role {
+	width: 100%;
+	color: #62686b;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	margin-bottom: 15px;
+}

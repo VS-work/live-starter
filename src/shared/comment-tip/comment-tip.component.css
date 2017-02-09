@@ -1,0 +1,99 @@
+.comments-container {
+	width: 100%;
+	display: block;
+	position: relative;
+	vertical-align: top;
+	padding: 30px 0;
+}
+
+.comments-title {
+	width: 100%;
+	text-align: right;
+}
+
+.title-head {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	line-height: 20px;
+	color: #62686b;
+	font-size: 17px;
+	font-weight: 700;
+}
+
+.comments-list {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin: 15px 0;
+}
+
+.sayer-note {
+	display: inline-block;
+	position: relative;
+	background-color: white;
+	border: 1px solid #dadce8;
+	border-radius: 14px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
+	margin: 10px 0;
+	vertical-align: top;
+}
+
+.sayer-info-container {
+	padding: 10px 15px;
+}
+
+.sayer-info-container img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	float: left;
+	margin-right: 10px;
+}
+
+.sayer-info {
+	margin: 5px;
+	padding-bottom: 10px;
+	text-align: left;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.sayer-name {
+	color: #1c2e36;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 22px;
+
+}
+
+.sayer-type {
+	color: #62686b;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 21px;
+}
+
+.note-container {
+	padding: 0 15px 15px;
+	text-align: justify;
+	color: #62686b;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+}
+
+.rate-double-container {
+	text-align: right;
+	width: 50%;
+	float: left;
+	padding: 0 13px 0 0;
+	margin-bottom: 10px;
+}
+
+.video-stars, .sound-stars, .connection-stars, .show-stars,
+.text, .rates {
+	position: relative;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
+}

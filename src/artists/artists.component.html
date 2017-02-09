@@ -1,0 +1,189 @@
+<div class="artists-container">
+    <div class="filter-container">
+      <div class="location">
+      <span class="select-title text-r">
+        Location:
+      </span>
+        <div class="select-container">
+
+          <div class="btn-group search-btns" dropdown>
+            <button id="split-button-location" type="button" class="btn btn-filter show-all">All</button>
+            <button type="button" class="btn btn-filter btn-select dropdown-toggle-split" dropdownToggle>
+              <span class="caret"></span>
+              <span class="sr-only"></span>
+            </button>
+            <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="split-button">
+              <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="genre">
+      <span class="select-title">
+        Genre:
+      </span>
+        <div class="select-container">
+          <div class="btn-group search-btns" dropdown>
+            <button id="split-button-genre" type="button" class="btn btn-filter show-all">All</button>
+            <button type="button" class="btn btn-filter btn-select dropdown-toggle-split" dropdownToggle>
+              <span class="caret"></span>
+              <span class="sr-only"></span>
+            </button>
+            <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="split-button">
+              <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-artists">
+      <span class="select-title">
+        Sorted by:
+      </span>
+        <div class="select-container">
+          <div class="btn-group search-btns" dropdown>
+            <button id="split-button-new" type="button" class="btn btn-filter show-all">All</button>
+            <button type="button" class="btn btn-filter btn-select dropdown-toggle-split" dropdownToggle>
+              <span class="caret"></span>
+              <span class="sr-only"></span>
+            </button>
+            <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="split-button">
+              <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="container">
+    <div class="explore">
+      Explore <span class="artists-amount">1422</span> Artists Around The World
+    </div>
+    <div class="artists-list">
+
+      <div class="artist row">
+        <div class="ai-container col-lg-9 col-md-9 col-xs-8 col-sm-9">
+          <div class="artist-avatar">
+            <img src="http://theglorious.com/wp-content/uploads/2014/04/BD-in-SF-FB-01-350x350.jpg"
+                 alt="">
+          </div>
+          <div class="info-container ">
+            <div class="artist-info">
+              <div class="artist-name" (click)="goTo()">Shawn Mendes</div>
+              <div class="artist-position">Singer, Song-Writer</div>
+              <div class="artist-genres"><span class="genres">Genres: </span>Rock, Pop, Jazz</div>
+            </div>
+
+            <div class="artist-short-info-container">
+              Shawn Mendes is a Canadian singer-songwriter. He attracted a following in 2013, when he began posting song
+              covers
+              on the video sharing application Vine. The following year, he caught the attention of artist managers
+              Andrew Gertler and Island Records A&R Ziggy Chareton, which led to him signing a deal with the record
+              label.
+            </div>
+          </div>
+        </div>
+
+        <div class="show-container col-md-3 col-xs-4 col-sm-3">
+          <div class="show-info">
+            <div class="next-show">
+              Next Show
+            </div>
+
+            <div class="show-date">
+              14 October EST 02:00pm
+            </div>
+
+            <div class="show-info-container">
+              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
+                <div class="num-container">$72</div>
+                <div class="item-container">per ticket</div>
+              </div>
+              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
+                <div class="num-container">20</div>
+                <div class="item-container">tickets left</div>
+              </div>
+              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
+                <div class="num-container">56%</div>
+                <div class="item-container">funded</div>
+              </div>
+            </div>
+
+            <div class="purchase-container">
+              <button class="purchase-button">Pledge ticket</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="artist row">
+        <div class="ai-container col-md-9 col-xs-8 col-sm-9">
+          <div class="artist-avatar">
+            <img src="http://highisophotos.com/wp-content/uploads/2015/07/backstage-4-560x560.jpg"
+                 alt="">
+          </div>
+          <div class="info-container ">
+            <div class="artist-info">
+              <div class="artist-name">Lonely Guitar</div>
+              <div class="artist-position">Singer, Song-Writer</div>
+              <div class="artist-genres"><span class="genres">Genres: </span>Rock, Folk</div>
+            </div>
+
+            <div class="artist-short-info-container">
+              Lonely Guitar is a Italian band in head with Billy Jean - singer-songwriter.
+              He attracted a following in 2013, when he began posting song covers on the video sharing application Vine.
+              The following year, he caught the attention of artist managers Andrew Gertler and Island Records A&R
+              Ziggy Chareton, which led to him signing a deal with the record label.
+            </div>
+          </div>
+        </div>
+
+        <div class="show-container col-md-3 col-xs-4 col-sm-3">
+          <div class="show-info">
+            <div class="next-show">
+              Next Show
+            </div>
+
+            <div class="show-date">
+              15 October EST 07:00pm
+            </div>
+
+            <div class="show-info-container">
+              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
+                <div class="num-container">$23</div>
+                <div class="item-container">per ticket</div>
+              </div>
+              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
+                <div class="num-container">55</div>
+                <div class="item-container">tickets left</div>
+              </div>
+              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
+                <div class="num-container">86%</div>
+                <div class="item-container">funded</div>
+              </div>
+            </div>
+
+            <div class="purchase-container">
+              <button class="purchase-button">Pledge ticket</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

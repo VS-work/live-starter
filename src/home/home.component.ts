@@ -7,14 +7,5 @@ import { Component } from '@angular/core';
 })
 
 export class HomeComponent {
-  public currentUser: any = {};
 
-  public constructor() {
-
-  }
-
-  // public getUser(options: any): void {
-  //   this.currentUser = options;
-  //   console.log(typeof this.currentUser);
-  // }
 }

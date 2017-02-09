@@ -11,6 +11,5 @@ export class AppComponent {
 
   public getUser(options: any): void {
     this.currentUser = options;
-    console.log(typeof this.currentUser);
   }
 }

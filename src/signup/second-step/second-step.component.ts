@@ -52,8 +52,6 @@ export class SecondStepComponent implements OnInit, OnDestroy {
       .subscribe((res): void => {
         const locations = res.data;
 
-        console.log('HHHHHHHHLOCATIONS', res.data);
-
         this.countries = locations.getCountries;
         this.cities = locations.getCities;
       });

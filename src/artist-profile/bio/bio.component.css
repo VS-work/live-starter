@@ -1,0 +1,10 @@
+.last-uploaded-video {
+	padding: 15px 0;
+	position: relative;
+	display: inline-block;
+}
+
+.video-info-container {
+	position: relative;
+	display: inline-block;
+}

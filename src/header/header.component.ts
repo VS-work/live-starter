@@ -58,4 +58,9 @@ export class HeaderComponent implements OnInit {
     e.preventDefault();
     Config.animateScroll('scrollBackToTop', 20, 1000);
   };
+
+  public routeTo(route: string): void {
+    const redirectTo = route.toLowerCase();
+    this.router.navigate(['/' + redirectTo]);
+  }
 }
