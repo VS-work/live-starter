@@ -1,12 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './home';
 import { FirstStepComponent } from './signup/first-step/first-step.component';
 import { SecondStepComponent } from './signup/second-step/second-step.component';
 import { ArtistsComponent } from './artists/artists.component';
 
-import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
+import { ArtistProfileComponent } from './artist-profile';
+import { FanProfileComponent } from './fan-profile';
 
 export const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {path: 'second-step', component: SecondStepComponent},
   {path: 'artists', component: ArtistsComponent},
   {path: 'artist-profile', component: ArtistProfileComponent},
+  {path: 'fan-profile', component: FanProfileComponent},
   {path: '**', redirectTo: 'home'}
 ];
 

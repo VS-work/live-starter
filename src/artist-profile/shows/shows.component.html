@@ -1,5 +1,5 @@
 <div *ngIf="showType === 'coming'" class="coming-shows">
-  <app-show-tip></app-show-tip>
+  <app-show-tip [currentUser]="currentUser"></app-show-tip>
 </div>
 
 <div *ngIf="showType === 'backed'" class="coming-shows">

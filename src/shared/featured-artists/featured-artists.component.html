@@ -23,12 +23,12 @@
         <div class="artist-container">
           <div class="artist-info-container">
             <div class="artist-info">
-              <div class="artist-name-container">Shawn Mendes</div>
-              <div class="artist-genre-container">Pop</div>
+              <div class="artist-name-container" (click)="goToArtistPage(artist?.username)">{{artist?.firstName}} {{artist?.lastName}}</div>
+              <div class="artist-genre-container">{{artist?.genres}}</div>
             </div>
             <div class="artist-statistics">
-              <span class="like-container">L: 234</span>
-              <span class="follow-container">F: 62</span>
+              <span class="like-container">L: {{artist?.appreciations.length}}</span>
+              <span class="follow-container">F: {{artist?.followers.length}}</span>
             </div>
           </div>
 

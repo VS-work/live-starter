@@ -1,0 +1,11 @@
+<div *ngIf="showType === 'coming'">
+  <app-show-tip [currentUser]="currentUser"></app-show-tip>
+</div>
+
+<div *ngIf="showType === 'backed'">
+  <app-show-backed [currentUser]="currentUser"></app-show-backed>
+</div>
+
+<div *ngIf="showType === 'recorded'">
+  <app-show-recorded [currentUser]="currentUser"></app-show-recorded>
+</div>

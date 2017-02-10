@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-show-recorded',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 })
 
 export class ShowsRecordedComponent {
-
+  @Input()
+  public currentUser: any;
 }

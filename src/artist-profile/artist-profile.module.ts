@@ -10,9 +10,12 @@ import { CommentsComponent } from './comments/comments.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ShowsComponent } from './shows/shows.component';
 import { TipsComponent } from './tips/tips.component';
+import { ArtistProfileComponent } from './artist-profile.component';
+import { ArtistProfileService } from './artist-profile.service';
 
 @NgModule({
   declarations: [
+    ArtistProfileComponent,
     BiographyComponent,
     MusicComponent,
     CommentsComponent,
@@ -27,15 +30,8 @@ import { TipsComponent } from './tips/tips.component';
     TabsModule.forRoot(),
     FormsModule
   ],
-  providers: [],
-  exports: [
-    BiographyComponent,
-    MusicComponent,
-    CommentsComponent,
-    ContactsComponent,
-    ShowsComponent,
-    TipsComponent
-  ]
+  providers: [ArtistProfileService],
+  exports: []
 })
-export class ArtistTabsModule {
+export class ArtistProfileModule {
 }

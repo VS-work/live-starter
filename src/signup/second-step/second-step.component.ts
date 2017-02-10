@@ -18,7 +18,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   public userErrorMessage: string;
   public countries: any;
   public cities: any;
-  public isTypeArtist: boolean = false;
+  public isTypeArtist = false;
   public userType: any = {type: 'fan'};
   public userProfile: any;
 
