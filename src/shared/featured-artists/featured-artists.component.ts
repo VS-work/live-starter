@@ -38,8 +38,6 @@ export class FeaturedArtistsComponent implements OnInit {
       return;
     }
 
-    if (artistName === this.artist.username) {
-      this.router.navigate(['artist-profile']);
-    }
+    this.router.navigate(['artist-profile']);
   }
 }

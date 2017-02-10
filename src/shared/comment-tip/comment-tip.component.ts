@@ -27,8 +27,6 @@ export class CommentTipComponent {
       return;
     }
 
-    if (artistName === this.fan.username) {
-      this.router.navigate(['fan-profile']);
-    }
+    this.router.navigate(['fan-profile']);
   }
 }
