@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-shows-tab',
+  selector: 'app-fan-shows-tab',
   templateUrl: './shows.component.html',
   styleUrls: ['./shows.component.css']
 })

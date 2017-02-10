@@ -18,7 +18,8 @@ import { LocalStorageService } from '../auth/localStorage.service';
 import { routing } from '../routes';
 import { FirstStepComponent } from '../signup/first-step/first-step.component';
 import { SecondStepComponent } from '../signup/second-step/second-step.component';
-import { ArtistProfileComponent, ArtistTabsModule } from '../artist-profile';
+import { ArtistProfileModule } from '../artist-profile';
+import { FanProfileModule } from '../fan-profile';
 import { ArtistsComponent } from '../artists/artists.component';
 
 @NgModule({
@@ -29,8 +30,7 @@ import { ArtistsComponent } from '../artists/artists.component';
     SignUpModalComponent,
     FirstStepComponent,
     SecondStepComponent,
-    ArtistsComponent,
-    ArtistProfileComponent
+    ArtistsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,10 +41,11 @@ import { ArtistsComponent } from '../artists/artists.component';
     TabsModule.forRoot(),
     ButtonsModule.forRoot(),
     SharedModule,
+    routing,
     RouterModule,
     HomeModule,
-    ArtistTabsModule,
-    routing
+    ArtistProfileModule,
+    FanProfileModule
   ],
   providers: [
     LoginService,

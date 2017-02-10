@@ -7,11 +7,11 @@
     <div class="col-md-4">
       <div class="sayer-note">
         <div class="sayer-info-container">
-            <img src="//s-media-cache-ak0.pinimg.com/originals/2f/1c/ee/2f1cee39bfc1d4588ce3c55ae1e90030.png"
+            <img [src]="currentUser?.avatar"
                  alt="">
           <div class="sayer-info">
-            <div class="sayer-name">Denise Fisher</div>
-            <div class="sayer-type">Fan</div>
+            <div class="sayer-name" (click)="goToFanPage(currentUser?.username)">{{currentUser?.firstName}} {{currentUser?.lastName}}</div>
+            <div class="sayer-type">{{currentUser?.type}}</div>
           </div>
         </div>
 
@@ -63,12 +63,11 @@
 
       <div class="sayer-note">
         <div class="sayer-info-container">
-            <img
-                src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/facebook_og_image/public/story/jessica-alba-tan-329-1.jpg?itok=YVCx522O"
+          <img [src]="fan?.avatar"
                 alt="">
           <div class="sayer-info">
-            <div class="sayer-name">Sam Barum</div>
-            <div class="sayer-type">Fan</div>
+            <div class="sayer-name" (click)="goToFanPage(fan?.username)">{{fan?.firstName}} {{fan?.lastName}}</div>
+            <div class="sayer-type">{{fan?.type}}</div>
           </div>
         </div>
 
@@ -118,75 +117,18 @@
     </div>
 
     <div class="col-md-4">
-      <div class="sayer-note">
+      <div class="sayer-note" *ngFor="let commenter of currentUser?.comments">
         <div class="sayer-info-container">
-            <img src="//pixel.nymag.com/imgs/daily/vulture/2016/10/12/12-jim-carrey.w529.h529.jpg"
+            <img [src]="commenter?.avatar"
                  alt="">
           <div class="sayer-info">
-            <div class="sayer-name">Jim Carrey</div>
-            <div class="sayer-type">Artist</div>
+            <div class="sayer-name">{{commenter?.firstName}} {{commenter?.lastName}}</div>
+            <div class="sayer-type">{{commenter?.type}}</div>
           </div>
         </div>
 
         <div class="note-container">
-          Thank you so much, Bachtrack, for this feast of information to delight us again at the start of the New
-          Year. Time is of no consequence when sifting through this incredible compilation.
-        </div>
-          <div class="rate-double-container">
-            <div class="video-stars">
-              <div class="text">
-                Video:
-              </div>
-              <div class="rates">
-                <app-star-rating></app-star-rating>
-              </div>
-            </div>
-
-            <div class="sound-stars">
-              <div class="text">
-                Sound:
-              </div>
-              <div class="rates">
-                <app-star-rating></app-star-rating>
-              </div>
-            </div>
-          </div>
-
-          <div class="rate-double-container">
-            <div class="connection-stars">
-              <div class="text">
-                Connect:
-              </div>
-              <div class="rates">
-                <app-star-rating></app-star-rating>
-              </div>
-            </div>
-            <div class="show-stars">
-              <div class="text">
-                Show:
-              </div>
-              <div class="rates">
-                <app-star-rating></app-star-rating>
-              </div>
-            </div>
-          </div>
-      </div>
-
-      <div class="sayer-note">
-        <div class="sayer-info-container">
-            <img src="http://img5.zergnet.com/1421690_300.jpg"
-                 alt="">
-          <div class="sayer-info">
-            <div class="sayer-name">WookieeMonster</div>
-            <div class="sayer-type">Artist</div>
-          </div>
-        </div>
-
-        <div class="note-container">
-          Very good rendition. The band was great as was the lead vocalist,
-          but I'd still like to hear it redone with his now more matured voice minus the backup girls.
-          Just a touch more feeling by both the saxophonist and singer would truly rock it to the level
-          of Tim Cappello's in Lost Boys.﻿
+          {{commenter.comment}}
         </div>
           <div class="rate-double-container">
             <div class="video-stars">
@@ -232,57 +174,58 @@
     <div class="col-md-4">
       <div class="sayer-note">
         <div class="sayer-info-container">
-            <img src="http://vegetarianskij.ru/wp-content/uploads/2013/10/arnold-shvarcenegger-vegetarianec.jpg"
-                 alt="">
+          <img src="http://img5.zergnet.com/1421690_300.jpg"
+               alt="">
           <div class="sayer-info">
-            <div class="sayer-name">Arnold Schwartznigger</div>
+            <div class="sayer-name">WookieeMonster</div>
             <div class="sayer-type">Artist</div>
           </div>
         </div>
 
         <div class="note-container">
-          For me life is continuously being hungry. The meaning of life is not simply to exist, to survive, but to
-          move ahead, to go up, to achieve, to conquer. The mind is the limit. As long as the mind can envision the
-          fact that you can do something, you can do it, as long as you really believe 100 percent.
+          Very good rendition. The band was great as was the lead vocalist,
+          but I'd still like to hear it redone with his now more matured voice minus the backup girls.
+          Just a touch more feeling by both the saxophonist and singer would truly rock it to the level
+          of Tim Cappello's in Lost Boys.﻿
         </div>
-          <div class="rate-double-container">
-            <div class="video-stars">
-              <div class="text">
-                Video:
-              </div>
-              <div class="rates">
-                <app-star-rating></app-star-rating>
-              </div>
+        <div class="rate-double-container">
+          <div class="video-stars">
+            <div class="text">
+              Video:
             </div>
-
-            <div class="sound-stars">
-              <div class="text">
-                Sound:
-              </div>
-              <div class="rates">
-                <app-star-rating></app-star-rating>
-              </div>
+            <div class="rates">
+              <app-star-rating></app-star-rating>
             </div>
           </div>
 
-          <div class="rate-double-container">
-            <div class="connection-stars">
-              <div class="text">
-                Connect:
-              </div>
-              <div class="rates">
-                <app-star-rating></app-star-rating>
-              </div>
+          <div class="sound-stars">
+            <div class="text">
+              Sound:
             </div>
-            <div class="show-stars">
-              <div class="text">
-                Show:
-              </div>
-              <div class="rates">
-                <app-star-rating></app-star-rating>
-              </div>
+            <div class="rates">
+              <app-star-rating></app-star-rating>
             </div>
           </div>
+        </div>
+
+        <div class="rate-double-container">
+          <div class="connection-stars">
+            <div class="text">
+              Connect:
+            </div>
+            <div class="rates">
+              <app-star-rating></app-star-rating>
+            </div>
+          </div>
+          <div class="show-stars">
+            <div class="text">
+              Show:
+            </div>
+            <div class="rates">
+              <app-star-rating></app-star-rating>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="sayer-note">

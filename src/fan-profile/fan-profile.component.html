@@ -1,7 +1,7 @@
 <div class="header-container container">
   <div class="header row">
     <div class="image-container col-lg-3 col-md-3 col-sm-3 col-xs-3">
-      <img [src]="user?.avatar" alt="">
+      <img [src]="user.avatar" alt="">
     </div>
 
     <div class="artist-info-container col-lg-9 col-md-9 col-sm-9 col-xs-9">
@@ -10,14 +10,14 @@
           <div class="artist-name">{{user?.firstName}} {{user?.lastName}}</div>
           <div class="artist-position">{{user?.position}}</div>
           <div class="artist-location">{{user?.location.country}}, {{user?.location.city}}, {{user?.location.state}}</div>
-          <div class="artist-joined">{{user?.joinDate}}</div>
+          <div class="artist-joined">Joined {{user?.joinDate}}</div>
           <div class="action-to-artist">
             <button class="follow">Follow</button>
             <button class="message">Message</button>
           </div>
         </div>
 
-        <div class="artist-statistics col-lg-7 col-md-7 col-sm-7 col-xs-7">
+        <div *ngIf="user?.shows.length !== 0" class="artist-statistics col-lg-7 col-md-7 col-sm-7 col-xs-7">
           <div class="counter-container row">
             <div class="views col-lg-3 col-md-3 col-sm-3 col-xs-3">
               <div class="number-container">{{user?.viewers.length}}</div>
@@ -83,42 +83,17 @@
         <tabset>
           <tab *ngIf="user?.biography" (select)="true" (deselect)="false">
             <template tabHeading>Bio</template>
-            <app-bio-tab [currentUser]="user"></app-bio-tab>
-          </tab>
-
-          <tab *ngIf="user?.audio" (select)="true" (deselect)="false">
-            <template tabHeading>Music</template>
-            <app-music-tab [currentUser]="user"></app-music-tab>
+            <app-fan-bio-tab [currentUser]="user"></app-fan-bio-tab>
           </tab>
 
           <tab *ngIf="user?.shows.length !== 0" (select)="true" (deselect)="false">
             <template tabHeading>Coming Shows</template>
-            <app-shows-tab [currentUser]="user" [showType]="'coming'"></app-shows-tab>
-          </tab>
-
-          <tab *ngIf="user?.shows.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Backed Shows</template>
-            <app-shows-tab [showType]="'backed'"></app-shows-tab>
-          </tab>
-
-          <tab *ngIf="user?.shows.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Recorded Shows</template>
-            <app-shows-tab [showType]="'recorded'"></app-shows-tab>
+            <app-fan-shows-tab [showType]="'coming'" [currentUser]="user"></app-fan-shows-tab>
           </tab>
 
           <tab *ngIf="user?.comments.length !== 0" (select)="true" (deselect)="false">
             <template tabHeading>Comments</template>
-            <app-comments-tab [currentUser]="user"></app-comments-tab>
-          </tab>
-
-          <tab *ngIf="user?.tips.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Tips</template>
-            <app-tips-tab [currentUser]="user"></app-tips-tab>
-          </tab>
-
-          <tab *ngIf="user?.contacts" (select)="true" (deselect)="false">
-            <template tabHeading>Contacts</template>
-            <app-contacts-tab [currentUser]="user"></app-contacts-tab>
+            <app-fan-comments-tab [currentUser]="user"></app-fan-comments-tab>
           </tab>
         </tabset>
       </div>
@@ -148,7 +123,7 @@
           </div>
         </div>
 
-        <div class="tip-artist">
+        <div *ngIf="user?.shows.length !== 0" class="tip-artist">
           <div class="title">Tip {{user?.firstName}} {{user?.lastName}}</div>
           <div class="tip-bar">$2 $5 $10 $15 $20 $30</div>
           <div class="btn-group">

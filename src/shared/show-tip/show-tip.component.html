@@ -8,9 +8,9 @@
         </div>
         <div class="info-container  col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <div class="show-base-info">
-            <div class="show-name">Shawn Mendes Show</div>
+            <div class="show-name">{{currentUser?.shows[0].name}}</div>
             <div class="show-date">
-              15 October EST 07:00pm
+              {{currentUser?.shows[0].date}}
             </div>
           </div>
 
@@ -24,8 +24,7 @@
           </div>
 
           <div class="artist-short-info-container">
-            Shawn Mendes is going to spend the bulk of 2016 on the road.
-            The 17-year-old announced a world tour today (January 28), which stretches from April to August.
+            {{currentUser?.shows[0].info}}
           </div>
         </div>
       </div>
@@ -38,15 +37,15 @@
         </div>
         <div class="show-info-container">
           <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
-            <div class="num-container">$23</div>
+            <div class="num-container">${{currentUser?.shows[0].price}}</div>
             <div class="item-container">per ticket</div>
           </div>
           <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
-            <div class="num-container">55</div>
+            <div class="num-container">{{currentUser?.shows[0].tickets}}</div>
             <div class="item-container">tickets</div>
           </div>
           <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
-            <div class="num-container">86%</div>
+            <div class="num-container">{{currentUser?.shows[0].funded}}%</div>
             <div class="item-container">funded</div>
           </div>
         </div>

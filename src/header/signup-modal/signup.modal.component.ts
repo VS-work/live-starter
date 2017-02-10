@@ -19,8 +19,8 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
   public signupForm: any = {};
   public userErrorMessage: string;
 
-  public firstStepSuccess: boolean = false;
-  public isTypeArtist: boolean = false;
+  public firstStepSuccess = false;
+  public isTypeArtist = false;
   public userType: any;
   public countries: any;
   public cities: any;

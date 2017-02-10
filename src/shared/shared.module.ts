@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { GenresFilterComponent } from './genres-filter/genres-filter.component';
 import { GenresFilterPipe } from './genres-filter/genres-filter.pipe';
 import { SearchComponent, SearchService } from './search';
-import { FeaturedArtistsComponent } from './featured-artists/featured-artists.component';
+import { FeaturedArtistsComponent, FeaturedArtistsService } from './featured-artists';
 import { PopularShowsComponent } from './popular-shows/popular-shows.component';
 import { ArtistsYouMayLikeComponent } from './artists-you-may-like/artists-you-may-like.component';
 import { UpcomingShowsComponent } from './upcoming-shows/upcoming-shows.component';
@@ -52,7 +52,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RatingModule.forRoot()
   ],
-  providers: [SearchService],
+  providers: [
+    SearchService,
+    FeaturedArtistsService
+  ],
   exports: [
     GenresFilterComponent,
     SearchComponent,

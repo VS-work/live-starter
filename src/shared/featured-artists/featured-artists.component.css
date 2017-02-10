@@ -111,6 +111,7 @@
 	color: #1c2e36;
 	font-size: 20px;
 	line-height: 20px;
+	cursor: pointer;
 }
 
 .artist-statistics {
