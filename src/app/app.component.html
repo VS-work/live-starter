@@ -1,7 +1,10 @@
 <div class="header">
-  <app-header (user)="getUser($event)"></app-header>
+  <app-header></app-header>
 </div>
 
 <div class="application">
-  <router-outlet></router-outlet>
+  <div class="content-component-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer class="footer-component-wrapper"></app-footer>
 </div>

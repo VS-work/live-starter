@@ -5,9 +5,10 @@ import { HomeComponent } from './home';
 import { FirstStepComponent } from './signup/first-step/first-step.component';
 import { SecondStepComponent } from './signup/second-step/second-step.component';
 import { ArtistsComponent } from './artists/artists.component';
-
+import { BlogComponent } from './blog';
 import { ArtistProfileComponent } from './artist-profile';
 import { FanProfileComponent } from './fan-profile';
+import { EditProfileComponent } from './edit-profile';
 
 export const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -16,6 +17,8 @@ export const routes: Routes = [
   {path: 'artists', component: ArtistsComponent},
   {path: 'artist-profile', component: ArtistProfileComponent},
   {path: 'fan-profile', component: FanProfileComponent},
+  {path: 'edit-profile', component: EditProfileComponent},
+  {path: 'blog', component: BlogComponent},
   {path: '**', redirectTo: 'home'}
 ];
 

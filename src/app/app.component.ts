@@ -7,9 +7,5 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  public currentUser: any = {};
 
-  public getUser(options: any): void {
-    this.currentUser = options;
-  }
 }

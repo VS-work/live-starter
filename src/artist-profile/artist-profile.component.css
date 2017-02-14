@@ -194,7 +194,6 @@ tabset >>> .nav-tabs li a {
 }
 
 tabset tab {
-	position: absolute;
 	width: 100%;
 }
 
