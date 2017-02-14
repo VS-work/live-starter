@@ -20,13 +20,13 @@
                   <div class="data-container user-name">
                     <div class="field-title">First Name</div>
                     <input type="text"
-                           placeholder="{{user?.firstName}}"
+                           [placeholder]="user?.firstName"
                            #userFirstName>
                   </div>
                   <div class="data-container user-country">
                     <div class="field-title">Country</div>
                     <input type="text"
-                           placeholder="{{user?.country}}"
+                           [placeholder]="user?.country"
                            #country>
                   </div>
                 </div>
@@ -34,13 +34,13 @@
                   <div class="data-container user-lastname">
                     <div class="field-title">Last Name</div>
                     <input type="text"
-                           placeholder="{{user?.lastName}}"
+                           [placeholder]="user?.lastName"
                            #userLastName>
                   </div>
                   <div class="data-container user-city">
                     <div class="field-title">City</div>
                     <input type="text"
-                           placeholder="{{user?.city}}"
+                           [placeholder]="user?.city"
                            #city>
                   </div>
                 </div>
@@ -60,7 +60,7 @@
             <div class="title">Account Information</div>
             <div class="data-container user-email col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div class="field-title">E-mail</div>
-              <input type="text" placeholder="{{user?.email}}">
+              <input type="text" [placeholder]="user?.email">
             </div>
             <div class="data-container user-password-change col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div class="field-title">Password</div>
