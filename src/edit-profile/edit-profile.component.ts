@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+
 import { EditProfileService } from './edit-profile.service';
 import { LocalStorageService } from '../auth/localStorage.service';
 
 @Component({
   selector: 'app-edit-profile-component',
-
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
@@ -60,10 +60,10 @@ export class EditProfileComponent implements OnInit {
   public updateUser(firstName: string, country: string, lastName: string, city: string): void {
     let userData = {
       email: this.user.email,
-      firstName: firstName || this.user.firstName,
-      country: country || this.user.country,
-      lastName: lastName || this.user.lastName,
-      city: city || this.user.city
+      firstName: typeof firstName === 'undefined' ? this.user.firstName : firstName,
+      country: typeof country === 'undefined' ? this.user.country : country,
+      lastName: typeof lastName === 'undefined' ? this.user.lastName : lastName,
+      city: typeof city === 'undefined' ? this.user.city : city
     };
 
     this.editProfileServiceSubscribe = this.editProfileService.editUser(userData)
@@ -74,10 +74,10 @@ export class EditProfileComponent implements OnInit {
           return;
         }
 
-        this.user.firstName = userData.firstName || this.user.firstName;
-        this.user.lastName = userData.lastName || this.user.lastName;
-        this.user.country = userData.country || this.user.country;
-        this.user.city = userData.city || this.user.city;
+        this.user.firstName = userData.firstName;
+        this.user.lastName = userData.lastName;
+        this.user.country = userData.country;
+        this.user.city = userData.city;
       });
   }
 }

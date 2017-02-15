@@ -20,13 +20,15 @@
                   <div class="data-container user-name">
                     <div class="field-title">First Name</div>
                     <input type="text"
-                           [placeholder]="user?.firstName"
+                           placeholder="First name"
+                           [value]="user?.firstName"
                            #userFirstName>
                   </div>
                   <div class="data-container user-country">
                     <div class="field-title">Country</div>
                     <input type="text"
-                           [placeholder]="user?.country"
+                           placeholder="Country"
+                           [value]="user?.country"
                            #country>
                   </div>
                 </div>
@@ -34,13 +36,15 @@
                   <div class="data-container user-lastname">
                     <div class="field-title">Last Name</div>
                     <input type="text"
-                           [placeholder]="user?.lastName"
+                           placeholder="Last name"
+                           [value]="user?.lastName"
                            #userLastName>
                   </div>
                   <div class="data-container user-city">
                     <div class="field-title">City</div>
                     <input type="text"
-                           [placeholder]="user?.city"
+                           placeholder="City"
+                           [value]="user?.city"
                            #city>
                   </div>
                 </div>
@@ -60,7 +64,9 @@
             <div class="title">Account Information</div>
             <div class="data-container user-email col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div class="field-title">E-mail</div>
-              <input type="text" [placeholder]="user?.email">
+              <input type="text"
+                     placeholder="E-mail"
+                     [value]="user?.email">
             </div>
             <div class="data-container user-password-change col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div class="field-title">Password</div>
@@ -166,7 +172,7 @@
                       [(ngModel)]="checkModel.showBeginIn"
                       btnCheckbox></button>
               Show will begin in
-              <select name="hours" id="">
+              <select name="hours">
                 <option value="1">1 hour</option>
                 <option value="2">2 hours</option>
                 <option value="3">3 hours</option>
