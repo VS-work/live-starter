@@ -6,6 +6,9 @@ import { FirstStepComponent } from './signup/first-step/first-step.component';
 import { SecondStepComponent } from './signup/second-step/second-step.component';
 import { ArtistsComponent } from './artists/artists.component';
 import { BlogComponent } from './blog';
+import { AboutComponent } from './about';
+import { FAQComponent } from './faq';
+import { ContactsLiveStarterComponent } from './contacts-livestarter';
 import { ArtistProfileComponent } from './artist-profile';
 import { FanProfileComponent } from './fan-profile';
 import { EditProfileComponent } from './edit-profile';
@@ -19,6 +22,9 @@ export const routes: Routes = [
   {path: 'fan-profile', component: FanProfileComponent},
   {path: 'edit-profile', component: EditProfileComponent},
   {path: 'blog', component: BlogComponent},
+  {path: 'about', component: AboutComponent},
+  {path: 'faq', component: FAQComponent},
+  {path: 'contact', component: ContactsLiveStarterComponent},
   {path: '**', redirectTo: 'home'}
 ];
 

@@ -8,8 +8,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeModule } from '../home';
 import { HeaderComponent } from '../header/header.component';
-import { LoginModalComponent } from '../header/login-modal/login.modal.component';
-import { LoginService } from '../header/login-modal/login.modal.service';
 import { SignUpService } from '../header/signup-modal/signup.modal.service';
 import { SignUpModalComponent } from '../header/signup-modal/signup.modal.component';
 import { SharedModule } from '../shared';
@@ -23,17 +21,21 @@ import { FanProfileModule } from '../fan-profile';
 import { EditProfileModule } from '../edit-profile';
 import { ArtistsComponent } from '../artists/artists.component';
 import { BlogComponent } from '../blog/blog.component';
+import { AboutComponent } from '../about/about.component';
+import { ContactsLiveStarterComponent } from '../contacts-livestarter/contacts-livestarter.component';
+import { FAQModule } from '../faq';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginModalComponent,
     SignUpModalComponent,
     FirstStepComponent,
     SecondStepComponent,
     ArtistsComponent,
-    BlogComponent
+    BlogComponent,
+    AboutComponent,
+    ContactsLiveStarterComponent
   ],
   imports: [
     BrowserModule,
@@ -49,10 +51,10 @@ import { BlogComponent } from '../blog/blog.component';
     HomeModule,
     ArtistProfileModule,
     FanProfileModule,
-    EditProfileModule
+    EditProfileModule,
+    FAQModule
   ],
   providers: [
-    LoginService,
     SignUpService,
     AuthService,
     LocalStorageService

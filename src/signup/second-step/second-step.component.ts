@@ -59,7 +59,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
         const styles: any[] = res.data;
-        this.genres = styles;
+        this.genres = styles[0].genres;
       });
 
     if (userProfile) {
