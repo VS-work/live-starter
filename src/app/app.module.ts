@@ -20,7 +20,9 @@ import { FirstStepComponent } from '../signup/first-step/first-step.component';
 import { SecondStepComponent } from '../signup/second-step/second-step.component';
 import { ArtistProfileModule } from '../artist-profile';
 import { FanProfileModule } from '../fan-profile';
+import { EditProfileModule } from '../edit-profile';
 import { ArtistsComponent } from '../artists/artists.component';
+import { BlogComponent } from '../blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { ArtistsComponent } from '../artists/artists.component';
     SignUpModalComponent,
     FirstStepComponent,
     SecondStepComponent,
-    ArtistsComponent
+    ArtistsComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { ArtistsComponent } from '../artists/artists.component';
     RouterModule,
     HomeModule,
     ArtistProfileModule,
-    FanProfileModule
+    FanProfileModule,
+    EditProfileModule
   ],
   providers: [
     LoginService,
