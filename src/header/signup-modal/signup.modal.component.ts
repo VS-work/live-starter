@@ -58,8 +58,8 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
-        const styles: any[] = res.data;
-        this.genres = styles[0].genres;
+        const styles: any = res.data;
+        this.genres = styles.genres;
       });
   }
 
@@ -69,12 +69,6 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
     this.signupForm = {};
     this.firstStepSuccess = false;
   }
-
-  // public backToFisrtStep(): void {
-  //   this.firstStepSuccess = !this.firstStepSuccess;
-  //   this.signupForm.password = '';
-  //   this.signupForm.passwordConfirm = '';
-  // }
 
   public isUserArtist(type: boolean): void {
     this.userType = {type: type ? 'artist' : 'fan'};

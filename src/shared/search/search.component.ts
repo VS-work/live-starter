@@ -19,8 +19,8 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
-        const styles: any[] = res.data;
-        this.styles = styles[0].genres;
+        const styles: any = res.data;
+        this.styles = styles.genres;
       });
   }
 
