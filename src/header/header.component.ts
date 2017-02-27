@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   public userProfile: any;
 
-  public menuItems: any[] = ['Artists', 'Genres', 'How it works', 'Fund', 'Blog', 'Contact'];
+  public menuItems: any[] = ['Artists', 'Events', 'How it works', 'Launch', 'Fund', 'Blog', 'Contact'];
   public userProfileService: LocalStorageService;
 
   private auth: AuthService;

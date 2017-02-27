@@ -8,7 +8,7 @@
       <span class="menu-item-container" (click)="routeTo(item)">{{item}}</span>
     </div>
 
-    <div class="login-container" *ngIf="!auth.authenticated()">
+    <div class="login-container" *ngIf="!userProfile">
       <button type="button"
               class="login-button"
               (click)="loginModal()">Login
@@ -21,7 +21,7 @@
     </div>
 
     <div class="current-user-container">
-      <div *ngIf="auth.authenticated()" dropdown>
+      <div *ngIf="userProfile" dropdown>
       <span id="simple-dropdown" dropdownToggle>
 
         <span class="user-menu" *ngIf="userProfile">
@@ -35,7 +35,7 @@
           <li role="menuitem"><a class="dropdown-item" href="#">Payments</a></li>
           <li role="menuitem"><a class="dropdown-item" href="#">Following</a></li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" href="#" (click)="auth.logout()" *ngIf="auth.authenticated()">Log
+          <li role="menuitem"><a class="dropdown-item" href="#" (click)="auth.logout()" *ngIf="userProfile">Log
             out</a></li>
         </ul>
       </div>

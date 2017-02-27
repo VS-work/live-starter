@@ -1,0 +1,182 @@
+<div class="launch-event-container">
+  <div class="container">
+    <div class="first-step" *ngIf="!secondStepActive">
+      <div class="header">
+        <div class="title">Get Started</div>
+        Crowdfund your own event with LiveStarter
+      </div>
+      <div class="data-container">
+
+        <div class="info">
+          <div class="display-data">
+            <div class="event-data-container">
+              <div class="num-container">${{launchEvent?.ticketPrice || 0}}</div>
+              <div class="item-container">Per Ticket</div>
+            </div>
+            <div class="event-data-container">
+              <div class="num-container">{{launchEvent?.tickets || 0}}</div>
+              <div class="item-container">tickets</div>
+            </div>
+            <div class="event-data-container">
+              <div class="num-container">{{funded}}%</div>
+              <div class="item-container">Funded</div>
+            </div>
+          </div>
+          <div class="genres-selector">
+            <div>Choose genres which you have been playing:</div>
+            <span class="genres-list" *ngFor="let currentGenre of genres">
+              <button
+                  class="genre-button"
+                  (click)="pushGenreToList(currentGenre)"
+                  btnCheckbox>{{currentGenre}}
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="inputs">
+          <form>
+            <label for="showName" class="input-label">Give an event a title:</label>
+            <input type="text"
+                   id="showName"
+                   class="form-control"
+                   name="showName"
+                   placeholder="Please enter a show name"
+                   [(ngModel)]="launchEvent.showName"
+                   required>
+
+            <label for="tickets" class="input-label">How many people would join me:</label>
+            <input type="number"
+                   id="tickets"
+                   class="form-control"
+                   name="tickets"
+                   placeholder="min 50"
+                   [(ngModel)]="launchEvent.tickets"
+                   required>
+
+            <label for="price" class="input-label">They willing to pay per ticket:</label>
+            <input type="number"
+                   id="price"
+                   class="form-control"
+                   name="price"
+                   placeholder="min $10"
+                   [(ngModel)]="launchEvent.ticketPrice"
+                   required>
+          </form>
+        </div>
+      </div>
+
+      <div class="goToSecondStep">
+        <button class="next-button" (click)="goToNextStep()">Create event</button>
+      </div>
+    </div>
+
+    <div class="second-step row" *ngIf="secondStepActive">
+      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+        <div class="name-date-container">
+          <form class="show-name-second-step">
+            <label for="showNameSecondStep" class="input-label">Artist Name</label>
+            <input type="text"
+                   id="showNameSecondStep"
+                   class="form-control"
+                   name="showName"
+                   placeholder="Please enter a artist name"
+                   [(ngModel)]="launchEvent.artist"
+                   required>
+          </form>
+          <div class="date-picker">
+            <label class="input-label">Planned date and time to start:</label>
+            <datepicker [(ngModel)]="launchEvent.datePerformance" [activeDate]="true"></datepicker>
+          </div>
+        </div>
+
+        <div class="preview-container">
+          Upload preview image
+        </div>
+
+        <div class="description-container">
+          <label for="decription" class="input-label">Description</label>
+          <textarea name="decription"
+                    id="decription"
+                    [(ngModel)]="launchEvent.description"
+                    placeholder="Write a show description here">
+          </textarea>
+        </div>
+
+        <div class="audio-upload">
+          <label>Upload a few tracks:</label>
+          <button class="add-button">Add +</button>
+        </div>
+
+        <div class="video-upload">
+          <label>Upload some video:</label>
+          <button class="add-button">Add +</button>
+        </div>
+
+        <div class="info-upload">
+          <label>Add some info:</label>
+          <button class="add-button">Add +</button>
+        </div>
+
+      </div>
+      <div class="side-bar col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <div class="show-action-button">
+          <button class="next-button">Preview</button>
+          <button class="next-button" (click)="publish()">Publish</button>
+        </div>
+
+
+        <div class="artist-data">
+          <img class="avatar img-circle"
+               src="https://img.clipartfest.com/a22d68de188f2083affefb14cc66ca80_shawn-mendes-png-by-karlymoon-shawn-mendes-clipart_400-400.png"
+               alt="AV">
+          <div class="artist-info">
+            <div class="name" routerLink="/artist-profile">{{launchEvent.artist}}</div>
+            <div class="location">Location</div>
+          </div>
+
+          <div class="artists-genres">
+            <span class="genres">Genres:</span>
+            {{launchEvent.genre}}
+          </div>
+
+          <div class="artists-appriciations">
+            <span class="views">
+              <img src="/assets/img/eye-icon.png" alt="views">
+              <span class="amount">57</span>
+            </span>
+            <span class="likes">
+              <img src="/assets/img/rock_gesture.png" alt="views">
+              <span class="amount">48</span>
+            </span>
+            <span class="followers">
+              <img src="/assets/img/person.png" alt="views">
+              <span class="amount">51</span>
+            </span>
+            <span class="shows">
+              <img src="/assets/img/play.png" alt="views">
+              <span class="amount">3</span>
+            </span>
+          </div>
+
+          <div class="funding-info">
+            <div class="event-data-container">
+              <div class="num-container">${{launchEvent.ticketPrice}}</div>
+              <div class="item-container">per ticket</div>
+            </div>
+
+            <div class="event-data-container">
+              <div class="num-container">{{launchEvent.tickets}}</div>
+              <div class="item-container">tickets</div>
+            </div>
+
+            <div class="event-data-container">
+              <div class="num-container">{{funded}}</div>
+              <div class="item-container">funded</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

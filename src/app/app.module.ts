@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ModalModule, DropdownModule, TabsModule, ButtonsModule } from 'ng2-bootstrap';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { HomeModule } from '../home';
 import { HeaderComponent } from '../header/header.component';
@@ -22,8 +21,10 @@ import { EditProfileModule } from '../edit-profile';
 import { ArtistsComponent } from '../artists/artists.component';
 import { BlogComponent } from '../blog/blog.component';
 import { AboutComponent } from '../about/about.component';
-import { ContactsLiveStarterComponent } from '../contacts-livestarter/contacts-livestarter.component';
+import { ContactsLiveStarterComponent } from '../contacts-livestarter';
 import { FAQModule } from '../faq';
+import { EventLaunchModule } from '../event-launch';
+import { EventsListModule } from '../events-list';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,9 @@ import { FAQModule } from '../faq';
     ArtistProfileModule,
     FanProfileModule,
     EditProfileModule,
-    FAQModule
+    FAQModule,
+    EventLaunchModule,
+    EventsListModule
   ],
   providers: [
     SignUpService,
