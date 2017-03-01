@@ -18,8 +18,8 @@
               <div class="item-container">tickets</div>
             </div>
             <div class="event-data-container">
-              <div class="num-container">{{funded}}%</div>
-              <div class="item-container">Funded</div>
+              <div class="num-container">{{launchEvent.ticketsToFund || 0}}</div>
+              <div class="item-container">Min. tickets</div>
             </div>
           </div>
           <div class="genres-selector">
@@ -45,6 +45,25 @@
                    [(ngModel)]="launchEvent.showName"
                    required>
 
+            <label for="showLocation" class="input-label">Event location:</label>
+
+            <div class="filter-drpdwn">
+              <div class="btn-group" dropdown>
+                <button id="showLocation" type="button" class="btn btn-filter" dropdownToggle>
+                  {{launchEvent.showLocation || 'Select location'}} <span class="caret"></span>
+                </button>
+                <div dropdownMenu role="menu" aria-labelledby="single-button">
+                  <div class="locations-list" *ngFor="let location of locations">
+                    <div
+                        class="dropdown-item"
+                        (click)="setLocationToShow(location.country)"
+                        btnCheckbox>{{location.country}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <label for="tickets" class="input-label">How many people would join me:</label>
             <input type="number"
                    id="tickets"
@@ -61,6 +80,15 @@
                    name="price"
                    placeholder="min $10"
                    [(ngModel)]="launchEvent.ticketPrice"
+                   required>
+
+            <label for="toFund" class="input-label">Amount of sold tickets to perform the show:</label>
+            <input type="number"
+                   id="toFund"
+                   class="form-control"
+                   name="price"
+                   placeholder="A critical minimum of tickets to be sold"
+                   [(ngModel)]="launchEvent.ticketsToFund"
                    required>
           </form>
         </div>
@@ -86,7 +114,7 @@
           </form>
           <div class="date-picker">
             <label class="input-label">Planned date and time to start:</label>
-            <datepicker [(ngModel)]="launchEvent.datePerformance" [activeDate]="true"></datepicker>
+            <datepicker [(ngModel)]="dateByPicker" [activeDate]="true"></datepicker>
           </div>
         </div>
 
@@ -132,7 +160,7 @@
                alt="AV">
           <div class="artist-info">
             <div class="name" routerLink="/artist-profile">{{launchEvent.artist}}</div>
-            <div class="location">Location</div>
+            <div class="location">Location {{launchEvent.showLocation}}</div>
           </div>
 
           <div class="artists-genres">

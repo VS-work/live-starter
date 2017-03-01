@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import * as _ from 'lodash';
+import { extend } from 'lodash';
 
 import { SignUpService } from '../../header/signup-modal/signup.modal.service';
 import { AuthService } from '../../auth/auth.service';
@@ -78,7 +78,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   public isUserArtist(type: boolean): void {
     this.userType = {type: type ? 'artist' : 'fan'};
     this.isTypeArtist = type;
-    _.extend(this.signupForm, this.userType);
+    extend(this.signupForm, this.userType);
   }
 
   public submitData(): void {

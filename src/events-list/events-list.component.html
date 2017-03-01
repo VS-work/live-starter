@@ -1,5 +1,158 @@
-<div class="about-page-container">
+<div class="events-page-container">
+  <!--<div class="container">-->
+  <div class="search-filter-header">
+    <div class="container">
+      <div class="date-filter">
+        <div class="datepicker-dropdown pdng-filter-items brdr-l brdr-r" (click)="datePickerDropdown()">
+          <img class="datepicker-icon" src="/assets/img/datepicker.png" alt="">
+          <div class="dp-dd" *ngIf="datepickerShow">
+            <datepicker [(ngModel)]="queryToFindShow.dateShowPerformance"
+                        [activeDate]="true"
+                        (selectionDone)="findEventsByQuery(queryToFindShow)"></datepicker>
+          </div>
+        </div>
+
+        <div class="list-for-today pdng-filter-items" (click)="setTodayDate()">
+          <span class="today-name">Today</span>
+        </div>
+
+        <div class="scroll-left-button pdng-filter-items brdr-l brdr-r" (click)="setDay(false)">
+          <img src="/assets/img/left-arrow-date.png" alt="">
+        </div>
+
+        <div class="choose-day-button">
+          {{queryToFindShow.dateShowPerformance | date: 'fullDate'}}
+        </div>
+
+        <div class="scroll-right-button pdng-filter-items brdr-l brdr-r" (click)="setDay(true)">
+          <img src="/assets/img/right-arrow-date.png" alt="">
+        </div>
+      </div>
+
+      <div class="show-attrs-filter">
+        <div class="filter-drpdwn live-shows">
+          <div class="title">Live</div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="displayLiveShows.isChecked" (click)="displayLiveShowsFunc()">
+            <div class="slider round"></div>
+          </label>
+        </div>
+
+        <div class="filter-drpdwn"><span class="title">Location</span>
+          <div class="btn-group" dropdown>
+            <button id="location-button" type="button" class="btn btn-filter" dropdownToggle>
+              {{queryToFindShow.findByLocation || 'Select all'}} <span class="caret"></span>
+            </button>
+            <div dropdownMenu role="menu" aria-labelledby="single-button">
+              <div
+                  class="dropdown-item"
+                  (click)="pushLocationToList('Select all')"
+                  btnCheckbox>Select All
+              </div>
+              <div class="locations-list" *ngFor="let location of locations">
+                <div
+                    class="dropdown-item"
+                    (click)="pushLocationToList(location.country)"
+                    btnCheckbox>{{location.country}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-drpdwn"><span class="title">Genre</span>
+          <div class="btn-group" dropdown>
+            <button id="genre-button" type="button" class="btn btn-filter" dropdownToggle>
+              {{queryToFindShow.findByGenre || 'Select all'}} <span class="caret"></span>
+            </button>
+            <div dropdownMenu role="menu" aria-labelledby="single-button">
+              <div
+                  class="dropdown-item"
+                  (click)="pushGenreToList('Select all')"
+                  btnCheckbox>Select All
+              </div>
+              <div class="genres-list" *ngFor="let genre of genres">
+                <div
+                    class="dropdown-item"
+                    (click)="pushGenreToList(genre)"
+                    btnCheckbox>{{genre}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-drpdwn"><span class="title">Sort by</span>
+          <div class="btn-group" dropdown>
+            <button id="sortedby-button" type="button" class="btn btn-filter" dropdownToggle>
+              {{queryToFindShow.findByType || 'Select all'}}<span class="caret"></span>
+            </button>
+            <div dropdownMenu role="menu" aria-labelledby="single-button">
+              <div
+                  class="dropdown-item"
+                  (click)="pushTypeToList('Select all')"
+                  btnCheckbox>Select All
+              </div>
+              <div class="genres-list">
+                <div
+                    class="dropdown-item"
+                    (click)="pushTypeToList()"
+                    btnCheckbox>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <div class="container">
-        Events List
+    <div class="shows-header-title">
+      <span class="coming-shows" *ngIf="!displayLiveShows.isChecked">Explore <span class="shows-counter">{{nonLiveEventsAmount}}</span> Coming Shows</span>
+      <span class="coming-shows" *ngIf="displayLiveShows.isChecked"><span class="shows-counter">24</span> Shows Live Now</span>
+    </div>
+    <div class="shows-container">
+
+      <div class="show" *ngFor="let show of eventsData">
+        <img src="http://www.bristolmusiclive.co.uk/wp-content/uploads/2014/07/crowd.jpg" alt="show avatar">
+        <div class="show-info">
+          <div class="show-name">{{show?.showName}}</div>
+          <div class="appreciations-container">
+            <div class="appreciations">
+              <img src="/assets/img/rock_gesture.png" alt="">144
+            </div>
+            <div class="views">
+              <img src="/assets/img/fllowers.png" alt="">12
+            </div>
+          </div>
+          <div class="show-artist">{{show?.artist}}</div>
+          <div class="show-creator">by <span class="creator-name">{{show?.creator}}</span>
+          <div class="show-location" *ngIf="show?.showLocation">in {{show?.showLocation}}</div>
+          </div>
+
+          <div class="show-purchase-data">
+            <div class="show-item">
+              <div class="item-number">${{show?.ticketPrice}}</div>
+              <div class="item-label">per-ticket</div>
+            </div>
+            <div class="show-item">
+              <div class="item-number">{{(show?.tickets - show?.ticketsSold) || 0}}</div>
+              <div class="item-label">tickets left</div>
+            </div>
+            <div class="show-item">
+              <div class="item-number">{{show.fundedPercentage || 0}}%</div>
+              <div class="item-label">funded</div>
+            </div>
+          </div>
+
+          <div class="purchase-container">
+            <button class="purchase-button">PURCHASE</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </div>

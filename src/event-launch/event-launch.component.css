@@ -84,6 +84,28 @@
 	margin-bottom: 10px;
 }
 
+.btn-filter {
+	width: 100%;
+	background-color: #fff;
+	border: 1px solid #49494c;
+}
+
+.filter-drpdwn {
+
+}
+
+.dropdown-item {
+	cursor: pointer;
+	padding: 0 5px;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 25px;
+}
+
+.dropdown-item:hover {
+	background-color: #ffe7c7;
+}
+
 .goToSecondStep {
 	text-align: center;
 }

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import { RatingModule } from 'ng2-bootstrap/rating';
+import { FormsModule } from '@angular/forms';
 
 import { GenresFilterComponent } from './genres-filter/genres-filter.component';
 import { GenresFilterPipe } from './genres-filter/genres-filter.pipe';
@@ -21,8 +23,7 @@ import { ShowsBackedComponent } from './show-backed/show-backed.component';
 import { ShowsRecordedComponent } from './show-recorded/show-recorded.component';
 import { CommentTipComponent } from './comment-tip/comment-tip.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
-import { RatingModule } from 'ng2-bootstrap';
-import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [

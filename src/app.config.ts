@@ -32,4 +32,10 @@ export class Config {
       document.documentElement.scrollTop += step;
     }
   }
+
+  public static objToQuery(data: any): string {
+    return Object.keys(data).map((k: string) => {
+      return encodeURIComponent(k) + '=' + data[k];
+    }).join('&');
+  }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { SignUpService } from '../../header/signup-modal/signup.modal.service';
-import * as _ from 'lodash';
 import { AuthService } from '../../auth/auth.service';
 
 import { LocalStorageService } from '../../auth/localStorage.service';

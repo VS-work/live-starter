@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ButtonsModule } from 'ng2-bootstrap';
+import { ButtonsModule } from 'ng2-bootstrap/buttons';
 
 import { SharedModule } from '../shared';
 import { EditProfileComponent } from './edit-profile.component';

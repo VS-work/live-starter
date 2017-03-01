@@ -5,8 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LaunchComponent } from './event-launch.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { ButtonsModule, DatepickerModule } from 'ng2-bootstrap';
+import { ButtonsModule } from 'ng2-bootstrap/buttons';
+import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { EventService } from './event.service';
+import { SharedModule, SearchService } from '../shared';
 
 @NgModule({
   declarations: [
@@ -18,10 +21,12 @@ import { EventService } from './event.service';
     BrowserModule,
     FormsModule,
     RouterModule,
+    SharedModule,
     ButtonsModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    DropdownModule.forRoot()
   ],
-  providers: [EventService],
+  providers: [EventService, SearchService],
   exports: [
     LaunchComponent
   ]

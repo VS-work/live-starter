@@ -12,8 +12,15 @@ export class GetEventsListService {
     this.http = http;
   }
 
-  public getEventsListData(): Observable<any> {
-    return this.http.get(`${Config.api}/getEventsList`).map((res: any) => {
+  public getNonLiveEventsAmountData(): Observable<any> {
+    return this.http.get(`${Config.api}/getNonLiveEventsAmount`).map((res: any) => {
+      let parseRes = JSON.parse(res._body);
+      return {err: parseRes.error, data: parseRes.data};
+    });
+  }
+
+  public getEventsList(query: string): Observable<any> {
+    return this.http.get(`${Config.api}/getEventsListByQuery?${query}`).map((res: any) => {
       let parseRes = JSON.parse(res._body);
       return {err: parseRes.error, data: parseRes.data};
     });

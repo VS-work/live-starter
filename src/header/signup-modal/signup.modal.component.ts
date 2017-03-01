@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
-import { ModalDirective } from 'ng2-bootstrap';
-import * as _ from 'lodash';
+import { ModalDirective } from 'ng2-bootstrap/modal';
+import { extend } from 'lodash';
 import { AuthService } from '../../auth/auth.service';
 
 import { SignUpService } from './signup.modal.service';
@@ -73,7 +73,7 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
   public isUserArtist(type: boolean): void {
     this.userType = {type: type ? 'artist' : 'fan'};
     this.isTypeArtist = type;
-    _.extend(this.signupForm, this.userType);
+    extend(this.signupForm, this.userType);
   }
 
   public getUserSocialProfile(): void {

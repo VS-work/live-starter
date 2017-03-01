@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalDirective } from 'ng2-bootstrap';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { Config } from '../app.config';
 import { AuthService } from '../auth/auth.service';

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
+import * as moment from 'moment';
+
 import { LocalStorageService } from '../auth/localStorage.service';
 import { EventService } from './event.service';
 
@@ -10,15 +12,20 @@ interface ILaunchEvent {
   showName: string;
   tickets: number;
   ticketPrice: number;
+  ticketsToFund: number;
+  fundedPercentage: number;
+  ticketsSold: number;
   creator: string;
   dateCreated: any;
-  datePerformance: string;
+  showLocation: string;
+  datePerformance: any;
   artist: string;
   genre: any;
   description: string;
   audio: string;
   video: string;
   info: string;
+  live: boolean;
   appreciations: any;
 }
 
@@ -32,8 +39,10 @@ export class LaunchComponent implements OnInit {
   public userProfile: any;
   public funded = 0;
   public genres: any[];
+  public locations: any[];
   public selectedGenres = [];
   public secondStepActive = false;
+  public dateByPicker: Date;
 
   public eventService: EventService;
   public eventServiceSubscribe: Subscription;
@@ -70,15 +79,20 @@ export class LaunchComponent implements OnInit {
       showName: '',
       tickets: 0,
       ticketPrice: 0,
+      ticketsToFund: 0,
+      fundedPercentage: 0,
+      ticketsSold: 0,
       creator: '',
-      dateCreated: new Date(),
-      datePerformance: '',
+      showLocation: '',
+      dateCreated: moment(new Date()).format('dddd, MMMM DD YYYY'),
+      datePerformance: moment(new Date()).format('dddd, MMMM DD YYYY'),
       artist: '',
-      genre: '',
+      genre: [],
       description: '',
       audio: '',
       video: '',
       info: '',
+      live: false,
       appreciations: {}
     };
 
@@ -86,6 +100,11 @@ export class LaunchComponent implements OnInit {
       .subscribe((res: any): void => {
         const styles: any = res.data;
         this.genres = styles.genres;
+      });
+
+    this.searchServiceSubscribe = this.searchService.getLocations()
+      .subscribe((res: any): void => {
+        this.locations = res.data;
       });
   }
 
@@ -100,6 +119,10 @@ export class LaunchComponent implements OnInit {
     this.selectedGenres.push(genre);
   }
 
+  public setLocationToShow(location: string): void {
+    this.launchEvent.showLocation = location;
+  }
+
   public goToNextStep(): void {
     this.launchEvent.creator = this.userProfile.email;
     this.launchEvent.genre = this.selectedGenres;
@@ -107,6 +130,7 @@ export class LaunchComponent implements OnInit {
   };
 
   public publish(): void {
+    this.launchEvent.datePerformance = moment(this.dateByPicker).format('dddd, MMMM DD YYYY');
     this.eventServiceSubscribe = this.eventService.saveNewEvent(this.launchEvent)
       .subscribe((res): void => {
 
@@ -118,6 +142,6 @@ export class LaunchComponent implements OnInit {
         console.log('RESPOND: ', res);
       });
 
-    console.log('SHow me: ', this.launchEvent);
+    this.router.navigate(['events']);
   }
 }
