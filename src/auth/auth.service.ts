@@ -86,6 +86,7 @@ export class AuthService {
       responseType: 'token',
       email: username,
       password: password,
+      // callbackURL: 'http://localhost:4200/second-step'
       callbackURL: 'https://livestarter-bf456.firebaseapp.com/second-step'
     }, function (err) {
       if (err) {

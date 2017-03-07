@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ButtonsModule } from 'ng2-bootstrap/buttons';
 
-import { SharedModule } from '../shared';
 import { EditProfileComponent } from './edit-profile.component';
 import { EditProfileService } from './edit-profile.service';
+import { SharedModule } from '../shared';
+import { routing } from '../modules/edit-profile.routing';
 
 @NgModule({
   declarations: [
     EditProfileComponent
   ],
   imports: [
-    BrowserModule,
+    routing,
+    CommonModule,
     SharedModule,
     ButtonsModule.forRoot(),
     FormsModule
@@ -20,5 +22,6 @@ import { EditProfileService } from './edit-profile.service';
   providers: [EditProfileService],
   exports: []
 })
+
 export class EditProfileModule {
 }

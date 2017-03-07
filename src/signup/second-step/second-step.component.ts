@@ -1,12 +1,52 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { extend } from 'lodash';
 
-import { SignUpService } from '../../header/signup-modal/signup.modal.service';
+import { SignUpService } from '../signup.service';
 import { AuthService } from '../../auth/auth.service';
 import { SearchService } from '../../shared/search/search.service';
 import { LocalStorageService } from '../../auth/localStorage.service';
+
+interface INewUser {
+  active: boolean;
+  avatar: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  email: string;
+  role: string;
+  type: string;
+  position: string;
+  city: string;
+  country: string;
+  viewers: any[];
+  appreciations: any[];
+  followers: any[];
+  followings: any[];
+  website: string;
+  joinDate: Date;
+  biography: string;
+  contacts: {
+    phone: string;
+    skype: string;
+    hangouts: string;
+  };
+  shows: any[];
+  socials: {
+    google: string;
+    facebook: string;
+    twitter: string;
+  };
+  comments: any[];
+  reviews: any[];
+  video: any[];
+  audio: any[];
+  photo: any[];
+  genres: any[];
+  groupName: string;
+}
 
 @Component({
   selector: 'app-second-step-signup',
@@ -14,7 +54,7 @@ import { LocalStorageService } from '../../auth/localStorage.service';
   styleUrls: ['./second-step.component.css']
 })
 export class SecondStepComponent implements OnInit, OnDestroy {
-  public signupForm: any = {};
+  public newUser: INewUser;
   public userErrorMessage: string;
   public countries: any;
   public cities: any;
@@ -48,6 +88,46 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     const userProfile: any = this.userProfileService.getItem('profile');
 
+    this.newUser = {
+      active: true,
+      avatar: '',
+      username: '',
+      firstName: '',
+      lastName: '',
+      gender: '',
+      email: '',
+      role: 'user',
+      type: '',
+      position: '',
+      city: '',
+      country: '',
+      viewers: [],
+      appreciations: [],
+      followers: [],
+      followings: [],
+      website: '',
+      joinDate: new Date(),
+      biography: 'User was born and seems that he is alive yet.',
+      contacts: {
+        phone: '',
+        skype: '',
+        hangouts: ''
+      },
+      shows: [],
+      socials: {
+        google: '',
+        facebook: '',
+        twitter: ''
+      },
+      comments: [],
+      reviews: [],
+      video: [],
+      audio: [],
+      photo: [],
+      genres: [],
+      groupName: ''
+    };
+
     this.getLocationsSignupServiceSubscribe = this.signupService.signupGetLocations()
       .subscribe((res): void => {
         const locations = res.data;
@@ -58,41 +138,36 @@ export class SecondStepComponent implements OnInit, OnDestroy {
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
-        const styles: any[] = res.data;
-        this.genres = styles[0].genres;
+        const styles: any = res.data;
+        this.genres = styles.genres;
       });
 
     if (userProfile) {
       this.userProfile = JSON.parse(userProfile);
-      this.signupForm.username = userProfile.name;
-      this.signupForm.country = userProfile.country;
+      this.newUser.username = userProfile.name;
+      this.newUser.country = userProfile.country;
     }
 
     this.userProfileService.getItemEvent().subscribe((userData) => {
       this.userProfile = JSON.parse(userData.value);
-      this.signupForm.username = this.userProfile.name;
-      this.signupForm.country = this.userProfile.country;
+      this.newUser.username = this.userProfile.name;
+      this.newUser.country = this.userProfile.country;
     });
   }
 
   public isUserArtist(type: boolean): void {
     this.userType = {type: type ? 'artist' : 'fan'};
     this.isTypeArtist = type;
-    extend(this.signupForm, this.userType);
+    extend(this.newUser, this.userType);
   }
 
   public submitData(): void {
-    this.signupForm = {
-      email: this.userProfile.email,
-      type: this.signupForm.type || this.userType.type,
-      country: this.userProfile.country || this.signupForm.country,
-      city: this.userProfile.city || this.signupForm.city,
-      genres: this.signupForm.genres,
-      username: this.signupForm.username,
-      gender: this.signupForm.gender,
-      groupName: this.signupForm.groupName
-    };
-    this.signupServiceSubscribe = this.signupService.signupUser(this.signupForm)
+    this.newUser.email = this.userProfile.email;
+    this.newUser.type = this.newUser.type || this.userType.type;
+    this.newUser.country = this.newUser.country || this.userProfile.country;
+    this.newUser.city =  this.newUser.city || this.userProfile.city;
+
+    this.signupServiceSubscribe = this.signupService.signupUser(this.newUser)
       .subscribe((): void => {
         this.router.navigate(['/home']);
       });

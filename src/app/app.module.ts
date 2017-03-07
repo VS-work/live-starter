@@ -8,38 +8,17 @@ import { TabsModule} from 'ng2-bootstrap/tabs';
 import { ButtonsModule } from 'ng2-bootstrap/buttons';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { HomeModule } from '../home';
 import { HeaderComponent } from '../header/header.component';
-import { SignUpService } from '../header/signup-modal/signup.modal.service';
-import { SignUpModalComponent } from '../header/signup-modal/signup.modal.component';
+import { SignUpService } from '../signup/signup.service';
 import { SharedModule } from '../shared';
 import { AuthService } from '../auth/auth.service';
 import { LocalStorageService } from '../auth/localStorage.service';
 import { routing } from '../routes';
-import { FirstStepComponent } from '../signup/first-step/first-step.component';
-import { SecondStepComponent } from '../signup/second-step/second-step.component';
-import { ArtistProfileModule } from '../artist-profile';
-import { FanProfileModule } from '../fan-profile';
-import { EditProfileModule } from '../edit-profile';
-import { ArtistsComponent } from '../artists/artists.component';
-import { BlogComponent } from '../blog/blog.component';
-import { AboutComponent } from '../about/about.component';
-import { ContactsLiveStarterComponent } from '../contacts-livestarter';
-import { FAQModule } from '../faq';
-import { EventLaunchModule } from '../event-launch';
-import { EventsListModule } from '../events-list';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    SignUpModalComponent,
-    FirstStepComponent,
-    SecondStepComponent,
-    ArtistsComponent,
-    BlogComponent,
-    AboutComponent,
-    ContactsLiveStarterComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -51,14 +30,7 @@ import { EventsListModule } from '../events-list';
     ButtonsModule.forRoot(),
     SharedModule,
     routing,
-    RouterModule,
-    HomeModule,
-    ArtistProfileModule,
-    FanProfileModule,
-    EditProfileModule,
-    FAQModule,
-    EventLaunchModule,
-    EventsListModule
+    RouterModule
   ],
   providers: [
     SignUpService,
@@ -67,5 +39,6 @@ import { EventsListModule } from '../events-list';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

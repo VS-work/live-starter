@@ -4,9 +4,14 @@
       <img src="/assets/img/logo.png" alt="Logo icon" (click)="goToTop($event)">
     </div>
 
-    <div class="menu-container" *ngFor="let item of menuItems;">
-      <span class="menu-item-container" (click)="routeTo(item)">{{item}}</span>
-    </div>
+    <nav class="menu-container">
+      <span class="menu-item-container" routerLink="/artists" routerLinkActive="active">Artists</span>
+      <span class="menu-item-container" routerLink="/events" routerLinkActive="active">Events</span>
+      <span class="menu-item-container" routerLink="/">How It Works</span>
+      <span class="menu-item-container" routerLink="/launch" routerLinkActive="active">Launch</span>
+      <span class="menu-item-container" routerLink="/blog" routerLinkActive="active">Blog</span>
+      <span class="menu-item-container" routerLink="/contact" routerLinkActive="active">Contact</span>
+    </nav>
 
     <div class="login-container" *ngIf="!userProfile">
       <button type="button"
@@ -16,7 +21,7 @@
 
       <button type="button"
               class="signup-button"
-              (click)="router.navigate(['/first-step'])">Sign Up
+              routerLink="/first-step">Sign Up
       </button>
     </div>
 

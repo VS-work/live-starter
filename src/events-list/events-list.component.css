@@ -157,6 +157,30 @@ input:checked + .slider:before {
 	font-weight: 500;
 }
 
+.party-display-type-switcher {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	float: right;
+}
+
+.party-display-type-switcher div {
+	cursor: pointer;
+	margin-left: 5px;
+}
+
+.party-display-type-switcher .type-columns img {
+	width: 20px;
+}
+
+.party-display-type-switcher .type-rows img {
+	width: 24px;
+}
+
+.not-active {
+	opacity: .2;
+}
+
 .shows-counter {
 	font-weight: 700;
 }
@@ -175,7 +199,8 @@ input:checked + .slider:before {
 	margin-bottom: 30px;
 }
 
-.show img {
+.show img,
+.show-row img {
 	width: 300px;
 }
 
@@ -268,3 +293,175 @@ input:checked + .slider:before {
 	background-color: #fc6337;
 	color: white;
 }
+
+.show-row {
+	display: inline-flex;
+	width: 100%;
+	border: 1px solid #8e8e9a;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 30px;
+}
+
+.show-info-row {
+	display: inline-flex;
+	vertical-align: top;
+	flex-direction: column;
+	padding: 0 10px;
+	flex: 1 0;
+}
+
+.line {
+	position: relative;
+}
+
+.line:after {
+	content: '';
+	position: absolute;
+	top: 10px;
+	height: calc(100% - 20px);
+	right: -15px;
+	border-left: 2px solid #8e8e9a;
+}
+
+.show-row .show-purchase-data {
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.show-row .show-purchase-data .show-purchase-numbers {
+	display: inline-flex;
+	padding: 0 15px;
+}
+
+.show-row .show-item {
+	padding: 0 15px;
+}
+
+.show-info-row .show-creator,
+.show-row .show-purchase-data {
+	border-bottom: 0;
+}
+
+:host >>> .tooltip {
+	width: 295px;
+}
+
+:host >>> .tooltip-inner {
+	max-width: 300px;
+	border-radius: 5px;
+	background-color: #dadce8;
+	color: #8e8e9a;
+	text-align: left;
+}
+
+:host >>> .tooltip .tooltip-arrow {
+	border-bottom-color: #dadce8;
+	left: 50%;
+}
+
+.artist-avatar {
+	float: left;
+}
+
+.artist-avatar img {
+	width: 50px;
+}
+
+.artist-name {
+	cursor: pointer;
+}
+
+.artist-info {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	margin-bottom: 5px;
+}
+
+.name-location-container {
+	width: 100%;
+	align-self: center;
+	padding-left: 5px;
+}
+
+.artist-info .artist-name {
+	font-size: 17px;
+	font-weight: 700;
+}
+
+.artist-genres-list {
+	font-weight: 700;
+}
+
+.artist-genres {
+	border-bottom: 1px solid #8e8e9a;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
+
+.artist-name {
+	display: inline-flex;
+}
+
+.follow-artist-tooltip-button {
+	display: inline-flex;
+	float: right;
+	border: 1px solid #8e8e9a;
+	border-radius: 5px;
+	color: #8e8e9a;
+	cursor: pointer;
+	text-align: center;
+	padding: 1px 5px;
+}
+
+.follow-artist-tooltip-button:hover {
+	background-color: lightgray;
+}
+
+.appriciations img {
+	width: 15px;
+}
+
+
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+img {
+	max-width: 100%;
+}
+.card-container {
+	display: flex;
+}
+
+.card {
+	width: 370px;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	background: #fff;
+	border-radius: 0 0 14px 14px;
+	border: 1px solid #dadce8;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
+}
+
+.card__image {
+	border-radius: 10px 10px 0 0;
+	overflow: hidden;
+}
+
+.card__main {
+	padding: 0 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 
 import { SearchService } from '../shared';
 import { GetEventsListService } from './events-list.service';
 import { Config } from '../app.config';
-import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-events-list-component',
@@ -13,11 +15,14 @@ import { Subscription } from 'rxjs';
 })
 
 export class EventsListComponent implements OnInit {
+  private router: Router;
   public searchService: SearchService;
   public searchServiceSubscribe: Subscription;
   public getEventsData: GetEventsListService;
   public getEventsDataSubcribe: Subscription;
 
+  public dislayEventsAs: string;
+  public eventTypes: any[];
   public genres: any[];
   public locations: any[];
   public eventsData: any[];
@@ -31,14 +36,19 @@ export class EventsListComponent implements OnInit {
     isChecked: false
   };
 
-  public constructor(getEventsData: GetEventsListService,
+  public constructor(router: Router,
+                     getEventsData: GetEventsListService,
                      searchService: SearchService) {
+    this.router = router;
     this.getEventsData = getEventsData;
     this.searchService = searchService;
   }
 
   public ngOnInit(): void {
     this.datepickerShow = false;
+    this.dislayEventsAs = 'columns';
+
+    this.eventTypes = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
 
     this.queryToFindShow = {
       dateShowPerformance: new Date(),

@@ -16,10 +16,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('staticModal') public staticModal: ModalDirective;
 
   public userProfile: any;
-
-  public menuItems: any[] = ['Artists', 'Events', 'How it works', 'Launch', 'Fund', 'Blog', 'Contact'];
   public userProfileService: LocalStorageService;
-
   private auth: AuthService;
   private router: Router;
 
@@ -58,9 +55,4 @@ export class HeaderComponent implements OnInit {
     e.preventDefault();
     Config.animateScroll('scrollBackToTop', 20, 1000);
   };
-
-  public routeTo(route: string): void {
-    const redirectTo = route.toLowerCase();
-    this.router.navigate(['/' + redirectTo]);
-  }
 }

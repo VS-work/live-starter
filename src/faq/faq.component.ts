@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { GetFAQsService } from './faq.service';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-faq-component',

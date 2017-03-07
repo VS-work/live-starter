@@ -1,14 +1,11 @@
 <div class="signup-container">
   <div>
-    <!--<div class="back-button-container" (click)="backToFisrtStep()">-->
-    <!--<img class="back-button" src="/assets/img/back.png" alt="back">-->
-    <!--</div>-->
     <div class="avatar-container">
       <img src="{{userProfile?.picture}}" alt="Avatar">
     </div>
     <div class="user-data-container">
-      <div class="user-name-container">{{signupForm?.username || userProfile?.name}}</div>
-      <div class="user-email-container">{{signupForm?.email || userProfile?.email}}</div>
+      <div class="user-name-container">{{newUser?.username || newUser?.name}}</div>
+      <div class="user-email-container">{{newUser?.email || newUser?.email}}</div>
     </div>
   </div>
 
@@ -42,54 +39,60 @@
     <div [ngStyle]="{display: isTypeArtist ? 'none' : 'block'}">
       <input class="form-control"
              type="text"
-             [(ngModel)]="signupForm.username"
+             [(ngModel)]="newUser.username"
              #usrname
              placeholder="* What should we call you? (nickname)">
       <div class="gender-selector-container">
         <span class="gender-head">Gender:</span>
-        <input type="radio" name="gender" value="male" [(ngModel)]="signupForm.gender"> <span class="gender-unit">Male</span>
-        <input type="radio" name="gender" value="female" [(ngModel)]="signupForm.gender"> <span
+        <input type="radio" name="gender" value="male" [(ngModel)]="newUser.gender"> <span class="gender-unit">Male</span>
+        <input type="radio" name="gender" value="female" [(ngModel)]="newUser.gender"> <span
           class="gender-unit">Female</span>
-        <input type="radio" name="gender" value="other" [(ngModel)]="signupForm.gender"> <span
+        <input type="radio" name="gender" value="other" [(ngModel)]="newUser.gender"> <span
           class="gender-unit">Other</span>
       </div>
 
-      <select class="form-control" [(ngModel)]="signupForm.country">
+      <select class="form-control" [(ngModel)]="newUser.country">
         <option value="" disabled selected="selected">* Select Country</option>
-        <option *ngFor="let country of countries" value={{country.country}}>{{country.alias || signupForm.country}}</option>
+        <option *ngFor="let country of countries" value={{country.country}}>{{country.alias || newUser.country}}</option>
       </select>
 
-      <select class="form-control" [(ngModel)]="signupForm.city">
+      <select class="form-control" [(ngModel)]="newUser.city">
         <option value="" disabled selected="selected">* Select City</option>
         <option *ngFor="let city of cities" value={{city.city}}>{{city.alias}}</option>
       </select>
 
       <div>
-        <button type="submit" class="submit-signup" (click)="submitData(signupForm)">Let's Do This!</button>
+        <button type="submit" class="submit-signup" (click)="submitData(newUser)">Let's Do This!</button>
       </div>
     </div>
 
     <div [ngStyle]="{display: isTypeArtist ? 'block' : 'none'}">
       <input class="form-control"
              type="text"
-             [(ngModel)]="signupForm.groupName"
+             [(ngModel)]="newUser.groupName"
              #usrname
              placeholder="* Artist or Band name">
 
-      <!--<app-genres-filter class="form-control"></app-genres-filter>-->
-
-      <select class="form-control" [(ngModel)]="signupForm.genres">
+      <select class="form-control" [(ngModel)]="newUser.genres">
         <option value="" disabled selected="selected">* What's Your Thing?</option>
         <option *ngFor="let genre of genres" value={{genre}}>{{genre}}</option>
       </select>
 
-      <select class="form-control" [(ngModel)]="signupForm.country">
+      <select class="form-control"
+              [(ngModel)]="newUser.country">
         <option value="" disabled selected="selected">* Select Country</option>
-        <option *ngFor="let country of countries" value={{country.country}}>{{country.alias}}</option>
+        <option *ngFor="let country of countries"
+                value={{country.country}}>
+                {{newUser.country || country.alias}}
+        </option>
       </select>
-      <select class="form-control" [(ngModel)]="signupForm.city">
+      <select class="form-control"
+              [(ngModel)]="newUser.city">
         <option value="" disabled selected="selected">* Select City</option>
-        <option *ngFor="let city of cities" value={{city.city}}>{{city.alias}}</option>
+        <option *ngFor="let city of cities"
+                value={{city.city}}>
+                {{newUser.city || city.alias}}
+        </option>
       </select>
       <div>
         <button type="submit" class="submit-signup" (click)="submitData()">Let's Do This!</button>
