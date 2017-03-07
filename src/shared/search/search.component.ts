@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+
 import { SearchService } from './search.service';
 
 @Component({
@@ -19,8 +20,8 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
-        const styles: any[] = res.data;
-        this.styles = styles[0].genres;
+        const styles: any = res.data;
+        this.styles = styles.genres;
       });
   }
 

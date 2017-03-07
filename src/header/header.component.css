@@ -9,6 +9,10 @@
 	width: 100%;
 }
 
+.menu-container .active {
+	font-weight: 700;
+}
+
 .title-container {
 	cursor: pointer;
 	float: left;

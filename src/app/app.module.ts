@@ -2,38 +2,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { ModalModule, DropdownModule, TabsModule, ButtonsModule } from 'ng2-bootstrap';
+import { ModalModule } from 'ng2-bootstrap/modal';
+import { DropdownModule} from 'ng2-bootstrap/dropdown';
+import { TabsModule} from 'ng2-bootstrap/tabs';
+import { ButtonsModule } from 'ng2-bootstrap/buttons';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
-import { HomeModule } from '../home';
 import { HeaderComponent } from '../header/header.component';
-import { LoginModalComponent } from '../header/login-modal/login.modal.component';
-import { LoginService } from '../header/login-modal/login.modal.service';
-import { SignUpService } from '../header/signup-modal/signup.modal.service';
-import { SignUpModalComponent } from '../header/signup-modal/signup.modal.component';
+import { SignUpService } from '../signup/signup.service';
 import { SharedModule } from '../shared';
 import { AuthService } from '../auth/auth.service';
 import { LocalStorageService } from '../auth/localStorage.service';
 import { routing } from '../routes';
-import { FirstStepComponent } from '../signup/first-step/first-step.component';
-import { SecondStepComponent } from '../signup/second-step/second-step.component';
-import { ArtistProfileModule } from '../artist-profile';
-import { FanProfileModule } from '../fan-profile';
-import { EditProfileModule } from '../edit-profile';
-import { ArtistsComponent } from '../artists/artists.component';
-import { BlogComponent } from '../blog/blog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    LoginModalComponent,
-    SignUpModalComponent,
-    FirstStepComponent,
-    SecondStepComponent,
-    ArtistsComponent,
-    BlogComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -45,19 +30,15 @@ import { BlogComponent } from '../blog/blog.component';
     ButtonsModule.forRoot(),
     SharedModule,
     routing,
-    RouterModule,
-    HomeModule,
-    ArtistProfileModule,
-    FanProfileModule,
-    EditProfileModule
+    RouterModule
   ],
   providers: [
-    LoginService,
     SignUpService,
     AuthService,
     LocalStorageService
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

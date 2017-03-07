@@ -1,0 +1,298 @@
+<div class="events-page-container">
+  <div class="search-filter-header">
+    <div class="container">
+      <div class="date-filter">
+        <div class="datepicker-dropdown pdng-filter-items brdr-l brdr-r" (click)="datePickerDropdown()">
+          <img class="datepicker-icon" src="/assets/img/datepicker.png" alt="">
+          <div class="dp-dd" *ngIf="datepickerShow">
+            <datepicker [(ngModel)]="queryToFindShow.dateShowPerformance"
+                        [activeDate]="true"
+                        (selectionDone)="findEventsByQuery(queryToFindShow)"></datepicker>
+          </div>
+        </div>
+
+        <div class="list-for-today pdng-filter-items" (click)="setTodayDate()">
+          <span class="today-name">Today</span>
+        </div>
+
+        <div class="scroll-left-button pdng-filter-items brdr-l brdr-r" (click)="setDay(false)">
+          <img src="/assets/img/left-arrow-date.png" alt="">
+        </div>
+
+        <div class="choose-day-button">
+          {{queryToFindShow.dateShowPerformance | date: 'fullDate'}}
+        </div>
+
+        <div class="scroll-right-button pdng-filter-items brdr-l brdr-r" (click)="setDay(true)">
+          <img src="/assets/img/right-arrow-date.png" alt="">
+        </div>
+      </div>
+
+      <div class="show-attrs-filter">
+        <div class="filter-drpdwn live-shows">
+          <div class="title">Live</div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="displayLiveShows.isChecked" (click)="displayLiveShowsFunc()">
+            <div class="slider round"></div>
+          </label>
+        </div>
+
+        <div class="filter-drpdwn"><span class="title">Location</span>
+          <div class="btn-group" dropdown>
+            <button id="location-button" type="button" class="btn btn-filter" dropdownToggle>
+              {{queryToFindShow.findByLocation || 'Select all'}} <span class="caret"></span>
+            </button>
+            <div dropdownMenu role="menu" aria-labelledby="single-button">
+              <div
+                  class="dropdown-item"
+                  (click)="pushLocationToList('Select all')"
+                  btnCheckbox>Select All
+              </div>
+              <div class="locations-list" *ngFor="let location of locations">
+                <div
+                    class="dropdown-item"
+                    (click)="pushLocationToList(location.country)"
+                    btnCheckbox>{{location.country}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-drpdwn"><span class="title">Genre</span>
+          <div class="btn-group" dropdown>
+            <button id="genre-button" type="button" class="btn btn-filter" dropdownToggle>
+              {{queryToFindShow.findByGenre || 'Select all'}} <span class="caret"></span>
+            </button>
+            <div dropdownMenu role="menu" aria-labelledby="single-button">
+              <div
+                  class="dropdown-item"
+                  (click)="pushGenreToList('Select all')"
+                  btnCheckbox>Select All
+              </div>
+              <div class="genres-list" *ngFor="let genre of genres">
+                <div
+                    class="dropdown-item"
+                    (click)="pushGenreToList(genre)"
+                    btnCheckbox>{{genre}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-drpdwn"><span class="title">Sort by</span>
+          <div class="btn-group" dropdown>
+            <button id="sortedby-button" type="button" class="btn btn-filter" dropdownToggle>
+              {{queryToFindShow.findByType || 'Select all'}}<span class="caret"></span>
+            </button>
+            <div dropdownMenu role="menu" aria-labelledby="single-button">
+              <div
+                  class="dropdown-item"
+                  (click)="pushTypeToList('Select all')"
+                  btnCheckbox>Select All
+              </div>
+              <div class="types-list" *ngFor="let eventType of eventTypes">
+                <div
+                    class="dropdown-item"
+                    (click)="pushTypeToList(eventType)"
+                    btnCheckbox>{{eventType}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="shows-header-title">
+      <span class="coming-shows" *ngIf="!displayLiveShows.isChecked">Explore <span class="shows-counter">{{nonLiveEventsAmount}}</span> Coming Shows</span>
+      <span class="coming-shows" *ngIf="displayLiveShows.isChecked"><span class="shows-counter">24</span> Shows Live Now</span>
+
+      <div class="party-display-type-switcher">
+        <div class="type-columns"
+             [(ngModel)]="dislayEventsAs" btnRadio="columns"
+             [ngClass]="{'not-active': dislayEventsAs !== 'columns'}">
+          <img src="assets/img/menu.svg" alt="">
+        </div>
+        <div class="type-rows"
+             [(ngModel)]="dislayEventsAs" btnRadio="rows"
+             [ngClass]="{'not-active': dislayEventsAs !== 'rows'}">
+          <img src="assets/img/list.svg" alt="">
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="card-container">-->
+      <!--<div class="card">-->
+        <!--<div class="card__image">-->
+          <!--<img src="https://secure.static.tumblr.com/e98fb2269f6a0d4e0577f9b131658b69/gcuvmtv/EXHobsf8b/tumblr_static_47s7li525juo48k4ogwkgcg0o.jpg" alt="image">-->
+        <!--</div>-->
+        <!--<div class="card__main">-->
+          <!--<div class="card__content">-->
+            <!--<div class="card__info">-->
+              <!--<h5 class="card__event-name">Denis Pereverziev</h5>-->
+              <!--<span class="card__artist-name">Denis Solocvei</span>-->
+              <!--<div class="card__statistics">-->
+                <!--<span>L:3</span>-->
+                <!--<span>F:22</span>-->
+              <!--</div>-->
+              <!--<span class="card__creator-name">by email@email.com</span>-->
+              <!--<span class="card__location">in Turkey</span>-->
+              <!--<span class="card__artist__position">Singer, Song-writer</span>-->
+              <!--<strong class="card__genres">Genres<span>Rock, Pop, Jazz</span></strong>-->
+            <!--</div>-->
+            <!--<div class="card__text">-->
+              <!--<p>Shawn Mendes is a Canadian singer-songwriter. He attracted a following in 2013, when he began posting-->
+                <!--song covers on the video sharing application Vine. The following year, he caught the attention of artist man</p>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="card__meta">-->
+            <!--<span class="card__meta-intro">Next show</span>-->
+            <!--<span class="card__date"></span>-->
+            <!--<div class="card__numbers">-->
+              <!--<strong class="card__meta-number">-->
+                <!--$72-->
+                <!--<span>per ticket</span>-->
+              <!--</strong>-->
+              <!--<strong class="card__meta-number">-->
+                <!--$72-->
+                <!--<span>per ticket</span>-->
+              <!--</strong>-->
+              <!--<strong class="card__meta-number">-->
+                <!--$72-->
+                <!--<span>per ticket</span>-->
+              <!--</strong>-->
+            <!--</div>-->
+            <!--<div class="card__button">-->
+              <!--<button class="button">Ticket</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <div class="shows-container" *ngIf="dislayEventsAs === 'columns'">
+      <div class="show" *ngFor="let show of eventsData">
+        <img src="http://www.bristolmusiclive.co.uk/wp-content/uploads/2014/07/crowd.jpg" alt="show avatar">
+        <div class="show-info">
+          <div class="show-name">{{show?.showName}}</div>
+          <div class="appreciations-container">
+            <div class="appreciations">
+              <img src="/assets/img/rock_gesture.png" alt="">144
+            </div>
+            <div class="views">
+              <img src="/assets/img/fllowers.png" alt="">12
+            </div>
+          </div>
+          <div class="show-artist">{{show?.artist}}</div>
+          <div class="show-creator">by
+            <span class="creator-name"
+                  [tooltip]="popTemplate"
+                  placement="bottom"
+                  triggers="mouseenter:mouseleave">
+            {{show?.creator}}</span>
+            <div class="show-location">in {{show?.showLocation || 'not specified location'}}</div>
+          </div>
+          <div class="show-purchase-data">
+            <div class="show-item">
+              <div class="item-number">${{show?.ticketPrice}}</div>
+              <div class="item-label">per-ticket</div>
+            </div>
+            <div class="show-item">
+              <div class="item-number">{{(show?.tickets - show?.ticketsSold) || 0}}</div>
+              <div class="item-label">tickets left</div>
+            </div>
+            <div class="show-item">
+              <div class="item-number">{{show.fundedPercentage || 0}}%</div>
+              <div class="item-label">funded</div>
+            </div>
+          </div>
+          <div class="purchase-container">
+            <button class="purchase-button">PURCHASE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="dislayEventsAs === 'rows'">
+      <div class="show-row" *ngFor="let show of eventsData">
+        <div class="img-container">
+          <img src="http://www.bristolmusiclive.co.uk/wp-content/uploads/2014/07/crowd.jpg" alt="show avatar">
+        </div>
+        <div class="show-info-row line">
+          <div class="show-name">{{show?.showName}}
+            <div class="appreciations-container">
+              <div class="appreciations">
+                <img src="/assets/img/rock_gesture.png" alt="">144
+              </div>
+              <div class="views">
+                <img src="/assets/img/fllowers.png" alt="">12
+              </div>
+            </div>
+          </div>
+
+          <div class="show-artist">{{show?.artist}}</div>
+          <div class="show-creator">by
+            <span class="creator-name"
+                  [tooltip]="popTemplate"
+                  placement="bottom"
+                  triggers="mouseenter:mouseleave">{{show?.creator}}</span>
+            <div class="show-location">in {{show?.showLocation || 'not specified location'}}</div>
+          </div>
+
+          <div class="show-info">
+            {{show?.description}}
+          </div>
+        </div>
+
+        <div class="show-purchase-data">
+          <div class="show-purchase-numbers">
+            <div class="show-item">
+              <div class="item-number">${{show?.ticketPrice}}</div>
+              <div class="item-label">per-ticket</div>
+            </div>
+            <div class="show-item">
+              <div class="item-number">{{(show?.tickets - show?.ticketsSold) || 0}}</div>
+              <div class="item-label">tickets left</div>
+            </div>
+            <div class="show-item">
+              <div class="item-number">{{show.fundedPercentage || 0}}%</div>
+              <div class="item-label">funded</div>
+            </div>
+          </div>
+
+          <div class="purchase-container">
+            <button class="purchase-button">PURCHASE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<template #popTemplate>
+    <div class="artist-info">
+      <div class="artist-avatar">
+        <img src="http://images.equipboard.com/uploads/user/image/10587/big_shawn-mendes.jpeg?v=1481557773"
+             alt="avatar"
+             class="img-circle">
+      </div>
+      <div class="name-location-container">
+        <div class="artist-name"
+             routerLink="/artist-profile">Shawn Mendes</div>
+        <div class="follow-artist-tooltip-button">Follow</div>
+        <div class="artist-location">Canada</div>
+      </div>
+    </div>
+    <div class="artist-genres"><span class="artist-genres-list">Genres: </span>Rock, Pop, Jazz</div>
+
+    <div class="appriciations">
+      <img src="../assets/img/eye-icon.png" alt="">:4233
+      <img src="/assets/img/rock_gesture.png" alt="">:766
+      <img src="/assets/img/user-icon.png" alt="">:234
+      <img src="../assets/img/play.png" alt="">:5</div>
+</template>

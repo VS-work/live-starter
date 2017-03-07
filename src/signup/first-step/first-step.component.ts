@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { SignUpService } from '../../header/signup-modal/signup.modal.service';
-import * as _ from 'lodash';
+import { Subscription } from 'rxjs/Subscription';
+
+import { SignUpService } from '../signup.service';
 import { AuthService } from '../../auth/auth.service';
 
 import { LocalStorageService } from '../../auth/localStorage.service';
@@ -68,7 +68,6 @@ export class FirstStepComponent implements OnInit, OnDestroy {
 
         if (emailError) {
           this.signupForm.password = '';
-          this.signupForm.passwordConfirm = '';
           this.userErrorMessage = emailError;
           return;
         }

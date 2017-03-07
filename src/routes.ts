@@ -1,26 +1,21 @@
 import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-import { HomeComponent } from './home';
-import { FirstStepComponent } from './signup/first-step/first-step.component';
-import { SecondStepComponent } from './signup/second-step/second-step.component';
-import { ArtistsComponent } from './artists/artists.component';
-import { BlogComponent } from './blog';
-import { ArtistProfileComponent } from './artist-profile';
-import { FanProfileComponent } from './fan-profile';
-import { EditProfileComponent } from './edit-profile';
-
 export const routes: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: 'first-step', component: FirstStepComponent},
-  {path: 'second-step', component: SecondStepComponent},
-  {path: 'artists', component: ArtistsComponent},
-  {path: 'artist-profile', component: ArtistProfileComponent},
-  {path: 'fan-profile', component: FanProfileComponent},
-  {path: 'edit-profile', component: EditProfileComponent},
-  {path: 'blog', component: BlogComponent},
+  {path: 'home', loadChildren: 'home/home.module#HomeModule'},
+  {path: 'first-step', loadChildren: 'signup/first-step/first-step-signup.module#SignupFirstStepModule'},
+  {path: 'second-step', loadChildren: 'signup/second-step/second-step-signup.module#SignupSecondStepModule'},
+  {path: 'artists', loadChildren: 'artists/artists.module#ArtistsModule'},
+  {path: 'artist-profile', loadChildren: 'artist-profile/artist-profile.module#ArtistProfileModule'},
+  {path: 'fan-profile', loadChildren: 'fan-profile/fan-profile.module#FanProfileModule'},
+  {path: 'edit-profile', loadChildren: 'edit-profile/edit-profile.module#EditProfileModule'},
+  {path: 'blog', loadChildren: 'blog/blog.module#BlogModule'},
+  {path: 'about', loadChildren: 'about/about.module#AboutModule'},
+  {path: 'faq', loadChildren: 'faq/faq.module#FAQModule'},
+  {path: 'launch', loadChildren: 'event-launch/event-launch.module#EventLaunchModule'},
+  {path: 'events', loadChildren: 'events-list/events-list.module#EventsListModule'},
+  {path: 'contact', loadChildren: 'contacts-livestarter/contacts-livestarter.module#LiveStarterContactsModule'},
   {path: '**', redirectTo: 'home'}
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
-

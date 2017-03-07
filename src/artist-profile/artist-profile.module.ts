@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ButtonsModule, TabsModule } from 'ng2-bootstrap';
-
+import { ButtonsModule } from 'ng2-bootstrap/buttons';
+import { TabsModule } from 'ng2-bootstrap/tabs';
 import { SharedModule } from '../shared';
 import { BiographyComponent } from './bio/bio.component';
 import { MusicComponent } from './music/music.component';
@@ -12,6 +12,7 @@ import { ShowsComponent } from './shows/shows.component';
 import { TipsComponent } from './tips/tips.component';
 import { ArtistProfileComponent } from './artist-profile.component';
 import { ArtistProfileService } from './artist-profile.service';
+import { routing } from '../modules/artist-profile.routing';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ArtistProfileService } from './artist-profile.service';
     TipsComponent
   ],
   imports: [
-    BrowserModule,
+    routing,
+    CommonModule,
     SharedModule,
     ButtonsModule.forRoot(),
     TabsModule.forRoot(),
