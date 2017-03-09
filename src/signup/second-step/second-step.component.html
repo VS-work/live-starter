@@ -83,7 +83,7 @@
         <option value="" disabled selected="selected">* Select Country</option>
         <option *ngFor="let country of countries"
                 value={{country.country}}>
-                {{newUser.country || country.alias}}
+                {{country.alias}}
         </option>
       </select>
       <select class="form-control"
@@ -91,7 +91,7 @@
         <option value="" disabled selected="selected">* Select City</option>
         <option *ngFor="let city of cities"
                 value={{city.city}}>
-                {{newUser.city || city.alias}}
+                {{city.alias}}
         </option>
       </select>
       <div>
