@@ -82,17 +82,17 @@
       <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
         <tabset>
           <tab *ngIf="user?.biography" (select)="true" (deselect)="false">
-            <template tabHeading>Bio</template>
+            <ng-template tabHeading>Bio</ng-template>
             <app-fan-bio-tab [currentUser]="user"></app-fan-bio-tab>
           </tab>
 
           <tab *ngIf="user?.shows.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Coming Shows</template>
+            <ng-template tabHeading>Coming Shows</ng-template>
             <app-fan-shows-tab [showType]="'coming'" [currentUser]="user"></app-fan-shows-tab>
           </tab>
 
           <tab *ngIf="user?.comments.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Comments</template>
+            <ng-template tabHeading>Comments</ng-template>
             <app-fan-comments-tab [currentUser]="user"></app-fan-comments-tab>
           </tab>
         </tabset>

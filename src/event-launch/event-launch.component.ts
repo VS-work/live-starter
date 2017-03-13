@@ -40,7 +40,7 @@ export class LaunchComponent implements OnInit {
   public funded = 0;
   public genres: any[];
   public locations: any[];
-  public selectedGenres = [];
+  public selectedGenres: any[] = [];
   public secondStepActive = false;
   public dateByPicker: Date;
 

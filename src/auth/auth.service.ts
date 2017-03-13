@@ -27,14 +27,14 @@ export class AuthService {
     this.router = router;
     this.userProfileService = userProfileService;
 
-    this.auth0.parseHash(window.location.hash, function(err, authResult) {
+    this.auth0.parseHash(window.location.hash, function(err: Error, authResult: any) {
       if (err) {
         return console.log(err);
       }
 
       console.log();
 
-      Auth0.userInfo(authResult.accessToken, function(cliErr, user) {
+      Auth0.userInfo(authResult.accessToken, function(cliErr: Error, user: any) {
         if (cliErr) {
           return console.log(cliErr);
         }
@@ -51,10 +51,10 @@ export class AuthService {
 
     this.userProfile = JSON.parse(localStorage.getItem('profile'));
 
-    this.lock.on('authenticated', (authResult) => {
+    this.lock.on('authenticated', (authResult: any) => {
       localStorage.setItem('id_token', authResult.idToken);
 
-      this.lock.getProfile(authResult.idToken, (error, profile) => {
+      this.lock.getProfile(authResult.idToken, (error: Error, profile: any) => {
         if (error) {
           // Handle error
           alert(error);
@@ -67,20 +67,20 @@ export class AuthService {
     });
   }
 
-  public login(username, password) {
+  public login(username: string, password: string) {
     this.auth0.login({
       connection: 'Username-Password-Authentication',
       responseType: 'token',
       email: username,
       password: password,
-    }, function (err) {
+    }, function (err: Error) {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
     });
   }
 
-  public signUp(username, password) {
+  public signUp(username: string, password: string) {
     this.auth0.signup({
       connection: 'Username-Password-Authentication',
       responseType: 'token',
@@ -88,7 +88,7 @@ export class AuthService {
       password: password,
       // callbackURL: 'http://localhost:4200/second-step'
       callbackURL: 'https://livestarter-bf456.firebaseapp.com/second-step'
-    }, function (err) {
+    }, function (err: Error) {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
@@ -98,7 +98,7 @@ export class AuthService {
   public googleLogin() {
     this.auth0.login({
       connection: 'google-oauth2'
-    }, function (err) {
+    }, function (err: Error) {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
@@ -110,7 +110,7 @@ export class AuthService {
       connection: 'google-oauth2',
       callbackURL: 'https://livestarter-bf456.firebaseapp.com/second-step'
       // callbackURL: 'http://localhost:4200/second-step'
-    }, function (err) {
+    }, function (err: Error) {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
@@ -120,7 +120,7 @@ export class AuthService {
   public facebookLogin() {
     this.auth0.login({
       connection: 'facebook'
-    }, function (err) {
+    }, function (err: Error) {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
@@ -130,7 +130,7 @@ export class AuthService {
   public twitterLogin() {
     this.auth0.login({
       connection: 'twitter'
-    }, function (err) {
+    }, function (err: Error) {
       if (err) {
         alert('something went wrong: ' + err.message);
       }

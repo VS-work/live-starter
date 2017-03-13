@@ -14,8 +14,6 @@ import { ArtistsYouMayLikeComponent } from './artists-you-may-like/artists-you-m
 import { UpcomingShowsComponent } from './upcoming-shows/upcoming-shows.component';
 import { HowItWasComponent } from './how-it-was/how-it-was.component';
 import { WhatTheySayComponent } from './what-they-say/what-they-say.component';
-import { HowItWorksComponent } from './how-it-works/how-it-works.component';
-import { BenefitsComponent } from './benefits/benefits.component';
 import { PrefooterComponent } from './prefooter/prefooter.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShowsTipComponent } from './show-tip/show-tip.component';
@@ -36,8 +34,6 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
     UpcomingShowsComponent,
     HowItWasComponent,
     WhatTheySayComponent,
-    HowItWorksComponent,
-    BenefitsComponent,
     PrefooterComponent,
     FooterComponent,
     ShowsTipComponent,
@@ -67,8 +63,6 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
     UpcomingShowsComponent,
     HowItWasComponent,
     WhatTheySayComponent,
-    HowItWorksComponent,
-    BenefitsComponent,
     PrefooterComponent,
     FooterComponent,
     ShowsTipComponent,

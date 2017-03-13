@@ -82,42 +82,42 @@
       <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
         <tabset>
           <tab *ngIf="user?.biography" (select)="true" (deselect)="false">
-            <template tabHeading>Bio</template>
+            <ng-template tabHeading>Bio</ng-template>
             <app-bio-tab [currentUser]="user"></app-bio-tab>
           </tab>
 
           <tab *ngIf="user?.audio" (select)="true" (deselect)="false">
-            <template tabHeading>Music</template>
+            <ng-template tabHeading>Music</ng-template>
             <app-music-tab [currentUser]="user"></app-music-tab>
           </tab>
 
           <tab *ngIf="user?.shows.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Coming Shows</template>
+            <ng-template tabHeading>Coming Shows</ng-template>
             <app-shows-tab [currentUser]="user" [showType]="'coming'"></app-shows-tab>
           </tab>
 
           <tab *ngIf="user?.shows.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Backed Shows</template>
+            <ng-template tabHeading>Backed Shows</ng-template>
             <app-shows-tab [showType]="'backed'"></app-shows-tab>
           </tab>
 
           <tab *ngIf="user?.shows.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Recorded Shows</template>
+            <ng-template tabHeading>Recorded Shows</ng-template>
             <app-shows-tab [showType]="'recorded'"></app-shows-tab>
           </tab>
 
           <tab *ngIf="user?.comments.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Comments</template>
+            <ng-template tabHeading>Comments</ng-template>
             <app-comments-tab [currentUser]="user"></app-comments-tab>
           </tab>
 
           <tab *ngIf="user?.tips.length !== 0" (select)="true" (deselect)="false">
-            <template tabHeading>Tips</template>
+            <ng-template tabHeading>Tips</ng-template>
             <app-tips-tab [currentUser]="user"></app-tips-tab>
           </tab>
 
           <tab *ngIf="user?.contacts" (select)="true" (deselect)="false">
-            <template tabHeading>Contacts</template>
+            <ng-template tabHeading>Contacts</ng-template>
             <app-contacts-tab [currentUser]="user"></app-contacts-tab>
           </tab>
         </tabset>

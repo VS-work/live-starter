@@ -39,7 +39,7 @@ export class FirstStepComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
   }
 
-  public socialLogin(socialType): void {
+  public socialLogin(socialType: string): void {
     switch (socialType) {
       case 'google':
         this.auth.googleSignup();

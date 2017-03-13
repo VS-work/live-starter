@@ -4,7 +4,7 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class FeaturedArtistsService {
-  public res = {error: null, data: {
+  public res: any = {error: null, data: {
     active: true,
     avatar: 'http://www.billboard.com/files/media/shawn-mendes-MSG-sept-2016-billboard-1548.jpg',
     username: 'shawn.mendes',

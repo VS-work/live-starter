@@ -4,7 +4,7 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class FanProfileService {
-  public res = {error: null, data: {
+  public res: any = {error: null, data: {
     active: true,
     avatar: 'http://www.name-list.net/img/portrait/Denise_1.jpg',
     username: 'denise.fisher',
