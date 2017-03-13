@@ -1,6 +1,6 @@
 export class Config {
-  public static api = '//192.168.1.57:3000';
-  // public static api = '//immense-mesa-67919.herokuapp.com';
+  // public static api = '//192.168.1.57:3000';
+  public static api = '//immense-mesa-67919.herokuapp.com';
 
   public static animateScroll(id: string, inc: number, duration: number): any {
     const elem = document.getElementById(id);

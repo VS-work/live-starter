@@ -11,6 +11,7 @@ export const routes: Routes = [
   {path: 'edit-profile', loadChildren: 'edit-profile/edit-profile.module#EditProfileModule'},
   {path: 'blog', loadChildren: 'blog/blog.module#BlogModule'},
   {path: 'about', loadChildren: 'about/about.module#AboutModule'},
+  {path: 'how-it-works', loadChildren: 'how-it-works/how-it-works.module#HowItWorksModule'},
   {path: 'faq', loadChildren: 'faq/faq.module#FAQModule'},
   {path: 'launch', loadChildren: 'event-launch/event-launch.module#EventLaunchModule'},
   {path: 'events', loadChildren: 'events-list/events-list.module#EventsListModule'},
