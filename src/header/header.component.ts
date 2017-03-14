@@ -34,9 +34,11 @@ export class HeaderComponent implements OnInit {
     }
 
     this.localStorageService.getItemEvent().subscribe((userData: any) => {
-      if (userData.key === 'profile') {
-        this.userProfile = JSON.parse(userData.value);
+      if (userData.key !== 'profile') {
+        return;
       }
+
+      this.userProfile = JSON.parse(userData.value);
     });
   }
 
