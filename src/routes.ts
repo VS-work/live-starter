@@ -13,6 +13,7 @@ export const routes: Routes = [
   {path: 'about', loadChildren: 'about/about.module#AboutModule'},
   {path: 'how-it-works', loadChildren: 'how-it-works/how-it-works.module#HowItWorksModule'},
   {path: 'faq', loadChildren: 'faq/faq.module#FAQModule'},
+  {path: 'help-support', loadChildren: 'help-support//help-support.module#HelpSupportModule'},
   {path: 'launch', loadChildren: 'event-launch/event-launch.module#EventLaunchModule'},
   {path: 'events', loadChildren: 'events-list/events-list.module#EventsListModule'},
   {path: 'contact', loadChildren: 'contacts-livestarter/contacts-livestarter.module#LiveStarterContactsModule'},
