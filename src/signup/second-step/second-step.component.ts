@@ -5,8 +5,7 @@ import { extend } from 'lodash';
 
 import { SignUpService } from '../signup.service';
 import { AuthService } from '../../auth/auth.service';
-import { SearchService } from '../../shared/search/search.service';
-import { LocalStorageService } from '../../auth/localStorage.service';
+import { LocalStorageService, SearchService } from '../../shared';
 
 interface INewUser {
   active: boolean;

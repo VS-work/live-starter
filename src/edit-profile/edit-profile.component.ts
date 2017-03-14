@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { EditProfileService } from './edit-profile.service';
-import { LocalStorageService } from '../auth/localStorage.service';
+import { LocalStorageService } from '../shared';
 
 @Component({
   selector: 'app-edit-profile-component',

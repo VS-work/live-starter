@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SignUpService } from '../signup.service';
 import { AuthService } from '../../auth/auth.service';
 
-import { LocalStorageService } from '../../auth/localStorage.service';
+import { LocalStorageService } from '../../shared';
 
 @Component({
   selector: 'app-first-step-signup',

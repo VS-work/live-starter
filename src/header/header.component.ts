@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { Config } from '../app.config';
+import { LocalStorageService } from '../shared';
 import { AuthService } from '../auth/auth.service';
-import { LocalStorageService } from '../auth/localStorage.service';
 
 @Component({
   selector: 'app-header',
@@ -16,31 +16,37 @@ export class HeaderComponent implements OnInit {
   @ViewChild('staticModal') public staticModal: ModalDirective;
 
   public userProfile: any;
-  public userProfileService: LocalStorageService;
+  public localStorageService: LocalStorageService;
   private auth: AuthService;
   private router: Router;
 
-  public constructor(auth: AuthService, userProfileService: LocalStorageService, router: Router) {
+  public constructor(auth: AuthService, localStorageService: LocalStorageService, router: Router) {
     this.auth = auth;
     this.router = router;
-    this.userProfileService = userProfileService;
+    this.localStorageService = localStorageService;
   }
 
   public ngOnInit(): void {
-    const userProfile: any = this.userProfileService.getItem('profile');
+    const userProfile: any = this.localStorageService.getItem('profile');
 
     if (userProfile) {
       this.userProfile = JSON.parse(userProfile);
     }
 
-    this.userProfileService.getItemEvent().subscribe((userData) => {
-      this.userProfile = JSON.parse(userData.value);
+    this.localStorageService.getItemEvent().subscribe((userData: any) => {
+      if (userData.key === 'profile') {
+        this.userProfile = JSON.parse(userData.value);
+      }
     });
   }
 
   public goToTop(e: MouseEvent): void {
     this.scrollTop(e);
     this.router.navigate(['/home']);
+
+    if (this.localStorageService.getItem('homePageSearchData')) {
+      this.localStorageService.removeItem('homePageSearchData');
+    }
   }
 
   public loginModal(): void {

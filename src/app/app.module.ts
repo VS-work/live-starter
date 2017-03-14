@@ -10,9 +10,8 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '../header/header.component';
 import { SignUpService } from '../signup/signup.service';
-import { SharedModule } from '../shared';
+import { SharedModule, LocalStorageService } from '../shared';
 import { AuthService } from '../auth/auth.service';
-import { LocalStorageService } from '../auth/localStorage.service';
 import { routing } from '../routes';
 
 @NgModule({

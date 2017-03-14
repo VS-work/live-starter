@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 
-import { LocalStorageService } from './localStorage.service';
+import { LocalStorageService } from '../shared';
 
 declare let Auth0: any;
 declare let Auth0Lock: any;
