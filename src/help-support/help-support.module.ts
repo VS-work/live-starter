@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HelpSupportComponent } from './help-support.component';
-import { routing } from '../modules/about.routing';
+import { routing } from '../modules/help-support.routing';
 
 @NgModule({
   imports: [routing],
