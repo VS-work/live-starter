@@ -21,6 +21,7 @@ import { ShowsBackedComponent } from './show-backed/show-backed.component';
 import { ShowsRecordedComponent } from './show-recorded/show-recorded.component';
 import { CommentTipComponent } from './comment-tip/comment-tip.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
+import { LocalStorageService } from './local-storage-service/localStorage.service';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
   ],
   providers: [
     SearchService,
+    LocalStorageService,
     FeaturedArtistsService
   ],
   exports: [

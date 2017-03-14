@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SearchService } from './search.service';
+import { LocalStorageService } from '../local-storage-service/localStorage.service';
 
 @Component({
   selector: 'app-search',
@@ -9,23 +11,41 @@ import { SearchService } from './search.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  public localStorageService: LocalStorageService;
   public searchService: SearchService;
   public searchServiceSubscribe: Subscription;
+  private router: Router;
   public styles: any[];
 
-  public constructor(searchService: SearchService) {
+  public constructor(searchService: SearchService,
+                     router: Router,
+                     localStorageService: LocalStorageService) {
+    this.router = router;
     this.searchService = searchService;
+    this.localStorageService = localStorageService;
   }
 
   ngOnInit(): void {
+    const clearSearchData: any = this.localStorageService.getItem('homePageSearchData');
+
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
         const styles: any = res.data;
         this.styles = styles.genres;
       });
+
+    if (clearSearchData) {
+      this.localStorageService.removeItem('homePageSearchData');
+    }
   }
 
-  public search(): void {
-    console.log('search womething with me. :) ');
+  public searchArtistData(searchData: any): void {
+    const searchArtists: any = {data: '', sortBy: ''};
+
+    searchArtists.data = searchData.genre ? searchData.genre : searchData.name;
+    searchArtists.sortBy = searchData.genre ? 'genre' : 'name';
+
+    this.localStorageService.setItem('homePageSearchData', JSON.stringify(searchArtists));
+    this.router.navigate(['/artists']);
   }
 }
