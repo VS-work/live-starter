@@ -27,14 +27,12 @@ export class AuthService {
     this.router = router;
     this.userProfileService = userProfileService;
 
-    this.auth0.parseHash(window.location.hash, function(err: Error, authResult: any) {
+    this.auth0.parseHash(window.location.hash, (err: Error, authResult: any): void => {
       if (err) {
         return console.log(err);
       }
 
-      console.log();
-
-      Auth0.userInfo(authResult.accessToken, function(cliErr: Error, user: any) {
+      Auth0.userInfo(authResult.accessToken, (cliErr: Error, user: any): void => {
         if (cliErr) {
           return console.log(cliErr);
         }
@@ -51,10 +49,10 @@ export class AuthService {
 
     this.userProfile = JSON.parse(localStorage.getItem('profile'));
 
-    this.lock.on('authenticated', (authResult: any) => {
+    this.lock.on('authenticated', (authResult: any): void => {
       localStorage.setItem('id_token', authResult.idToken);
 
-      this.lock.getProfile(authResult.idToken, (error: Error, profile: any) => {
+      this.lock.getProfile(authResult.idToken, (error: Error, profile: any): void => {
         if (error) {
           // Handle error
           alert(error);
@@ -67,20 +65,20 @@ export class AuthService {
     });
   }
 
-  public login(username: string, password: string) {
+  public login(username: string, password: string): void {
     this.auth0.login({
       connection: 'Username-Password-Authentication',
       responseType: 'token',
       email: username,
       password: password,
-    }, function (err: Error) {
+    }, (err: Error): void => {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
     });
   }
 
-  public signUp(username: string, password: string) {
+  public signUp(username: string, password: string): void {
     this.auth0.signup({
       connection: 'Username-Password-Authentication',
       responseType: 'token',
@@ -88,62 +86,62 @@ export class AuthService {
       password: password,
       // callbackURL: 'http://localhost:4200/second-step'
       callbackURL: 'https://livestarter-bf456.firebaseapp.com/second-step'
-    }, function (err: Error) {
+    }, (err: Error): void => {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
     });
   }
 
-  public googleLogin() {
+  public googleLogin(): void {
     this.auth0.login({
       connection: 'google-oauth2'
-    }, function (err: Error) {
+    }, (err: Error): void => {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
     });
   }
 
-  public googleSignup() {
+  public googleSignup(): void {
     this.auth0.login({
       connection: 'google-oauth2',
       callbackURL: 'https://livestarter-bf456.firebaseapp.com/second-step'
       // callbackURL: 'http://localhost:4200/second-step'
-    }, function (err: Error) {
+    }, (err: Error): void => {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
     });
   }
 
-  public facebookLogin() {
+  public facebookLogin(): void {
     this.auth0.login({
       connection: 'facebook'
-    }, function (err: Error) {
+    }, (err: Error): void => {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
     });
   }
 
-  public twitterLogin() {
+  public twitterLogin(): void {
     this.auth0.login({
       connection: 'twitter'
-    }, function (err: Error) {
+    }, (err: Error): void => {
       if (err) {
         alert('something went wrong: ' + err.message);
       }
     });
   }
 
-  public logout() {
+  public logout(): void {
     localStorage.removeItem('profile');
     localStorage.removeItem('id_token');
     this.userProfile = undefined;
   }
 
-  public authenticated() {
+  public authenticated(): any {
     // Check if there's an unexpired JWT
     // It searches for an item in localStorage with key == 'id_token' by default
     return tokenNotExpired();
