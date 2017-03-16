@@ -20,7 +20,7 @@ export class EventService {
   }
 
   public saveNewEvent(query: any): Observable<any> {
-    return this.http.post(`${Config.api}/saveEvent`, query).map((res: any) => {
+    return this.http.post(`${Config.api}/save-event`, query).map((res: any) => {
       let parseRes = JSON.parse(res._body);
       return {err: parseRes.error, data: parseRes.data};
     });

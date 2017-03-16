@@ -7,10 +7,8 @@ import { TooltipModule } from 'ng2-bootstrap/tooltip';
 import { FormsModule } from '@angular/forms';
 
 import { EventsListComponent } from './events-list.component';
-import { GetEventsListService } from './events-list.service';
 import { SharedModule, SearchService } from '../shared';
 import { routing } from '../modules/events-list.routing';
-
 
 @NgModule({
   declarations: [
@@ -27,7 +25,6 @@ import { routing } from '../modules/events-list.routing';
     SharedModule
   ],
   providers: [
-    GetEventsListService,
     SearchService
   ],
   exports: []

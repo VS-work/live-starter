@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { extend } from 'lodash';
 
 import { SignUpService } from '../signup.service';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth';
 import { LocalStorageService, SearchService } from '../../shared';
 
 interface INewUser {

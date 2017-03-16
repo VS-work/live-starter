@@ -8,10 +8,10 @@ import { TabsModule} from 'ng2-bootstrap/tabs';
 import { ButtonsModule } from 'ng2-bootstrap/buttons';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from '../header/header.component';
-import { SignUpService } from '../signup/signup.service';
+import { HeaderComponent } from '../header';
+import { SignUpService } from '../signup';
 import { SharedModule, LocalStorageService } from '../shared';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth';
 import { routing } from '../routes';
 
 @NgModule({

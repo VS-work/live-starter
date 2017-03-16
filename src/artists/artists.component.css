@@ -1,53 +1,81 @@
-.artists-container {
-	background-color: #fafafb;
+.no-artists {
+	font-size: 35px;
+	font-weight: 700;
+	color: #8e8e9a;
+	text-align: center;
+	margin: 100px;
+}
+
+.search-filter-header {
+	width: 100%;
+	display: flex;
+	background-color: #dadce8;
+}
+
+.show-attrs-filter {
+	display: flex;
 }
 
 .filter-container {
-	text-align: center;
+	width: 100%;
 	background-color: #dadce8;
-	padding: 10px;
+	position: relative;
+	display: inline-flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	align-items: center;
 }
 
-.select-title {
+.filter-drpdwn img {
+	width: 19px;
+	height: 100%;
 	position: relative;
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 5px;
+	align-self: center;
+	margin-left: 5px;
+	cursor: pointer;
 }
 
-.location, .genre, .new-artists {
-	position: relative;
-	display: inline-block;
-	margin: 0 10px;
+.filter-drpdwn:first-child {
+	flex: 1 0;
 }
 
-.select-container {
+.filter-drpdwn {
+	display: inline-flex;
+	padding: 8px;
+	align-self: center;
+}
+
+.filter-drpdwn input {
 	position: relative;
-	display: inline-block;
-	width: 150px;
+	display: inline-flex;
+}
+
+.title {
+	margin: 0 8px;
+	display: inline-flex;
+	align-self: center;
 }
 
 .btn-filter {
+	width: 120px;
 	background-color: #fff;
 	border: 1px solid #49494c;
 }
 
-.search-btns {
-	width: 100%;
+.dropdown-item {
+	cursor: pointer;
+	padding: 0 5px;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 25px;
 }
 
-.show-all {
-	width: 80%;
-	text-align: left;
+.dropdown-item:hover {
+	background-color: #ffe7c7;
 }
 
-.btn-select {
-	background-color: #dadce8;
-}
-
-.dropdown-menu {
-	right: 0;
-	left: auto;
+.reset-filters {
+	margin-left: 40px;
 }
 
 .explore {
@@ -61,11 +89,16 @@
 	font-weight: 700;
 }
 
+.artists-list {
+	margin: 20px 0;
+}
+
 .ai-container {
 	position: relative;
 }
 
 .artist {
+	width: 100%;
 	display: inline-block;
 	position: relative;
 	background-color: white;

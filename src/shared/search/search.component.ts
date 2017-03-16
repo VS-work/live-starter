@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { SearchService } from './search.service';
-import { LocalStorageService } from '../local-storage-service/localStorage.service';
+import { SearchService } from '../search-service';
+import { LocalStorageService } from '../local-storage-service';
 
 @Component({
   selector: 'app-search',
@@ -40,10 +40,7 @@ export class SearchComponent implements OnInit {
   }
 
   public searchArtistData(searchData: any): void {
-    const searchArtists: any = {data: '', sortBy: ''};
-
-    searchArtists.data = searchData.genre ? searchData.genre : searchData.name;
-    searchArtists.sortBy = searchData.genre ? 'genre' : 'name';
+    const searchArtists: any = {findByName: searchData.name, findByGenre: searchData.genre};
 
     this.localStorageService.setItem('homePageSearchData', JSON.stringify(searchArtists));
     this.router.navigate(['/artists']);
