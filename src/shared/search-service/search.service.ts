@@ -26,4 +26,25 @@ export class SearchService {
       return {err: parseRes.error, data: parseRes.data};
     });
   }
+
+  public getNonLiveEventsAmountData(): Observable<any> {
+    return this.http.get(`${Config.api}/get-non-live-events-amount`).map((res: any) => {
+      let parseRes = JSON.parse(res._body);
+      return {err: parseRes.error, data: parseRes.data};
+    });
+  }
+
+  public getEventsList(query: string): Observable<any> {
+    return this.http.get(`${Config.api}/get-events-list-by-query?${query}`).map((res: any) => {
+      let parseRes = JSON.parse(res._body);
+      return {err: parseRes.error, data: parseRes.data};
+    });
+  }
+
+  public getArtistsList(query: string): Observable<any> {
+    return this.http.get(`${Config.api}/get-artists-list?${query}`).map((res: any) => {
+      let parseRes = JSON.parse(res._body);
+      return {err: parseRes.error, data: parseRes.data};
+    });
+  }
 }

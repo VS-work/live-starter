@@ -4,7 +4,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { Config } from '../app.config';
 import { LocalStorageService } from '../shared';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth';
 
 @Component({
   selector: 'app-header',

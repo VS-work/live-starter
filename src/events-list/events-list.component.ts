@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 
 import { SearchService } from '../shared';
-import { GetEventsListService } from './events-list.service';
 import { Config } from '../app.config';
 
 
@@ -18,7 +17,6 @@ export class EventsListComponent implements OnInit {
   private router: Router;
   public searchService: SearchService;
   public searchServiceSubscribe: Subscription;
-  public getEventsData: GetEventsListService;
   public getEventsDataSubcribe: Subscription;
 
   public dislayEventsAs: string;
@@ -37,10 +35,8 @@ export class EventsListComponent implements OnInit {
   };
 
   public constructor(router: Router,
-                     getEventsData: GetEventsListService,
                      searchService: SearchService) {
     this.router = router;
-    this.getEventsData = getEventsData;
     this.searchService = searchService;
   }
 
@@ -51,10 +47,7 @@ export class EventsListComponent implements OnInit {
     this.eventTypes = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
 
     this.queryToFindShow = {
-      dateShowPerformance: new Date(),
-      locationShowPerformance: '',
-      genreShowPerformance: [],
-      typeShowPerformance: ''
+      dateShowPerformance: new Date()
     };
 
     this.findEventsByQuery(this.queryToFindShow);
@@ -70,8 +63,8 @@ export class EventsListComponent implements OnInit {
         this.locations = res.data;
       });
 
-    this.getEventsDataSubcribe = this.getEventsData.getNonLiveEventsAmountData()
-      .subscribe((res) => {
+    this.getEventsDataSubcribe = this.searchService.getNonLiveEventsAmountData()
+      .subscribe((res: any): void => {
         if (res.error) {
           return console.error(res.error);
         }
@@ -116,10 +109,10 @@ export class EventsListComponent implements OnInit {
       delete rawQuery.findByType;
     }
 
-    const query = Config.objToQuery(rawQuery);
+    const query: any = Config.objToQuery(rawQuery);
 
-    this.getEventsDataSubcribe = this.getEventsData.getEventsList(query)
-      .subscribe((res) => {
+    this.getEventsDataSubcribe = this.searchService.getEventsList(query)
+      .subscribe((res: any): void => {
         if (res.error) {
           console.error(res.error);
         }

@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-import { SecondStepComponent } from '../signup/second-step/second-step.component';
+import { SecondStepComponent } from '../signup';
 
 export const routes: Routes = [
   {path: '', component: SecondStepComponent},

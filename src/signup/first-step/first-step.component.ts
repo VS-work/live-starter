@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SignUpService } from '../signup.service';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth';
 
 import { LocalStorageService } from '../../shared';
 
