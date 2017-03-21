@@ -29,15 +29,17 @@ export class AuthService {
 
     this.auth0.parseHash(window.location.hash, (err: Error, authResult: any): void => {
       if (err) {
-        return console.log(err);
+        console.log(err);
+        return;
       }
 
       Auth0.userInfo(authResult.accessToken, (cliErr: Error, user: any): void => {
         if (cliErr) {
-          return console.log(cliErr);
+          console.log(cliErr);
+          return;
         }
         // Now you have the user's information
-        let result = user;
+        const result = user;
         if (result && result.idToken) {
           localStorage.setItem('id_token', result.idToken);
           this.router.navigate(['/home']);

@@ -47,8 +47,8 @@ export class EditProfileComponent implements OnInit {
     if (this.localStorageUserProfile.email) {
       this.getProfileServiceSubscribe = this.editProfileService.getUser(this.localStorageUserProfile.email)
         .subscribe((res): void => {
-          if (res.err) {
-            console.error(res.err);
+          if (res.error) {
+            console.error(res.error);
             return;
           }
 
@@ -68,9 +68,8 @@ export class EditProfileComponent implements OnInit {
 
     this.editProfileServiceSubscribe = this.editProfileService.editUser(userData)
       .subscribe((res): void => {
-
-        if (res.err) {
-          console.error(res.err);
+        if (res.error) {
+          console.error(res.error);
           return;
         }
 

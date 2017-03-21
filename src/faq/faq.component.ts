@@ -22,9 +22,10 @@ export class FAQComponent implements OnInit {
 
     this.getFAQDataSubcribe = this.getFAQDada.getQsData()
       .subscribe((res) => {
-      if (res.error) {
-        console.error(res.error);
-      }
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
 
       this.faqs = res.data;
     });

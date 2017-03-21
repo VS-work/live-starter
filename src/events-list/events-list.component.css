@@ -219,6 +219,7 @@ input:checked + .slider:before {
 	display: inline-block;
 	font-size: 17px;
 	font-weight: 700;
+	cursor: pointer;
 }
 
 .appreciations-container {

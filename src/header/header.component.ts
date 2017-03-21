@@ -42,8 +42,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  public goToTop(e: MouseEvent): void {
-    this.scrollTop(e);
+  public goToHomePage(): void {
     this.router.navigate(['/home']);
 
     if (this.localStorageService.getItem('homePageSearchData')) {
@@ -58,9 +57,4 @@ export class HeaderComponent implements OnInit {
   public closeModal(): void {
     this.staticModal.hide();
   }
-
-  public scrollTop(e: MouseEvent): void {
-    e.preventDefault();
-    Config.animateScroll('scrollBackToTop', 20, 1000);
-  };
 }

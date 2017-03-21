@@ -30,6 +30,11 @@ export class SearchComponent implements OnInit {
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
+
         const styles: any = res.data;
         this.styles = styles.genres;
       });

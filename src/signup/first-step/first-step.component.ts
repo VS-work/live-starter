@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -12,7 +12,8 @@ import { LocalStorageService } from '../../shared';
   templateUrl: './first-step.component.html',
   styleUrls: ['./first-step.component.css']
 })
-export class FirstStepComponent implements OnInit, OnDestroy {
+
+export class FirstStepComponent implements OnDestroy {
   public signupForm: any = {};
   public userErrorMessage: string;
 
@@ -34,9 +35,6 @@ export class FirstStepComponent implements OnInit, OnDestroy {
     this.signupService = signupService;
     this.auth = auth;
     this.router = router;
-  }
-
-  public ngOnInit(): void {
   }
 
   public socialLogin(socialType: string): void {
@@ -64,14 +62,11 @@ export class FirstStepComponent implements OnInit, OnDestroy {
 
     this.isEmailExistSignupServiceSubscribe = this.signupService.isEmailExist(signupData)
       .subscribe((res: any) => {
-        const emailError: any = res.err;
-
-        if (emailError) {
+        if (res.error) {
           this.signupForm.password = '';
-          this.userErrorMessage = emailError;
+          this.userErrorMessage = res.error;
           return;
         }
-
 
         this.auth.signUp(signupData.email, signupData.password);
         this.userErrorMessage = '';

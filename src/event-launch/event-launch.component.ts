@@ -96,12 +96,20 @@ export class LaunchComponent implements OnInit {
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
         const styles: any = res.data;
         this.genres = styles.genres;
       });
 
     this.searchServiceSubscribe = this.searchService.getLocations()
       .subscribe((res: any): void => {
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
         this.locations = res.data;
       });
   }
@@ -131,13 +139,10 @@ export class LaunchComponent implements OnInit {
     this.launchEvent.datePerformance = moment(this.dateByPicker).format('dddd, MMMM DD YYYY');
     this.eventServiceSubscribe = this.eventService.saveNewEvent(this.launchEvent)
       .subscribe((res): void => {
-
-        if (res.err) {
-          console.error(res.err);
+        if (res.error) {
+          console.error(res.error);
           return;
         }
-
-        console.log('RESPOND: ', res);
       });
 
     this.router.navigate(['events']);

@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 
-import { SearchService } from '../shared';
+import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
-
 
 @Component({
   selector: 'app-events-list-component',
@@ -16,6 +15,7 @@ import { Config } from '../app.config';
 export class EventsListComponent implements OnInit {
   private router: Router;
   public searchService: SearchService;
+  public localStorageService: LocalStorageService;
   public searchServiceSubscribe: Subscription;
   public getEventsDataSubcribe: Subscription;
 
@@ -35,9 +35,11 @@ export class EventsListComponent implements OnInit {
   };
 
   public constructor(router: Router,
-                     searchService: SearchService) {
+                     searchService: SearchService,
+                     localStorageService: LocalStorageService) {
     this.router = router;
     this.searchService = searchService;
+    this.localStorageService = localStorageService;
   }
 
   public ngOnInit(): void {
@@ -54,19 +56,28 @@ export class EventsListComponent implements OnInit {
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
         const styles: any = res.data;
         this.genres = styles.genres;
       });
 
     this.searchServiceSubscribe = this.searchService.getLocations()
       .subscribe((res: any): void => {
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
         this.locations = res.data;
       });
 
     this.getEventsDataSubcribe = this.searchService.getNonLiveEventsAmountData()
       .subscribe((res: any): void => {
         if (res.error) {
-          return console.error(res.error);
+          console.error(res.error);
+          return;
         }
         this.nonLiveEventsAmount = res.data;
       });
@@ -90,7 +101,7 @@ export class EventsListComponent implements OnInit {
   }
 
   public findEventsByQuery(findByQuery: any): void {
-    const rawQuery = {
+    const rawQuery: any = {
       findByDate: moment(findByQuery.dateShowPerformance).format('dddd, MMMM DD YYYY'),
       findByLocation: findByQuery.findByLocation,
       findByGenre: findByQuery.findByGenre,
@@ -109,12 +120,13 @@ export class EventsListComponent implements OnInit {
       delete rawQuery.findByType;
     }
 
-    const query: any = Config.objToQuery(rawQuery);
+    const query: string = Config.objToQuery(rawQuery);
 
     this.getEventsDataSubcribe = this.searchService.getEventsList(query)
       .subscribe((res: any): void => {
         if (res.error) {
           console.error(res.error);
+          return;
         }
         this.eventsData = res.data;
       });
@@ -137,5 +149,10 @@ export class EventsListComponent implements OnInit {
   public pushTypeToList(showTypePush: string): void {
     this.queryToFindShow.findByType = showTypePush;
     this.findEventsByQuery(this.queryToFindShow);
+  }
+
+  public setCurrentShow(showName: string, showCreator: string): void {
+    const setCurrentShowData: any = {findByName: showName, findByCreator: showCreator};
+    this.localStorageService.setItem('currentShow', JSON.stringify(setCurrentShowData));
   }
 }
