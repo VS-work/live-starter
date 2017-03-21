@@ -1,2 +1,2 @@
-export { EditProfileModule } from './edit-profile.module';
 export { EditProfileComponent } from './edit-profile.component';
+export { EditProfileModule } from './edit-profile.module';

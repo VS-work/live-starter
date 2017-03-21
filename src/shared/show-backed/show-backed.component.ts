@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 
 export class ShowsBackedComponent {
-@Input()
+  @Input()
   public currentUser: any;
 }

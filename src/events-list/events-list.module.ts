@@ -26,8 +26,7 @@ import { routing } from '../modules/events-list.routing';
   ],
   providers: [
     SearchService
-  ],
-  exports: []
+  ]
 })
 
 export class EventsListModule {

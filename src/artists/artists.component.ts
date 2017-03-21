@@ -44,6 +44,7 @@ export class ArtistsComponent implements OnInit {
       .subscribe((res: any): void => {
         if (res.error) {
           console.error(res.error);
+          return;
         }
         this.aritstsAmount = res.data.amount;
       });
@@ -52,12 +53,17 @@ export class ArtistsComponent implements OnInit {
       .subscribe((res: any): void => {
         if (res.error) {
           console.error(res.error);
+          return;
         }
         this.genres = res.data.genres;
       });
 
     this.getLocationsListSubscribe = this.searchService.getLocations()
       .subscribe((res: any): void => {
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
         this.locations = res.data;
       });
 
@@ -66,6 +72,7 @@ export class ArtistsComponent implements OnInit {
         .subscribe((res: any): void => {
           if (res.error) {
             console.error(res.error);
+            return;
           }
           this.artists = res.data.artists;
         });
@@ -81,6 +88,7 @@ export class ArtistsComponent implements OnInit {
       .subscribe((res: any): void => {
         if (res.error) {
           console.error(res.error);
+          return;
         }
         this.artists = res.data.artists;
       });
@@ -120,6 +128,7 @@ export class ArtistsComponent implements OnInit {
       .subscribe((res: any): void => {
         if (res.error) {
           console.error(res.error);
+          return;
         }
         this.artists = res.data.artists;
       });

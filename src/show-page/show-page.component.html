@@ -1,0 +1,316 @@
+<div class="container">
+  <div class="show-page-container">
+    <div class="back-links" routerLink="/events">
+      <img src="/assets/img/back.png" alt=""> Back to Shows
+    </div>
+    <div class="show-view">
+      <div class="show-screen-viewer">
+
+
+        <div class="live-active">
+          Live
+        </div>
+
+        <div class="show-short-data">
+          <div class="show-sd-name">
+            {{currentShow?.showName}}
+          </div>
+          <div class="show-sd-creator" routerLink="/artist-profile">
+            by {{currentShow?.creator}}
+          </div>
+        </div>
+
+        <div class="appreciations-container">
+          <div class="appreciations">
+            <img src="/assets/img/rock_gesture.png" alt="">144
+          </div>
+          <div class="views">
+            <img src="/assets/img/fllowers.png" alt="">12
+          </div>
+        </div>
+
+        <div class="time-togo">
+          {{currentShow?.datePerformance}}
+        </div>
+
+        <div class="time-left">
+          <div class="days">
+            <div class="number-container">05</div>
+            <div class="item-container">Days</div>
+          </div>
+          <div class="dbl-dots">:</div>
+          <div class="hours">
+            <div class="number-container">13</div>
+            <div class="item-container">Hours</div>
+          </div>
+          <div class="dbl-dots">:</div>
+          <div class="minutes">
+            <div class="number-container">08</div>
+            <div class="item-container">Minutes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="communication-container">
+        <div class="share-container">
+          <div class="share-word">Share:</div>
+          <div class="fb-share">
+            <img src="/assets/img/fb-icon.png" alt="">
+            <div class="shares-number">192</div>
+          </div>
+          <div class="tw-share">
+            <img src="/assets/img/tw-icon.png" alt="">
+            <div class="shares-number">201</div>
+          </div>
+          <div class="gg-share">
+            <img src="/assets/img/gg-icon.png" alt="">
+            <div class="shares-number">144</div>
+          </div>
+          <div class="pr-share">
+            <img src="/assets/img/pr-icon.png" alt="">
+            <div class="shares-number">22</div>
+          </div>
+
+          <div class="more-btn">
+            <img src="/assets/img/three-dots.png" alt="">
+            <div class="shares-number">More</div>
+          </div>
+
+          <div class="get-link">
+            <img src="/assets/img/get-link.png" alt="">
+            <div class="shares-number">Get link</div>
+          </div>
+        </div>
+        <div class="discuss">
+          <img src="/assets/img/chat0icon.png" alt="">
+          Discuss
+        </div>
+      </div>
+
+      <div class="show-description">
+        {{currentShow?.description}}
+
+        The rapid rise of Canadian singer-songwriter Shawn Mendes can be measured in a string of sold out shows
+        around the world, masses of album and single certifications and streaming numbers. After releasing his
+        debut album Handwritten (out now through Island Records), record sales in Australia and abroad are
+        mind blowing.
+      </div>
+
+      <div class="songs-container">
+        <audio controls>
+          <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.mp4"
+                  type='audio/mp4'>
+          <!-- The next two lines are only executed if the browser doesn't support MP4 files -->
+          <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga"
+                  type='audio/ogg; codecs=vorbis'>
+          <!-- The next line will only be executed if the browser doesn't support the <audio> tag-->
+          <p>Your user agent does not support the HTML5 Audio element.</p>
+        </audio>
+        <span class="song-name">Death Becomes Fur</span>
+        <div class="appreciations-container">
+          <div class="appreciations">
+            <img src="/assets/img/rock_gesture.png" alt="">144
+          </div>
+        </div>
+      </div>
+
+      <div class="songs-container">
+        <audio controls>
+          <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.mp4"
+                  type='audio/mp4'>
+          <!-- The next two lines are only executed if the browser doesn't support MP4 files -->
+          <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga"
+                  type='audio/ogg; codecs=vorbis'>
+          <!-- The next line will only be executed if the browser doesn't support the <audio> tag-->
+          <p>Your user agent does not support the HTML5 Audio element.</p>
+        </audio>
+        <span class="song-name">Some epic song</span>
+        <div class="appreciations-container">
+          <div class="appreciations">
+            <img src="/assets/img/rock_gesture.png" alt="">144
+          </div>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <iframe width="854" height="480" src="https://www.youtube.com/embed/KkGVmN68ByU" frameborder="0"
+                allowfullscreen></iframe>
+      </div>
+
+      <div class="show-details">
+        <span>Includes:</span>
+        <ul>
+          <li>One Signed Taylor Acoustic Guitar</li>
+          <li>Entry to the ShawnAccess "Illuminate" Experience</li>
+          <li>Exclusive Q&A with Shawn</li>
+          <li>Meet & Greet and Photo Opportunity with Shawn</li>
+          <li>One Signed "Illuminate" Tour Poster</li>
+          <li>One "Illuminate" Laminate</li>
+          <li>Early Entry</li>
+          <li>First Access Merch Shopping</li>
+        </ul>
+      </div>
+
+      <div class="show-images">
+        <img src="http://www.billboard.com/files/media/Shawn-Mendes-milan-2016-billboard-1548.jpg" alt="image">
+      </div>
+
+      <div class="show-footer">
+        He still makes time to meet fans for pictures along the way, as he prepares to perform a sold out show
+        of 8,000 people in Oslo, Norway, his largest show ever this past April. As soon as he steps onto the stage,
+        the crowd erupts into roars under the illuminating lights.
+      </div>
+    </div>
+
+    <aside class="aside">
+      <div class="artist-data">
+        <div class="avatar">
+          <img src="https://pbs.twimg.com/profile_images/806115031159029760/np3sDfFT.jpg" alt="img" class="img-circle">
+        </div>
+        <div class="artist-name-location">
+          <div class="artist-name">{{currentShow?.artist}}</div>
+          <div class="artist-location">
+            <img src="/assets/img/location-icon.png" alt="">
+            Canada
+          </div>
+        </div>
+        <div class="email-follow">
+          <img src="/assets/img/send-email.png" alt="email" class="email-icon">
+          <button>Follow</button>
+        </div>
+      </div>
+
+      <div class="genres">
+        <span class="title">Genres:</span>
+        <span class="genres-list">{{currentShow?.genre}}</span>
+      </div>
+
+      <div class="appreciations-container">
+        <span class="viewed">
+          <img src="/assets/img/eye-icon-new.png" alt="">
+          4233
+        </span>
+        <span class="rocks">
+          <img src="/assets/img/rock_gesture.png" alt="">
+          766
+        </span>
+        <span class="followed">
+          <img src="/assets/img/profile-icon.png" alt="">
+          234
+        </span>
+        <span class="show-count">
+          <img src="/assets/img/play.png" alt="">
+          05
+        </span>
+      </div>
+
+      <div class="tickets-container">
+        <div class="show-purchase-data">
+          <div class="show-item">
+            <div class="item-number">${{currentShow?.ticketPrice}}</div>
+            <div class="item-label">per-ticket</div>
+          </div>
+          <div class="show-item">
+            <div class="item-number">{{currentShow?.tickets - currentShow?.ticketsSold}}</div>
+            <div class="item-label">tickets</div>
+          </div>
+          <div class="show-item">
+            <div class="item-number">{{currentShow?.fundedPercentage}}%</div>
+            <div class="item-label">funded</div>
+          </div>
+        </div>
+
+        <div class="purchase-container">
+          <button class="purchase-button">PURCHASE</button>
+          <div class="reminder-before-show">
+
+            <div class="reminder-star">
+              <button class="btn-alerts"
+                      [(ngModel)]="checkModel"
+                      btnCheckbox></button>
+              <span class="remind-me-text"
+                    tooltip="We'll send you a reminder 48 hours before live show">Remind me</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-artist">
+        <div class="tip-title">Tip artist</div>
+
+        <div class="tip-controls">
+          <div class="donation-container">
+            <span class="text">Give</span>
+            <div class="filter-drpdwn">
+              <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-filter" dropdownToggle>
+                  ${{donation}} <span class="caret"></span>
+                </button>
+                <div dropdownMenu role="menu" aria-labelledby="single-button">
+
+                  <div class="donation-list" *ngFor="let donate of donates">
+                    <div
+                        class="dropdown-item"
+                        (click)="pushDonateNumber(donate)"
+                        btnCheckbox>${{donate}}
+                    </div>
+                  </div>
+                  <div class="dropdown-item"
+                       (click)="pushDonateNumber(100)"
+                       btnCheckbox>Other...
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <span class="text">per</span>
+            <div class="filter-drpdwn">
+              <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-filter" dropdownToggle>
+                  {{donationPeriod}} <span class="caret"></span>
+                </button>
+                <div dropdownMenu role="menu" aria-labelledby="single-button">
+
+                  <div class="donation-list" *ngFor="let period of donationPeriodList">
+                    <div
+                        class="dropdown-item"
+                        (click)="pushDonatePeriod(period)"
+                        btnCheckbox>{{period}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="support">Support</button>
+        </div>
+
+        <div class="pledge-info">
+          <span class="list-title">The official package includes:</span>
+          <ul>
+            <li class="list-item">
+              A heartfelt "thank you"</li>
+            <li class="list-item">
+              An discount of 10% for the next show</li>
+            <li class="list-item">
+              Access to the LiveStarter page - where all of your messages/questions will be answered!</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="similar-shows">
+        <div class="title-similar-shows">Similar Shows</div>
+        <div class="similar-shows-list">
+          <div class="similar-show" *ngFor="let show of eventsData">
+            <img src="https://pbs.twimg.com/media/CIsedskUMAAMA7G.jpg" alt="show-img">
+            <div class="show-data">
+              <div class="show-date">{{show.datePerformance || 'No date of performance'}}</div>
+              <div class="show-name">{{show.showName || 'No Show Name'}}</div>
+              <div class="show-by" routerLink="/artist-profile">by <span>{{show.artist || 'No artist data'}}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

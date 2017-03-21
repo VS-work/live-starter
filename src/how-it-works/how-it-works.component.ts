@@ -16,5 +16,4 @@ export class HowItWorksComponent implements OnInit {
   public goToArtists(): void {
     this.forArtists = !this.forArtists;
   }
-
 }

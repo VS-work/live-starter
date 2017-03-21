@@ -129,6 +129,11 @@ export class SecondStepComponent implements OnInit, OnDestroy {
 
     this.getLocationsSignupServiceSubscribe = this.signupService.signupGetLocations()
       .subscribe((res): void => {
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
+
         const locations = res.data;
 
         this.countries = locations.getCountries;
@@ -137,6 +142,11 @@ export class SecondStepComponent implements OnInit, OnDestroy {
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe((res: any): void => {
+        if (res.error) {
+          console.error(res.error);
+          return;
+        }
+
         const styles: any = res.data;
         this.genres = styles.genres;
       });
@@ -164,7 +174,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     this.newUser.email = this.userProfile.email;
     this.newUser.type = this.newUser.type || this.userType.type;
     this.newUser.country = this.newUser.country || this.userProfile.country;
-    this.newUser.city =  this.newUser.city || this.userProfile.city;
+    this.newUser.city = this.newUser.city || this.userProfile.city;
 
     this.signupServiceSubscribe = this.signupService.signupUser(this.newUser)
       .subscribe((): void => {
