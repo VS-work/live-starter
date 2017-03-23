@@ -66,8 +66,6 @@
 	border-bottom: 1px solid #8e8e9a;
 }
 
-
-
 .sync-container button {
 	float: right;
 	border: 1px solid #8e8e9a;
@@ -153,4 +151,60 @@
 .submit-button:hover {
 	background-color: #fc6337;
 	color: white;
+}
+
+.btn-filter {
+	width: 190px;
+	background-color: #fff;
+	border: 1px solid #8e8e9a;
+}
+
+.additional-info-container .btn-filter {
+	width: 120px;
+	background-color: #fff;
+	border: 1px solid #8e8e9a;
+}
+
+.filter-drpdwn {
+	flex: 1 0;
+}
+
+.dropdown-item {
+	cursor: pointer;
+	padding: 0 5px;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 25px;
+}
+
+.dropdown-item:hover {
+	background-color: #ffe7c7;
+}
+
+alert {
+	display: block;
+	position: fixed;
+	z-index: 1;
+	top: 70px;
+	left: 0;
+	right: 0;
+}
+
+:host >>> .alert {
+	text-align: center;
+	 margin-bottom: 0;
+}
+
+.additional-info-container,
+.contacts-container {
+	display: flex;
+	position: relative;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.biography-data,
+.biography-data textarea {
+	width: 100%;
 }

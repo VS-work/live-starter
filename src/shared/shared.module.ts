@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'ng2-bootstrap/rating';
 import { FormsModule } from '@angular/forms';
+import { ScrollToModule } from 'ng2-scroll-to';
 
 import { SearchComponent } from './search';
 import { FeaturedArtistsComponent, FeaturedArtistsService } from './featured-artists';
@@ -22,6 +23,7 @@ import { StarRatingComponent } from './star-rating';
 
 import { SearchService } from './search-service';
 import { LocalStorageService } from './local-storage-service';
+import { WindowRefService } from './win-ref-service';
 
 @NgModule({
   declarations: [
@@ -45,12 +47,14 @@ import { LocalStorageService } from './local-storage-service';
     RouterModule,
     CommonModule,
     FormsModule,
+    ScrollToModule.forRoot(),
     RatingModule.forRoot()
   ],
   providers: [
     SearchService,
     LocalStorageService,
-    FeaturedArtistsService
+    FeaturedArtistsService,
+    WindowRefService
   ],
   exports: [
     SearchComponent,

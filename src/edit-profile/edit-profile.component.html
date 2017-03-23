@@ -1,18 +1,30 @@
 <div class="edit-user-profile">
+
+  <alert type="success" dismissOnTimeout="5000" *ngIf="userUpdateSuccess">
+    <strong>Well done!</strong> You successfully updated your profile.
+  </alert>
+
   <div class="container">
     <div class="row">
       <div class="menu col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <div class="profile">Profile</div>
-        <div class="accoutn-info">Accoutn Information</div>
-        <div class="social-sync">Social Sync</div>
-        <div class="notifications">Notifications</div>
+        <div class="profile" scrollTo scrollTargetSelector="#profile">Profile</div>
+        <div class="account-info" scrollTo scrollTargetSelector="#account">Account Information</div>
+        <div class="additional-info" scrollTo scrollTargetSelector="#additional">Additional Information</div>
+        <div class="contacts-info" scrollTo scrollTargetSelector="#contacts">Contacts</div>
+        <div class="biography-info" scrollTo scrollTargetSelector="#biography">Biography</div>
+        <div class="social-sync" scrollTo scrollTargetSelector="#socials">Social Sync</div>
+        <div class="notifications" scrollTo scrollTargetSelector="#notifications">Notifications</div>
       </div>
       <div class="editarea col-lg-10 col-md-10 col-sm-10 col-xs-10">
         <div id="profile" class="edit-profile">
           <div class="row">
             <div class="title">Profile</div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-              <img class="user-avatar" [src]="user?.avatar || localStorageUserProfile?.picture" alt=""><span class="upload-avatar">Upload avatar</span>
+              <img class="user-avatar" [src]="user?.avatar || localStorageUserProfile?.picture" alt="">
+              <span class="upload-avatar"
+                    (click)="smModal.show()">
+                Change avatar link
+              </span>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
               <div class="row">
@@ -24,13 +36,26 @@
                            [value]="user?.firstName === undefined ? '' : user?.firstName"
                            #userFirstName>
                   </div>
+
                   <div class="data-container user-country">
                     <div class="field-title">Country</div>
-                    <input type="text"
-                           placeholder="Country"
-                           [value]="user?.country"
-                           #country>
+                    <div class="filter-drpdwn">
+                      <div class="btn-group" dropdown>
+                        <button id="location-button" type="button" class="btn btn-filter" dropdownToggle>
+                          {{user?.country || 'Select country'}} <span class="caret"></span>
+                        </button>
+                        <div dropdownMenu role="menu" aria-labelledby="single-button">
+                          <div class="locations-list" *ngFor="let country of countries">
+                            <div class="dropdown-item"
+                                 (click)="user.country = country.alias || country.country"
+                                 btnCheckbox>{{country.alias || country.country}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="data-container user-lastname">
@@ -52,7 +77,7 @@
 
               <button type="submit"
                       class="submit-button"
-                      (click)="updateUser(userFirstName.value, country.value, userLastName.value, city.value)">
+                      (click)="updateUser(userFirstName.value, user.country, userLastName.value, user.city)">
                 Submit
               </button>
             </div>
@@ -68,20 +93,147 @@
                      placeholder="E-mail"
                      [value]="user?.email === undefined ? '' : user?.email">
             </div>
-            <div class="data-container user-password-change col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="data-container user-password-change col-lg-2 col-md-2 col-sm-2 col-xs-2">
               <div class="field-title">Password</div>
               <a href="">Change password</a>
             </div>
-            <div class="data-container user-delete col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="data-container user-delete col-lg-3 col-md-3 col-sm-4 col-xs-3">
+              <div class="field-title">Deactivate the account</div>
+              <a href="">I want to disable my account</a>
+            </div>
+            <div class="data-container user-delete col-lg-3 col-md-3 col-sm-3 col-xs-3">
               <div class="field-title">Delete the account</div>
               <a href="">I want to delete my account</a>
             </div>
           </div>
         </div>
 
+        <div id="additional" class="edit-profile">
+          <div class="title">Additional Information</div>
+
+          <div class="additional-info-container">
+            <div class="data-container">
+              <div class="field-title">User name</div>
+              <input type="text"
+                     placeholder="Username"
+                     [value]="user?.username"
+                     #username>
+            </div>
+
+            <div class="data-container user-city">
+              <div class="field-title">Group Name</div>
+              <input type="text"
+                     placeholder="Band name"
+                     [value]="user?.groupName === undefined ? '' : user?.groupName"
+                     #groupName>
+            </div>
+            <div class="data-container">
+              <div class="field-title">Gender</div>
+              <div class="filter-drpdwn">
+                <div class="btn-group" dropdown>
+                  <button type="button" class="btn btn-filter" dropdownToggle>
+                    {{user?.gender || 'Select gender'}} <span class="caret"></span>
+                  </button>
+                  <div dropdownMenu role="menu" aria-labelledby="single-button">
+                    <div class="locations-list" *ngFor="let gender of genders">
+                      <div class="dropdown-item"
+                           (click)="user.gender = gender"
+                           btnCheckbox>{{gender}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="data-container">
+              <div class="field-title">Position</div>
+              <div class="filter-drpdwn">
+                <div class="btn-group" dropdown>
+                  <button type="button" class="btn btn-filter" dropdownToggle>
+                    {{user?.position || 'Select position'}} <span class="caret"></span>
+                  </button>
+                  <div dropdownMenu role="menu" aria-labelledby="single-button">
+                    <div *ngFor="let position of positions">
+                      <div class="dropdown-item"
+                           (click)="user.position = position"
+                           btnCheckbox>{{position}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="data-container">
+              <div class="field-title">Website</div>
+              <input type="text"
+                     placeholder="Website"
+                     [value]="user?.website === undefined ? '' : user?.website"
+                     #userWebsite>
+            </div>
+          </div>
+
+          <button type="submit"
+                  class="submit-button"
+                  (click)="updateUserAdditional(userWebsite.value, groupName.value, username.value)">
+            Submit
+          </button>
+        </div>
+
+        <div id="contacts" class="edit-profile">
+          <div class="title">Contacts</div>
+
+          <div class="contacts-container">
+            <div class="data-container">
+              <div class="field-title">Phone number</div>
+              <input type="text"
+                     placeholder="Phone number"
+                     [value]="user?.contacts.phone === undefined ? '' : user?.contacts.phone"
+                     #userPhone>
+            </div>
+            <div class="data-container">
+              <div class="field-title">Skype</div>
+              <input type="text"
+                     placeholder="Skype ID"
+                     [value]="user?.contacts.skype === undefined ? '' : user?.contacts.skype"
+                     #userSkype>
+            </div>
+            <div class="data-container">
+              <div class="field-title">Hangouts</div>
+              <input type="text"
+                     placeholder="Hangouts"
+                     [value]="user?.contacts.hangouts === undefined ? '' : user?.contacts.hangouts"
+                     #userHangouts>
+            </div>
+          </div>
+          <button type="submit"
+                  class="submit-button"
+                  (click)="updateUserContacts(userPhone.value, userSkype.value, userHangouts.value)">
+            Submit
+          </button>
+        </div>
+
+        <div id="biography" class="edit-profile">
+          <div class="title">Biography</div>
+
+          <div class="biography-container">
+            <div class="data-container biography-data">
+              <textarea name="Biogrpahy"
+                        rows="10"
+                        [value]="user?.biography === undefined ? '' : user?.biography"
+                        #biography>
+              </textarea>
+            </div>
+          </div>
+          <button type="submit"
+                  class="submit-button"
+                  (click)="updateUserBiography(biography.value)">
+            Submit
+          </button>
+        </div>
+
         <div id="socials" class="edit-profile">
           <div class="title social-sync">Social Sync</div>
-
           <div class="sync-container common-settings">
             <div class="post-actions">
               <img class="empty-check" src="/assets/img/empty-check.png" alt="checkbox">
@@ -101,7 +253,8 @@
             <img class="check-icon" src="/assets/img/check-icon.svg" alt="checkbox checked">
             <img class="social-icon" src="/assets/img/g-sq.png" alt="G Icon">
             <div *ngIf="user" class="social-data">
-              <img [src]="user?.avatar || localStorageUserProfile?.picture" alt="" class="user-social-avatar img-circle">
+              <img [src]="user?.avatar || localStorageUserProfile?.picture" alt=""
+                   class="user-social-avatar img-circle">
               <span class="user-social-name">{{user?.firstName}} {{user?.lastName}}</span>
             </div>
             <button *ngIf="user" class="social-sync-button disconnect">Disconnect from Google</button>
@@ -110,49 +263,37 @@
 
           <div class="sync-container facebook-sync">
             <img class="empty-check" src="/assets/img/empty-check.png" alt="checkbox">
-            <!--<img class="check-icon" src="../assets/img/check-icon.svg" alt="checkbox checked">-->
+            <!--<img class="check-icon" src="/assets/img/check-icon.svg" alt="checkbox checked">-->
             <img class="social-icon" src="/assets/img/fb-sq.png" alt="F Icon">
             <div class="social-data">
-              <!--<img [src]="user?.avatar" alt="" class="user-social-avatar img-circle">-->
-              <!--<span class="user-social-name">{{user?.firstName}} {{user?.lastName}}</span>-->
             </div>
-            <!--<button *ngIf="user" class="social-sync-button disconnect">Disconnect from Facebook</button>-->
             <button *ngIf="user" class="social-sync-button connect">Sync to Facebook</button>
           </div>
 
           <div class="sync-container twitter-sync">
             <img class="empty-check" src="/assets/img/empty-check.png" alt="checkbox">
-            <!--<img class="check-icon" src="../assets/img/check-icon.svg" alt="checkbox checked">-->
+            <!--<img class="check-icon" src="/assets/img/check-icon.svg" alt="checkbox checked">-->
             <img class="social-icon" src="/assets/img/tw-sq.png" alt="T Icon">
             <div class="social-data">
-              <!--<img [src]="user?.avatar" alt="" class="user-social-avatar">-->
-              <!--<span class="user-social-name">{{user?.firstName}} {{user?.lastName}}</span>-->
             </div>
-            <!--<button *ngIf="user" class="social-sync-button disconnect">Disconnect from Twitter</button>-->
             <button *ngIf="user" class="social-sync-button connect">Sync to Twitter</button>
           </div>
 
           <div class="sync-container youtube-sync">
             <img class="empty-check" src="/assets/img/empty-check.png" alt="checkbox">
-            <!--<img class="check-icon" src="../assets/img/check-icon.svg" alt="checkbox checked">-->
+            <!--<img class="check-icon" src="/assets/img/check-icon.svg" alt="checkbox checked">-->
             <img class="social-icon" src="/assets/img/y-sq.png" alt="Y Icon">
             <div class="social-data">
-              <!--<img [src]="user?.avatar" alt="" class="user-social-avatar">-->
-              <!--<span class="user-social-name">{{user?.firstName}} {{user?.lastName}}</span>-->
             </div>
-            <!--<button *ngIf="user" class="social-sync-button disconnect">Disconnect from Youtube</button>-->
             <button *ngIf="user" class="social-sync-button connect">Sync to Youtube</button>
           </div>
 
           <div class="sync-container insta-sync">
             <img class="empty-check" src="/assets/img/empty-check.png" alt="checkbox">
-            <!--<img class="check-icon" src="../assets/img/check-icon.svg" alt="checkbox checked">-->
+            <!--<img class="check-icon" src="/assets/img/check-icon.svg" alt="checkbox checked">-->
             <img class="social-icon" src="/assets/img/insta.png" alt="I Icon">
             <div class="social-data">
-              <!--<img [src]="user?.avatar" alt="" class="user-social-avatar">-->
-              <!--<span class="user-social-name">{{user?.firstName}} {{user?.lastName}}</span>-->
             </div>
-            <!--<button *ngIf="user" class="social-sync-button disconnect">Disconnect from Instagram</button>-->
             <button *ngIf="user" class="social-sync-button connect">Sync to Instagram</button>
           </div>
         </div>
@@ -210,6 +351,25 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Change avatar link</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Please enter URL for new avatar:
+        <input type="text" #newAvatarLink>
+        <button class="btn btn-submit" (click)="changeAvatarLink(newAvatarLink.value)">Submit</button>
       </div>
     </div>
   </div>
