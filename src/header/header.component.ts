@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
-import { Config } from '../app.config';
 import { LocalStorageService } from '../shared';
 import { AuthService } from '../auth';
 
@@ -20,7 +19,9 @@ export class HeaderComponent implements OnInit {
   private auth: AuthService;
   private router: Router;
 
-  public constructor(auth: AuthService, localStorageService: LocalStorageService, router: Router) {
+  public constructor(auth: AuthService,
+                     localStorageService: LocalStorageService,
+                     router: Router) {
     this.auth = auth;
     this.router = router;
     this.localStorageService = localStorageService;
@@ -44,7 +45,6 @@ export class HeaderComponent implements OnInit {
 
   public goToHomePage(): void {
     this.router.navigate(['/home']);
-
     if (this.localStorageService.getItem('homePageSearchData')) {
       this.localStorageService.removeItem('homePageSearchData');
     }

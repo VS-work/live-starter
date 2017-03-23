@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {ScrollToModule} from 'ng2-scroll-to';
 import { ModalModule } from 'ng2-bootstrap/modal';
 import { DropdownModule} from 'ng2-bootstrap/dropdown';
 import { TabsModule} from 'ng2-bootstrap/tabs';
@@ -23,6 +24,7 @@ import { routing } from '../routes';
     BrowserModule,
     FormsModule,
     HttpModule,
+    ScrollToModule.forRoot(),
     ModalModule.forRoot(),
     DropdownModule.forRoot(),
     TabsModule.forRoot(),

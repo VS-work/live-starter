@@ -16,11 +16,7 @@ export class PrefooterComponent {
     this.router = router;
   }
 
-  public scrollTop(e: MouseEvent): void {
-    e.preventDefault();
-
-    Config.animateScroll('scrollBackToTop', 20, 1000);
-
+  public signUp(): void {
     this.router.navigate(['/first-step']);
   };
 }

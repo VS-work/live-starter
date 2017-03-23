@@ -25,4 +25,11 @@ export class EditProfileService {
       return {err: parseRes.error, data: parseRes.data};
     });
   }
+
+  public editUserAvatar(query: any): Observable<any> {
+    return this.http.post(`${Config.api}/edit-profile/edit-user-avatar`, query).map((res: any) => {
+      let parseRes = JSON.parse(res._body);
+      return {err: parseRes.error, data: parseRes.data};
+    });
+  }
 }
