@@ -3,13 +3,15 @@ import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 import { LaunchComponent } from './event-launch.component';
-import { ButtonsModule } from 'ng2-bootstrap/buttons';
-import { DatepickerModule } from 'ng2-bootstrap/datepicker';
-import { DropdownModule } from 'ng2-bootstrap/dropdown';
+import { routing } from '../modules/launch.routing';
 import { EventService } from './event.service';
 import { SharedModule, SearchService } from '../shared';
-import { routing } from '../modules/launch.routing';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import { routing } from '../modules/launch.routing';
     SharedModule,
     ButtonsModule.forRoot(),
     DatepickerModule.forRoot(),
-    DropdownModule.forRoot()
+    BsDropdownModule.forRoot()
   ],
   providers: [EventService, SearchService],
   exports: [

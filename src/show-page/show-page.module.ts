@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ButtonsModule } from 'ng2-bootstrap/buttons';
-import { DropdownModule } from 'ng2-bootstrap/dropdown';
-import { TooltipModule } from 'ng2-bootstrap/tooltip';
+
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { ShowPageComponent } from './show-page.component';
 import { routing } from '../modules/show-page.routing';
-
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { routing } from '../modules/show-page.routing';
     CommonModule,
     FormsModule,
     ButtonsModule.forRoot(),
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     TooltipModule.forRoot()
   ]
 })

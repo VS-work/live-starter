@@ -23,7 +23,7 @@
             <button id="location-button" type="button" class="btn btn-filter" dropdownToggle>
               {{queryToFindArtists.findByLocation || 'Select all'}} <span class="caret"></span>
             </button>
-            <div dropdownMenu role="menu" aria-labelledby="single-button">
+            <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
               <div
                   class="dropdown-item"
                   (click)="pushLocationToList('Select all')"
@@ -45,7 +45,7 @@
             <button id="genre-button" type="button" class="btn btn-filter" dropdownToggle>
               {{queryToFindArtists.findByGenre || 'Select all'}} <span class="caret"></span>
             </button>
-            <div dropdownMenu role="menu" aria-labelledby="single-button">
+            <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
               <div
                   class="dropdown-item"
                   (click)="pushGenreToList('Select all')"
@@ -67,7 +67,7 @@
             <button id="sortedby-button" type="button" class="btn btn-filter" dropdownToggle>
               {{queryToFindArtists.findByType || 'Select all'}}<span class="caret"></span>
             </button>
-            <div dropdownMenu role="menu" aria-labelledby="single-button">
+            <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
               <div
                   class="dropdown-item"
                   (click)="pushTypeToList('Select all')"

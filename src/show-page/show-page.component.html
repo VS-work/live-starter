@@ -246,7 +246,7 @@
                 <button type="button" class="btn btn-filter" dropdownToggle>
                   ${{donation}} <span class="caret"></span>
                 </button>
-                <div dropdownMenu role="menu" aria-labelledby="single-button">
+                <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
 
                   <div class="donation-list" *ngFor="let donate of donates">
                     <div
@@ -269,7 +269,7 @@
                 <button type="button" class="btn btn-filter" dropdownToggle>
                   {{donationPeriod}} <span class="caret"></span>
                 </button>
-                <div dropdownMenu role="menu" aria-labelledby="single-button">
+                <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
 
                   <div class="donation-list" *ngFor="let period of donationPeriodList">
                     <div

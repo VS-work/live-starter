@@ -22,11 +22,11 @@ export class ShowPageComponent implements OnInit {
   public checkModel: boolean;
   public donates: any[];
   public donationPeriodList: any[];
+  public currentShow: any;
+  public donation: number;
+  public donationPeriod: string;
 
-  private currentShow: any;
-  private donation: number;
-  private donationPeriod: string;
-  private eventsData: any[];
+  public eventsData: any[];
 
   public constructor(router: Router,
                      searchService: SearchService,

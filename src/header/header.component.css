@@ -32,6 +32,10 @@
 	width: 80%;
 }
 
+.user-menu {
+  float: right;
+}
+
 .menu-item-container, .login-button, .signup-button, .user-menu {
 	cursor: pointer;
 }
@@ -52,6 +56,7 @@
 }
 
 .current-user-container {
+  position: relative;
 	width: 20%;
 	float: right;
 	margin: 10px 0;

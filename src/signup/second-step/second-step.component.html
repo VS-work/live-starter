@@ -4,8 +4,8 @@
       <img src="{{userProfile?.picture}}" alt="Avatar">
     </div>
     <div class="user-data-container">
-      <div class="user-name-container">{{newUser?.username || newUser?.name}}</div>
-      <div class="user-email-container">{{newUser?.email || newUser?.email}}</div>
+      <div class="user-name-container">{{newUser?.username || newUser?.firstName}}</div>
+      <div class="user-email-container">{{newUser?.email}}</div>
     </div>
   </div>
 
@@ -66,7 +66,7 @@
       </select>
 
       <div>
-        <button type="submit" class="submit-signup" (click)="submitData(newUser)">Let's Do This!</button>
+        <button type="submit" class="submit-signup" (click)="submitData()">Let's Do This!</button>
       </div>
     </div>
 

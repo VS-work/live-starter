@@ -34,7 +34,7 @@
           {{userProfile?.name || userProfile?.email}}<span class="caret"></span>
         </span>
       </span>
-        <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
+        <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu dropdown-menu-right">
           <li role="menuitem"><a class="dropdown-item" href="#" routerLink="/edit-profile">My account</a></li>
           <li role="menuitem"><a class="dropdown-item" href="#">My events</a></li>
           <li role="menuitem"><a class="dropdown-item" href="#">Payments</a></li>

@@ -16,7 +16,7 @@ export class TipsComponent implements OnInit {
   public otherTips: any[] = [];
 
   public ngOnInit(): void {
-    forEach(this.currentUser.tips, ((result) => {
+    forEach(this.currentUser.tips, ((result: any) => {
       if (result.tipTarget === 'show') {
         this.showTips.push(result);
       }

@@ -13,6 +13,11 @@ import { Config } from '../app.config';
 
 export class ArtistsComponent implements OnInit {
   private router: Router;
+
+  public genres: any[];
+  public locations: any[];
+  public eventTypes: any[];
+
   public searchService: SearchService;
   public localStorageService: LocalStorageService;
   public getArtistsListSubscribe: Subscription;
@@ -20,13 +25,10 @@ export class ArtistsComponent implements OnInit {
   public getGenresListSubscribe: Subscription;
   public getLocationsListSubscribe: Subscription;
 
-  private genres: any[];
-  private artists: any[];
-  private locations: any[];
-  private eventTypes: any[];
-  private aritstsAmount: number;
-  private queryToFindArtists: any = {};
-  private artistByName: string;
+  public artistByName: string;
+  public aritstsAmount: number;
+  public queryToFindArtists: any = {};
+  public artists: any[];
 
   public constructor(router: Router,
                      searchService: SearchService,

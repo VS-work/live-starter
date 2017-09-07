@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AccordionModule } from 'ng2-bootstrap/accordion';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { FAQComponent } from './faq.component';
 import { GetFAQsService } from './faq.service';

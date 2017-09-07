@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
-import { RatingModule } from 'ng2-bootstrap/rating';
+import { RatingModule } from 'ngx-bootstrap/rating';
 import { FormsModule } from '@angular/forms';
 import { ScrollToModule } from 'ng2-scroll-to';
 
@@ -20,6 +20,8 @@ import { ShowsBackedComponent } from './show-backed';
 import { ShowsRecordedComponent } from './show-recorded';
 import { CommentTipComponent } from './comment-tip';
 import { StarRatingComponent } from './star-rating';
+import { GenresFilterComponent } from './genres-filter/genres-filter.component';
+import { GenresFilterPipe } from './genres-filter/genres-filter.pipe';
 
 import { SearchService } from './search-service';
 import { LocalStorageService } from './local-storage-service';
@@ -40,7 +42,9 @@ import { WindowRefService } from './win-ref-service';
     ShowsBackedComponent,
     ShowsRecordedComponent,
     CommentTipComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    GenresFilterComponent,
+    GenresFilterPipe
   ],
   imports: [
     HttpModule,
