@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalDirective } from 'ng2-bootstrap/modal';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { LocalStorageService } from '../shared';
 import { AuthService } from '../auth';
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   public userProfile: any;
   public localStorageService: LocalStorageService;
-  private auth: AuthService;
+  public auth: AuthService;
   private router: Router;
 
   public constructor(auth: AuthService,

@@ -52,7 +52,7 @@
                 <button id="showLocation" type="button" class="btn btn-filter" dropdownToggle>
                   {{launchEvent.showLocation || 'Select location'}} <span class="caret"></span>
                 </button>
-                <div dropdownMenu role="menu" aria-labelledby="single-button">
+                <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
                   <div class="locations-list" *ngFor="let location of locations">
                     <div
                         class="dropdown-item"

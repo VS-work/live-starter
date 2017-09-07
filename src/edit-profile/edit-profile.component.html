@@ -44,7 +44,7 @@
                         <button id="location-button" type="button" class="btn btn-filter" dropdownToggle>
                           {{user?.country || 'Select country'}} <span class="caret"></span>
                         </button>
-                        <div dropdownMenu role="menu" aria-labelledby="single-button">
+                        <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
                           <div class="locations-list" *ngFor="let country of countries">
                             <div class="dropdown-item"
                                  (click)="user.country = country.alias || country.country"
@@ -134,7 +134,7 @@
                   <button type="button" class="btn btn-filter" dropdownToggle>
                     {{user?.gender || 'Select gender'}} <span class="caret"></span>
                   </button>
-                  <div dropdownMenu role="menu" aria-labelledby="single-button">
+                  <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
                     <div class="locations-list" *ngFor="let gender of genders">
                       <div class="dropdown-item"
                            (click)="user.gender = gender"
@@ -153,7 +153,7 @@
                   <button type="button" class="btn btn-filter" dropdownToggle>
                     {{user?.position || 'Select position'}} <span class="caret"></span>
                   </button>
-                  <div dropdownMenu role="menu" aria-labelledby="single-button">
+                  <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
                     <div *ngFor="let position of positions">
                       <div class="dropdown-item"
                            (click)="user.position = position"

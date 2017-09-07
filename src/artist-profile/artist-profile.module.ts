@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ButtonsModule } from 'ng2-bootstrap/buttons';
-import { TabsModule } from 'ng2-bootstrap/tabs';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { SharedModule } from '../shared';
 import { BiographyComponent } from './bio/bio.component';
 import { MusicComponent } from './music/music.component';
