@@ -1,0 +1,16 @@
+<div class="funding-container" *ngIf="funding">
+  <div class="funding-item">
+    <div class="funding-item-value">${{funding?.ticketPrice || 0}}</div>
+    <div class="funding-item-title">per ticket</div>
+  </div>
+
+  <div class="funding-item">
+    <div class="funding-item-value">{{funding?.ticketsToFund || 0}}</div>
+    <div class="funding-item-title">tickets</div>
+  </div>
+
+  <div class="funding-item">
+    <div class="funding-item-value">{{funding?.fundedPercentage || 0}}%</div>
+    <div class="funding-item-title">funded</div>
+  </div>
+</div>

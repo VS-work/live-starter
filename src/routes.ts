@@ -10,6 +10,7 @@ export const routes: Routes = [
   {path: 'fan-profile', loadChildren: '../fan-profile/fan-profile.module#FanProfileModule'},
   {path: 'edit-profile', loadChildren: '../edit-profile/edit-profile.module#EditProfileModule'},
   {path: 'blog', loadChildren: '../blog/blog.module#BlogModule'},
+  {path: 'my-events', loadChildren: '../my-events/my-events.module#MyEventsModule'},
   {path: 'about', loadChildren: '../about/about.module#AboutModule'},
   {path: 'show-page', loadChildren: '../show-page/show-page.module#ShowPageModule'},
   {path: 'how-it-works', loadChildren: '../how-it-works/how-it-works.module#HowItWorksModule'},

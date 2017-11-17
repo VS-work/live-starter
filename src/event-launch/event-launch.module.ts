@@ -7,11 +7,15 @@ import { RouterModule } from '@angular/router';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+import { FundingContainerModule } from '../shared/funding-container/funding-container.module';
 import { LaunchComponent } from './event-launch.component';
 import { routing } from '../modules/launch.routing';
 import { EventService } from './event.service';
 import { SharedModule, SearchService } from '../shared';
+import { WowzaCloudModule } from '../shared/wowza-streaming-cloud/wowza-cloud.module';
 
 @NgModule({
   declarations: [
@@ -24,9 +28,12 @@ import { SharedModule, SearchService } from '../shared';
     FormsModule,
     RouterModule,
     SharedModule,
+    WowzaCloudModule,
+    FundingContainerModule,
     ButtonsModule.forRoot(),
-    DatepickerModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot()
   ],
   providers: [EventService, SearchService],
   exports: [

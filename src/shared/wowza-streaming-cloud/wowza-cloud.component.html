@@ -1,0 +1,22 @@
+<app-list-of-encoders [encoder]="this.showData?.wowza.encoder" (setEncoder)="changeEncoder($event)"></app-list-of-encoders>
+<button type="button" class="btn btn-primary" [disabled]="isStartedStream" (click)="startStream()">Start stream</button>
+<button type="button" class="btn btn-primary" [disabled]="!isStartedStream" (click)="stopStream()">Stop stream</button>
+<button type="button" class="btn btn-primary" (click)="newStream()">New stream</button>
+
+<app-wowza-player [showData]="showData"></app-wowza-player>
+
+<div class="connection-info" *ngIf="showData?.wowza">
+  You chose <strong>{{showData.wowza.encoder}}</strong> for encoding video
+  <div>
+    <div *ngIf="showData.wowza?.connection_code">
+      <strong>Connection code:</strong> {{showData.wowza.connection_code}}
+      <button type="button" class="btn btn-primary" (click)="regenerateConnectionCode()">Regenerate Connection Code</button>
+    </div>
+    <div><strong>Primary server:</strong> {{showData.wowza.source_connection_information.primary_server}}</div>
+    <div><strong>Stream name/key:</strong> {{showData.wowza.source_connection_information.stream_name}}</div>
+    <ng-template [ngIf]="!showData.wowza.source_connection_information.disable_authentication">
+      <div><strong>Username:</strong> {{showData.wowza.source_connection_information.username}}</div>
+      <div><strong>Password:</strong> {{showData.wowza.source_connection_information.password}}</div>
+    </ng-template>
+  </div>
+</div>

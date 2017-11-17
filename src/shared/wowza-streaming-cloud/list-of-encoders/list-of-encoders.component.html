@@ -1,0 +1,45 @@
+<div class="devises-container">
+  <div class="form-group">
+    <label>Choose device type:</label>
+    <div class="btn-group custom-dropdown-select" dropdown>
+      <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+        {{activeEncoders.activeDevice.title || 'Select device'}}<span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem" *ngFor="let device of devicess" class="dropdown-item" (click)="changeActiveDevice(device)">
+          {{device.title}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template [ngIf]="activeEncoders.activeDevice.isBetaSupport">
+  <alert type="warning">
+    These variants are in beta support
+  </alert>
+</ng-template>
+
+<div class="encoders-container">
+  <ng-template [ngIf]="!isNewEvent">
+    <button class="btn btn-primary"
+            (click)="saveChanges()"
+            [disabled]="activeEncoders.active === activeEncoders.default">
+      Save Encoder
+    </button>
+    <button class="btn btn-primary"
+            (click)="cancelChanges()"
+            [disabled]="activeEncoders.active === activeEncoders.default">
+      Cancel
+    </button>
+  </ng-template>
+  <ul class="encoders-list">
+    <ng-template ngFor let-encoder [ngForOf]="encoders">
+      <li *ngIf="encoder.type === activeEncoders.activeDevice.type"
+          (click)="setActiveEncoder(encoder)"
+          [class]="'encoder ' + (activeEncoders.active === encoder.value ? 'active' : '')">
+        <span class="encoder-title">{{encoder.title}}</span>
+      </li>
+    </ng-template>
+  </ul>
+</div>
