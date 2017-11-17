@@ -1,68 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+
 import * as moment from 'moment';
+import { ToastOptions, ToastyService } from 'ng2-toasty';
 
 import { SearchService, LocalStorageService } from '../shared';
 import { EventService } from './event.service';
-
-interface ILaunchEvent {
-  showName: string;
-  tickets: number;
-  ticketPrice: number;
-  ticketsToFund: number;
-  fundedPercentage: number;
-  ticketsSold: number;
-  creator: string;
-  dateCreated: any;
-  showLocation: string;
-  datePerformance: any;
-  artist: string;
-  genre: any;
-  description: string;
-  audio: string;
-  video: string;
-  info: string;
-  live: boolean;
-  appreciations: any;
-}
+import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
+import { customToastOptions } from '../shared/models/toasty-options.model';
+import { LaunchEvent } from './event-launch.interface';
 
 @Component({
   selector: 'app-launch-component',
   templateUrl: './event-launch.component.html',
-  styleUrls: ['./event-launch.component.css']
+  styleUrls: ['./event-launch.component.scss']
 })
+export class LaunchComponent implements OnInit, OnDestroy {
+  userProfile: any;
+  funded = 0;
+  genres: any[];
+  locations: any[];
+  activeStep = 1;
+  eventServiceSubscribe: Subscription;
+  launchEvent: LaunchEvent;
+  searchServiceSubscribe: Subscription;
+  isValidTimePicker = true;
+  minDate: Date = new Date();
+  bsValue: Date = new Date();
+  timePerfomance = {
+    start: new Date(),
+    end: new Date(),
+  };
+  wowzaObj = {
+    aspect_ratio_height: 1080,
+    aspect_ratio_width: 1920,
+    encoder: 'wowza_gocoder',
+    name: ''
+  };
 
-export class LaunchComponent implements OnInit {
-  public userProfile: any;
-  public funded = 0;
-  public genres: any[];
-  public locations: any[];
-  public selectedGenres: any[] = [];
-  public secondStepActive = false;
-  public dateByPicker: Date;
+  constructor(private router: Router,
+                     private searchService: SearchService,
+                     private userProfileService: LocalStorageService,
+                     private eventService: EventService,
+                     private wowzaCloudService: WowzaCloudService,
+                     private toastyService: ToastyService) {}
 
-  public eventService: EventService;
-  public eventServiceSubscribe: Subscription;
-
-  public launchEvent: ILaunchEvent;
-  public searchService: SearchService;
-  public userProfileService: LocalStorageService;
-  public searchServiceSubscribe: Subscription;
-
-  private router: Router;
-
-  public constructor(router: Router,
-                     searchService: SearchService,
-                     userProfileService: LocalStorageService,
-                     eventService: EventService) {
-    this.router = router;
-    this.searchService = searchService;
-    this.userProfileService = userProfileService;
-    this.eventService = eventService;
-  }
-
-  public ngOnInit(): void {
+  ngOnInit(): void {
     const userProfile: any = this.userProfileService.getItem('profile');
 
     if (userProfile) {
@@ -75,76 +60,129 @@ export class LaunchComponent implements OnInit {
 
     this.launchEvent = {
       showName: '',
-      tickets: 0,
-      ticketPrice: 0,
-      ticketsToFund: 0,
-      fundedPercentage: 0,
-      ticketsSold: 0,
+      tickets: {
+        count: 0,
+        ticketPrice: 0,
+        ticketsToFund: 0,
+        ticketsSold: 0,
+        fundedPercentage: 0,
+      },
       creator: '',
       showLocation: '',
-      dateCreated: moment(new Date()).format('dddd, MMMM DD YYYY'),
+      dateCreated: Date(),
       datePerformance: moment(new Date()).format('dddd, MMMM DD YYYY'),
+      timePerfomance: {
+        start: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a'),
+        end: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a')
+      },
       artist: '',
-      genre: [],
+      genres: [],
+      poster: null,
       description: '',
       audio: '',
       video: '',
       info: '',
       live: false,
-      appreciations: {}
+      appreciations: {},
+      wowza: {
+        id: null
+      }
     };
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        const styles: any = res.data;
-        this.genres = styles.genres;
+      .subscribe(res => {
+        const styles = res.data;
+        this.genres = styles.genres.map((genre: string) => ({isChecked: false, value: genre}));
+      }, err => {
+        console.error(err);
       });
 
     this.searchServiceSubscribe = this.searchService.getLocations()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
+      .subscribe(res => {
         this.locations = res.data;
+      }, err => {
+        console.error(err);
       });
   }
 
-  public pushGenreToList(genre: string): void {
-    const index = this.selectedGenres.indexOf(genre);
+  ngOnDestroy() {
 
-    if (index !== -1) {
-      this.selectedGenres.splice(index, 1);
+  }
+
+  isActiveStep(step: number): boolean {
+    return this.activeStep === step;
+  }
+
+  goToNextStep(eventForm: NgForm): void {
+    this.launchEvent.genres = this.genres.filter(genre => genre.isChecked).map(genre => genre.value);
+    if (eventForm.invalid || !this.launchEvent.genres.length) {
+      const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: 'Form is not valid'}};
+      this.toastyService.error(toastOptions);
       return;
     }
 
-    this.selectedGenres.push(genre);
-  }
-
-  public setLocationToShow(location: string): void {
-    this.launchEvent.showLocation = location;
-  }
-
-  public goToNextStep(): void {
     this.launchEvent.creator = this.userProfile.email;
-    this.launchEvent.genre = this.selectedGenres;
-    this.secondStepActive = true;
+    this.activeStep += 1;
   };
 
-  public publish(): void {
-    this.launchEvent.datePerformance = moment(this.dateByPicker).format('dddd, MMMM DD YYYY');
-    this.eventServiceSubscribe = this.eventService.saveNewEvent(this.launchEvent)
-      .subscribe((res): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-      });
+  goBack(): void {
+    this.activeStep = this.activeStep === 1 ? 1 : this.activeStep - 1;
+  }
 
-    this.router.navigate(['events']);
+  publish(eventFormStep2: NgForm): void {
+    this.validateTimePickers();
+
+    if (eventFormStep2.invalid && this.isValidTimePicker) {
+      const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: 'Form is not valid'}};
+      this.toastyService.error(toastOptions);
+      return;
+    }
+
+    this.wowzaObj.name = this.launchEvent.showName;
+    this.launchEvent.timePerfomance.start = moment(this.timePerfomance.start).format('dddd, MMMM DD YYYY, h:mm:ss a');
+    this.launchEvent.timePerfomance.end = moment(this.timePerfomance.end).format('dddd, MMMM DD YYYY, h:mm:ss a');
+
+    const newStreamSubscription = this.wowzaCloudService.newStream(this.wowzaObj)
+      .subscribe(liveStream => {
+        this.launchEvent.wowza.id = liveStream.live_stream.id;
+        this.eventServiceSubscribe = this.eventService.saveNewEvent(this.launchEvent)
+          .subscribe(res => {
+            this.router.navigate(['events']);
+          }, (err: any) => {
+            console.log(err);
+            return;
+          });
+      }, err => {
+        console.log('err start stream', err);
+      });
+  }
+
+  setEncoder(encoder: string): void {
+    this.wowzaObj.encoder = encoder;
+  }
+
+  validateTimePickers(): void {
+    this.isValidTimePicker = this.timePerfomance.start.getTime() <= this.timePerfomance.end.getTime();
+  }
+
+  changeDate(date: Date): void {
+    this.launchEvent.datePerformance = moment(date).format('dddd, MMMM DD YYYY');
+    const startHrs = this.timePerfomance.start.getHours();
+    const startMinutes = this.timePerfomance.start.getMinutes();
+    const endHrs = this.timePerfomance.end.getHours();
+    const endMinutes = this.timePerfomance.end.getMinutes();
+
+    this.timePerfomance = {
+      start: new Date(date.toISOString()),
+      end: new Date(date.toISOString())
+    };
+
+    this.timePerfomance.start.setHours(startHrs);
+    this.timePerfomance.start.setMinutes(startMinutes);
+    this.timePerfomance.start.setSeconds(0);
+    this.timePerfomance.end.setHours(endHrs);
+    this.timePerfomance.end.setMinutes(endMinutes);
+    this.timePerfomance.end.setSeconds(0);
+    this.validateTimePickers();
   }
 }

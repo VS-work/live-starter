@@ -8,6 +8,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { ShowPageComponent } from './show-page.component';
 import { routing } from '../modules/show-page.routing';
+import { WowzaCloudModule } from '../shared/wowza-streaming-cloud/wowza-cloud.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { routing } from '../modules/show-page.routing';
     FormsModule,
     ButtonsModule.forRoot(),
     BsDropdownModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    WowzaCloudModule
   ]
 })
 

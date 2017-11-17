@@ -1,210 +1,303 @@
 <div class="launch-event-container">
   <div class="container">
-    <div class="first-step" *ngIf="!secondStepActive">
+    <div class="first-step" *ngIf="isActiveStep(1)">
       <div class="header">
         <div class="title">Get Started</div>
         Crowdfund your own event with LiveStarter
       </div>
-      <div class="data-container">
+      <form #eventForm="ngForm" novalidate (ngSubmit)="goToNextStep(eventForm)">
+        <div class="data-container">
 
-        <div class="info">
-          <div class="display-data">
-            <div class="event-data-container">
-              <div class="num-container">${{launchEvent?.ticketPrice || 0}}</div>
-              <div class="item-container">Per Ticket</div>
+          <div class="info">
+            <div class="display-data">
+              <div class="event-data-container">
+                <div class="num-container">${{launchEvent.tickets?.ticketPrice || 0}}</div>
+                <div class="item-container">Per Ticket</div>
+              </div>
+              <div class="event-data-container">
+                <div class="num-container">{{launchEvent.tickets?.count || 0}}</div>
+                <div class="item-container">tickets</div>
+              </div>
+              <div class="event-data-container">
+                <div class="num-container">{{launchEvent.tickets?.ticketsToFund || 0}}</div>
+                <div class="item-container">Min. tickets</div>
+              </div>
             </div>
-            <div class="event-data-container">
-              <div class="num-container">{{launchEvent?.tickets || 0}}</div>
-              <div class="item-container">tickets</div>
-            </div>
-            <div class="event-data-container">
-              <div class="num-container">{{launchEvent.ticketsToFund || 0}}</div>
-              <div class="item-container">Min. tickets</div>
-            </div>
-          </div>
-          <div class="genres-selector">
-            <div>Choose genres which you have been playing:</div>
-            <span class="genres-list" *ngFor="let currentGenre of genres">
-              <button
+            <div class="genres-selector">
+              <div>Choose genres which you have been playing:</div>
+              <span class="genres-list" *ngFor="let currentGenre of genres;">
+                <button
+                  type="button"
+                  [name]="currentGenre.value"
                   class="genre-button"
-                  (click)="pushGenreToList(currentGenre)"
-                  btnCheckbox>{{currentGenre}}
-              </button>
-            </span>
-          </div>
-        </div>
-
-        <div class="inputs">
-          <form>
-            <label for="showName" class="input-label">Give an event a title:</label>
-            <input type="text"
-                   id="showName"
-                   class="form-control"
-                   name="showName"
-                   placeholder="Please enter a show name"
-                   [(ngModel)]="launchEvent.showName"
-                   required>
-
-            <label for="showLocation" class="input-label">Event location:</label>
-
-            <div class="filter-drpdwn">
-              <div class="btn-group" dropdown>
-                <button id="showLocation" type="button" class="btn btn-filter" dropdownToggle>
-                  {{launchEvent.showLocation || 'Select location'}} <span class="caret"></span>
+                  [(ngModel)]="currentGenre.isChecked"
+                  btnCheckbox>
+                  {{currentGenre.value}}
                 </button>
-                <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-                  <div class="locations-list" *ngFor="let location of locations">
-                    <div
-                        class="dropdown-item"
-                        (click)="setLocationToShow(location.country)"
-                        btnCheckbox>{{location.country}}
-                    </div>
-                  </div>
-                </div>
+              </span>
+              <div
+                [class]="!launchEvent.genres.length && eventForm.submitted ? 'invalid-feedback visible':'invalid-feedback'">
+                Choose one or more genres
+              </div>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div class="form-group">
+              <label for="show-title">Give an event a title:</label>
+              <input type="text"
+                     id="show-title"
+                     class="form-control"
+                     placeholder="Please enter a show name"
+                     name="showName"
+                     [(ngModel)]="launchEvent.showName"
+                     #showName="ngModel"
+                     required/>
+              <div
+                [class]="!showName.valid && (showName.dirty || eventForm.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
+                Field can't be empty
               </div>
             </div>
 
-            <label for="tickets" class="input-label">How many people would join me:</label>
-            <input type="number"
-                   id="tickets"
-                   class="form-control"
-                   name="tickets"
-                   placeholder="min 50"
-                   [(ngModel)]="launchEvent.tickets"
-                   required>
+            <div class="form-group">
+              <label>Event location:</label>
+              <div class="btn-group custom-dropdown-select" dropdown>
+                <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                  {{launchEvent.showLocation || 'Select location'}} <span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                  <li role="menuitem" *ngFor="let location of locations" class="dropdown-item">
+                    <label [for]="location.id">{{location.name}}</label>
+                    <input type="radio"
+                           name="showLocation"
+                           [(ngModel)]="launchEvent.showLocation"
+                           #showLocation="ngModel"
+                           [id]="location.id"
+                           [value]="location.name"
+                           required/>
+                  </li>
+                </ul>
+              </div>
+              <div
+                [class]="!launchEvent.showLocation.length && eventForm.submitted ? 'invalid-feedback visible':'invalid-feedback'">
+                Choose a location
+              </div>
+            </div>
 
-            <label for="price" class="input-label">They willing to pay per ticket:</label>
-            <input type="number"
-                   id="price"
-                   class="form-control"
-                   name="price"
-                   placeholder="min $10"
-                   [(ngModel)]="launchEvent.ticketPrice"
-                   required>
+            <div class="form-group">
+              <label for="show-tickets">How many people would join me:</label>
+              <input type="number"
+                     id="show-tickets"
+                     class="form-control"
+                     placeholder="min 50"
+                     name="tickets"
+                     [(ngModel)]="launchEvent.tickets.count"
+                     #tickets="ngModel"
+                     min="50"
+                     pattern="^([5-9]{1}[0-9]{1,}|([1-9]{1}[0-9]{2,}))$"
+                     required/>
+              <div
+                [class]="!tickets.valid && (tickets.dirty || eventForm.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
+                Value cant be less than 50
+              </div>
+            </div>
 
-            <label for="toFund" class="input-label">Amount of sold tickets to perform the show:</label>
-            <input type="number"
-                   id="toFund"
-                   class="form-control"
-                   name="price"
-                   placeholder="A critical minimum of tickets to be sold"
-                   [(ngModel)]="launchEvent.ticketsToFund"
-                   required>
-          </form>
+            <div class="form-group">
+              <label for="price">They willing to pay per ticket:</label>
+              <input type="number"
+                     id="price"
+                     class="form-control"
+                     placeholder="min $10"
+                     name="ticketPrice"
+                     [(ngModel)]="launchEvent.tickets.ticketPrice"
+                     #ticketPrice="ngModel"
+                     min="10"
+                     pattern="^([1-9]{1}[0-9]{1,})$"
+                     required/>
+              <div
+                [class]="!ticketPrice.valid && (ticketPrice.dirty || eventForm.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
+                Value cant be less than 10
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="ticketsSold">Amount of sold tickets to perform the show 0:</label>
+              <input type="number"
+                     id="ticketsSold"
+                     class="form-control"
+                     placeholder="A critical minimum of tickets to be sold"
+                     name="ticketsSold"
+                     [(ngModel)]="launchEvent.tickets.ticketsToFund"
+                     #ticketsSold="ngModel"
+                     min="0"
+                     pattern="^([0-9]{1,})$"
+                     required/>
+              <div
+                [class]="!ticketsSold.valid && (ticketsSold.dirty || eventForm.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
+                Value cant be less than 0
+              </div>
+
+            </div>
+            <!--<button type="submit">Send</button>-->
+          </div>
         </div>
-      </div>
 
-      <div class="goToSecondStep">
-        <button class="next-button" (click)="goToNextStep()">Create event</button>
-      </div>
+        <div class="goToSecondStep">
+          <button type="submit" class="next-button" (ngSubmit)="goToNextStep(eventForm)">Next step</button>
+        </div>
+      </form>
     </div>
 
-    <div class="second-step row" *ngIf="secondStepActive">
-      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-        <div class="name-date-container">
-          <form class="show-name-second-step">
-            <label for="showNameSecondStep" class="input-label">Artist Name</label>
-            <input type="text"
-                   id="showNameSecondStep"
+    <div class="second-step" *ngIf="isActiveStep(2)">
+      <form class="row" #eventFormStep2="ngForm">
+        <div class="col-9">
+          <div class="name-date-container">
+            <div class="form-group show-name-second-step">
+              <label for="artist-name">Artist Name:</label>
+              <input type="text"
+                     id="artist-name"
+                     class="form-control"
+                     placeholder="Please enter a artist name"
+                     name="artist"
+                     [(ngModel)]="launchEvent.artist"
+                     #artist="ngModel"
+                     required/>
+              <div
+                [class]="!artist.valid && (artist.dirty || eventFormStep2.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
+                error message
+              </div>
+            </div>
+
+            <div class="form-group event-date-picker date-picker">
+              <label class="input-label">Planned date and time to start:</label>
+              <div class="input-group">
+                <input type="text"
+                       name="datepicker"
+                       class="form-control"
+                       [minDate]="minDate"
+                       [(bsValue)]="bsValue"
+                       #eventDP="bsDatepicker"
+                       bsDatepicker
+                       (bsValueChange)="changeDate($event)"/>
+                <div class="input-group-btn">
+                  <button class="btn icon-calendar" type="button" (click)="eventDP.show()">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row time-picker-container">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+              <label>Start Time</label>
+              <timepicker name='startTime' [(ngModel)]="timePerfomance.start" (ngModelChange)="validateTimePickers()"></timepicker>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+              <label>End Time</label>
+              <timepicker name="endTime" [(ngModel)]="timePerfomance.end" (ngModelChange)="validateTimePickers()"></timepicker>
+            </div>
+
+            <div
+              [class]="!isValidTimePicker ? 'invalid-feedback visible':'invalid-feedback'">
+              End time cant be less than start
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="show-poster" class="preview-container">Upload preview image</label>
+            <input type="file"
+                   style="display: none"
+                   id="show-poster"
                    class="form-control"
-                   name="showName"
-                   placeholder="Please enter a artist name"
-                   [(ngModel)]="launchEvent.artist"
-                   required>
-          </form>
-          <div class="date-picker">
-            <label class="input-label">Planned date and time to start:</label>
-            <datepicker [(ngModel)]="dateByPicker" [activeDate]="true"></datepicker>
-          </div>
-        </div>
-
-        <div class="preview-container">
-          Upload preview image
-        </div>
-
-        <div class="description-container">
-          <label for="decription" class="input-label">Description</label>
-          <textarea name="decription"
-                    id="decription"
-                    [(ngModel)]="launchEvent.description"
-                    placeholder="Write a show description here">
-          </textarea>
-        </div>
-
-        <div class="audio-upload">
-          <label>Upload a few tracks:</label>
-          <button class="add-button">Add +</button>
-        </div>
-
-        <div class="video-upload">
-          <label>Upload some video:</label>
-          <button class="add-button">Add +</button>
-        </div>
-
-        <div class="info-upload">
-          <label>Add some info:</label>
-          <button class="add-button">Add +</button>
-        </div>
-
-      </div>
-      <div class="side-bar col-lg-3 col-md-3 col-sm-3 col-xs-3">
-        <div class="show-action-button">
-          <button class="next-button">Preview</button>
-          <button class="next-button" (click)="publish()">Publish</button>
-        </div>
-
-
-        <div class="artist-data">
-          <img class="avatar img-circle"
-               src="https://img.clipartfest.com/a22d68de188f2083affefb14cc66ca80_shawn-mendes-png-by-karlymoon-shawn-mendes-clipart_400-400.png"
-               alt="AV">
-          <div class="artist-info">
-            <div class="name" routerLink="/artist-profile">{{launchEvent.artist}}</div>
-            <div class="location">Location {{launchEvent.showLocation}}</div>
+                   name="poster"
+                   [(ngModel)]="launchEvent.poster"
+                   #poster="ngModel"/>
+            <div class="invalid-feedback">error message</div>
           </div>
 
-          <div class="artists-genres">
-            <span class="genres">Genres:</span>
-            {{launchEvent.genre}}
+          <div class="description-container">
+            <div class="form-group">
+              <label for="decription" class="input-label">Description</label>
+              <textarea name="decription"
+                        id="decription"
+                        [(ngModel)]="launchEvent.description"
+                        placeholder="Write a show description here"
+                        name="decription"
+                        #decription="ngModel"
+                        required>
+            </textarea>
+              <div
+                [class]="!decription.valid && (decription.dirty || eventFormStep2.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
+                error message
+              </div>
+            </div>
           </div>
 
-          <div class="artists-appriciations">
+          <div class="audio-upload">
+            <label>Upload a few tracks:</label>
+            <button class="add-button">Add +</button>
+          </div>
+
+          <div class="video-upload">
+            <label>Upload some video:</label>
+            <button class="add-button">Add +</button>
+          </div>
+
+          <div class="info-upload">
+            <label>Add some info:</label>
+            <button class="add-button">Add +</button>
+          </div>
+
+          <app-list-of-encoders (setEncoder)="setEncoder($event)"></app-list-of-encoders>
+
+          <button type="button" class="next-button" (click)="goBack()">< Previous step</button>
+        </div>
+        <div class="side-bar col-3">
+          <div class="show-action-button">
+            <button type="button" class="next-button">Preview</button>
+            <button type="submit" class="next-button" (click)="publish(eventFormStep2)">Publish</button>
+          </div>
+
+
+          <div class="artist-data">
+            <img class="avatar img-circle"
+                 src="https://img.clipartfest.com/a22d68de188f2083affefb14cc66ca80_shawn-mendes-png-by-karlymoon-shawn-mendes-clipart_400-400.png"
+                 alt="AV">
+            <div class="artist-info">
+              <div class="name" routerLink="/artist-profile">{{launchEvent.artist}}</div>
+              <div class="location">Location {{launchEvent.showLocation}}</div>
+            </div>
+
+            <div class="artists-genres">
+              <span class="genres">Genres:</span>
+              {{launchEvent.genres}}
+            </div>
+
+            <div class="artists-appriciations">
             <span class="views">
               <img src="/assets/img/eye-icon.png" alt="views">
               <span class="amount">57</span>
             </span>
-            <span class="likes">
+              <span class="likes">
               <img src="/assets/img/rock_gesture.png" alt="views">
               <span class="amount">48</span>
             </span>
-            <span class="followers">
+              <span class="followers">
               <img src="/assets/img/person.png" alt="views">
               <span class="amount">51</span>
             </span>
-            <span class="shows">
+              <span class="shows">
               <img src="/assets/img/play.png" alt="views">
               <span class="amount">3</span>
             </span>
-          </div>
-
-          <div class="funding-info">
-            <div class="event-data-container">
-              <div class="num-container">${{launchEvent.ticketPrice}}</div>
-              <div class="item-container">per ticket</div>
             </div>
-
-            <div class="event-data-container">
-              <div class="num-container">{{launchEvent.tickets}}</div>
-              <div class="item-container">tickets</div>
-            </div>
-
-            <div class="event-data-container">
-              <div class="num-container">{{funded}}</div>
-              <div class="item-container">funded</div>
-            </div>
+            <app-funding-container [fundingParams]="launchEvent.tickets"></app-funding-container>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
