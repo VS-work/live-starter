@@ -58,6 +58,10 @@ export class ShowPageComponent implements OnInit {
           return;
         }
         this.currentShow = head(res.data);
+        this.currentShow.wowza = {
+          id: 'mmvpmlkv',
+          player_hls_playback_url: 'https://10e8f0.entrypoint.cloud.wowza.com/app-8de5/ngrp:03bae8e8_all/playlist.m3u8'
+        }; // should be delete
       });
   }
 

@@ -1,6 +1,6 @@
 export class Config {
 
-  // public static api = '//192.168.1.57:3000';
+  // public static api = '//192.168.1.75:3001';
   public static api = '//immense-mesa-67919.herokuapp.com';
 
   public static objToQuery(data: any): string {

@@ -19,8 +19,8 @@
 
 .how-it-works-list {
 	width: 100%;
-	display: inline-block;
 	padding: 10px 10px 10px 0;
+  box-sizing: border-box;
 }
 
 .notes-row-container {

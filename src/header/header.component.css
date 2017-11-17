@@ -3,7 +3,7 @@
 	vertical-align: top;
 	padding: 5px 24px;
 	background: white;
-	z-index: 99;
+	z-index: 1001;
 	border-bottom: 1px solid #dadce8;
 	position: fixed;
 	width: 100%;

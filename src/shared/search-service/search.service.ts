@@ -22,6 +22,7 @@ export class SearchService {
   }
 
   public getLocations(): Observable<any> {
+
     return this.http.get(`${Config.api}/get-locations`).map((res: any) => {
       let parseRes = JSON.parse(res._body);
       return {err: parseRes.error, data: parseRes.data};

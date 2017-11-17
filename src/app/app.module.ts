@@ -9,6 +9,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { TabsModule} from 'ngx-bootstrap/tabs';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '../header';
@@ -31,6 +32,7 @@ import { routing } from '../routes';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ButtonsModule.forRoot(),
+    ToastyModule.forRoot(),
     SharedModule,
     routing,
     RouterModule

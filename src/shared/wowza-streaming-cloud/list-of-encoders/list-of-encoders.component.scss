@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  padding: 10px 0;
+}
+
+.encoders-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+
+  & > .encoder {
+    width: 100px;
+    border: 1px solid gray;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 5px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    background: #cecece;
+    transition: all .5s;
+
+    &.active {
+      opacity: 1;
+      border-color: green;
+      background: #fff;
+    }
+  }
+}
+
+.custom-dropdown-select {
+  .dropdown-item {
+   cursor: pointer;
+  }
+}
+
+
+.devises-container {
+  label {
+    display: block
+  }
+}
