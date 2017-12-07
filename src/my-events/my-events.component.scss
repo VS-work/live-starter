@@ -1,0 +1,51 @@
+.custom-container {
+  width: 100%;
+  max-width: 1140px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.page-header {
+  position: relative;
+
+  .flex-container {
+    padding: 35px 150px;
+    box-sizing: border-box;
+  }
+
+  a {
+    display: block;
+    padding: 5px 15px;
+    box-sizing: border-box;
+
+    &:hover {
+      color: grey;
+    }
+  }
+
+  .active-link {
+    border-bottom: 1px solid grey;
+  }
+
+  .btn-custom {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+}
+
+.show-name {
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.show-item {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
