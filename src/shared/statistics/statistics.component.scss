@@ -1,0 +1,47 @@
+.statistics-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #8e8e9a;
+  font-size: 14px;
+
+  & > * {
+    padding: 0px 5px 0px 30px;
+    box-sizing: border-box;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      background-size: 100% 100%;
+    }
+  }
+
+  img {
+    margin: 2px;
+    width: 14px;
+    vertical-align: top;
+  }
+
+  .likes {
+    cursor: pointer;
+
+    &:before {
+      background-image: url('/assets/img/rock_gesture.png');
+
+    }
+  }
+
+  .followers {
+    &:before {
+      background-image: url('/assets/img/fllowers.png');
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<div class="show-info-container" [class.small]="isSmall">
+  <div class="when-container">
+    <div class="time-to-go">
+      <ng-template [ngIf]="!show.completed" [ngIfElse]="copletedDate">
+        <div class="day">{{date.dayNum}}</div>
+        <div class="month">{{date.month}}</div>
+        <div class="time">{{date.time}}</div>
+      </ng-template>
+
+      <ng-template #copletedDate>
+        <div class="day">Finished</div>
+        <div class="month">{{date.dayNum}} {{date.month}}</div>
+      </ng-template>
+    </div>
+    <div class="poster-container">
+      <img [src]="show.poster" alt="show poster">
+    </div>
+  </div>
+  <div class="main-info">
+    <div class="info-top">
+      <div class="show-name" routerlink="/show-page">{{show?.name}}</div>
+      <app-statistics [statistics]="show.statistics"></app-statistics>
+    </div>
+
+    <div class="show-creator">by <span>{{show?.creator}}</span></div>
+    <div class="show-decription">{{sliceDescription(242)}} <a routerlink="/show-page" class="read-more" >Read more »</a></div>
+  </div>
+  <div class="purchase-container">
+    <div *ngIf="show.live; else notLiveNow" class="live-now">
+      <div class="live-now-title">Now Live!</div>
+      <button type="button" class="btn-custom">{{'View show' | uppercase}}</button>
+    </div>
+    <ng-template #notLiveNow>
+      <div *ngIf="show.completed; else notCompleted" class="flex-container flex-center">
+        <button type="button" class="btn-custom">{{'Replay' | uppercase}}</button>
+      </div>
+      <ng-template #notCompleted>
+        <app-funding-container [fundingParams]="show.tickets"></app-funding-container>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>
