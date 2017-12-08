@@ -5,6 +5,7 @@ import * as moment from 'moment';
 
 import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
+import { LaunchEvent } from '../event-launch/event-launch.interface';
 
 @Component({
   selector: 'app-events-list-component',
@@ -151,8 +152,8 @@ export class EventsListComponent implements OnInit {
     this.findEventsByQuery(this.queryToFindShow);
   }
 
-  public setCurrentShow(showName: string, showCreator: string): void {
-    const setCurrentShowData: any = {findByName: showName, findByCreator: showCreator};
+  public setCurrentShow(show: LaunchEvent): void {
+    const setCurrentShowData: any = {findById: show._id, findByName: show.name, findByCreator: show.creator};
     this.localStorageService.setItem('currentShow', JSON.stringify(setCurrentShowData));
   }
 }

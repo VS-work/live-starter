@@ -179,7 +179,7 @@
       <div class="show" *ngFor="let show of eventsData">
         <img src="http://www.bristolmusiclive.co.uk/wp-content/uploads/2014/07/crowd.jpg" alt="show avatar">
         <div class="show-info">
-          <div class="show-name" (click)="setCurrentShow(show.showName, show.creator)" routerLink="/show-page">{{show?.showName}}</div>
+          <div class="show-name" (click)="setCurrentShow(show)" routerLink="/show-page">{{show?.name}}</div>
           <div class="appreciations-container">
             <div class="appreciations">
               <img src="/assets/img/rock_gesture.png" alt="">144
@@ -195,7 +195,7 @@
                   placement="bottom"
                   triggers="mouseenter:mouseleave">
             {{show?.creator}}</span>
-            <div class="show-location">in {{show?.showLocation || 'not specified location'}}</div>
+            <div class="show-location">in {{show.location?.country || 'not specified location'}}</div>
           </div>
           <div class="show-purchase-data">
             <div class="show-item">
@@ -224,7 +224,7 @@
           <img src="http://www.bristolmusiclive.co.uk/wp-content/uploads/2014/07/crowd.jpg" alt="show avatar">
         </div>
         <div class="show-info-row line">
-          <div class="show-name">{{show?.showName}}
+          <div class="show-name">{{show?.name}}
             <div class="appreciations-container">
               <div class="appreciations">
                 <img src="/assets/img/rock_gesture.png" alt="">144
@@ -241,7 +241,7 @@
                   [tooltip]="popTemplate"
                   placement="bottom"
                   triggers="mouseenter:mouseleave">{{show?.creator}}</span>
-            <div class="show-location">in {{show?.showLocation || 'not specified location'}}</div>
+            <div class="show-location">in {{show.location?.country || 'not specified location'}}</div>
           </div>
 
           <div class="show-info">

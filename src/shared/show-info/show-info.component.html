@@ -13,13 +13,13 @@
       </ng-template>
     </div>
     <div class="poster-container">
-      <img [src]="show.poster" alt="show poster">
+      <img [src]="show.posters[0]" alt="show poster">
     </div>
   </div>
   <div class="main-info">
     <div class="info-top">
       <div class="show-name" routerlink="/show-page">{{show?.name}}</div>
-      <app-statistics [statistics]="show.statistics"></app-statistics>
+      <app-statistics [statistics]="show.statistics" [id]="show._id"></app-statistics>
     </div>
 
     <div class="show-creator">by <span>{{show?.creator}}</span></div>

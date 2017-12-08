@@ -50,7 +50,7 @@
                      class="form-control"
                      placeholder="Please enter a show name"
                      name="showName"
-                     [(ngModel)]="launchEvent.showName"
+                     [(ngModel)]="launchEvent.name"
                      #showName="ngModel"
                      required/>
               <div
@@ -63,14 +63,14 @@
               <label>Event location:</label>
               <div class="btn-group custom-dropdown-select" dropdown>
                 <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
-                  {{launchEvent.showLocation || 'Select location'}} <span class="caret"></span>
+                  {{launchEvent.location.country || 'Select location'}} <span class="caret"></span>
                 </button>
                 <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
                   <li role="menuitem" *ngFor="let location of locations" class="dropdown-item">
                     <label [for]="location.id">{{location.name}}</label>
                     <input type="radio"
                            name="showLocation"
-                           [(ngModel)]="launchEvent.showLocation"
+                           [(ngModel)]="launchEvent.location.country"
                            #showLocation="ngModel"
                            [id]="location.id"
                            [value]="location.name"
@@ -79,7 +79,7 @@
                 </ul>
               </div>
               <div
-                [class]="!launchEvent.showLocation.length && eventForm.submitted ? 'invalid-feedback visible':'invalid-feedback'">
+                [class]="!launchEvent.location.country.length && eventForm.submitted ? 'invalid-feedback visible':'invalid-feedback'">
                 Choose a location
               </div>
             </div>
@@ -268,7 +268,7 @@
                  alt="AV">
             <div class="artist-info">
               <div class="name" routerLink="/artist-profile">{{launchEvent.artist}}</div>
-              <div class="location">Location {{launchEvent.showLocation}}</div>
+              <div class="location">Location {{launchEvent.location.country}}</div>
             </div>
 
             <div class="artists-genres">

@@ -11,6 +11,9 @@ import { EventService } from './event.service';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 import { customToastOptions } from '../shared/models/toasty-options.model';
 import { LaunchEvent } from './event-launch.interface';
+import { User } from 'firebase/app';
+import { MultipleGenres } from './multipleGenres.interface';
+import { Country } from '../interfaces/country.interface';
 
 @Component({
   selector: 'app-launch-component',
@@ -18,13 +21,12 @@ import { LaunchEvent } from './event-launch.interface';
   styleUrls: ['./event-launch.component.scss']
 })
 export class LaunchComponent implements OnInit, OnDestroy {
-  userProfile: any;
+  userProfile: User;
   funded = 0;
-  genres: any[];
-  locations: any[];
+  genres: MultipleGenres[];
+  locations: Country[];
   activeStep = 1;
   eventServiceSubscribe: Subscription;
-  launchEvent: LaunchEvent;
   searchServiceSubscribe: Subscription;
   isValidTimePicker = true;
   minDate: Date = new Date();
@@ -39,6 +41,44 @@ export class LaunchComponent implements OnInit, OnDestroy {
     encoder: 'wowza_gocoder',
     name: ''
   };
+  launchEvent: LaunchEvent = {
+    name: '',
+    creator: '',
+    description: '',
+    artist: '',
+    genres: [],
+    posters: [],
+    audios: [],
+    videos: [],
+    appreciations: [],
+    info: '',
+    live: false,
+    completed: false,
+    location: {
+      country: ''
+    },
+    dateCreated: Date(),
+    datePerformance: moment(new Date()).format('dddd, MMMM DD YYYY'),
+    timePerfomance: {
+      start: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a'),
+      end: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a')
+    },
+    tickets: {
+      count: 0,
+      ticketPrice: 0,
+      ticketsToFund: 0,
+      ticketsSold: 0,
+      fundedPercentage: 0,
+    },
+    statistics: {
+      likes: [],
+      viewers: [],
+      followers: []
+    },
+    wowza: {
+      id: null
+    }
+  };
 
   constructor(private router: Router,
                      private searchService: SearchService,
@@ -48,46 +88,15 @@ export class LaunchComponent implements OnInit, OnDestroy {
                      private toastyService: ToastyService) {}
 
   ngOnInit(): void {
-    const userProfile: any = this.userProfileService.getItem('profile');
+    const userProfile = this.userProfileService.getItem('profile');
 
     if (userProfile) {
-      this.userProfile = JSON.parse(userProfile);
+      this.setUserInfo(userProfile);
     }
 
     this.userProfileService.getItemEvent().subscribe((userData) => {
-      this.userProfile = JSON.parse(userData.value);
+      this.setUserInfo(userData.value);
     });
-
-    this.launchEvent = {
-      showName: '',
-      tickets: {
-        count: 0,
-        ticketPrice: 0,
-        ticketsToFund: 0,
-        ticketsSold: 0,
-        fundedPercentage: 0,
-      },
-      creator: '',
-      showLocation: '',
-      dateCreated: Date(),
-      datePerformance: moment(new Date()).format('dddd, MMMM DD YYYY'),
-      timePerfomance: {
-        start: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a'),
-        end: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a')
-      },
-      artist: '',
-      genres: [],
-      poster: null,
-      description: '',
-      audio: '',
-      video: '',
-      info: '',
-      live: false,
-      appreciations: {},
-      wowza: {
-        id: null
-      }
-    };
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe(res => {
@@ -103,6 +112,14 @@ export class LaunchComponent implements OnInit, OnDestroy {
       }, err => {
         console.error(err);
       });
+  }
+
+  setUserInfo(profile: string) {
+    try {
+      this.userProfile = JSON.parse(profile);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   ngOnDestroy() {
@@ -138,7 +155,7 @@ export class LaunchComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.wowzaObj.name = this.launchEvent.showName;
+    this.wowzaObj.name = this.launchEvent.name;
     this.launchEvent.timePerfomance.start = moment(this.timePerfomance.start).format('dddd, MMMM DD YYYY, h:mm:ss a');
     this.launchEvent.timePerfomance.end = moment(this.timePerfomance.end).format('dddd, MMMM DD YYYY, h:mm:ss a');
 
@@ -148,9 +165,8 @@ export class LaunchComponent implements OnInit, OnDestroy {
         this.eventServiceSubscribe = this.eventService.saveNewEvent(this.launchEvent)
           .subscribe(res => {
             this.router.navigate(['events']);
-          }, (err: any) => {
+          }, err => {
             console.log(err);
-            return;
           });
       }, err => {
         console.log('err start stream', err);

@@ -1,41 +1,46 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LikeRequestObj, Statistics } from './statistics.interface';
 import { StatisticsService } from './statistics.service';
+import { User } from '../../edit-profile/user.interface';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: 'statistics.component.html',
   styleUrls: ['../../my-events/styles.scss', 'statistics.component.scss']
 })
-export class StatisticsComponent {
+export class StatisticsComponent implements OnInit {
   @Input() statistics: Statistics;
+  @Input() id: string;
   @Input() isEvent = true;
+  user: User;
 
   constructor(private statisticsService: StatisticsService) {
 
   }
 
-  setLike(): void {
-    if (this.isEvent) {
-      const rqstObj1: LikeRequestObj = {
-        liker: 'dmitriy.litvinov@valor-software.com',
-        likee: 'test party 1'
-      };
-      this.statisticsService.setShowLike(rqstObj1)
-        .subscribe(res => {
-          this.statistics.likes = 100500;
-        });
+  ngOnInit() {
+    try {
+      this.user = JSON.parse(localStorage.getItem('profile'));
+    } catch (err) {
+      console.log('err: ', err);
+    }
+  }
 
+  setLike(): void {
+    if (!this.isEvent) {
       return;
     }
 
-    // const rqstObj2: LikeRequestObj = {
-    //   liker: 'dmitriy.litvinov@valor-software.com',
-    //   likee: 'test party 1'
-    // };
-    // this.statisticsService.setArtistLike(rqstObj2)
-    //   .subscribe(res => {
-    //     console.log(123);
-    //   });
+    const rqstObj: LikeRequestObj = {
+      liker: this.user._id,
+      likee: this.id
+    };
+
+    this.statisticsService.setShowLike(rqstObj)
+      .subscribe(res => {
+        this.statistics.likes = res.likesCount;
+      }, err => {
+        console.log('error', err);
+      });
   }
 }

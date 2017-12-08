@@ -1,4 +1,5 @@
 export interface Statistics {
+  id: string;
   likes?: number;
   followers?: number;
 }

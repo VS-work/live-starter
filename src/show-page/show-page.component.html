@@ -14,7 +14,7 @@
 
         <div class="show-short-data">
           <div class="show-sd-name">
-            {{currentShow?.showName}}
+            {{currentShow?.name}}
           </div>
           <div class="show-sd-creator" routerLink="/artist-profile">
             by {{currentShow?.creator}}
@@ -306,7 +306,7 @@
             <img src="https://pbs.twimg.com/media/CIsedskUMAAMA7G.jpg" alt="show-img">
             <div class="show-data">
               <div class="show-date">{{show.datePerformance || 'No date of performance'}}</div>
-              <div class="show-name">{{show.showName || 'No Show Name'}}</div>
+              <div class="show-name">{{show.name || 'No Show Name'}}</div>
               <div class="show-by" routerLink="/artist-profile">by <span>{{show.artist || 'No artist data'}}</span></div>
             </div>
           </div>

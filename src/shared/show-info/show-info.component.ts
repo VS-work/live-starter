@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
 import { LaunchEvent } from '../../event-launch/event-launch.interface';
+import { Statistics } from '../statistics/statistics.interface';
+import { ShowInfoDate } from './showInfoDate.interface';
 
 @Component({
   selector: 'app-show-info',
@@ -10,10 +12,10 @@ import { LaunchEvent } from '../../event-launch/event-launch.interface';
 })
 
 export class ShowInfoComponent implements OnInit {
-  @Input() show: any;
+  @Input() show: LaunchEvent;
   @Input() isSmall = false;
 
-  date: any;
+  date: ShowInfoDate;
 
   ngOnInit() {
     this.parseDate(this.show.timePerfomance.start);
@@ -26,7 +28,6 @@ export class ShowInfoComponent implements OnInit {
       month: moment(startDate).format('MMMM'),
       time: moment(startDate).format('h:mm a').replace(' ', '')
     };
-    console.log('this.date', this.date);
   }
 
   sliceDescription(maxLength = 100): string {

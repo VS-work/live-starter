@@ -1,5 +1,26 @@
 export interface LaunchEvent {
-  showName: string;
+  _id?: string;
+  name: string;
+  creator: string;
+  description: string;
+  artist: string;
+  genres: string[];
+  posters: string[];
+  audios: string[];
+  videos: string[];
+  appreciations: string[];
+  info: string;
+  live: boolean;
+  completed: boolean;
+  location: {
+    country: string;
+  };
+  dateCreated: string;
+  datePerformance: string;
+  timePerfomance: {
+    start: string;
+    end: string;
+  };
   tickets: {
     count: number;
     ticketPrice: number;
@@ -7,23 +28,11 @@ export interface LaunchEvent {
     ticketsSold: number;
     fundedPercentage: number;
   };
-  creator: string;
-  dateCreated: string;
-  showLocation: string;
-  datePerformance: string;
-  timePerfomance: {
-    start: string;
-    end: string;
+  statistics: {
+    likes: string[];
+    viewers: string[];
+    followers: string[];
   };
-  artist: string;
-  genres: string[];
-  poster: any;
-  description: string;
-  audio: string;
-  video: string;
-  info: string;
-  live: boolean;
-  appreciations: any;
   wowza: {
     id: string;
     [key: string]: any
