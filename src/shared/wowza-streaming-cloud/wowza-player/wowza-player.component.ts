@@ -39,7 +39,7 @@ export class WowzaPlayerComponent {
 
   parsePlayerConfig(): PlayerConfig {
     return {
-      title: this._showParams.showName,
+      title: this._showParams.name,
       description: this._showParams.description,
       sourceURL: this._showParams.wowza.player_hls_playback_url,
       autoPlay: false,

@@ -6,3 +6,23 @@ body {
   line-height: 1.42857143;
   color: #333;
 }
+
+ul {
+  margin: 0;
+  list-style-type: none;
+}
+
+* {
+  outline: none;
+}
+
+
+a {
+  color: inherit;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}

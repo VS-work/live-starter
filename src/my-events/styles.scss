@@ -1,0 +1,31 @@
+.btn-custom {
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: white;
+  border: 1px solid #fc6337;
+  padding: 5px 15px;
+  color: #fc6337;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all .3s;
+
+  &:hover {
+    background-color: #fc6337;
+    color: white;
+  }
+}
+
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
+  &.flex-center {
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
+
