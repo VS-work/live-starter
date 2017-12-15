@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  margin-bottom: 40px;
+}
+
+.invalid-feedback {
+  width: 100%;
+  display: none;
+}
+
+input {
+  &.ng-invalid {
+    &.dirty {
+      ~ .invalid-feedback1 {
+        display: block;
+      }
+    }
+  }
+}
+
+.custom-input-container {
+  position: relative;
+  padding-right: 90px;
+  box-sizing: border-box;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}
+
+.btns-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 90px;
+
+  &.btn-reverse {
+    flex-direction: row-reverse;
+  }
+
+  & > button {
+    width: 38px;
+    height: 38px;
+    margin-left: 7px;
+  }
+}

@@ -230,15 +230,15 @@
             </div>
           </div>
 
-          <div class="audio-upload">
-            <label>Upload a few tracks:</label>
-            <button class="add-button">Add +</button>
-          </div>
+          <app-multiple-inputs [defaultvalues]="this.launchEvent.audios"
+                               [config]="embedAudioConfig"
+                               (changeValues)="setAudiosArr($event)">
+          </app-multiple-inputs>
 
-          <div class="video-upload">
-            <label>Upload some video:</label>
-            <button class="add-button">Add +</button>
-          </div>
+          <app-multiple-inputs [defaultvalues]="this.launchEvent.videos"
+                               [config]="embedVideoConfig"
+                               (changeValues)="setVideosArr($event)">
+          </app-multiple-inputs>
 
           <div class="info-upload">
             <label>Add some info:</label>
