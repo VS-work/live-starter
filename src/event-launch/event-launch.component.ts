@@ -1,19 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
+import { FileItem } from 'ng2-file-upload';
 import * as moment from 'moment';
 import { ToastOptions, ToastyService } from 'ng2-toasty';
+import { User } from 'firebase/app';
 
 import { SearchService, LocalStorageService } from '../shared';
 import { EventService } from './event.service';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 import { customToastOptions } from '../shared/models/toasty-options.model';
 import { LaunchEvent } from './event-launch.interface';
-import { User } from 'firebase/app';
 import { MultipleGenres } from './multipleGenres.interface';
 import { Country } from '../interfaces/country.interface';
+import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
+import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
 
 @Component({
   selector: 'app-launch-component',
@@ -21,6 +24,7 @@ import { Country } from '../interfaces/country.interface';
   styleUrls: ['./event-launch.component.scss']
 })
 export class LaunchComponent implements OnInit, OnDestroy {
+  @ViewChild(FileUploaderComponent) posterUploader: FileUploaderComponent;
   userProfile: User;
   funded = 0;
   genres: MultipleGenres[];
@@ -40,6 +44,17 @@ export class LaunchComponent implements OnInit, OnDestroy {
     aspect_ratio_width: 1920,
     encoder: 'wowza_gocoder',
     name: ''
+  };
+  uploaderImgs: FileItem[] = [];
+  posterConfig: FileConfig = {
+    isMultiple: false,
+    acceptTypes: '.png, .jpg, .jpeg, .gif, .svg',
+    labelText: 'Upload poster',
+    name: 'poster',
+    error: {
+      message: 'Please choose poster',
+      isShow: false
+    }
   };
   launchEvent: LaunchEvent = {
     name: '',
@@ -148,8 +163,9 @@ export class LaunchComponent implements OnInit, OnDestroy {
 
   publish(eventFormStep2: NgForm): void {
     this.validateTimePickers();
+    this.posterConfig.error.isShow = !this.posterUploader.uploader.queue.length;
 
-    if (eventFormStep2.invalid && this.isValidTimePicker) {
+    if (eventFormStep2.invalid && this.isValidTimePicker || !this.posterUploader.uploader.queue.length) {
       const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: 'Form is not valid'}};
       this.toastyService.error(toastOptions);
       return;
@@ -164,6 +180,8 @@ export class LaunchComponent implements OnInit, OnDestroy {
         this.launchEvent.wowza.id = liveStream.live_stream.id;
         this.eventServiceSubscribe = this.eventService.saveNewEvent(this.launchEvent)
           .subscribe(res => {
+            const insertId = res.data.newId;
+            this.posterUploader.sendFiles(insertId);
             this.router.navigate(['events']);
           }, err => {
             console.log(err);
@@ -200,5 +218,9 @@ export class LaunchComponent implements OnInit, OnDestroy {
     this.timePerfomance.end.setMinutes(endMinutes);
     this.timePerfomance.end.setSeconds(0);
     this.validateTimePickers();
+  }
+
+  setTemporaryPosters(posters: FileItem[]): void {
+    this.uploaderImgs = posters;
   }
 }
