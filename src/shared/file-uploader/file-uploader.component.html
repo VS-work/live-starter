@@ -1,0 +1,24 @@
+<div class="form-group">
+  <label [for]="config.name" class="file-container" [class.drop-over]="isDropping" ng2FileDrop [uploader]="uploader"  (fileOver)="fileOverBase($event)"
+  >{{config.labelText}}</label>
+  <input type="file"
+         class="form-control"
+         [id]="config.name"
+         [name]="config.name"
+         [multiple]="config.isMultiple"
+         [accept]="config.acceptTypes"
+         ng2FileSelect
+         [uploader]="uploader"/>
+  <div *ngFor="let item of uploader.queue">
+    {{item?.file.name}}
+    test
+
+    <span  class="remove-btn" (click)="item.remove()">
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </span>
+  </div>
+  <div class="invalid-feedback" [class.visible]="config.error.isShow">{{config.error.message}}</div>
+</div>
+
+
+

@@ -206,17 +206,11 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="show-poster" class="preview-container">Upload preview image</label>
-            <input type="file"
-                   style="display: none"
-                   id="show-poster"
-                   class="form-control"
-                   name="poster"
-                   [(ngModel)]="launchEvent.poster"
-                   #poster="ngModel"/>
-            <div class="invalid-feedback">error message</div>
-          </div>
+          <app-file-uploader
+            [temporaryFiles]="uploaderImgs"
+            [config]="posterConfig"
+            (setTemporaryPosters)="setTemporaryPosters($event)">
+          </app-file-uploader>
 
           <div class="description-container">
             <div class="form-group">
