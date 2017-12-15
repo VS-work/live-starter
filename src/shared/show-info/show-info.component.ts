@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { LaunchEvent } from '../../event-launch/event-launch.interface';
 import { Statistics } from '../statistics/statistics.interface';
 import { ShowInfoDate } from './showInfoDate.interface';
+import { Config } from '../../app.config';
 
 @Component({
   selector: 'app-show-info',
@@ -32,5 +33,9 @@ export class ShowInfoComponent implements OnInit {
 
   sliceDescription(maxLength = 100): string {
     return this.show.description.slice(0, maxLength);
+  }
+
+  getImgUrl(fileName: string): string {
+    return `${Config.api}/uploads/posters/${fileName}`;
   }
 }
