@@ -90,18 +90,6 @@
   border: 1px solid #49494c;
 }
 
-.filter-drpdwn {
-
-}
-
-.dropdown-item {
-  cursor: pointer;
-  padding: 0 5px;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 25px;
-}
-
 .dropdown-item:hover {
   background-color: #ffe7c7;
 }
@@ -163,10 +151,15 @@
   text-align: center;
 }
 
-.description-container textarea {
-  width: 100%;
-  border-radius: 10px;
-  padding: 15px;
+.description-container  {
+  margin-bottom: 40px;
+  margin-top: 20px;
+
+  textarea {
+    width: 100%;
+    border-radius: 10px;
+    padding: 15px;
+  }
 }
 
 .audio-upload,
@@ -250,14 +243,35 @@
 }
 
 .custom-dropdown-select {
+
+  .dropdown-toggle {
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    padding: 0 !important;
+  }
+
   .dropdown-item {
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+
+    &:active {
+      color: inherit;
+    }
+
     & > [type = "radio"] {
       display: none;
     }
 
     label {
+      cursor: pointer;
       width: 100%;
       display: block;
+      margin: 0;
+      padding: 10px;
     }
   }
 }
@@ -268,15 +282,9 @@
   overflow-y: auto;
 }
 
-
-.my-drop-zone { border: dotted 3px lightgray; }
-.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-.another-file-over-class { border: dotted 3px green; }
-
 label {
   width: 100%;
 }
-
 
 .icon-calendar {
   box-shadow: none !important;
@@ -287,6 +295,10 @@ label {
   width: 363px
 }
 
-.time-picker-container > * {
+.time-picker-container {
   margin-bottom: 20px;
+
+  & > * {
+    margin-bottom: 20px;
+  }
 }

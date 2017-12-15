@@ -26,3 +26,7 @@ a:hover {
   text-decoration: none;
   color: inherit;
 }
+
+.invalid-feedback.visible {
+  display: block !important;
+}

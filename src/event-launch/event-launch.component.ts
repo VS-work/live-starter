@@ -17,6 +17,7 @@ import { MultipleGenres } from './multipleGenres.interface';
 import { Country } from '../interfaces/country.interface';
 import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
 import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
+import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
 
 @Component({
   selector: 'app-launch-component',
@@ -29,7 +30,7 @@ export class LaunchComponent implements OnInit, OnDestroy {
   funded = 0;
   genres: MultipleGenres[];
   locations: Country[];
-  activeStep = 1;
+  activeStep = 2;
   eventServiceSubscribe: Subscription;
   searchServiceSubscribe: Subscription;
   isValidTimePicker = true;
@@ -55,6 +56,16 @@ export class LaunchComponent implements OnInit, OnDestroy {
       message: 'Please choose poster',
       isShow: false
     }
+  };
+  embedVideoConfig: FieldConfig = {
+    label: 'Embed videos',
+    errorMsg: `Field is not valid! Try to use "<iframe src=""></iframe>"`,
+    embedPattern: '^(<iframe.*? src=")(.*?)(\\??)(.*?)(".*)()(<\\/iframe>)$'
+  };
+  embedAudioConfig: FieldConfig = {
+    label: 'Embed audios',
+    errorMsg: `Field is not valid! Try to use "<iframe src=""></iframe>"`,
+    embedPattern: '^(<iframe.*? src=")(.*?)(\\??)(.*?)(".*)()(<\\/iframe>)$'
   };
   launchEvent: LaunchEvent = {
     name: '',
@@ -222,5 +233,13 @@ export class LaunchComponent implements OnInit, OnDestroy {
 
   setTemporaryPosters(posters: FileItem[]): void {
     this.uploaderImgs = posters;
+  }
+
+  setVideosArr(videos: string[]): void {
+    this.launchEvent.videos = videos;
+  }
+
+  setAudiosArr(audios: string[]): void {
+    this.launchEvent.audios = audios;
   }
 }

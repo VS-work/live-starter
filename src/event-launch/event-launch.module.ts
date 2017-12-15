@@ -17,6 +17,7 @@ import { EventService } from './event.service';
 import { SharedModule, SearchService } from '../shared';
 import { WowzaCloudModule } from '../shared/wowza-streaming-cloud/wowza-cloud.module';
 import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module';
+import { MultipleInputsModule } from '../shared/multiple-inputs/multiple-inputs.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module
     WowzaCloudModule,
     FileUploaderModule,
     FundingContainerModule,
+    MultipleInputsModule,
     ButtonsModule.forRoot(),
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
