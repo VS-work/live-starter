@@ -30,7 +30,7 @@ export class LaunchComponent implements OnInit, OnDestroy {
   funded = 0;
   genres: MultipleGenres[];
   locations: Country[];
-  activeStep = 2;
+  activeStep = 1;
   eventServiceSubscribe: Subscription;
   searchServiceSubscribe: Subscription;
   isValidTimePicker = true;
