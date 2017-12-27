@@ -57,7 +57,7 @@
 
       <select class="form-control" [(ngModel)]="newUser.country">
         <option value="" disabled selected="selected">* Select Country</option>
-        <option *ngFor="let country of countries" value={{country.country}}>{{country.alias || newUser.country}}</option>
+        <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
       </select>
 
       <select class="form-control" [(ngModel)]="newUser.city">
@@ -86,8 +86,8 @@
               [(ngModel)]="newUser.country">
         <option value="" disabled selected="selected">* Select Country</option>
         <option *ngFor="let country of countries"
-                value={{country.country}}>
-                {{country.alias}}
+                value={{country.id}}>
+                {{country.name}}
         </option>
       </select>
       <select class="form-control"

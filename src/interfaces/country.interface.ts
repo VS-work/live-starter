@@ -4,3 +4,8 @@ export interface Country {
   sortname: string;
   _id: string;
 }
+
+export interface City {
+  _id: string;
+  city: string
+}

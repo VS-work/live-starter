@@ -8,8 +8,8 @@ export class LocalStorageService {
   public itemEvents: Subject<any> = new Subject<any>();
 
   public setItem(key: string, value: any): void {
-    this.localStorage.setItem(key, value.toString());
-    this.itemEvents.next({key: key, value: value});
+    this.localStorage.setItem(key, JSON.stringify(value));
+    this.itemEvents.next({key, value: JSON.stringify(value)});
   }
 
   public removeItem(key: string): void {
