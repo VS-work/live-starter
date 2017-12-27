@@ -4,6 +4,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { LocalStorageService } from '../shared';
 import { AuthService } from '../auth';
+import { User } from '../signup/user.class';
+
 
 @Component({
   selector: 'app-header',
@@ -14,47 +16,50 @@ import { AuthService } from '../auth';
 export class HeaderComponent implements OnInit {
   @ViewChild('staticModal') public staticModal: ModalDirective;
 
-  public userProfile: any;
-  public localStorageService: LocalStorageService;
-  public auth: AuthService;
-  private router: Router;
+  userProfile: User;
 
-  public constructor(auth: AuthService,
-                     localStorageService: LocalStorageService,
-                     router: Router) {
-    this.auth = auth;
-    this.router = router;
-    this.localStorageService = localStorageService;
+
+  constructor(private auth: AuthService,
+                     private localStorageService: LocalStorageService,
+                     private router: Router) {
   }
 
-  public ngOnInit(): void {
-    const userProfile: any = this.localStorageService.getItem('profile');
-
-    if (userProfile) {
-      this.userProfile = JSON.parse(userProfile);
+  ngOnInit() {
+    try {
+      this.userProfile = new User(JSON.parse(this.localStorageService.getItem('profile')));
+    } catch (err) {
+      this.userProfile = null;
+      console.error('something went wrong: ', err);
     }
 
-    this.localStorageService.getItemEvent().subscribe((userData: any) => {
+    this.localStorageService.getItemEvent().subscribe(userData => {
       if (userData.key !== 'profile') {
-        return;
+        return undefined;
       }
 
-      this.userProfile = JSON.parse(userData.value);
+      try {
+        this.userProfile = new User(JSON.parse(userData.value));
+      } catch (err) {
+        this.userProfile = null;
+        console.error('something went wrong', err);
+      }
     });
   }
 
-  public goToHomePage(): void {
+  goToHomePage(): void {
     this.router.navigate(['/home']);
     if (this.localStorageService.getItem('homePageSearchData')) {
       this.localStorageService.removeItem('homePageSearchData');
     }
   }
 
-  public loginModal(): void {
+  loginModal(): void {
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('tempProfile');
     this.staticModal.show();
   }
 
-  public closeModal(): void {
+  closeModal(): void {
     this.staticModal.hide();
   }
 }

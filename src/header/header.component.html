@@ -30,8 +30,8 @@
       <span id="simple-dropdown" dropdownToggle>
 
         <span class="user-menu" *ngIf="userProfile">
-          <img class="header-avatar-container" [src]="userProfile?.picture" alt="">
-          {{userProfile?.name || userProfile?.email}}<span class="caret"></span>
+          <img class="header-avatar-container" [src]="userProfile?.avatar" alt="">
+          {{userProfile?.name || userProfile?.username || userProfile?.email}}<span class="caret"></span>
         </span>
       </span>
         <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu dropdown-menu-right">

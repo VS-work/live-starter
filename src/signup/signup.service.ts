@@ -1,36 +1,32 @@
-import { Inject, Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Config } from '../app.config';
+import  'rxjs/add/observable/throw'
 
-import 'rxjs/add/operator/map';
+import { Config } from '../app.config';
+import { User } from './user.class';
 
 @Injectable()
 export class SignUpService {
-  public http: Http;
 
-  public constructor(@Inject(Http) http: Http) {
-    this.http = http;
+  constructor(private http: HttpClient) {
   }
 
-  public signupUser(query: any): Observable<any> {
-    return this.http.post(`${Config.api}/signup`, query).map((res: any) => {
-      let parseRes = JSON.parse(res._body);
-      return {err: parseRes.error, data: parseRes.data};
-    });
+  signupUser(query: User): Observable<any> {
+    return this.http.post(`${Config.api}/signup`, query);
   }
 
-  public isEmailExist(query: any): Observable<any> {
-    return this.http.post(`${Config.api}/signup/check-email`, query).map((res: any) => {
-      let parseRes = JSON.parse(res._body);
-      return {err: parseRes.error, data: parseRes.data};
-    });
+  isEmailExist(query: {email: string}): Observable<any> {
+    return this.http.post(`${Config.api}/signup/check-email`, query);
   }
 
-  public signupGetLocations(): Observable<any> {
-    return this.http.get(`${Config.api}/signup/get-locations`).map((res: any) => {
-      let parseRes = JSON.parse(res._body);
-      return {err: parseRes.error, data: parseRes.data};
-    });
+  signupGetLocations(): Observable<any> {
+    return this.http.get(`${Config.api}/signup/get-locations`);
+  }
+
+  getUser(data: {email: string}): Observable<any> {
+    const query = Config.objToQuery(data);
+
+    return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`);
   }
 }

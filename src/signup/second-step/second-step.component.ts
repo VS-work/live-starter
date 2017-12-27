@@ -1,51 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+
 import { extend } from 'lodash';
+import { ToastOptions, ToastyService } from 'ng2-toasty';
 
 import { SignUpService } from '../signup.service';
 import { AuthService } from '../../auth';
 import { LocalStorageService, SearchService } from '../../shared';
-
-interface INewUser {
-  active: boolean;
-  avatar: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  gender: string;
-  email: string;
-  role: string;
-  type: string;
-  position: string;
-  city: string;
-  country: string;
-  viewers: any[];
-  appreciations: any[];
-  followers: any[];
-  followings: any[];
-  website: string;
-  joinDate: Date;
-  biography: string;
-  contacts: {
-    phone: string;
-    skype: string;
-    hangouts: string;
-  };
-  shows: any[];
-  socials: {
-    google: string;
-    facebook: string;
-    twitter: string;
-  };
-  comments: any[];
-  reviews: any[];
-  video: any[];
-  audio: any[];
-  photo: any[];
-  genres: any[];
-  groupName: string;
-}
+import { City, Country } from '../../interfaces/country.interface';
+import { customToastOptions } from '../../shared/models/toasty-options.model';
+import { User } from '../user.class';
 
 @Component({
   selector: 'app-second-step-signup',
@@ -53,114 +18,78 @@ interface INewUser {
   styleUrls: ['./second-step.component.css']
 })
 export class SecondStepComponent implements OnInit, OnDestroy {
-  public newUser: INewUser;
-  public userErrorMessage: string;
-  public countries: any;
-  public cities: any;
-  public isTypeArtist = false;
-  public userType: any = {type: 'fan'};
-  public userProfile: any;
+  countries: Country[];
+  cities: City[];
+  isTypeArtist = false;
+  userType = {type: 'fan'};
+  userProfile: any; // user data from social networks
+  signupServiceSubscribe: Subscription;
+  isEmailExistSignupServiceSubscribe: Subscription;
+  getLocationsSignupServiceSubscribe: Subscription;
+  searchServiceSubscribe: Subscription;
+  genres: string[];
+  newUser = new User({});
 
-  public userProfileService: LocalStorageService;
-  public signupServiceSubscribe: Subscription;
-  public isEmailExistSignupServiceSubscribe: Subscription;
-  public getLocationsSignupServiceSubscribe: Subscription;
-  public searchService: SearchService;
-  public searchServiceSubscribe: Subscription;
-  public genres: any;
-  public signupService: SignUpService;
-  private auth: AuthService;
-  private router: Router;
-
-  public constructor(signupService: SignUpService,
-                     auth: AuthService,
-                     searchService: SearchService,
-                     userProfileService: LocalStorageService,
-                     router: Router) {
-    this.userProfileService = userProfileService;
-    this.signupService = signupService;
-    this.searchService = searchService;
-    this.auth = auth;
-    this.router = router;
+constructor(private signupService: SignUpService,
+            private auth: AuthService,
+            private searchService: SearchService,
+            private userProfileService: LocalStorageService,
+            private router: Router,
+            private toastyService: ToastyService) {
   }
 
-  public ngOnInit(): void {
-    const userProfile: any = this.userProfileService.getItem('profile');
+  ngOnInit() {
+    try {
+      this.userProfile = JSON.parse(this.userProfileService.getItem('tempProfile'));
 
-    this.newUser = {
-      active: true,
-      avatar: '',
-      username: '',
-      firstName: '',
-      lastName: '',
-      gender: '',
-      email: '',
-      role: 'user',
-      type: '',
-      position: '',
-      city: '',
-      country: '',
-      viewers: [],
-      appreciations: [],
-      followers: [],
-      followings: [],
-      website: '',
-      joinDate: new Date(),
-      biography: 'User was born and seems that he is alive yet.',
-      contacts: {
-        phone: '',
-        skype: '',
-        hangouts: ''
-      },
-      shows: [],
-      socials: {
-        google: '',
-        facebook: '',
-        twitter: ''
-      },
-      comments: [],
-      reviews: [],
-      video: [],
-      audio: [],
-      photo: [],
-      genres: [],
-      groupName: ''
-    };
+      if (this.userProfile) {
+        this.newUser.username = this.userProfile.nickname;
+        this.newUser.country = this.userProfile.country;
+        this.newUser.avatar = this.userProfile.picture;
+        this.newUser.firstName = this.userProfile.given_name;
+        this.newUser.lastName = this.userProfile.family_name;
+        this.newUser.gender = this.userProfile.gender;
+        this.newUser.email = this.userProfile.email;
+      }
+    } catch (err) {
+      console.error('something went wrong: ', err);
+    }
 
     this.getLocationsSignupServiceSubscribe = this.signupService.signupGetLocations()
-      .subscribe((res): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-        const locations = res.data;
-
-        this.countries = locations.getCountries;
-        this.cities = locations.getCities;
+      .subscribe(res => {
+        this.countries = res.data.getCountries;
+        this.cities = res.data.getCities;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
-      .subscribe((res: any): void => {
+      .subscribe(res => {
         if (res.error) {
-          console.error(res.error);
-          return;
+          console.error('something went wrong: ', res.error);
+          return undefined;
         }
 
         const styles: any = res.data;
         this.genres = styles.genres;
       });
 
-    if (userProfile) {
-      this.userProfile = JSON.parse(userProfile);
-      this.newUser.username = userProfile.name;
-      this.newUser.country = userProfile.country;
-    }
-
     this.userProfileService.getItemEvent().subscribe((userData) => {
-      this.userProfile = JSON.parse(userData.value);
-      this.newUser.username = this.userProfile.name;
-      this.newUser.country = this.userProfile.country;
+      try {
+        this.userProfile = JSON.parse(userData.value);
+
+        if (this.userProfile) {
+          this.newUser.username = this.userProfile.nickname;
+          this.newUser.country = this.userProfile.country;
+          this.newUser.avatar = this.userProfile.picture;
+          this.newUser.firstName = this.userProfile.given_name;
+          this.newUser.lastName = this.userProfile.family_name;
+          this.newUser.gender = this.userProfile.gender;
+          this.newUser.email = this.userProfile.email;
+        }
+      } catch (err) {
+        console.error('something went wrong: ', err);
+      }
     });
   }
 
@@ -176,13 +105,31 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     this.newUser.country = this.newUser.country || this.userProfile.country;
     this.newUser.city = this.newUser.city || this.userProfile.city;
 
-    this.signupServiceSubscribe = this.signupService.signupUser(this.newUser)
-      .subscribe((): void => {
-        this.router.navigate(['/home']);
+    this.isEmailExist(this.newUser.email);
+  }
+
+  isEmailExist(email: string): void {
+    this.isEmailExistSignupServiceSubscribe = this.signupService.isEmailExist({email})
+      .subscribe(res => {
+        if (res.success && res.error) {
+          const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: res.error}};
+          this.toastyService.error(toastOptions);
+          return undefined;
+        }
+
+        this.signupServiceSubscribe = this.signupService.signupUser(this.newUser)
+          .subscribe(user => {
+            this.userProfileService.setItem('profile', user);
+            this.router.navigate(['/home']);
+          }, err => {
+            console.error('something went wrong: ', err);
+          });
+      }, err => {
+        console.error('something went wrong: ', err);
       });
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy() {
     if (this.getLocationsSignupServiceSubscribe) {
       this.getLocationsSignupServiceSubscribe.unsubscribe();
     }
@@ -194,5 +141,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     if (this.signupServiceSubscribe) {
       this.signupServiceSubscribe.unsubscribe();
     }
+
+    localStorage.removeItem('tempProfile');
   }
 }
