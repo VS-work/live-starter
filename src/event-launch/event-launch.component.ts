@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { FileItem } from 'ng2-file-upload';
 import * as moment from 'moment';
 import { ToastOptions, ToastyService } from 'ng2-toasty';
-import { User } from 'firebase/app';
 
 import { SearchService, LocalStorageService } from '../shared';
 import { EventService } from './event.service';
@@ -18,6 +17,7 @@ import { Country } from '../interfaces/country.interface';
 import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
 import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
 import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
+import { User } from '../signup/user.class';
 
 @Component({
   selector: 'app-launch-component',
@@ -107,11 +107,11 @@ export class LaunchComponent implements OnInit, OnDestroy {
   };
 
   constructor(private router: Router,
-                     private searchService: SearchService,
-                     private userProfileService: LocalStorageService,
-                     private eventService: EventService,
-                     private wowzaCloudService: WowzaCloudService,
-                     private toastyService: ToastyService) {}
+              private searchService: SearchService,
+              private userProfileService: LocalStorageService,
+              private eventService: EventService,
+              private wowzaCloudService: WowzaCloudService,
+              private toastyService: ToastyService) {}
 
   ngOnInit(): void {
     const userProfile = this.userProfileService.getItem('profile');
@@ -129,22 +129,22 @@ export class LaunchComponent implements OnInit, OnDestroy {
         const styles = res.data;
         this.genres = styles.genres.map((genre: string) => ({isChecked: false, value: genre}));
       }, err => {
-        console.error(err);
+        console.error('something went wrong: ', err);
       });
 
     this.searchServiceSubscribe = this.searchService.getLocations()
       .subscribe(res => {
         this.locations = res.data;
       }, err => {
-        console.error(err);
+        console.error('something went wrong: ', err);
       });
   }
 
   setUserInfo(profile: string) {
     try {
-      this.userProfile = JSON.parse(profile);
+      this.userProfile = new User(JSON.parse(profile));
     } catch (e) {
-      console.log(e);
+      console.error('something went wrong: ', e);
     }
   }
 
@@ -156,15 +156,15 @@ export class LaunchComponent implements OnInit, OnDestroy {
     return this.activeStep === step;
   }
 
-  goToNextStep(eventForm: NgForm): void {
+  goToNextStep(eventForm: NgForm): void | undefined {
     this.launchEvent.genres = this.genres.filter(genre => genre.isChecked).map(genre => genre.value);
     if (eventForm.invalid || !this.launchEvent.genres.length) {
       const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: 'Form is not valid'}};
       this.toastyService.error(toastOptions);
-      return;
+      return undefined;
     }
 
-    this.launchEvent.creator = this.userProfile.email;
+    this.launchEvent.creator = this.userProfile._id;
     this.activeStep += 1;
   };
 
@@ -172,14 +172,14 @@ export class LaunchComponent implements OnInit, OnDestroy {
     this.activeStep = this.activeStep === 1 ? 1 : this.activeStep - 1;
   }
 
-  publish(eventFormStep2: NgForm): void {
+  publish(eventFormStep2: NgForm): void | undefined {
     this.validateTimePickers();
     this.posterConfig.error.isShow = !this.posterUploader.uploader.queue.length;
 
     if (eventFormStep2.invalid && this.isValidTimePicker || !this.posterUploader.uploader.queue.length) {
       const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: 'Form is not valid'}};
       this.toastyService.error(toastOptions);
-      return;
+      return undefined;
     }
 
     this.wowzaObj.name = this.launchEvent.name;
@@ -195,7 +195,7 @@ export class LaunchComponent implements OnInit, OnDestroy {
             this.posterUploader.sendFiles(insertId);
             this.router.navigate(['events']);
           }, err => {
-            console.log(err);
+            console.error('something went wrong: ', err);
           });
       }, err => {
         console.log('err start stream', err);
