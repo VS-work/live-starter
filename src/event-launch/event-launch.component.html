@@ -214,17 +214,17 @@
 
           <div class="description-container">
             <div class="form-group">
-              <label for="decription" class="input-label">Description</label>
-              <textarea name="decription"
-                        id="decription"
+              <label for="description" class="input-label">Description</label>
+              <textarea name="description"
+                        id="description"
                         [(ngModel)]="launchEvent.description"
                         placeholder="Write a show description here"
-                        name="decription"
-                        #decription="ngModel"
+                        name="description"
+                        #description="ngModel"
                         required>
-            </textarea>
+              </textarea>
               <div
-                [class]="!decription.valid && (decription.dirty || eventFormStep2.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
+                [class]="!description.valid && (description.dirty || eventFormStep2.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
                 error message
               </div>
             </div>
@@ -240,9 +240,20 @@
                                (changeValues)="setVideosArr($event)">
           </app-multiple-inputs>
 
-          <div class="info-upload">
-            <label>Add some info:</label>
-            <button class="add-button">Add +</button>
+          <div class="other-information-container">
+            <div class="form-group">
+              <label for="info" class="input-label">Additional information</label>
+              <textarea name="info"
+                        id="info"
+                        [(ngModel)]="launchEvent.info"
+                        placeholder="Write another information"
+                        #info="ngModel">
+              </textarea>
+              <div
+                [class]="!info.valid && (info.dirty || eventFormStep2.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
+                error message
+              </div>
+            </div>
           </div>
 
           <app-list-of-encoders (setEncoder)="setEncoder($event)"></app-list-of-encoders>

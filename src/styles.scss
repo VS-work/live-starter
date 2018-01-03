@@ -20,13 +20,18 @@ ul {
 a {
   color: inherit;
   cursor: pointer;
-}
-
-a:hover {
-  text-decoration: none;
-  color: inherit;
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .invalid-feedback.visible {
   display: block !important;
+}
+
+textarea {
+  width: 100%;
+  border-radius: 10px;
+  padding: 15px;
 }
