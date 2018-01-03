@@ -6,9 +6,9 @@
         Crowdfund your own event with LiveStarter
       </div>
       <form #eventForm="ngForm" novalidate (ngSubmit)="goToNextStep(eventForm)">
-        <div class="data-container">
+        <div class="data-container row">
 
-          <div class="info">
+          <div class="info col-lg-8 col-md-12">
             <div class="display-data">
               <div class="event-data-container">
                 <div class="num-container">${{launchEvent.tickets?.ticketPrice || 0}}</div>
@@ -24,17 +24,19 @@
               </div>
             </div>
             <div class="genres-selector">
-              <div>Choose genres which you have been playing:</div>
-              <span class="genres-list" *ngFor="let currentGenre of genres;">
-                <button
-                  type="button"
-                  [name]="currentGenre.value"
-                  class="genre-button"
-                  [(ngModel)]="currentGenre.isChecked"
-                  btnCheckbox>
-                  {{currentGenre.value}}
-                </button>
-              </span>
+              <label>Choose genres which you have been playing:</label>
+              <ul class="group-genres">
+                <li class="genre-item" *ngFor="let currentGenre of genres;">
+                  <button
+                    type="button"
+                    [name]="currentGenre.value"
+                    class="genre-button"
+                    [(ngModel)]="currentGenre.isChecked"
+                    btnCheckbox>
+                    {{currentGenre.value}}
+                  </button>
+                </li>
+              </ul>
               <div
                 [class]="!launchEvent.genres.length && eventForm.submitted ? 'invalid-feedback visible':'invalid-feedback'">
                 Choose one or more genres
@@ -42,7 +44,7 @@
             </div>
           </div>
 
-          <div class="inputs">
+          <div class="inputs col-lg-4 col-md-12">
             <div class="form-group">
               <label for="show-title">Give an event a title:</label>
               <input type="text"
@@ -150,9 +152,9 @@
 
     <div class="second-step" *ngIf="isActiveStep(2)">
       <form class="row" #eventFormStep2="ngForm">
-        <div class="col-9">
-          <div class="name-date-container">
-            <div class="form-group show-name-second-step">
+        <div class="col-lg-12 col-xl-9">
+          <div class="name-date-container row">
+            <div class="form-group col-sm-12 col-md-6">
               <label for="artist-name">Artist Name:</label>
               <input type="text"
                      id="artist-name"
@@ -164,16 +166,17 @@
                      required/>
               <div
                 [class]="!artist.valid && (artist.dirty || eventFormStep2.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
-                error message
+                Field can't be empty. Please add artist
               </div>
             </div>
 
-            <div class="form-group event-date-picker date-picker">
+            <div class="form-group col-sm-12 col-md-6 date-picker">
               <label class="input-label">Planned date and time to start:</label>
               <div class="input-group">
                 <input type="text"
                        name="datepicker"
                        class="form-control"
+                       disabled="disabled"
                        [minDate]="minDate"
                        [(bsValue)]="bsValue"
                        #eventDP="bsDatepicker"
@@ -190,26 +193,28 @@
           </div>
 
           <div class="row time-picker-container">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-group col-12 col-sm-6">
               <label>Start Time</label>
               <timepicker name='startTime' [(ngModel)]="timePerfomance.start" (ngModelChange)="validateTimePickers()"></timepicker>
+              <div
+                [class]="!isValidTimePicker ? 'invalid-feedback visible':'invalid-feedback'">
+                Start time can't be great than end time
+              </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-group col-12 col-sm-6">
               <label>End Time</label>
               <timepicker name="endTime" [(ngModel)]="timePerfomance.end" (ngModelChange)="validateTimePickers()"></timepicker>
-            </div>
-
-            <div
-              [class]="!isValidTimePicker ? 'invalid-feedback visible':'invalid-feedback'">
-              End time cant be less than start
+              <div
+                [class]="!isValidTimePicker ? 'invalid-feedback visible':'invalid-feedback'">
+                End time can't be less than start time
+              </div>
             </div>
           </div>
 
-          <app-file-uploader
-            [temporaryFiles]="uploaderImgs"
-            [config]="posterConfig"
-            (setTemporaryPosters)="setTemporaryPosters($event)">
+          <app-file-uploader class="form-group" [temporaryFiles]="uploaderImgs"
+                             [config]="posterConfig"
+                             (setTemporaryPosters)="setTemporaryPosters($event)">
           </app-file-uploader>
 
           <div class="description-container">
@@ -230,12 +235,14 @@
             </div>
           </div>
 
-          <app-multiple-inputs [defaultvalues]="this.launchEvent.audios"
+          <app-multiple-inputs class="form-group"
+                               [defaultvalues]="this.launchEvent.audios"
                                [config]="embedAudioConfig"
                                (changeValues)="setAudiosArr($event)">
           </app-multiple-inputs>
 
-          <app-multiple-inputs [defaultvalues]="this.launchEvent.videos"
+          <app-multiple-inputs class="form-group"
+                               [defaultvalues]="this.launchEvent.videos"
                                [config]="embedVideoConfig"
                                (changeValues)="setVideosArr($event)">
           </app-multiple-inputs>
@@ -256,50 +263,54 @@
             </div>
           </div>
 
-          <app-list-of-encoders (setEncoder)="setEncoder($event)"></app-list-of-encoders>
+          <app-list-of-encoders class="form-group" (setEncoder)="setEncoder($event)"></app-list-of-encoders>
 
           <button type="button" class="next-button" (click)="goBack()">< Previous step</button>
         </div>
-        <div class="side-bar col-3">
-          <div class="show-action-button">
-            <button type="button" class="next-button">Preview</button>
-            <button type="submit" class="next-button" (click)="publish(eventFormStep2)">Publish</button>
-          </div>
 
-
-          <div class="artist-data">
-            <img class="avatar img-circle"
-                 src="https://img.clipartfest.com/a22d68de188f2083affefb14cc66ca80_shawn-mendes-png-by-karlymoon-shawn-mendes-clipart_400-400.png"
-                 alt="AV">
-            <div class="artist-info">
-              <div class="name" routerLink="/artist-profile">{{launchEvent.artist}}</div>
-              <div class="location">Location {{launchEvent.location.country}}</div>
+        <div class="side-bar col-lg-12 col-xl-3">
+          <div class="row">
+            <div class="show-action-button col-12 col-md-6 col-xl-12">
+              <button type="button" class="next-button">Preview</button>
+              <button type="submit" class="next-button" (click)="publish(eventFormStep2)">Publish</button>
             </div>
 
-            <div class="artists-genres">
-              <span class="genres">Genres:</span>
-              {{launchEvent.genres}}
-            </div>
+            <div class="artist-data col-12 col-md-6 col-xl-12">
+              <img class="avatar img-circle"
+                   src="https://img.clipartfest.com/a22d68de188f2083affefb14cc66ca80_shawn-mendes-png-by-karlymoon-shawn-mendes-clipart_400-400.png"
+                   alt="AV">
+              <div class="artist-info">
+                <div class="name" routerLink="/artist-profile">{{launchEvent.artist}}</div>
+                <div class="location">Location {{launchEvent.location.country}}</div>
+              </div>
 
-            <div class="artists-appriciations">
-            <span class="views">
-              <img src="/assets/img/eye-icon.png" alt="views">
-              <span class="amount">57</span>
-            </span>
-              <span class="likes">
-              <img src="/assets/img/rock_gesture.png" alt="views">
-              <span class="amount">48</span>
-            </span>
-              <span class="followers">
-              <img src="/assets/img/person.png" alt="views">
-              <span class="amount">51</span>
-            </span>
-              <span class="shows">
-              <img src="/assets/img/play.png" alt="views">
-              <span class="amount">3</span>
-            </span>
+              <div class="artists-genres">
+                <span class="genres">Genres:</span>
+                <span *ngFor="let artistGenre of launchEvent.genres; last as isLast">
+                  {{isLast ? artistGenre : artistGenre + ', '}}
+                </span>
+              </div>
+
+              <div class="artists-appriciations">
+                <span class="views">
+                  <img src="/assets/img/eye-icon.png" alt="views">
+                  <span class="amount">57</span>
+                </span>
+                <span class="likes">
+                  <img src="/assets/img/rock_gesture.png" alt="views">
+                  <span class="amount">48</span>
+                </span>
+                <span class="followers">
+                  <img src="/assets/img/person.png" alt="views">
+                  <span class="amount">51</span>
+                </span>
+                <span class="shows">
+                  <img src="/assets/img/play.png" alt="views">
+                  <span class="amount">3</span>
+                </span>
+              </div>
+              <app-funding-container [fundingParams]="launchEvent.tickets"></app-funding-container>
             </div>
-            <app-funding-container [fundingParams]="launchEvent.tickets"></app-funding-container>
           </div>
         </div>
       </form>

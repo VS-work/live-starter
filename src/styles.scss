@@ -9,11 +9,12 @@ body {
 
 ul {
   margin: 0;
+  padding: 0;
   list-style-type: none;
 }
 
 * {
-  outline: none;
+  outline: none !important;
 }
 
 
@@ -34,4 +35,16 @@ textarea {
   width: 100%;
   border-radius: 10px;
   padding: 15px;
+}
+
+input, textarea {
+  &.ng-valid.ng-dirty {
+    border-left: 5px solid #42A948;
+  }
+}
+
+input, textarea {
+  &.ng-invalid.ng-dirty {
+    border-left: 5px solid #a94442;
+  }
 }

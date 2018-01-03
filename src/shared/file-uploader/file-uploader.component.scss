@@ -1,9 +1,14 @@
+:host {
+  display: block;
+}
+
 .file-container {
   cursor: pointer;
   width: 100%;
   border: 1px dotted #8e8e9a;
   border-radius: 10px;
   padding: 15px;
+  margin: 0;
   text-align: center;
   transition: all .2s;
   box-sizing: border-box;

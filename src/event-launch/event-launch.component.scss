@@ -8,35 +8,59 @@
   text-align: center;
   font-size: 17px;
   margin: 30px;
-}
 
-.header .title {
-  color: #000000;
-  font-size: 19px;
+  &.title {
+    color: #000000;
+    font-size: 19px;
+  }
 }
 
 .data-container {
   border: 1px solid black;
   background-color: white;
   border-radius: 10px;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
   padding: 30px 0;
 }
 
-.info,
-.inputs {
-  padding: 0 30px;
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .display-data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   text-align: center;
+
+  & > * {
+    padding: 10px 5px;
+    width: 33.3%;
+
+    &:first-child {
+      padding-left: 10px;
+    }
+
+    &:last-child {
+      padding-right: 10px;
+    }
+  }
+}
+
+.genres-selector {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.group-genres {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    margin: 5px;
+  }
 }
 
 .genre-button {
@@ -49,19 +73,11 @@
   background-color: transparent;
   padding: 0 10px;
   cursor: pointer;
-}
 
-.genre-button:hover, .active {
-  background-color: #e3e3ef;
-  color: #62686b;
-}
-
-.event-data-container {
-  width: 33%;
-  margin: 5px 0;
-  position: relative;
-  display: inline-block;
-  float: left;
+  &:hover, .active {
+    background-color: #e3e3ef;
+    color: #62686b;
+  }
 }
 
 .num-container {
@@ -90,10 +106,6 @@
   border: 1px solid #49494c;
 }
 
-.dropdown-item:hover {
-  background-color: #ffe7c7;
-}
-
 .goToSecondStep {
   text-align: center;
 }
@@ -116,31 +128,12 @@
   }
 }
 
-.ng-valid[required], .ng-valid.required {
-  border-left: 5px solid #42A948;
-}
-
-.ng-invalid:not(form) {
-  border-left: 5px solid #a94442;
-}
-
 .second-step {
   padding: 30px 0;
 }
 
 .second-step label {
   display: block;
-}
-
-.name-date-container {
-  position: relative;
-  display: flex;
-  margin-bottom: 20px;
-}
-
-.show-name-second-step {
-  flex-grow: 1;
-  margin-right: 20px;
 }
 
 .preview-container {
@@ -151,40 +144,13 @@
   text-align: center;
 }
 
-.description-container  {
-  margin-bottom: 40px;
-  margin-top: 20px;
-
-  textarea {
-    width: 100%;
-    border-radius: 10px;
-    padding: 15px;
-  }
-}
-
-.audio-upload,
-.video-upload,
-.info-upload {
-  margin: 30px 0;
-}
-
-.add-button {
-  border-radius: 20px;
-  background-color: white;
-  border: 1px solid #fc6337;
-  padding: 2px 15px;
-  color: #fc6337;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.add-button:hover {
-  background-color: #fc6337;
-  color: white;
+.side-bar {
+  align-items: flex-start;
 }
 
 .show-action-button {
   display: flex;
+  align-items: start;
 
   & > *:first-child {
     margin-right: 15px;
@@ -201,51 +167,59 @@
   vertical-align: middle;
   display: inline-block;
   margin-left: 10px;
+
+  .name {
+    color: #1c2e36;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 17px;
+    cursor: pointer;
+  }
 }
 
-.artist-info .name {
-  color: #1c2e36;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 17px;
-  cursor: pointer;
-}
-
-.funding-info {
-  text-align: center;
-}
+//.funding-info {
+//  text-align: center;
+//}
 
 .artists-genres {
   color: #8e8e9a;
   font-size: 12px;
   margin: 10px 0;
-}
 
-.artists-genres .genres {
-  font-weight: 700;
+  .genres {
+    font-weight: 700;
+  }
 }
 
 .artists-appriciations {
   border-bottom: 1px solid #8e8e9a;
   padding: 15px 0;
-}
 
-.artists-appriciations img {
-  width: 20px;
-}
+  img {
+    width: 20px;
+  }
 
-.artists-appriciations span {
-  margin: 0 5px;
-}
-
-.invalid-feedback.visible {
-  display: block;
+  span {
+    margin: 0 5px;
+  }
 }
 
 .custom-dropdown-select {
+  width: 100%;
+  position: relative;
 
   .dropdown-toggle {
     cursor: pointer;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    &:after {
+      position: absolute;
+      right: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
   }
 
   .dropdown-menu {
@@ -260,6 +234,10 @@
 
     &:active {
       color: inherit;
+    }
+
+    &:hover {
+      background-color: #ffe7c7;
     }
 
     & > [type = "radio"] {
@@ -280,6 +258,7 @@
   max-height: 200px;
   overflow: hidden;
   overflow-y: auto;
+  width: 100%;
 }
 
 label {
@@ -289,16 +268,5 @@ label {
 .icon-calendar {
   box-shadow: none !important;
   width: 55px;
-}
-
-.event-date-picker {
-  width: 363px
-}
-
-.time-picker-container {
-  margin-bottom: 20px;
-
-  & > * {
-    margin-bottom: 20px;
-  }
+  cursor: pointer;
 }
