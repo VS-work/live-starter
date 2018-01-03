@@ -1,6 +1,5 @@
 :host {
   display: block;
-  margin-bottom: 40px;
 }
 
 .invalid-feedback {
@@ -22,10 +21,6 @@ input {
   position: relative;
   padding-right: 90px;
   box-sizing: border-box;
-
-  &:not(:last-child) {
-    margin-bottom: 15px;
-  }
 }
 
 .btns-container {

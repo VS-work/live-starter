@@ -1,6 +1,6 @@
-<div class="form-group">
+<div class="multiple-inputs-container">
   <label>{{config.label}}</label>
-  <div class="custom-input-container" *ngFor="let input of inputs; let i = index">
+  <div class="custom-input-container form-group" *ngFor="let input of inputs; let i = index">
     <input type="text"
            class="form-control"
            name="'item'-{{i}}"
