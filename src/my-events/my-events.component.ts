@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SearchService } from '../shared';
 import { Config } from '../app.config';
 import { LaunchEvent } from '../event-launch/event-launch.interface';
+import { User } from '../signup/user.class';
 
 @Component({
   selector: 'app-my-events',
@@ -11,14 +12,21 @@ import { LaunchEvent } from '../event-launch/event-launch.interface';
 
 export class MyEventsComponent {
   shows: LaunchEvent[] = [];
+  userProfile: User;
 
   constructor (private searchService: SearchService) {
-    const query: string = Config.objToQuery({findByBuyers: '59ad6bde3a367a002dc6c500'});
-    this.searchService.getMyEvents(query).subscribe(res => {
-      this.shows = this.sortShows(res);
-    }, err => {
-      console.log('error: ', err);
-    })
+    try {
+      this.userProfile = new User(JSON.parse(localStorage.getItem('profile')));
+      const query: string = Config.objToQuery({findByBuyers: this.userProfile._id});
+      this.searchService.getMyEvents(query).subscribe(res => {
+        this.shows = this.sortShows(res);
+      }, err => {
+        console.log('error: ', err);
+      })
+    } catch (err) {
+      this.userProfile = null;
+      console.error('something went wrong: ', err);
+    }
   }
 
   sortShows(shows: LaunchEvent[] ): LaunchEvent[]  {
