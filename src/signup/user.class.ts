@@ -36,6 +36,10 @@ interface UserInterface {
     followers: number,
     following: number
   };
+  shows?: {
+    owned: number;
+    purchased: number;
+  };
   viewers?: string[];
   appreciations?: string[];
   comments?: string[];
@@ -84,6 +88,10 @@ export class User {
     followers: number,
     following: number
   };
+  shows: {
+    owned: number,
+    purchased: number,
+  };
   viewers: string[];
   appreciations: string[];
   comments: string[];
@@ -113,6 +121,18 @@ export class User {
     this.biography = user.biography || '';
     this.contacts = user.contacts || {phone: '', skype: '', hangouts: ''};
     this.socials = user.socials || {google: '', facebook: '', twitter: ''};
+    this.statistics = user.statistics ||
+      {
+        likes: {
+          liked: 0,
+          likeUser: 0,
+          likeShow: 0
+        },
+        viewers: 0,
+        followers: 0,
+        following: 0
+      };
+    this.shows = user.shows || {owned: 0, purchased: 0};
     this.viewers = user.viewers || [];
     this.appreciations = user.viewers || [];
     this.comments = user.comments || [];

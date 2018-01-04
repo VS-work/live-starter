@@ -9,6 +9,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ShowPageComponent } from './show-page.component';
 import { routing } from '../modules/show-page.routing';
 import { WowzaCloudModule } from '../shared/wowza-streaming-cloud/wowza-cloud.module';
+import { FundingContainerModule } from '../shared/funding-container/funding-container.module';
+import { StatisticsModule } from '../shared/statistics/statistics.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { WowzaCloudModule } from '../shared/wowza-streaming-cloud/wowza-cloud.mo
     ButtonsModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    WowzaCloudModule
+    WowzaCloudModule,
+    FundingContainerModule,
+    StatisticsModule
   ]
 })
 

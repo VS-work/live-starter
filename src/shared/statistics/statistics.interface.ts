@@ -1,7 +1,8 @@
 export interface Statistics {
-  id: string;
   likes?: number;
   followers?: number;
+  viewers?: number;
+  shows?: number;
 }
 
 export interface LikeRequestObj {

@@ -6,50 +6,44 @@
     <div class="show-view">
       <app-wowza-player [showData]="currentShow"></app-wowza-player>
       <div class="show-screen-viewer">
+        <img [src]="getImgUrl(currentShow?.posters[0])" alt="event poster">
 
+        <div class="show-screen-viewer-header">
+          <div class="show-short-data">
+            <div class="show-sd-name">
+              {{currentShow?.name}}
+            </div>
+            <div class="show-sd-creator" routerLink="/artist-profile">
+              by {{currentShow?.artist}}
+            </div>
+          </div>
 
-        <div class="live-active">
-          Live
+          <app-statistics [statistics]="currentShow?.statistics" [id]="currentShow?._id"></app-statistics>
         </div>
 
-        <div class="show-short-data">
-          <div class="show-sd-name">
-            {{currentShow?.name}}
+        <div class="show-timer-container">
+          <div class="time-togo">
+            {{currentShow?.datePerformance}}
           </div>
-          <div class="show-sd-creator" routerLink="/artist-profile">
-            by {{currentShow?.creator}}
+
+          <div class="time-left">
+            <div class="days">
+              <div class="number-container">05</div>
+              <div class="item-container">Days</div>
+            </div>
+            <div class="dbl-dots">:</div>
+            <div class="hours">
+              <div class="number-container">13</div>
+              <div class="item-container">Hours</div>
+            </div>
+            <div class="dbl-dots">:</div>
+            <div class="minutes">
+              <div class="number-container">08</div>
+              <div class="item-container">Minutes</div>
+            </div>
           </div>
         </div>
 
-        <div class="appreciations-container">
-          <div class="appreciations">
-            <img src="/assets/img/rock_gesture.png" alt="">144
-          </div>
-          <div class="views">
-            <img src="/assets/img/fllowers.png" alt="">12
-          </div>
-        </div>
-
-        <div class="time-togo">
-          {{currentShow?.datePerformance}}
-        </div>
-
-        <div class="time-left">
-          <div class="days">
-            <div class="number-container">05</div>
-            <div class="item-container">Days</div>
-          </div>
-          <div class="dbl-dots">:</div>
-          <div class="hours">
-            <div class="number-container">13</div>
-            <div class="item-container">Hours</div>
-          </div>
-          <div class="dbl-dots">:</div>
-          <div class="minutes">
-            <div class="number-container">08</div>
-            <div class="item-container">Minutes</div>
-          </div>
-        </div>
       </div>
 
       <div class="communication-container">
@@ -88,91 +82,33 @@
         </div>
       </div>
 
-      <div class="show-description">
+      <div *ngIf="currentShow?.description.length" class="show-description">
         {{currentShow?.description}}
-
-        The rapid rise of Canadian singer-songwriter Shawn Mendes can be measured in a string of sold out shows
-        around the world, masses of album and single certifications and streaming numbers. After releasing his
-        debut album Handwritten (out now through Island Records), record sales in Australia and abroad are
-        mind blowing.
       </div>
 
-      <div class="songs-container">
-        <audio controls>
-          <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.mp4"
-                  type='audio/mp4'>
-          <!-- The next two lines are only executed if the browser doesn't support MP4 files -->
-          <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga"
-                  type='audio/ogg; codecs=vorbis'>
-          <!-- The next line will only be executed if the browser doesn't support the <audio> tag-->
-          <p>Your user agent does not support the HTML5 Audio element.</p>
-        </audio>
-        <span class="song-name">Death Becomes Fur</span>
-        <div class="appreciations-container">
-          <div class="appreciations">
-            <img src="/assets/img/rock_gesture.png" alt="">144
-          </div>
-        </div>
-      </div>
+      <ng-template ngFor let-audio [ngForOf]="audios">
+        <div class="songs-container" [innerHtml]="audio"></div>
+      </ng-template>
 
-      <div class="songs-container">
-        <audio controls>
-          <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.mp4"
-                  type='audio/mp4'>
-          <!-- The next two lines are only executed if the browser doesn't support MP4 files -->
-          <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga"
-                  type='audio/ogg; codecs=vorbis'>
-          <!-- The next line will only be executed if the browser doesn't support the <audio> tag-->
-          <p>Your user agent does not support the HTML5 Audio element.</p>
-        </audio>
-        <span class="song-name">Some epic song</span>
-        <div class="appreciations-container">
-          <div class="appreciations">
-            <img src="/assets/img/rock_gesture.png" alt="">144
-          </div>
-        </div>
-      </div>
+      <ng-template ngFor let-video [ngForOf]="videos">
+        <div class="video-container embed-responsive embed-responsive-16by9" [innerHtml]="video"></div>
+      </ng-template>
 
-      <div class="video-container">
-        <iframe width="854" height="480" src="https://www.youtube.com/embed/KkGVmN68ByU" frameborder="0"
-                allowfullscreen></iframe>
-      </div>
-
-      <div class="show-details">
-        <span>Includes:</span>
-        <ul>
-          <li>One Signed Taylor Acoustic Guitar</li>
-          <li>Entry to the ShawnAccess "Illuminate" Experience</li>
-          <li>Exclusive Q&A with Shawn</li>
-          <li>Meet & Greet and Photo Opportunity with Shawn</li>
-          <li>One Signed "Illuminate" Tour Poster</li>
-          <li>One "Illuminate" Laminate</li>
-          <li>Early Entry</li>
-          <li>First Access Merch Shopping</li>
-        </ul>
-      </div>
-
-      <div class="show-images">
-        <img src="http://www.billboard.com/files/media/Shawn-Mendes-milan-2016-billboard-1548.jpg" alt="image">
-      </div>
-
-      <div class="show-footer">
-        He still makes time to meet fans for pictures along the way, as he prepares to perform a sold out show
-        of 8,000 people in Oslo, Norway, his largest show ever this past April. As soon as he steps onto the stage,
-        the crowd erupts into roars under the illuminating lights.
+      <div *ngIf="currentShow?.info" class="show-footer">
+        {{currentShow?.info}}
       </div>
     </div>
 
     <aside class="aside">
       <div class="artist-data">
         <div class="avatar">
-          <img src="https://pbs.twimg.com/profile_images/806115031159029760/np3sDfFT.jpg" alt="img" class="img-circle">
+          <img [src]="artistProfile?.avatar" alt="avatar" class="img-circle">
         </div>
         <div class="artist-name-location">
           <div class="artist-name">{{currentShow?.artist}}</div>
           <div class="artist-location">
             <img src="/assets/img/location-icon.png" alt="">
-            Canada
+            {{currentShow?.location.country}}
           </div>
         </div>
         <div class="email-follow">
@@ -183,43 +119,13 @@
 
       <div class="genres">
         <span class="title">Genres:</span>
-        <span class="genres-list">{{currentShow?.genre}}</span>
+        <span class="genres-list">{{currentShow?.genres}}</span>
       </div>
 
-      <div class="appreciations-container">
-        <span class="viewed">
-          <img src="/assets/img/eye-icon-new.png" alt="">
-          4233
-        </span>
-        <span class="rocks">
-          <img src="/assets/img/rock_gesture.png" alt="">
-          766
-        </span>
-        <span class="followed">
-          <img src="/assets/img/profile-icon.png" alt="">
-          234
-        </span>
-        <span class="show-count">
-          <img src="/assets/img/play.png" alt="">
-          05
-        </span>
-      </div>
+      <app-statistics [statistics]="artistStatisctics" [id]="currentShow?._id" [isEvent]="false"></app-statistics>
 
       <div class="tickets-container">
-        <div class="show-purchase-data">
-          <div class="show-item">
-            <div class="item-number">${{currentShow?.ticketPrice}}</div>
-            <div class="item-label">per-ticket</div>
-          </div>
-          <div class="show-item">
-            <div class="item-number">{{currentShow?.tickets - currentShow?.ticketsSold}}</div>
-            <div class="item-label">tickets</div>
-          </div>
-          <div class="show-item">
-            <div class="item-number">{{currentShow?.fundedPercentage}}%</div>
-            <div class="item-label">funded</div>
-          </div>
-        </div>
+        <app-funding-container [fundingParams]="currentShow?.tickets"></app-funding-container>
 
         <div class="purchase-container">
           <button class="purchase-button">PURCHASE</button>

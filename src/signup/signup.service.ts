@@ -6,6 +6,11 @@ import  'rxjs/add/observable/throw'
 import { Config } from '../app.config';
 import { User } from './user.class';
 
+interface GetUserData {
+  email?: string;
+  _id?: string;
+}
+
 @Injectable()
 export class SignUpService {
 
@@ -24,7 +29,7 @@ export class SignUpService {
     return this.http.get(`${Config.api}/signup/get-locations`);
   }
 
-  getUser(data: {email: string}): Observable<any> {
+  getUser(data: GetUserData): Observable<any> {
     const query = Config.objToQuery(data);
 
     return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`);
