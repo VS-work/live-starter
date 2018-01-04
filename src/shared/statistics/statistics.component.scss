@@ -1,47 +1,29 @@
+@import "../../variables.scss";
+
 .statistics-container {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  color: #8e8e9a;
+  justify-content: flex-start;
+  color: $liteGray;
   font-size: 14px;
 
   & > * {
-    padding: 0px 5px 0px 30px;
+    padding: 0px 7px;
     box-sizing: border-box;
     position: relative;
+    display: flex;
+    align-items: center;
 
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 5px;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      background-size: 100% 100%;
+    .fa {
+      padding-right: 5px;
+      font-size: 16px;
+      color: $darkGray;
     }
-  }
-
-  img {
-    margin: 2px;
-    width: 14px;
-    vertical-align: top;
   }
 
   .likes {
     cursor: pointer;
-
-    &:before {
-      background-image: url('/assets/img/rock_gesture.png');
-
-    }
   }
 
-  .followers {
-    &:before {
-      background-image: url('/assets/img/fllowers.png');
-    }
-  }
 }

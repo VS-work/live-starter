@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { StatisticsComponent } from './statistics.component';
 import { StatisticsService } from './statistics.service';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-    HttpModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [StatisticsService],
   declarations: [StatisticsComponent],

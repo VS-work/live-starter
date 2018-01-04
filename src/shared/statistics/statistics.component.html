@@ -1,4 +1,18 @@
 <div class="statistics-container">
-  <div class="likes" (click)="setLike()">{{statistics?.likes || 0}}</div>
-  <div class="followers">{{statistics?.followers}}</div>
+  <div class="viewers" *ngIf="!isEvent">
+    <i class="fa fa-eye" aria-hidden="true"></i>
+    {{statistics?.viewers}}
+  </div>
+  <div class="likes" (click)="setLike()">
+    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+    {{statistics?.likes || 0}}
+  </div>
+  <div class="followers">
+    <i class="fa fa-user" aria-hidden="true"></i>
+    {{statistics?.followers || 0}}
+  </div>
+  <div class="shows" *ngIf="!isEvent">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    {{statistics?.shows}}
+  </div>
 </div>

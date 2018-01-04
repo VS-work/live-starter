@@ -154,6 +154,6 @@ export class EventsListComponent implements OnInit {
 
   public setCurrentShow(show: LaunchEvent): void {
     const setCurrentShowData: any = {findById: show._id, findByName: show.name, findByCreator: show.creator};
-    this.localStorageService.setItem('currentShow', JSON.stringify(setCurrentShowData));
+    this.localStorageService.setItem('currentShow', setCurrentShowData);
   }
 }
