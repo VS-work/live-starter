@@ -27,14 +27,20 @@ export class StatisticsComponent implements OnInit {
   }
 
   setLike(): void {
-    if (!this.isEvent) {
-      return;
-    }
-
     const rqstObj: LikeRequestObj = {
       liker: this.user._id,
       likee: this.id
     };
+
+    if (!this.isEvent) {
+      this.statisticsService.setArtistLike(rqstObj)
+        .subscribe(res => {
+          this.statistics.likes = res.likesCount;
+        }, err => {
+          console.log('error', err);
+        });
+      return;
+    }
 
     this.statisticsService.setShowLike(rqstObj)
       .subscribe(res => {
