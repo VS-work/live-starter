@@ -16,13 +16,13 @@ export class StatisticsService {
 
   setShowLike(rqstObg: LikeRequestObj): Observable<any> {
     return this.http.post(`${Config.api}/show-like`, JSON.stringify(rqstObg), Config.httpOptions)
-      .map((res: CustomResponse) => res.data)
+      .map((res: CustomResponse) => res)
       .catch(err => Observable.throw(err));
   }
 
   setArtistLike(rqstObg: LikeRequestObj): Observable<any> {
     return this.http.post(`${Config.api}/artist-like`, JSON.stringify(rqstObg), Config.httpOptions)
-      .map((res: CustomResponse) => res.data)
+      .map((res: CustomResponse) => res)
       .catch(err => Observable.throw(err));
   }
 }

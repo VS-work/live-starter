@@ -122,7 +122,7 @@
         <span class="genres-list">{{currentShow?.genres}}</span>
       </div>
 
-      <app-statistics [statistics]="artistStatisctics" [id]="currentShow?._id" [isEvent]="false"></app-statistics>
+      <app-statistics [statistics]="artistStatisctics" [id]="artistProfile?._id" [isEvent]="false"></app-statistics>
 
       <div class="tickets-container">
         <app-funding-container [fundingParams]="currentShow?.tickets"></app-funding-container>
