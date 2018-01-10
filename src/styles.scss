@@ -16,7 +16,7 @@ ul {
 }
 
 * {
-  outline: none !important;
+  box-sizing: border-box;
 }
 
 a {
@@ -49,3 +49,9 @@ input, textarea {
     border-left: 5px solid #a94442;
   }
 }
+
+.bottom-separator {
+  display: block;
+  border-bottom: 1px solid $liteGray;
+}
+

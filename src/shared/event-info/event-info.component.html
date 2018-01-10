@@ -1,0 +1,30 @@
+<div class="event-info-container">
+  <div class="custom-flex-container">
+    <div class="user-container">
+      <img [src]="artistProfile?.avatar" alt="artist avatart" class="avatar">
+      <div>
+        <div class="artist-name">{{artistProfile?.username}}</div>
+        <div class="event-location">
+          <i class="fa fa-map-marker" aria-hidden="true"></i>
+          {{info?.showLocation}}
+        </div>
+      </div>
+    </div>
+
+    <div class="email-follow">
+      <i class="fa fa-envelope-o" aria-hidden="true"></i>
+      <button type="button">Follow</button>
+    </div>
+  </div>
+
+  <div class="genres-container">
+    <span class="genres">Genres:</span>
+    <span *ngFor="let genre of info?.showGenres; last as isLast">
+      {{isLast ? genre : genre + ', '}}
+    </span>
+  </div>
+
+  <app-statistics class="bottom-separator" [statistics]="artistStatisctics" [id]="artistProfile?._id" [isEvent]="false"></app-statistics>
+
+  <app-funding-container [fundingParams]="info?.tickets"></app-funding-container>
+</div>
