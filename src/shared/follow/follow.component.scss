@@ -1,0 +1,26 @@
+@import "../../variables.scss";
+
+.email-follow {
+  flex: 1 0;
+  font-size: 12px;
+  display: flex;
+  align-items: flex-start;
+
+  .fa {
+    margin-right: 5px;
+    color: $liteGray;
+    font-size: 15px;
+  }
+
+  button {
+    border: 1px solid $liteGray;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+      box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, 0.15);
+    }
+  }
+}
