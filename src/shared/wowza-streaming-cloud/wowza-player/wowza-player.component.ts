@@ -5,8 +5,8 @@ import { PlayerConfig } from './player-config.interface';
 
 @Component({
   selector: 'app-wowza-player',
-  templateUrl: 'wowza-player.component.html',
-  styleUrls: ['wowza-player.component.css']
+  templateUrl: './wowza-player.component.html',
+  styleUrls: ['./wowza-player.component.css']
 })
 export class WowzaPlayerComponent {
   @Input()

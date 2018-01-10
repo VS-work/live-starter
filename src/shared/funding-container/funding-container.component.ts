@@ -4,8 +4,8 @@ import { Funding } from './funding.interface';
 
 @Component({
   selector: 'app-funding-container',
-  templateUrl: 'funding-container.component.html',
-  styleUrls: ['funding-container.component.scss']
+  templateUrl: './funding-container.component.html',
+  styleUrls: ['./funding-container.component.scss']
 })
 export class FundingContainerComponent {
   @Input() set fundingParams(params: Funding){

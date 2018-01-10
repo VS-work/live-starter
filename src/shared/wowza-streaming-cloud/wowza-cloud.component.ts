@@ -6,7 +6,7 @@ import { LaunchEvent } from '../../event-launch/event-launch.interface';
 
 @Component({
   selector: 'app-wowza-cloud',
-  templateUrl: 'wowza-cloud.component.html'
+  templateUrl: './wowza-cloud.component.html'
 })
 export class WowzaCloudComponent implements OnDestroy {
   @Input()

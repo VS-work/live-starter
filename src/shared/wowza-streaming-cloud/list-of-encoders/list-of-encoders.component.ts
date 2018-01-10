@@ -4,8 +4,8 @@ import { devices, encoders } from './encoders.model';
 
 @Component({
   selector: 'app-list-of-encoders',
-  templateUrl: 'list-of-encoders.component.html',
-  styleUrls: ['list-of-encoders.component.scss']
+  templateUrl: './list-of-encoders.component.html',
+  styleUrls: ['./list-of-encoders.component.scss']
 })
 export class ListOfEncodersComponent {
   @Input()
