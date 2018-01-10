@@ -8,8 +8,8 @@ import { Config } from '../../app.config';
 
 @Component({
   selector: 'app-show-info',
-  templateUrl: 'show-info.component.html',
-  styleUrls: ['../../my-events/styles.scss', 'show-info.component.scss']
+  templateUrl: './show-info.component.html',
+  styleUrls: ['../../my-events/styles.scss', './show-info.component.scss']
 })
 
 export class ShowInfoComponent implements OnInit {

@@ -4,8 +4,8 @@ import { FieldConfig } from './fieldConfig.interface';
 
 @Component({
   selector: 'app-multiple-inputs',
-  templateUrl: 'multiple-inputs.component.html',
-  styleUrls: ['multiple-inputs.component.scss']
+  templateUrl: './multiple-inputs.component.html',
+  styleUrls: ['./multiple-inputs.component.scss']
 })
 export class MultipleInputsComponent {
   @Input() set defaultvalues(values: string[]) {

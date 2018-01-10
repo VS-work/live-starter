@@ -7,8 +7,8 @@ import { FileConfig } from './fileUploader.interface';
 
 @Component({
   selector: 'app-file-uploader',
-  templateUrl: 'file-uploader.component.html',
-  styleUrls: ['file-uploader.component.scss']
+  templateUrl: './file-uploader.component.html',
+  styleUrls: ['./file-uploader.component.scss']
 })
 export class FileUploaderComponent implements OnDestroy {
   @Input() set temporaryFiles(files: FileItem[]) {

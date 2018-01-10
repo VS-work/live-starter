@@ -5,8 +5,8 @@ import { User } from '../../edit-profile/user.interface';
 
 @Component({
   selector: 'app-statistics',
-  templateUrl: 'statistics.component.html',
-  styleUrls: ['../../my-events/styles.scss', 'statistics.component.scss']
+  templateUrl: './statistics.component.html',
+  styleUrls: ['../../my-events/styles.scss', './statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
   @Input() statistics: Statistics;
