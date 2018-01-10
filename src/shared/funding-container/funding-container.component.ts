@@ -1,12 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-interface Funding {
-  count: number;
-  ticketPrice: number;
-  ticketsToFund: number;
-  ticketsSold: number;
-  fundedPercentage: number;
-}
+import { Funding } from './funding.interface';
 
 @Component({
   selector: 'app-funding-container',

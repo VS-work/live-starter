@@ -6,11 +6,9 @@ import { head } from 'lodash';
 import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
 import { LaunchEvent } from '../event-launch/event-launch.interface';
-import { User } from '../signup/user.class';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
-import { SignUpService } from '../signup/signup.service';
-import { Statistics } from '../shared/statistics/statistics.interface';
+import { EventInfo } from '../shared/event-info/event-info.interface';
 
 @Component({
   selector: 'app-show-page-component',
@@ -30,14 +28,12 @@ export class ShowPageComponent implements OnInit, OnDestroy {
   audios: SafeHtml = [];
   videos: SafeHtml = [];
   eventsData: LaunchEvent[];
-  artistProfile: User;
-  artistStatisctics: Statistics;
+  eventInfo: EventInfo;
 
   constructor( private router: Router,
                private searchService: SearchService,
                private localStorageService: LocalStorageService,
-               private domSanitizer: DomSanitizer,
-               private userServise: SignUpService) {
+               private domSanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -51,22 +47,7 @@ export class ShowPageComponent implements OnInit, OnDestroy {
       const getCurrentShowFromLocalStorage = JSON.parse(this.localStorageService.getItem('currentShow'));
       this.getCurrentShow(getCurrentShowFromLocalStorage);
       this.getSimilarEvents(getCurrentShowFromLocalStorage);
-      this.userServise.getUser({_id: getCurrentShowFromLocalStorage.findByCreator})
-        .subscribe(res => {
-          this.artistProfile = new User(res.data);
-
-          this.artistStatisctics = {
-            likes: this.artistProfile.statistics.likes.liked,
-            followers: this.artistProfile.statistics.followers,
-            viewers: this.artistProfile.statistics.viewers,
-            shows: this.artistProfile.shows.owned
-          };
-
-          console.log(this.artistStatisctics);
-          console.log(this.artistProfile);
-        });
     } catch (err) {
-      this.artistProfile = null;
       console.error('something went wrong: ', err);
     }
   }
@@ -81,6 +62,12 @@ export class ShowPageComponent implements OnInit, OnDestroy {
           return;
         }
         this.currentShow = head(res.data);
+        this.eventInfo = {
+          showLocation: this.currentShow.location.country,
+          artistId: this.currentShow.creator,
+          showGenres: this.currentShow.genres,
+          tickets: this.currentShow.tickets
+        };
         this.audios = this.parseEmbeddingfiles(this.currentShow.audios);
         this.videos = this.parseEmbeddingfiles(this.currentShow.videos);
         this.currentShow.wowza = {

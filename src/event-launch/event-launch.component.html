@@ -162,6 +162,7 @@
                      placeholder="Please enter a artist name"
                      name="artist"
                      [(ngModel)]="launchEvent.artist"
+                     (change)="setEventInfo()"
                      #artist="ngModel"
                      required/>
               <div
@@ -276,40 +277,7 @@
             </div>
 
             <div class="artist-data col-12 col-md-6 col-xl-12">
-              <img class="avatar img-circle"
-                   src="https://img.clipartfest.com/a22d68de188f2083affefb14cc66ca80_shawn-mendes-png-by-karlymoon-shawn-mendes-clipart_400-400.png"
-                   alt="AV">
-              <div class="artist-info">
-                <div class="name" routerLink="/artist-profile">{{launchEvent.artist}}</div>
-                <div class="location">Location {{launchEvent.location.country}}</div>
-              </div>
-
-              <div class="artists-genres">
-                <span class="genres">Genres:</span>
-                <span *ngFor="let artistGenre of launchEvent.genres; last as isLast">
-                  {{isLast ? artistGenre : artistGenre + ', '}}
-                </span>
-              </div>
-
-              <div class="artists-appriciations">
-                <span class="views">
-                  <img src="/assets/img/eye-icon.png" alt="views">
-                  <span class="amount">57</span>
-                </span>
-                <span class="likes">
-                  <img src="/assets/img/rock_gesture.png" alt="views">
-                  <span class="amount">48</span>
-                </span>
-                <span class="followers">
-                  <img src="/assets/img/person.png" alt="views">
-                  <span class="amount">51</span>
-                </span>
-                <span class="shows">
-                  <img src="/assets/img/play.png" alt="views">
-                  <span class="amount">3</span>
-                </span>
-              </div>
-              <app-funding-container [fundingParams]="launchEvent.tickets"></app-funding-container>
+              <app-event-info [eventInfo]="eventInfo"></app-event-info>
             </div>
           </div>
         </div>

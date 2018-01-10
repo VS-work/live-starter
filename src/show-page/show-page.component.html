@@ -100,33 +100,9 @@
     </div>
 
     <aside class="aside">
-      <div class="artist-data">
-        <div class="avatar">
-          <img [src]="artistProfile?.avatar" alt="avatar" class="img-circle">
-        </div>
-        <div class="artist-name-location">
-          <div class="artist-name">{{currentShow?.artist}}</div>
-          <div class="artist-location">
-            <img src="/assets/img/location-icon.png" alt="">
-            {{currentShow?.location.country}}
-          </div>
-        </div>
-        <div class="email-follow">
-          <img src="/assets/img/send-email.png" alt="email" class="email-icon">
-          <button>Follow</button>
-        </div>
-      </div>
-
-      <div class="genres">
-        <span class="title">Genres:</span>
-        <span class="genres-list">{{currentShow?.genres}}</span>
-      </div>
-
-      <app-statistics [statistics]="artistStatisctics" [id]="artistProfile?._id" [isEvent]="false"></app-statistics>
+      <app-event-info [eventInfo]="eventInfo"></app-event-info>
 
       <div class="tickets-container">
-        <app-funding-container [fundingParams]="currentShow?.tickets"></app-funding-container>
-
         <div class="purchase-container">
           <button class="purchase-button">PURCHASE</button>
           <div class="reminder-before-show">

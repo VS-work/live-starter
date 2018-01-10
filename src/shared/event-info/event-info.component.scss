@@ -1,0 +1,86 @@
+@import "../../variables.scss";
+
+.event-info-container {
+  .bottom-separator {
+    padding-bottom: 11px;
+  }
+}
+
+.custom-flex-container {
+	display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  color: $darkGray;
+
+  & > * {
+    margin-bottom: 10px;
+  }
+}
+
+.user-container {
+  padding: 0 10px 0 55px;
+  min-height: 50px;
+  position: relative;
+
+  .avatar {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    transform: translateY(-50%);
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid $darkGray;
+    margin-right: 5px;
+  }
+}
+
+.artist-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.event-location {
+  font-size: 12px;
+  color: $liteGray;
+}
+
+.email-follow {
+  flex: 1 0;
+  font-size: 12px;
+  display: flex;
+  align-items: flex-start;
+
+  .fa {
+    margin-right: 5px;
+    color: $liteGray;
+    font-size: 15px;
+  }
+
+  button {
+    border: 1px solid $liteGray;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+      box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+.genres-container {
+  font-size: 13px;
+  margin-bottom: 5px;
+
+  & > * {
+    padding: 5px 0;
+    display: inline-block;
+  }
+}
+
+.genres {
+  font-weight: 700;
+}

@@ -18,6 +18,7 @@ import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
 import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
 import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
 import { User } from '../signup/user.class';
+import { EventInfo } from '../shared/event-info/event-info.interface';
 
 @Component({
   selector: 'app-launch-component',
@@ -67,6 +68,7 @@ export class LaunchComponent implements OnInit, OnDestroy {
     errorMsg: `Field is not valid! Try to use "<iframe src=""></iframe>"`,
     embedPattern: '^(<iframe.*? src=")(.*?)(\\??)(.*?)(".*)()(<\\/iframe>)$'
   };
+  eventInfo: EventInfo;
   launchEvent: LaunchEvent = {
     name: '',
     creator: '',
@@ -166,10 +168,23 @@ export class LaunchComponent implements OnInit, OnDestroy {
 
     this.launchEvent.creator = this.userProfile._id;
     this.activeStep += 1;
+
+    if (this.activeStep === 2) {
+      this.setEventInfo();
+    }
   };
 
   goBack(): void {
     this.activeStep = this.activeStep === 1 ? 1 : this.activeStep - 1;
+  }
+
+  setEventInfo(): void {
+    this.eventInfo = {
+      showLocation: this.launchEvent.location.country,
+      artistId: this.launchEvent.creator,
+      showGenres: this.launchEvent.genres,
+      tickets: this.launchEvent.tickets
+    };
   }
 
   publish(eventFormStep2: NgForm): void | undefined {
