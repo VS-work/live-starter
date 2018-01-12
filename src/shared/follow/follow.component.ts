@@ -8,7 +8,6 @@ import { User } from '../../signup/user.class';
 import { customToastOptions } from '../models/toasty-options.model';
 import { FollowRqstObj } from './follow.interface';
 
-
 @Component({
   selector: 'app-follow',
   templateUrl: './follow.component.html',
@@ -62,7 +61,6 @@ export class FollowComponent implements OnDestroy {
 
     this.followingSubscribe = this.followService.followUser(this.rqstObj)
       .subscribe(res => {
-        console.log('res', res);
         const toastOptions: ToastOptions = {
           ...customToastOptions,
           ...{title: 'Success', msg: res}
@@ -74,6 +72,8 @@ export class FollowComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.followingSubscribe.unsubscribe();
+    if (this.followingSubscribe) {
+      this.followingSubscribe.unsubscribe();
+    }
   }
 }

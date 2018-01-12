@@ -20,7 +20,7 @@ export class EventInfoComponent implements OnDestroy {
     this.info = info;
     this.getArtist(info.artistId);
   }
-
+  @Input() isFollowing = false;
   info: EventInfo;
   artistProfile: User;
   artistStatisctics: Statistics = {};

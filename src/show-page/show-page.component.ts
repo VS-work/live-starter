@@ -9,6 +9,7 @@ import { LaunchEvent } from '../event-launch/event-launch.interface';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { EventInfo } from '../shared/event-info/event-info.interface';
+import { Show } from '../event-launch/event-launch.model';
 
 @Component({
   selector: 'app-show-page-component',
@@ -22,12 +23,12 @@ export class ShowPageComponent implements OnInit, OnDestroy {
   checkModel: boolean;
   donates: number[];
   donationPeriodList: string[];
-  currentShow: LaunchEvent;
+  currentShow: Show;
   donation: number;
   donationPeriod: string;
   audios: SafeHtml = [];
   videos: SafeHtml = [];
-  eventsData: LaunchEvent[];
+  eventsData: Show[];
   eventInfo: EventInfo;
 
   constructor( private router: Router,
@@ -61,7 +62,7 @@ export class ShowPageComponent implements OnInit, OnDestroy {
           console.error(res.error);
           return;
         }
-        this.currentShow = head(res.data);
+        this.currentShow = new Show(head(res.data));
         this.eventInfo = {
           showLocation: this.currentShow.location.country,
           artistId: this.currentShow.creator,
@@ -91,7 +92,7 @@ export class ShowPageComponent implements OnInit, OnDestroy {
           console.error(res.error);
           return;
         }
-        this.eventsData = res.data;
+        this.eventsData = res.data.map((show: LaunchEvent) => new Show(show));
       });
   }
 
