@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
 import { LaunchEvent } from '../../event-launch/event-launch.interface';
-import { Statistics } from '../statistics/statistics.interface';
 import { ShowInfoDate } from './showInfoDate.interface';
 import { Config } from '../../app.config';
 
@@ -19,7 +18,7 @@ export class ShowInfoComponent implements OnInit {
   date: ShowInfoDate;
 
   ngOnInit() {
-    this.parseDate(this.show.timePerfomance.start);
+    this.parseDate(this.show.timePerformance.start);
   }
 
   parseDate(date: string): void {

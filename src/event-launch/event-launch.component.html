@@ -196,7 +196,7 @@
           <div class="row time-picker-container">
             <div class="form-group col-12 col-sm-6">
               <label>Start Time</label>
-              <timepicker name='startTime' [(ngModel)]="timePerfomance.start" (ngModelChange)="validateTimePickers()"></timepicker>
+              <timepicker name='startTime' [(ngModel)]="timePerformance.start" (ngModelChange)="validateTimePickers()"></timepicker>
               <div
                 [class]="!isValidTimePicker ? 'invalid-feedback visible':'invalid-feedback'">
                 Start time can't be great than end time
@@ -205,7 +205,7 @@
 
             <div class="form-group col-12 col-sm-6">
               <label>End Time</label>
-              <timepicker name="endTime" [(ngModel)]="timePerfomance.end" (ngModelChange)="validateTimePickers()"></timepicker>
+              <timepicker name="endTime" [(ngModel)]="timePerformance.end" (ngModelChange)="validateTimePickers()"></timepicker>
               <div
                 [class]="!isValidTimePicker ? 'invalid-feedback visible':'invalid-feedback'">
                 End time can't be less than start time

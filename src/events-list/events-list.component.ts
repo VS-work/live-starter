@@ -102,8 +102,11 @@ export class EventsListComponent implements OnInit {
   }
 
   public findEventsByQuery(findByQuery: any): void {
+    const dateString = moment(findByQuery.dateShowPerformance).format('dddd, MMMM DD YYYY');
+
     const rawQuery: any = {
-      findByDate: moment(findByQuery.dateShowPerformance).format('dddd, MMMM DD YYYY'),
+      startDate: new Date(dateString).getTime(),
+      endDate: new Date(dateString).setDate(new Date(dateString).getDate() + 1) - 1,
       findByLocation: findByQuery.findByLocation,
       findByGenre: findByQuery.findByGenre,
       findByType: findByQuery.findByType

@@ -15,9 +15,9 @@ export interface LaunchEvent {
   location: {
     country: string;
   };
-  dateCreated: string;
-  datePerformance: string;
-  timePerfomance: {
+  dateCreated: number;
+  datePerformance: number;
+  timePerformance: {
     start: string;
     end: string;
   };

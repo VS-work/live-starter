@@ -11,7 +11,9 @@
       </div>
     </div>
 
-    <app-follow [followedUser]="info?.artistId"></app-follow>
+    <ng-template [ngIf]="isFollowing">
+      <app-follow [followedUser]="info?.artistId"></app-follow>
+    </ng-template>
   </div>
 
   <div class="genres-container">
