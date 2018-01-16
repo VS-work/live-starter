@@ -18,11 +18,13 @@ import { SignUpService } from '../signup';
 import { SharedModule, LocalStorageService } from '../shared';
 import { AuthService } from '../auth';
 import { routing } from '../routes';
+import { FooterComponent } from '../footer';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

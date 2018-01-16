@@ -1,0 +1,62 @@
+@import "../variables.scss";
+
+.footer {
+  width: 100%;
+  background-color: $darkBlue;
+  color: #afb9bd;
+}
+
+.footer-container {
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.footer-columns {
+  padding: 10px;
+}
+
+.title {
+	color: $white;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 22px;
+	text-transform: uppercase;
+	padding: 15px;
+  margin: 0;
+}
+
+.footer-link {
+  display: block;
+  padding: 10px 0;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:hover {
+    color: $liteGray;
+  }
+}
+
+.info-starter {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+	padding: 10px;
+}
+
+.all-rights-reserved {
+	text-align: center;
+	background-color: #1a2930;
+	color: #53636b;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 34px;
+	padding: 10px;
+}
+
+@media (max-width: map-get($grid-breakpoints, lg)) {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
