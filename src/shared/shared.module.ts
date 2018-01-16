@@ -15,7 +15,6 @@ import { UpcomingShowsComponent } from './upcoming-shows';
 import { HowItWasComponent } from './how-it-was';
 import { WhatTheySayComponent } from './what-they-say';
 import { PrefooterComponent } from './prefooter';
-import { FooterComponent } from './footer';
 import { ShowsTipComponent } from './show-tip';
 import { ShowsBackedComponent } from './show-backed';
 import { ShowsRecordedComponent } from './show-recorded';
@@ -38,7 +37,6 @@ import { WindowRefService } from './win-ref-service';
     HowItWasComponent,
     WhatTheySayComponent,
     PrefooterComponent,
-    FooterComponent,
     ShowsTipComponent,
     ShowsBackedComponent,
     ShowsRecordedComponent,
@@ -71,7 +69,6 @@ import { WindowRefService } from './win-ref-service';
     HowItWasComponent,
     WhatTheySayComponent,
     PrefooterComponent,
-    FooterComponent,
     ShowsTipComponent,
     ShowsBackedComponent,
     ShowsRecordedComponent,
