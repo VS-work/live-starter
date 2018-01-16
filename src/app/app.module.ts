@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { ScrollToModule} from 'ng2-scroll-to';
@@ -19,6 +18,7 @@ import { SharedModule, LocalStorageService } from '../shared';
 import { AuthService } from '../auth';
 import { routing } from '../routes';
 import { FooterComponent } from '../footer';
+import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import { FooterComponent } from '../footer';
     ToastyModule.forRoot(),
     SharedModule,
     routing,
-    RouterModule
+    RouterModule,
+    ShortUserInfoModule
   ],
   providers: [
     SignUpService,

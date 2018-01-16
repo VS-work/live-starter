@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 
@@ -6,6 +6,7 @@ import { LocalStorageService } from '../shared';
 import { SignUpService } from '../signup/signup.service';
 import { Config } from '../app.config';
 import { User } from '../signup/user.class';
+import { AuthCreds } from './authCreds.interface';
 
 declare let Auth0: any;
 declare let Auth0Lock: any;
@@ -22,8 +23,8 @@ export class AuthService {
     responseType: 'token',
     callbackURL: ''
   });
+  userProfileEmitter: EventEmitter<User> = new EventEmitter();
   private lock = new Auth0Lock('uifmleRQ8rEy786KhjfNsfyCCrqnDMpc', 'livestarter.auth0.com', {});
-  private userProfile: User;
 
   constructor(private router: Router, private userProfileService: LocalStorageService, private signUpService: SignUpService) {
     this.auth0.parseHash(window.location.hash, (err: Error, authResult: UserSocialNetworkObj): void | undefined => {
@@ -47,7 +48,8 @@ export class AuthService {
         }
       });
     });
-    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+
+    this.setUserProfile(localStorage.getItem('profile'));
 
     this.lock.on('authenticated', (authResult: UserSocialNetworkObj) => {
       const isLogin = localStorage.getItem('isLogin');
@@ -58,7 +60,7 @@ export class AuthService {
         if (error) {
           // Handle error
           console.error('something went wrong', error);
-          return undefined;
+          return;
         }
 
         this.userProfileService.setItem('tempProfile', profile);
@@ -70,7 +72,8 @@ export class AuthService {
               localStorage.removeItem('isLogin');
 
               this.userProfileService.setItem('profile', res.data);
-              this.userProfile = res;
+
+              this.userProfileEmitter.emit(new User(res.data));
             }, err => {
               console.error('something went wrong', err);
             });
@@ -79,14 +82,14 @@ export class AuthService {
     });
   }
 
-  public login(username: string, password: string): void {
+  login(authCreds: AuthCreds): void {
     localStorage.setItem('isLogin', JSON.stringify(true));
 
     this.auth0.login({
       connection: 'Username-Password-Authentication',
       responseType: 'token',
-      email: username,
-      password: password,
+      email: authCreds.email,
+      password: authCreds.password,
     }, (err: Error): void => {
       if (err) {
         console.error('something went wrong: ', err.message);
@@ -94,7 +97,7 @@ export class AuthService {
     });
   }
 
-  public signUp(username: string, password: string): void {
+  signUp(username: string, password: string): void {
     localStorage.removeItem('isLogin');
 
     this.auth0.signup({
@@ -110,7 +113,7 @@ export class AuthService {
     });
   }
 
-  public googleLogin(): void {
+  googleLogin(): void {
     localStorage.setItem('isLogin', JSON.stringify(true));
 
     this.auth0.login({
@@ -122,7 +125,7 @@ export class AuthService {
     });
   }
 
-  public googleSignup(): void {
+  googleSignup(): void {
     localStorage.removeItem('isLogin');
 
     this.auth0.login({
@@ -135,7 +138,7 @@ export class AuthService {
     });
   }
 
-  public facebookLogin(): void {
+  facebookLogin(): void {
     localStorage.setItem('isLogin', JSON.stringify(true));
 
     this.auth0.login({
@@ -147,7 +150,7 @@ export class AuthService {
     });
   }
 
-  public twitterLogin(): void {
+  twitterLogin(): void {
     localStorage.setItem('isLogin', JSON.stringify(true));
 
     this.auth0.login({
@@ -159,16 +162,32 @@ export class AuthService {
     });
   }
 
-  public logout(): void {
+  logout(): void {
     localStorage.removeItem('isLogin');
     localStorage.removeItem('profile');
+    localStorage.removeItem('tempProfile');
     localStorage.removeItem('id_token');
-    this.userProfile = undefined;
+    this.userProfileEmitter.emit(null);
   }
 
-  public authenticated(): any {
+  authenticated(): boolean {
     // Check if there's an unexpired JWT
     // It searches for an item in localStorage with key == 'id_token' by default
     return tokenNotExpired();
+  }
+
+  setUserProfile(profileJson: string): void {
+    try {
+      const profile = JSON.parse(profileJson);
+      if (!profile) {
+        this.userProfileEmitter.emit(null);
+        return;
+      }
+
+      this.userProfileEmitter.emit(new User(profile));
+    } catch (err) {
+      this.userProfileEmitter.emit(null);
+      console.error('something went wrong: ', err);
+    }
   }
 }

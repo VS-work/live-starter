@@ -1,104 +1,139 @@
-<div class="header-container">
-  <div class="container">
-    <div class="title-container">
-      <img src="/assets/img/logo.png" alt="Logo icon" (click)="goToHomePage()">
+<header class="header">
+  <div class="header-container">
+    <div class="logo-container">
+      <img src="/assets/img/logo.png" alt="Logo icon" *ngIf="isHomePage; else notHome" (click)="goToPage('/home')">
+      <ng-template #notHome>
+        <a (click)="goToPage('/home')">
+          <img src="/assets/img/logo.png" alt="Logo icon">
+        </a>
+      </ng-template>
     </div>
 
-    <nav class="menu-container">
-      <span class="menu-item-container" routerLink="/artists" routerLinkActive="active">Artists</span>
-      <span class="menu-item-container" routerLink="/events" routerLinkActive="active">Events</span>
-      <span class="menu-item-container" routerLink="/how-it-works" routerLinkActive="active">How It Works</span>
-      <span class="menu-item-container" routerLink="/launch" routerLinkActive="active">Create Event</span>
-      <span class="menu-item-container" routerLink="/blog" routerLinkActive="active">Blog</span>
-      <span class="menu-item-container" routerLink="/contact" routerLinkActive="active">Contact</span>
-    </nav>
-
-    <div class="login-container" *ngIf="!userProfile">
-      <button type="button"
-              class="login-button"
-              (click)="loginModal()">Login
+    <div class="header-right-container" [class.show]="isShowSideMenu">
+      <button type="button" class="menu-icon" (click)="showMenu()">
+        <i class="fa fa-bars" aria-hidden="true"></i>
       </button>
+      <div class="custom-overlay" (click)="hideMenu()"></div>
+      <div class="side-menu-container">
+        <nav class="menu-container">
+          <ul class="main-menu">
+            <li class="main-menu-item"><a routerLink="/artists" routerLinkActive="active" (click)="hideMenu()">Artists</a></li>
+            <li class="main-menu-item"><a routerLink="/events" routerLinkActive="active" (click)="hideMenu()">Events</a></li>
+            <li class="main-menu-item"><a routerLink="/how-it-works" routerLinkActive="active" (click)="hideMenu()">How It Works</a></li>
+            <li class="main-menu-item"><a routerLink="/launch" routerLinkActive="active" (click)="hideMenu()">Create Event</a></li>
+            <li class="main-menu-item"><a routerLink="/blog" routerLinkActive="active" (click)="hideMenu()">Blog</a></li>
+            <li class="main-menu-item"><a routerLink="/contact" routerLinkActive="active" (click)="hideMenu()">Contact</a></li>
+          </ul>
+        </nav>
 
-      <button type="button"
-              class="signup-button"
-              routerLink="/first-step">Sign Up
-      </button>
-    </div>
+        <div class="login-container" *ngIf="!userProfile; else headerUserContainer">
+          <button type="button"
+                  class="btn-with-border btn-orange"
+                  (click)="loginModal()">Login
+          </button>
 
-    <div class="current-user-container">
-      <div *ngIf="userProfile" dropdown>
-      <span id="simple-dropdown" dropdownToggle>
+          <button type="button"
+                  class="btn-with-border"
+                  (click)="goToPage('/first-step')">
+            Sign Up
+          </button>
+        </div>
 
-        <span class="user-menu" *ngIf="userProfile">
-          <img class="header-avatar-container" [src]="userProfile?.avatar" alt="">
-          {{userProfile?.name || userProfile?.username || userProfile?.email}}<span class="caret"></span>
-        </span>
-      </span>
-        <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu dropdown-menu-right">
-          <li role="menuitem"><a class="dropdown-item" href="#" routerLink="/edit-profile">My account</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#" routerLink="/my-events">My events</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Payments</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Following</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" href="#" (click)="auth.logout()" *ngIf="userProfile">Log
-            out</a></li>
-        </ul>
+        <ng-template #headerUserContainer>
+          <div class="current-user-container">
+            <div dropdown>
+              <div class="current-user-dropdown" dropdownToggle>
+                <app-short-user-info [info]="shortUserInfo" [isLocation]="false"></app-short-user-info>
+              </div>
+              <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="custom-dropdown-menu dropdown-menu dropdown-menu-right">
+                <li role="menuitem"><a class="dropdown-item" routerLink="/edit-profile" routerLinkActive="active" (click)="hideMenu()">My account</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink="/my-events" routerLinkActive="active" (click)="hideMenu()">My events</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink="/home" routerLinkActive="active" (click)="hideMenu()">Payments</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="hideMenu()">Following</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="logout()" *ngIf="userProfile">Log
+                  out</a></li>
+              </ul>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
-</div>
+</header>
 
 <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <h4 class="modal-title">Login to LiveStarter</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Login to LiveStarter</h4>
       </div>
       <div class="modal-body">
         <div class="login-by-socials">
           Get in via socials
-          <div>
-            <button (click)="auth.googleLogin()">
-              <img src="/assets/img/google.svg" alt="Google+ icon"/>
+          <div class="socials-container">
+            <button type="button" class="social-button" (click)="googleLogin()">
+              <i class="fa fa-google-plus-square" aria-hidden="true"></i>
             </button>
 
-            <button (click)="auth.facebookLogin()">
-              <img src="/assets/img/fb.svg" alt="Facebook icon"/>
+            <button type="button" class="social-button" (click)="facebookLogin()">
+              <i class="fa fa-facebook-square" aria-hidden="true"></i>
             </button>
 
-            <button (click)="auth.twitterLogin()">
-              <img src="/assets/img/tw.svg" alt="Twitter icon"/>
+            <button type="button" class="social-button" (click)="twitterLogin()">
+              <i class="fa fa-twitter-square" aria-hidden="true"></i>
             </button>
           </div>
-          <div class="login-devider-container">
-            <hr>
-            <span class="login-or">OR</span>
-            <hr>
-          </div>
         </div>
-        <input class="form-control"
-               type="email"
-               #email
-               placeholder="Email">
-        <input class="form-control"
-               type="password"
-               #pwd
-               placeholder="Password">
-        <div class="error-msg"></div>
+        <div class="login-devider-container">
+          <hr>
+          <span class="login-or">OR</span>
+          <hr>
+        </div>
 
-        <div class="forgot-password-container">
-          <a class="forgot-password">Forgot password</a>
-        </div>
-        <div>
-          <button type="submit"
-                  class="submit-login"
-                  (click)="auth.login(email.value, pwd.value)">
-            Let's Rock!
-          </button>
+        <div class="fields-container">
+          <div class="form-group">
+            <input type="email"
+                   placeholder="Email"
+                   class="form-control"
+                   name="loginEmail"
+                   [pattern]="pattern.Email"
+                   [(ngModel)]="authCreds.email"
+                   #loginEmail="ngModel"
+                   required/>
+            <div class="invalid-feedback" [class.visible]="loginEmail.invalid && loginEmail.dirty">
+              Field can't be empty
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="password"
+                   placeholder="Password"
+                   class="form-control"
+                   name="loginPassword"
+                   [(ngModel)]="authCreds.password"
+                   #loginPassword="ngModel"
+                   required/>
+            <div class="invalid-feedback" [class.visible]="loginPassword.invalid && loginPassword.dirty">
+              Field can't be empty
+            </div>
+          </div>
+
+          <div class="forgot-password-container form-group">
+            <a href="#" class="forgot-password">Forgot password</a>
+          </div>
+          <div class="btn-container">
+            <button type="submit"
+                    class="btn-with-border btn-orange"
+                    [disabled]="loginEmail.invalid || loginPassword.invalid"
+                    (click)="login()">
+              Let's Rock!
+            </button>
+          </div>
         </div>
       </div>
     </div>

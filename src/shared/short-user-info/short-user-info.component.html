@@ -1,0 +1,10 @@
+<div class="user-container">
+  <img [src]="info?.avatar" alt="artist avatart" class="avatar">
+  <div>
+    <div class="artist-name">{{info?.username}}</div>
+    <div class="event-location" *ngIf="isLocation">
+      <i class="fa fa-map-marker" aria-hidden="true"></i>
+      {{info?.showLocation}}
+    </div>
+  </div>
+</div>
