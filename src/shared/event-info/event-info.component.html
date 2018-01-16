@@ -1,15 +1,6 @@
 <div class="event-info-container">
-  <div class="custom-flex-container" [class.with-follow]="isFollowing">
-    <div class="user-container">
-      <img [src]="artistProfile?.avatar" alt="artist avatart" class="avatar">
-      <div>
-        <div class="artist-name">{{artistProfile?.username}}</div>
-        <div class="event-location">
-          <i class="fa fa-map-marker" aria-hidden="true"></i>
-          {{info?.showLocation}}
-        </div>
-      </div>
-    </div>
+  <div class="custom-flex-container">
+    <app-short-user-info class="user-info" [info]="shortUserInfo"></app-short-user-info>
 
     <div class="follow-container" *ngIf="isFollowing">
       <app-follow [followedUser]="info?.artistId"></app-follow>

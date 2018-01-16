@@ -2,4 +2,19 @@ $mainColor: #333;
 $darkGray: #49494c;
 $liteGray: #8e8e9a;
 $liteGrayBg: #f3f3f4;
+$liteBorder: #e5e5e5;
 $orange: #fc6337;
+$darkBlue: #1c2e36;
+$mediumBlue: #374551;
+$hoverBg: #ffe7c7;
+$white: #fff;
+$invalid: #a94442;
+$valid: #42A948;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;

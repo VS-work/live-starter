@@ -5,6 +5,7 @@ import { User } from '../../signup/user.class';
 import { SignUpService } from '../../signup/signup.service';
 import { Statistics } from '../statistics/statistics.interface';
 import { EventInfo } from './event-info.interface';
+import { ShortUserInfo } from '../short-user-info/short-user-info.interface';
 
 @Component({
   selector: 'app-event-info',
@@ -25,6 +26,7 @@ export class EventInfoComponent implements OnDestroy {
   artistProfile: User;
   artistStatisctics: Statistics = {};
   getUserSubcribe: Subscription;
+  shortUserInfo: ShortUserInfo;
 
   constructor(private userServise: SignUpService) {
 
@@ -39,6 +41,12 @@ export class EventInfoComponent implements OnDestroy {
           followers: this.artistProfile.statistics.followers,
           viewers: this.artistProfile.statistics.viewers,
           shows: this.artistProfile.shows.owned
+        };
+
+        this.shortUserInfo = {
+          avatar: this.artistProfile.avatar,
+          username: this.artistProfile.username,
+          showLocation: this.info.showLocation
         };
       });
   }
