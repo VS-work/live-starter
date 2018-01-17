@@ -38,3 +38,9 @@ export interface LaunchEvent {
     [key: string]: any
   };
 }
+
+
+export interface NewEventResponse {
+  message: string;
+  newId: string;
+}

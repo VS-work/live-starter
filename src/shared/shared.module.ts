@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { FormsModule } from '@angular/forms';
@@ -48,6 +49,7 @@ import { WindowRefService } from './win-ref-service';
   ],
   imports: [
     HttpModule,
+    HttpClientModule,
     RouterModule,
     CommonModule,
     FormsModule,
