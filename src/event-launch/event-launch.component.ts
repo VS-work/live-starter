@@ -169,8 +169,7 @@ export class LaunchComponent implements OnInit, OnDestroy {
         this.launchEvent.wowza.id = liveStream.live_stream.id;
         this.eventServiceSubscribe = this.eventService.saveNewEvent(this.launchEvent)
           .subscribe(res => {
-            const insertId = res.data.newId;
-            this.posterUploader.sendFiles(insertId);
+            this.posterUploader.sendFiles(res.newId);
             this.router.navigate(['events']);
           }, err => {
             console.error('something went wrong: ', err);

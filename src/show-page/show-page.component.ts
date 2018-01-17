@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { head } from 'lodash';
 
+import * as moment from 'moment';
+
 import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
-import { LaunchEvent } from '../event-launch/event-launch.interface';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { EventInfo } from '../shared/event-info/event-info.interface';
@@ -30,6 +31,7 @@ export class ShowPageComponent implements OnInit, OnDestroy {
   videos: SafeHtml = [];
   eventsData: Show[];
   eventInfo: EventInfo;
+  similarEvents: Show[];
 
   constructor( private router: Router,
                private searchService: SearchService,
@@ -47,7 +49,6 @@ export class ShowPageComponent implements OnInit, OnDestroy {
     try {
       const getCurrentShowFromLocalStorage = JSON.parse(this.localStorageService.getItem('currentShow'));
       this.getCurrentShow(getCurrentShowFromLocalStorage);
-      this.getSimilarEvents(getCurrentShowFromLocalStorage);
     } catch (err) {
       console.error('something went wrong: ', err);
     }
@@ -57,12 +58,9 @@ export class ShowPageComponent implements OnInit, OnDestroy {
     const query: string = Config.objToQuery(rawQuery);
 
     this.getCurrentShowSubcribe = this.searchService.getEventsList(query)
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.currentShow = new Show(head(res.data));
+      .subscribe(res => {
+        this.currentShow = new Show(head(res));
+        this.getSimilarEvents();
         this.eventInfo = {
           showLocation: this.currentShow.location.country,
           artistId: this.currentShow.creator,
@@ -75,24 +73,25 @@ export class ShowPageComponent implements OnInit, OnDestroy {
           id: 'bshjwppf',
           player_hls_playback_url: 'https://10e8f0.entrypoint.cloud.wowza.com/app-8de5/ngrp:03bae8e8_all/playlist.m3u8'
         }; // should be delete
-
-        console.log(this.currentShow);
+      }, err => {
+        console.error('something went wrong: ', err);
       });
   }
 
-  getSimilarEvents(rawQuery: {[key: string]: any}): void {
+  getSimilarEvents(): void {
     const query: string = Config.objToQuery({
-      exceptByName: rawQuery.findByName,
-      exceptByCreator: rawQuery.findByCreator
+      genres: this.currentShow.genres,
+      limit: 10,
+      minDate: moment(new Date()).format('dddd, MMMM DD YYYY'),
+      exceptById: this.currentShow._id
     });
 
     this.getEventsDataSubcribe = this.searchService.getEventsList(query)
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.eventsData = res.data.map((show: LaunchEvent) => new Show(show));
+      .subscribe(res => {
+        this.similarEvents = res.map(show => new Show(show));
+        this.eventsData = res;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
   }
 

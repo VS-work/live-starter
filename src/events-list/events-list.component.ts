@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
 import { LaunchEvent } from '../event-launch/event-launch.interface';
+import { Show } from '../event-launch/event-launch.model';
 
 @Component({
   selector: 'app-events-list-component',
@@ -75,12 +76,10 @@ export class EventsListComponent implements OnInit {
       });
 
     this.getEventsDataSubcribe = this.searchService.getNonLiveEventsAmountData()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.nonLiveEventsAmount = res.data;
+      .subscribe(res => {
+        this.nonLiveEventsAmount = res;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
   }
 
@@ -127,12 +126,10 @@ export class EventsListComponent implements OnInit {
     const query: string = Config.objToQuery(rawQuery);
 
     this.getEventsDataSubcribe = this.searchService.getEventsList(query)
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.eventsData = res.data;
+      .subscribe(res => {
+        this.eventsData = res.map(show => new Show(show));
+      }, err => {
+        console.error('something went wrong: ', err);
       });
   }
 
