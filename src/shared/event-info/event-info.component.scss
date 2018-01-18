@@ -12,6 +12,17 @@
   flex-wrap: wrap;
   color: $darkGray;
 
+  &.with-follow {
+    padding-right: 82px;
+    position: relative;
+
+    .follow-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
   & > * {
     margin-bottom: 10px;
   }
