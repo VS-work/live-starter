@@ -1,6 +1,7 @@
 @import "../../variables.scss";
 
 .email-follow {
+  width: 82px;
   flex: 1 0;
   font-size: 12px;
   display: flex;
@@ -18,6 +19,7 @@
     background-color: transparent;
     cursor: pointer;
     transition: all .3s;
+    width: 61px;
 
     &:hover {
       box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, 0.15);

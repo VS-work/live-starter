@@ -1,5 +1,5 @@
 <div class="event-info-container">
-  <div class="custom-flex-container">
+  <div class="custom-flex-container" [class.with-follow]="isFollowing">
     <div class="user-container">
       <img [src]="artistProfile?.avatar" alt="artist avatart" class="avatar">
       <div>
@@ -11,9 +11,9 @@
       </div>
     </div>
 
-    <ng-template [ngIf]="isFollowing">
+    <div class="follow-container" *ngIf="isFollowing">
       <app-follow [followedUser]="info?.artistId"></app-follow>
-    </ng-template>
+    </div>
   </div>
 
   <div class="genres-container">

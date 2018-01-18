@@ -6,7 +6,7 @@ import { ToastOptions, ToastyService } from 'ng2-toasty';
 import { FollowService } from './follow.service';
 import { User } from '../../signup/user.class';
 import { customToastOptions } from '../models/toasty-options.model';
-import { FollowRqstObj } from './follow.interface';
+import { FollowResponse, FollowRqstObj } from './follow.interface';
 
 @Component({
   selector: 'app-follow',
@@ -15,11 +15,15 @@ import { FollowRqstObj } from './follow.interface';
 })
 export class FollowComponent implements OnDestroy {
   @Input() set followedUser(userId: string) {
+    if (!userId) {
+      return;
+    }
     this.getCurrentUser(userId);
   };
   followingSubscribe: Subscription;
   currentUser: User;
   rqstObj: FollowRqstObj;
+  btnText = 'Follow';
 
   constructor(private followService: FollowService, private toastyService: ToastyService) {
 
@@ -31,7 +35,12 @@ export class FollowComponent implements OnDestroy {
       this.rqstObj = {
         follower: this.currentUser._id,
         following: followingId,
-      }
+      };
+
+      this.followService.checkFollowed(this.rqstObj)
+        .subscribe((res: FollowResponse) => {
+          this.setBtnText(res.isFollowed);
+        });
     } catch (err) {
       this.currentUser = null;
       console.error('something went wrong: ', err);
@@ -60,15 +69,20 @@ export class FollowComponent implements OnDestroy {
     }
 
     this.followingSubscribe = this.followService.followUser(this.rqstObj)
-      .subscribe(res => {
+      .subscribe((res: FollowResponse) => {
+        this.setBtnText(res.isFollowed);
         const toastOptions: ToastOptions = {
           ...customToastOptions,
-          ...{title: 'Success', msg: res}
+          ...{title: 'Success', msg: res.message}
         };
         this.toastyService.success(toastOptions);
       }, err => {
-        console.log('something went wrong', err);
+        console.error('something went wrong', err);
       });
+  }
+
+  setBtnText(isFollowed: boolean): void {
+    this.btnText = isFollowed ? 'Unfollow' : 'Follow';
   }
 
   ngOnDestroy() {
