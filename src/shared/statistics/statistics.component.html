@@ -13,6 +13,6 @@
   </div>
   <div class="shows" *ngIf="!isEvent">
     <i class="fa fa-play" aria-hidden="true"></i>
-    {{statistics?.shows}}
+    {{statistics?.shows || 0}}
   </div>
 </div>

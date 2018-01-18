@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 
 import { Config } from '../../app.config';
 import { Show } from '../../event-launch/event-launch.model';
+import { ShowInfo } from '../show-info/info.interface';
 
 export interface CustomResponse { // should be deleted after rework all methods
   success?: boolean;
@@ -39,19 +40,21 @@ export class SearchService {
 
   getNonLiveEventsAmountData(): Observable<number> {
     return this.http.get(`${Config.api}/get-non-live-events-amount`)
-      .map(res => res)
       .catch(err => Observable.of(err));
   }
 
   getEventsList(query: string): Observable<Show[]> {
     return this.http.get(`${Config.api}/get-events-list-by-query?${query}`)
-      .map(res => res)
+      .catch(err => Observable.of(err));
+  }
+
+  getUserFollowings(query: string): Observable<ShowInfo[]> {
+    return this.http.get(`${Config.api}/get-user-followings?${query}`)
       .catch(err => Observable.of(err));
   }
 
   getMyEvents(query: string): Observable<Show[]> {  // need rework, should be comишту with getEventsList
     return this.http.get(`${Config.api}/get-my-events?${query}`)
-      .map(res => res)
       .catch(err => Observable.throw(err));
   }
 

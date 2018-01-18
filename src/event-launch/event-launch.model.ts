@@ -2,6 +2,25 @@ import * as moment from 'moment';
 
 import { LaunchEvent } from './event-launch.interface';
 
+const defaulttickets = {
+  count: 0,
+  ticketPrice: 0,
+  ticketsToFund: 0,
+  ticketsSold: 0,
+  fundedPercentage: 0,
+};
+
+const defaultStatistics = {
+  likes: 0,
+  viewers: 0,
+  followers: 0
+};
+
+const defaultTimePerformance = {
+  start: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a'),
+  end: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a')
+};
+
 export class Show {
   _id?: string;
   name: string;
@@ -33,9 +52,9 @@ export class Show {
     fundedPercentage: number;
   };
   statistics: {
-    likes: string[];
-    viewers: string[];
-    followers: string[];
+    likes: number;
+    viewers: number;
+    followers: number;
   };
   wowza: {
     id: string;
@@ -59,22 +78,9 @@ export class Show {
     this.location = eventData ? eventData.location : {country: ''};
     this.dateCreated = eventData ? eventData.dateCreated : new Date().getTime();
     this.datePerformance = eventData ? eventData.datePerformance : new Date().getTime();
-    this.timePerformance = eventData ? eventData.timePerformance : {
-      start: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a'),
-      end: moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a')
-    };
-    this.tickets = eventData ? eventData.tickets : {
-      count: 0,
-      ticketPrice: 0,
-      ticketsToFund: 0,
-      ticketsSold: 0,
-      fundedPercentage: 0,
-    };
-    this.statistics = eventData ? eventData.statistics : {
-      likes: [],
-      viewers: [],
-      followers: []
-    };
+    this.timePerformance = eventData ? eventData.timePerformance : defaultTimePerformance;
+    this.tickets = eventData ? eventData.tickets : defaulttickets;
+    this.statistics = eventData ? eventData.statistics : defaultStatistics;
     this.wowza = eventData ? eventData.wowza : {id: null};
   }
 }
