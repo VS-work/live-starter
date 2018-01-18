@@ -1,0 +1,8 @@
+<div class="page-header">
+  <ul class="flex-container flex-center">
+    <li><a routerLink="/my-events" routerLinkActive="active-link">My events</a></li>
+    <li><a routerLink="/my-followings" routerLinkActive="active-link">Following</a></li>
+  </ul>
+
+  <button *ngIf="isCreateBtn" type="button" class="btn-with-border btn-orange" routerLink="/launch">Create event</button>
+</div>

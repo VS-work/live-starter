@@ -1,0 +1,64 @@
+@import "../../variables.scss";
+
+.page-header {
+  position: relative;
+
+  .flex-container {
+    padding: 35px 170px;
+    box-sizing: border-box;
+  }
+
+  a {
+    display: block;
+    padding: 5px 15px;
+    box-sizing: border-box;
+
+    &:hover {
+      color: grey;
+    }
+  }
+
+  .active-link {
+    border-bottom: 1px solid grey;
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
+  &.flex-center {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, xl)) {
+  .page-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+
+    .flex-container {
+      width: 100%;
+      padding: 15px;
+    }
+
+    button {
+      position: static;
+      transform: translateY(0);
+    }
+  }
+}
+
+
+

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+
 import { SearchService } from '../shared';
 import { Config } from '../app.config';
-import { LaunchEvent } from '../event-launch/event-launch.interface';
 import { User } from '../signup/user.class';
+import { Show } from '../event-launch/event-launch.model';
+import { ShowInfo } from '../shared/show-info/info.interface';
 
 @Component({
   selector: 'app-my-events',
@@ -11,15 +13,17 @@ import { User } from '../signup/user.class';
 })
 
 export class MyEventsComponent {
-  shows: LaunchEvent[] = [];
+  shows: ShowInfo[] = [];
   userProfile: User;
+  isCreateBtn = true;
 
   constructor (private searchService: SearchService) {
     try {
       this.userProfile = new User(JSON.parse(localStorage.getItem('profile')));
       const query: string = Config.objToQuery({findByBuyers: this.userProfile._id});
       this.searchService.getMyEvents(query).subscribe(res => {
-        this.shows = this.sortShows(res);
+        this.shows = this.sortShows(res)
+          .map(show => ({isEvent: true, show: new Show(show)}));
       }, err => {
         console.log('error: ', err);
       })
@@ -29,8 +33,8 @@ export class MyEventsComponent {
     }
   }
 
-  sortShows(shows: LaunchEvent[] ): LaunchEvent[]  {
-    return shows.sort((a: LaunchEvent, b: LaunchEvent) => {
+  sortShows(shows: Show[] ): Show[]  {
+    return shows.sort((a: Show, b: Show) => {
       if (a.live || b.live) {
         return a.live ? -1 : 1;
       }

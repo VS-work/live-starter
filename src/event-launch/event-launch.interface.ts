@@ -29,16 +29,15 @@ export interface LaunchEvent {
     fundedPercentage: number;
   };
   statistics: {
-    likes: string[];
-    viewers: string[];
-    followers: string[];
+    likes: number;
+    viewers: number;
+    followers: number;
   };
   wowza: {
     id: string;
     [key: string]: any
   };
 }
-
 
 export interface NewEventResponse {
   message: string;

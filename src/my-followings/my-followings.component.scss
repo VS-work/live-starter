@@ -5,17 +5,11 @@
   max-width: 1140px;
   padding-right: 15px;
   padding-left: 15px;
-  margin: 0 auto;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.show-name {
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-
-.show-item {
+.artist-item {
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -26,16 +20,15 @@
 }
 
 @media (max-width: map-get($grid-breakpoints, customxs)) {
-  .show-item {
+  .artist-item {
     flex: 0 0 100%;
     max-width: 100%;
     justify-content: center !important;
   }
 }
 
-
 @media (max-width: map-get($grid-breakpoints, lg)) {
-  .show-item {
+  .artist-item {
     justify-content: flex-end;
 
     & > * {

@@ -1,0 +1,13 @@
+<div class="custom-container">
+  <app-my-pages-header></app-my-pages-header>
+
+  <div class="row" *ngIf="followings.length; else emptypage">
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-12 artist-item" *ngFor="let following of followings">
+      <app-show-info [info]="following"></app-show-info>
+    </div>
+  </div>
+
+  <ng-template #emptypage>
+    <div>Empty page</div>
+  </ng-template>
+</div>

@@ -1,18 +1,13 @@
-<div class="custom-container" style="margin-bottom: 20px">
-  <div class="page-header">
-    <ul class="flex-container flex-center">
-      <li><a href="#" routerLink="/my-events" routerLinkActive="active-link">My events</a></li>
-      <li><a href="#">Following</a></li>
-    </ul>
+<div class="custom-container">
+  <app-my-pages-header [isCreateBtn]="isCreateBtn"></app-my-pages-header>
 
-    <button type="button" class="btn-custom" routerLink="/launch" routerLinkActive="active">Create event</button>
-  </div>
-
-  <div class="row">
+  <div class="row" *ngIf="shows.length; else emptypage">
     <div class="col-12 col-sm-6 col-lg-4 col-xl-12 show-item" *ngFor="let show of shows">
-      <app-show-info [show]="show"></app-show-info>
+      <app-show-info [info]="show"></app-show-info>
     </div>
-
   </div>
 
+  <ng-template #emptypage>
+    <div>Empty page</div>
+  </ng-template>
 </div>

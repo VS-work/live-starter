@@ -1,6 +1,6 @@
-<div class="show-info-container" [class.small]="isSmall">
+<div class="show-info-container" [class.small]="isSmall" [class.user-info]="!isEvent" >
   <div class="when-container">
-    <div class="time-to-go">
+    <div class="time-to-go" *ngIf="isEvent">
       <ng-template [ngIf]="!show.completed" [ngIfElse]="copletedDate">
         <div class="day">{{date.dayNum}}</div>
         <div class="month">{{date.month}}</div>
@@ -13,30 +13,72 @@
       </ng-template>
     </div>
     <div class="poster-container">
-      <img [src]="getImgUrl(show.posters[0])" alt="show poster">
+      <img [src]="getImgUrl()" alt="show poster">
     </div>
   </div>
   <div class="main-info">
-    <div class="info-top">
-      <div class="show-name" routerlink="/show-page">{{show?.name}}</div>
-      <app-statistics [statistics]="show.statistics" [id]="show._id"></app-statistics>
+    <div class="event-info" *ngIf="isEvent; else atristInfo">
+      <div class="info-top">
+        <span class="show-name" (click)="gotoAnotherPage(isGoToEventPage)">{{show?.name}}</span>
+        <app-statistics [statistics]="show.statistics" [id]="show._id"></app-statistics>
+      </div>
+
+      <div class="show-creator" (click)="gotoAnotherPage(!isGoToEventPage)">by <span>{{show?.creator}}</span></div>
     </div>
 
-    <div class="show-creator">by <span>{{show?.creator}}</span></div>
-    <div class="show-decription">{{sliceDescription(242)}} <a routerlink="/show-page" class="read-more" >Read more »</a></div>
-  </div>
-  <div class="purchase-container">
-    <div *ngIf="show.live; else notLiveNow" class="live-now">
-      <div class="live-now-title">Now Live!</div>
-      <button type="button" class="btn-custom">{{'View show' | uppercase}}</button>
-    </div>
-    <ng-template #notLiveNow>
-      <div *ngIf="show.completed; else notCompleted" class="flex-container flex-center">
-        <button type="button" class="btn-custom">{{'Replay' | uppercase}}</button>
+    <ng-template #atristInfo>
+      <div class="info-top">
+        <div class="left-part">
+          <span class="show-name" (click)="gotoAnotherPage(!isGoToEventPage)">{{user?.username}}</span>
+          <div class="kind-of-activity" *ngIf="user?.position">{{user?.position}}</div>
+          <div class="genres-container">
+            <span class="genres-title">Genres:</span>
+            <span *ngFor="let genre of user?.genres; last as isLast">
+              {{isLast ? genre : genre + ', '}}
+            </span>
+          </div>
+        </div>
+
+        <div class="right-part">
+          <app-follow *ngIf="!isEvent" [followedUser]="user._id"></app-follow>
+          <app-statistics [statistics]="statistics" [id]="user._id" [isEvent]="isEvent"></app-statistics>
+        </div>
       </div>
-      <ng-template #notCompleted>
-        <app-funding-container [fundingParams]="show.tickets"></app-funding-container>
-      </ng-template>
     </ng-template>
+
+
+    <div class="show-decription">{{sliceDescription(242)}} <span class="read-more" (click)="gotoAnotherPage()">Read more »</span></div>
   </div>
+
+  <div class="purchase-container" *ngIf="isEvent; else nextShow">
+    <div class="purchase-wrapper">
+      <div *ngIf="show.live; else notLiveNow" class="live-now">
+        <div class="live-now-title">Now Live!</div>
+        <button type="button" class="btn-with-border btn-orange">{{'View show' | uppercase}}</button>
+      </div>
+      <ng-template #notLiveNow>
+        <div *ngIf="show.completed; else notCompleted" class="flex-container flex-center">
+          <button type="button" class="btn-with-border btn-orange">{{'Replay' | uppercase}}</button>
+        </div>
+        <ng-template #notCompleted>
+          <app-funding-container [fundingParams]="show.tickets"></app-funding-container>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+
+  <ng-template #nextShow>
+    <div class="purchase-container">
+      <div class="box">
+        <div class="purchase-wrapper">
+          <h6 class="title-nex-show">{{'Next Show' | uppercase}}</h6>
+          <div class="next-show-time-to-go">{{date.dayNum}} {{date.month}} {{date.time}}</div>
+          <app-funding-container [fundingParams]="show.tickets"></app-funding-container>
+        </div>
+        <div class="buy-ticket-container">
+          <button type="button" class="btn-with-border btn-orange"> Pledge tickets</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

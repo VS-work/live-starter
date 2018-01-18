@@ -82,14 +82,14 @@ export class HeaderComponent implements OnDestroy {
     this.isShowSideMenu = true;
   }
 
-  logout(): void {
-    event.preventDefault();
+  logout(evt: Event): void {
+    evt.preventDefault();
     this.hideMenu();
     this.auth.logout();
   }
 
-  goToPage(path: string): void {
-    event.preventDefault();
+  goToPage(path: string, evt: Event): void {
+    evt.preventDefault();
     this.router.navigate([path]);
     this.hideMenu();
     if (this.localStorageService.getItem('homePageSearchData') && path === '/home') {
@@ -97,8 +97,8 @@ export class HeaderComponent implements OnDestroy {
     }
   }
 
-  loginModal(): void {
-    event.preventDefault();
+  loginModal(evt: Event): void {
+    evt.preventDefault();
     this.hideMenu();
     localStorage.removeItem('id_token');
     localStorage.removeItem('tempProfile');
