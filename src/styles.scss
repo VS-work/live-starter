@@ -90,6 +90,10 @@ input, textarea {
     padding: 5px 15px;
     height: 32px;
   }
+
+  &.long {
+    width: 180px;
+  }
 }
 
 .custom-overlay {

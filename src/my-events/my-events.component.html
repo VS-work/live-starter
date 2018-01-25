@@ -3,7 +3,7 @@
 
   <div class="row" *ngIf="shows.length; else emptypage">
     <div class="col-12 col-sm-6 col-lg-4 col-xl-12 show-item" *ngFor="let show of shows">
-      <app-show-info [info]="show"></app-show-info>
+      <app-show-info [info]="show" [isMyEvents]="isMyEvents"></app-show-info>
     </div>
   </div>
 

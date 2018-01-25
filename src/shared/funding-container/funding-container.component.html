@@ -1,4 +1,4 @@
-<div class="funding-container" *ngIf="funding">
+<div class="funding-container" *ngIf="!isFree; else freeEvent">
   <div class="funding-item">
     <div class="funding-item-value">${{funding?.ticketPrice || 0}}</div>
     <div class="funding-item-title">per ticket</div>
@@ -14,3 +14,9 @@
     <div class="funding-item-title">tickets sold</div>
   </div>
 </div>
+
+<ng-template #freeEvent>
+  <div class="funding-container">
+    <span class="free-event">This is free event</span>
+  </div>
+</ng-template>

@@ -7,11 +7,13 @@ import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
 import { LaunchEvent } from '../event-launch/event-launch.interface';
 import { Show } from '../event-launch/event-launch.model';
+import { ShowInfo } from '../shared/show-info/info.interface';
+import { User } from '../signup/user.class';
 
 @Component({
   selector: 'app-events-list-component',
   templateUrl: './events-list.component.html',
-  styleUrls: ['./events-list.component.css']
+  styleUrls: ['./events-list.component.scss']
 })
 
 export class EventsListComponent implements OnInit {
@@ -21,11 +23,12 @@ export class EventsListComponent implements OnInit {
   public searchServiceSubscribe: Subscription;
   public getEventsDataSubcribe: Subscription;
 
-  public dislayEventsAs: string;
+  public isColumn = true;
   public eventTypes: any[];
   public genres: any[];
   public locations: any[];
   public eventsData: any[];
+  public shows: ShowInfo[] = [];
   public datesAround: any[];
   public datepickerShow: Boolean;
   public queryToFindShow: any;
@@ -46,7 +49,6 @@ export class EventsListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.datepickerShow = false;
-    this.dislayEventsAs = 'columns';
 
     this.eventTypes = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
 
@@ -123,11 +125,9 @@ export class EventsListComponent implements OnInit {
       delete rawQuery.findByType;
     }
 
-    const query: string = Config.objToQuery(rawQuery);
-
-    this.getEventsDataSubcribe = this.searchService.getEventsList(query)
+    this.getEventsDataSubcribe = this.searchService.getEventsList(rawQuery)
       .subscribe(res => {
-        this.eventsData = res.map(show => new Show(show));
+        this.shows = res.map(show => ({isEvent: true, show: new Show(show)}));
       }, err => {
         console.error('something went wrong: ', err);
       });

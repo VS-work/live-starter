@@ -1,4 +1,5 @@
 <div class="show-info-container" [class.small]="isSmall" [class.user-info]="!isEvent" >
+  <span class="live-evt" *ngIf="show.live">live</span>
   <div class="when-container">
     <div class="time-to-go" *ngIf="isEvent">
       <ng-template [ngIf]="!show.completed" [ngIfElse]="copletedDate">
@@ -51,20 +52,47 @@
   </div>
 
   <div class="purchase-container" *ngIf="isEvent; else nextShow">
-    <div class="purchase-wrapper">
-      <div *ngIf="show.live; else notLiveNow" class="live-now">
-        <div class="live-now-title">Now Live!</div>
-        <button type="button" class="btn-with-border btn-orange">{{'View show' | uppercase}}</button>
-      </div>
-      <ng-template #notLiveNow>
-        <div *ngIf="show.completed; else notCompleted" class="flex-container flex-center">
-          <button type="button" class="btn-with-border btn-orange">{{'Replay' | uppercase}}</button>
+    <div class="box" *ngIf="isMyEvents; else notMyEvents">
+      <div class="purchase-wrapper">
+        <div *ngIf="show.live; else notLiveNow" class="live-now">
+          <div class="live-now-title">Now Live!</div>
+          <button type="button" class="btn-with-border btn-orange small long">{{'View show' | uppercase}}</button>
         </div>
-        <ng-template #notCompleted>
-          <app-funding-container [fundingParams]="show.tickets"></app-funding-container>
+        <ng-template #notLiveNow>
+          <div *ngIf="show.completed; else notCompleted" class="flex-container flex-center">
+            <button type="button" class="btn-with-border btn-orange small long">{{'Replay' | uppercase}}</button>
+          </div>
+          <ng-template #notCompleted>
+            <app-funding-container [fundingParams]="show.tickets" [isFree]="show.isFree"></app-funding-container>
+          </ng-template>
         </ng-template>
-      </ng-template>
+      </div>
+      <div class="buy-ticket-container" *ngIf="!isMyEvents">
+        <app-purchase [purchaseParams]="purchaseParams"
+                      (isBought)="setShowIsBought($event, show)"
+                      *ngIf="!show.completed && !show.isBought">
+        </app-purchase>
+        <span class="show-bought" *ngIf="!show.completed && show.isBought">You have already bought the ticket</span>
+        <span class="show-completed" *ngIf="show.completed">Finished!</span>
+      </div>
     </div>
+
+    <ng-template #notMyEvents>
+      <div class="box">
+        <div class="purchase-wrapper">
+          <app-funding-container [fundingParams]="show.tickets" [isFree]="show.isFree"></app-funding-container>
+        </div>
+
+        <div class="buy-ticket-container">
+          <app-purchase [purchaseParams]="purchaseParams"
+                        (isBought)="setShowIsBought($event, show)"
+                        *ngIf="!show.completed && !show.isBought">
+          </app-purchase>
+          <span class="show-bought" *ngIf="!show.completed && show.isBought">You have already bought the ticket</span>
+          <span class="show-completed" *ngIf="show.completed">Finished!</span>
+        </div>
+      </div>
+    </ng-template>
   </div>
 
   <ng-template #nextShow>
@@ -73,10 +101,17 @@
         <div class="purchase-wrapper">
           <h6 class="title-nex-show">{{'Next Show' | uppercase}}</h6>
           <div class="next-show-time-to-go">{{date.dayNum}} {{date.month}} {{date.time}}</div>
-          <app-funding-container [fundingParams]="show.tickets"></app-funding-container>
+          <app-funding-container [fundingParams]="show.tickets" [isFree]="show.isFree"></app-funding-container>
         </div>
         <div class="buy-ticket-container">
-          <button type="button" class="btn-with-border btn-orange"> Pledge tickets</button>
+          <app-purchase [purchaseParams]="purchaseParams"
+                        (isBought)="setShowIsBought($event, show)"
+                        *ngIf="!show.isBought; else alreadyBought">
+          </app-purchase>
+
+          <ng-template #alreadyBought>
+            <span class="show-bought">You have already bought the ticket</span>
+          </ng-template>
         </div>
       </div>
     </div>

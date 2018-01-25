@@ -8,6 +8,8 @@ import 'rxjs/add/operator/map';
 import { Config } from '../../app.config';
 import { Show } from '../../event-launch/event-launch.model';
 import { ShowInfo } from '../show-info/info.interface';
+import { User } from '../../signup/user.class';
+
 
 export interface CustomResponse { // should be deleted after rework all methods
   success?: boolean;
@@ -18,9 +20,22 @@ export interface CustomResponse { // should be deleted after rework all methods
 
 @Injectable()
 export class SearchService {
+  userProfile: User;
 
   constructor(private http: HttpClient) {
+    try {
+      const profile = JSON.parse(localStorage.getItem('profile'));
 
+      if (!profile) {
+        this.userProfile = null;
+
+        return undefined;
+      }
+      this.userProfile = new User(profile);
+    } catch (err) {
+      this.userProfile = null;
+      console.error('something went wrong: ', err);
+    }
   }
 
   getMusicStyles(): Observable<CustomResponse> { // need rework
@@ -43,8 +58,10 @@ export class SearchService {
       .catch(err => Observable.of(err));
   }
 
-  getEventsList(query: string): Observable<Show[]> {
-    return this.http.get(`${Config.api}/get-events-list-by-query?${query}`)
+  getEventsList(query: {[key: string]: any}): Observable<Show[]> {
+    const newQuery = {...query, userId: this.userProfile ? this.userProfile._id : ''};
+
+    return this.http.get(`${Config.api}/get-events-list-by-query?${Config.objToQuery(newQuery)}`)
       .catch(err => Observable.of(err));
   }
 
@@ -53,12 +70,7 @@ export class SearchService {
       .catch(err => Observable.of(err));
   }
 
-  getMyEvents(query: string): Observable<Show[]> {  // need rework, should be comишту with getEventsList
-    return this.http.get(`${Config.api}/get-my-events?${query}`)
-      .catch(err => Observable.throw(err));
-  }
-
-  getArtistsList(query: string): Observable<CustomResponse> {
+  getArtistsList(query: string): Observable<CustomResponse> {  // need rework
     return this.http.get(`${Config.api}/get-artists-list?${query}`)
       .map((res: CustomResponse) => res)
       .catch(err => Observable.throw(err));
