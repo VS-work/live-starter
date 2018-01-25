@@ -10,6 +10,7 @@ import { User } from '../../signup/user.class';
 import { Statistics } from '../statistics/statistics.interface';
 import { LocalStorageService } from '../index';
 import { ShowInfo } from './info.interface';
+import { PurchaseParams } from '../purchase-container/purchase-container.interface';
 
 @Component({
   selector: 'app-show-info',
@@ -26,6 +27,7 @@ export class ShowInfoComponent {
     this.isEvent = data.isEvent;
     this.show = data.show;
     this.parseDate(this.show.timePerformance.start);
+    this.purchaseParams = {eventId: this.show._id, userId: this.currentUser._id};
 
     if (!this.isEvent) {
       this.user = data.user;
@@ -41,17 +43,31 @@ export class ShowInfoComponent {
     this.statistics = this.show.statistics;
   };
   @Input() isSmall = false;
+  @Input() isMyEvents = false;
 
   date: ShowInfoDate;
   show: Show;
   user: User;
+  currentUser: User;
   statistics: Statistics;
   isEvent: boolean;
   isGoToEventPage = true;
+  purchaseParams: PurchaseParams;
 
   constructor(private router: Router,
               private localStorageService: LocalStorageService) {
+    try {
+      const currentUserProfile = JSON.parse(this.localStorageService.getItem('profile'));
+      if (!currentUserProfile) {
+        this.currentUser = null;
+        return;
+      }
 
+      this.currentUser = new User(currentUserProfile);
+    } catch (err) {
+      this.currentUser = null;
+      console.error('something went wrong: ', err);
+    }
   }
 
   parseDate(date: string): void {
@@ -100,5 +116,9 @@ export class ShowInfoComponent {
     }
 
     this.router.navigate([path]);
+  }
+
+  setShowIsBought(evt: boolean, show: Show): void {
+    show.isBought = evt;
   }
 }

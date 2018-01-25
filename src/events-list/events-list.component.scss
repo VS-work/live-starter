@@ -1,0 +1,206 @@
+@import "../variables.scss";
+
+.show-item {
+  margin-bottom: 20px;
+}
+
+.search-filter-header {
+	width: 100%;
+	background-color: #dadce8;
+}
+
+.date-filter,
+.show-attrs-filter {
+	width: 100%;
+	background-color: #dadce8;
+	position: relative;
+	display: inline-flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 2px solid #8e8e9a;
+}
+
+.show-attrs-filter {
+	border-bottom: 0;
+}
+
+.pdng-filter-items {
+	padding: 10px;
+}
+
+.datepicker-icon,
+.scroll-left-button img,
+.scroll-right-button img {
+	width: 30px;
+	cursor: pointer;
+}
+
+.brdr-r {
+	border-right: 2px solid #8e8e9a;
+}
+
+.brdr-l {
+	border-left: 2px solid #8e8e9a;
+}
+
+datepicker {
+	position: absolute;
+}
+
+datepicker >>> .well {
+	background-color: #e3e3ef;
+}
+
+.list-for-today {
+	cursor: pointer;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.choose-day-button {
+	flex: 1 0 auto;
+	text-align: center;
+	font-weight: 700;
+}
+
+/* The switch - the box around the slider */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 34px;
+	height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 20px;
+	width: 20px;
+	left: 0;
+	bottom: 0;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: #fc6337;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #fc6337;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(14px);
+	-ms-transform: translateX(14px);
+	transform: translateX(14px);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 17px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.live-shows label {
+	margin-bottom: -3px;
+}
+
+.title {
+	margin: 0 8px;
+	display: inline-flex;
+}
+
+.btn-filter {
+	width: 120px;
+	background-color: #fff;
+	border: 1px solid #49494c;
+}
+
+.filter-drpdwn {
+	padding: 8px;
+	flex: 1 0;
+}
+
+.dropdown-item {
+	cursor: pointer;
+	padding: 0 5px;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 25px;
+}
+
+.dropdown-item:hover {
+	background-color: #ffe7c7;
+}
+
+.shows-header-title {
+	margin: 20px 0;
+	font-size: 24px;
+	line-height: 30px;
+	font-weight: 500;
+}
+
+.party-display-type-switcher {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	float: right;
+}
+
+.party-display-type-switcher div {
+	cursor: pointer;
+	margin-left: 5px;
+}
+
+.party-display-type-switcher .type-columns img {
+	width: 20px;
+}
+
+.party-display-type-switcher .type-rows img {
+	width: 24px;
+}
+
+.not-active {
+	opacity: .2;
+}
+
+.shows-counter {
+	font-weight: 700;
+}
+
+@media (max-width: map-get($grid-breakpoints, md)) {
+  .container {
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, customxs)) {
+
+  .show-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+    justify-content: center !important;
+  }
+}

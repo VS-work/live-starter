@@ -10,6 +10,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EventsListComponent } from './events-list.component';
 import { SharedModule, SearchService } from '../shared';
 import { routing } from '../modules/events-list.routing';
+import { PurchaseContainerModule } from '../shared/purchase-container/purchase-container.module';
+import { ShowInfoModule } from '../shared/show-info/show-info.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { routing } from '../modules/events-list.routing';
     DatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    SharedModule
+    SharedModule,
+    PurchaseContainerModule,
+    ShowInfoModule
   ],
   providers: [
     SearchService

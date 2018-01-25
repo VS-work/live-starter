@@ -16,12 +16,14 @@ export class MyEventsComponent {
   shows: ShowInfo[] = [];
   userProfile: User;
   isCreateBtn = true;
+  isMyEvents = true;
 
   constructor (private searchService: SearchService) {
     try {
       this.userProfile = new User(JSON.parse(localStorage.getItem('profile')));
-      const query: string = Config.objToQuery({findByBuyers: this.userProfile._id});
-      this.searchService.getMyEvents(query).subscribe(res => {
+
+      const query = {findByBuyers: this.userProfile._id};
+      this.searchService.getEventsList(query).subscribe(res => {
         this.shows = this.sortShows(res)
           .map(show => ({isEvent: true, show: new Show(show)}));
       }, err => {

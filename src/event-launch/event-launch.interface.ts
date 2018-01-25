@@ -12,6 +12,9 @@ export interface LaunchEvent {
   info: string;
   live: boolean;
   completed: boolean;
+  isFree: boolean;
+  isFreeForMe: boolean;
+  isBought: boolean;
   location: {
     country: string;
   };

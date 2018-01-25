@@ -55,9 +55,8 @@ export class ShowPageComponent implements OnInit, OnDestroy {
   }
 
   getCurrentShow(rawQuery: {[key: string]: any}): void {
-    const query: string = Config.objToQuery(rawQuery);
 
-    this.getCurrentShowSubcribe = this.searchService.getEventsList(query)
+    this.getCurrentShowSubcribe = this.searchService.getEventsList(rawQuery)
       .subscribe(res => {
         this.currentShow = new Show(head(res));
         this.getSimilarEvents();
@@ -79,15 +78,15 @@ export class ShowPageComponent implements OnInit, OnDestroy {
   }
 
   getSimilarEvents(): void {
-    const query: string = Config.objToQuery({
+    const query = {
       genres: this.currentShow.genres,
       limit: 10,
       minDate: moment(new Date()).format('dddd, MMMM DD YYYY'),
       exceptById: this.currentShow._id
-    });
+    };
 
     this.getEventsDataSubcribe = this.searchService.getEventsList(query)
-      .subscribe(res => {
+      .subscribe((res: Show[]) => {
         this.similarEvents = res.map(show => new Show(show));
         this.eventsData = res;
       }, err => {

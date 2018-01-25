@@ -16,6 +16,9 @@ export class FundingContainerComponent {
     const funded = (params.ticketsSold / params.ticketsToFund) * 100;
     this.funding.fundedPercentage = isNaN(funded) ? 0 : funded;
   }
+
+  @Input() isFree = false;
+
   funding: Funding = {
     count: 0,
     ticketPrice: 0,

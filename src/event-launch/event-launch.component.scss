@@ -177,10 +177,6 @@
   }
 }
 
-//.funding-info {
-//  text-align: center;
-//}
-
 .artists-genres {
   color: #8e8e9a;
   font-size: 12px;
@@ -269,4 +265,37 @@ label {
   box-shadow: none !important;
   width: 55px;
   cursor: pointer;
+}
+
+.custom-checkbox {
+  &-input {
+    display: none;
+
+    &:checked {
+      & + label {
+        &:before {
+          content: '\F046';
+        }
+      }
+    }
+  }
+
+  &-label {
+    padding-left: 20px;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+
+    &:before {
+      content: '\F096';
+      font: normal normal normal 18px/1 FontAwesome;;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 18px;
+      width: 18px;
+      padding-top: 1px;
+    }
+  }
 }

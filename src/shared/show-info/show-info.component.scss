@@ -5,7 +5,7 @@
 }
 
 .show-info-container {
-  border: 1px solid #8e8e9a;
+  border: 1px solid $liteGray;
   padding: 5px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -19,11 +19,11 @@
   &.small {
     flex-direction: column;
     padding: 0;
-    width: 290px;
+    max-width: 350px;
     height: auto;
   }
 
-  & > * {
+  & > *:not(.live-evt) {
     padding: 10px;
   }
 }
@@ -125,7 +125,7 @@
 }
 
 .show-creator {
-  color: #8e8e9a;
+  color: $liteGray;
   cursor: pointer;
   margin-bottom: 10px;
 
@@ -148,7 +148,7 @@
     content: '';
     display: block;
     height: calc(100% - 30px);
-    border-left: 1px solid #8e8e9a;
+    border-left: 1px solid $liteGray;
     margin-right: 10px;
   }
 }
@@ -169,7 +169,7 @@
 
 .small {
 
-  & > * {
+  & > *:not(.live-evt) {
     width: 100%;
   }
 
@@ -198,13 +198,13 @@
       left: 50%;
       bottom: 0;
       transform: translate(-50%, 50%);
-      color: #fff;
+      color: $white;
       font-size: 15px;
       font-weight: 400;
       height: 28px;
       opacity: .8;
-      background-color: #1c2e36;
-      border: 1px solid #fff;
+      background-color: $darkBlue;
+      border: 1px solid $white;
       border-radius: 7px;
       display: flex;
       justify-content: center;
@@ -254,6 +254,21 @@
     margin: 0;
   }
 
+  .buy-ticket-container {
+    position: relative;
+    width: 100%;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
+      border-top: 1px solid $liteGray;
+    }
+  }
+
   &.user-info {
     .when-container {
       flex-direction: column;
@@ -284,13 +299,13 @@
       top: 208px;
       left: 50%;
       transform: translateX(-50%);
-      color: #fff;
+      color: $white;
       font-size: 15px;
       font-weight: 400;
       height: 28px;
       opacity: .8;
-      background-color: #1c2e36;
-      border: 1px solid #fff;
+      background-color: $darkBlue;
+      border: 1px solid $white;
       border-radius: 7px;
       max-width: 100%;
       min-width: 270px;
@@ -298,22 +313,6 @@
 
     .title-nex-show {
       display: none;
-    }
-
-    .buy-ticket-container {
-      position: relative;
-      width: 100%;
-      margin: 10px 0 0 0;
-
-      &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 100%;
-        transform: translateX(-50%);
-        border-top: 1px solid $liteGray;
-      }
     }
   }
 
@@ -385,7 +384,6 @@
   .buy-ticket-container {
     position: relative;
     width: 100%;
-    margin: 10px 0 0 0;
 
     &:before {
       content: '';
@@ -407,7 +405,7 @@
     height: auto;
     margin: 0 auto;
 
-    & > *, .main-info {
+    & > *:not(.live-evt), .main-info {
       width: 100%;
     }
 
@@ -436,13 +434,13 @@
         left: 50%;
         bottom: 0;
         transform: translate(-50%, 50%);
-        color: #fff;
+        color: $white;
         font-size: 15px;
         font-weight: 400;
         height: 28px;
         opacity: .8;
-        background-color: #1c2e36;
-        border: 1px solid #fff;
+        background-color: $darkBlue;
+        border: 1px solid $white;
         border-radius: 7px;
         display: flex;
         justify-content: center;
@@ -514,13 +512,13 @@
         top: 208px;
         left: 50%;
         transform: translateX(-50%);
-        color: #fff;
+        color: $white;
         font-size: 15px;
         font-weight: 400;
         height: 28px;
         opacity: .8;
-        background-color: #1c2e36;
-        border: 1px solid #fff;
+        background-color: $darkBlue;
+        border: 1px solid $white;
         border-radius: 7px;
         max-width: 100%;
         min-width: 270px;
@@ -548,3 +546,30 @@
   }
 }
 
+.show-completed {
+  color: $orange;
+  font-size: 18px;
+  line-height: 32px;
+}
+
+.show-bought {
+  color: $orange;
+  font-size: 16px;
+  line-height: 32px;
+}
+
+.live-evt {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  background: $darkBlue;
+  height: auto;
+  width: auto;
+  padding: 2px 15px;
+  border-radius: 3px;
+  color: $white;
+  border: 1px solid $white;
+  font-size: 14px;
+  opacity: .8;
+}

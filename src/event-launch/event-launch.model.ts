@@ -35,6 +35,9 @@ export class Show {
   appreciations: string[];
   live: boolean;
   completed: boolean;
+  isFree: boolean;
+  isFreeForMe: boolean;
+  isBought: boolean;
   location: {
     country: string;
   };
@@ -75,6 +78,9 @@ export class Show {
     this.appreciations = eventData ? eventData.appreciations : [];
     this.live = eventData ? eventData.live : false;
     this.completed = eventData ? eventData.completed : false;
+    this.isFree = eventData ? eventData.isFree : false;
+    this.isFreeForMe = eventData ? eventData.isFreeForMe : false;
+    this.isBought = eventData ? eventData.isBought : false;
     this.location = eventData ? eventData.location : {country: ''};
     this.dateCreated = eventData ? eventData.dateCreated : new Date().getTime();
     this.datePerformance = eventData ? eventData.datePerformance : new Date().getTime();

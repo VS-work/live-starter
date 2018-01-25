@@ -103,6 +103,8 @@ export class LaunchComponent implements OnInit, OnDestroy {
       }, err => {
         console.error('something went wrong: ', err);
       });
+
+    this.checkFreeEvent();
   }
 
   setUserInfo(profile: string) {
@@ -218,5 +220,18 @@ export class LaunchComponent implements OnInit, OnDestroy {
 
   setAudiosArr(audios: string[]): void {
     this.launchEvent.audios = audios;
+  }
+
+  checkFreeEvent(): void | undefined {
+    const tickets = {
+      count: !this.launchEvent.isFree ? 50 : 0,
+      ticketPrice: !this.launchEvent.isFree ? 10 : 0,
+      ticketsToFund: 0
+    };
+
+    this.launchEvent.tickets = {
+      ...this.launchEvent.tickets,
+      ...tickets
+    }
   }
 }
