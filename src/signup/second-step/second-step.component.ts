@@ -57,21 +57,17 @@ constructor(private signupService: SignUpService,
 
     this.getLocationsSignupServiceSubscribe = this.signupService.signupGetLocations()
       .subscribe(res => {
-        this.countries = res.data.getCountries;
-        this.cities = res.data.getCities;
+        this.countries = res.countries;
+        this.cities = res.cities;
       }, err => {
         console.error('something went wrong: ', err);
       });
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe(res => {
-        if (res.error) {
-          console.error('something went wrong: ', res.error);
-          return undefined;
-        }
-
-        const styles: any = res.data;
-        this.genres = styles.genres;
+        this.genres = res;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
 
     this.userProfileService.getItemEvent().subscribe((userData) => {
@@ -111,9 +107,10 @@ constructor(private signupService: SignUpService,
   isEmailExist(email: string): void {
     this.isEmailExistSignupServiceSubscribe = this.signupService.isEmailExist({email})
       .subscribe(res => {
-        if (res.success && res.error) {
-          const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: res.error}};
+        if (res.isAlreadyExist) {
+          const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: res.message}};
           this.toastyService.error(toastOptions);
+
           return undefined;
         }
 

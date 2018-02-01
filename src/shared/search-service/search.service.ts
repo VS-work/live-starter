@@ -9,7 +9,7 @@ import { Config } from '../../app.config';
 import { Show } from '../../event-launch/event-launch.model';
 import { ShowInfo } from '../show-info/info.interface';
 import { User } from '../../signup/user.class';
-
+import { Location } from '../../interfaces/country.interface';
 
 export interface CustomResponse { // should be deleted after rework all methods
   success?: boolean;
@@ -38,18 +38,13 @@ export class SearchService {
     }
   }
 
-  getMusicStyles(): Observable<CustomResponse> { // need rework
-    return this.http.get(`${Config.api}/music-styles`)
-      .map((res: CustomResponse) => res)
+  getMusicStyles(): Observable<string[]> {
+    return this.http.get(`${Config.api}/get-genres`)
       .catch(err => Observable.of(err));
   }
 
-  getLocations(): Observable<CustomResponse> { // need rework
-
+  getLocations(): Observable<Location> {
     return this.http.get(`${Config.api}/get-locations`)
-      .map((res: CustomResponse) => {
-        return {err: res.error, data: res.data};
-      })
       .catch(err => Observable.of(err));
   }
 

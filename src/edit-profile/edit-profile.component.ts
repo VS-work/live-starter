@@ -4,6 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { EditProfileService } from './edit-profile.service';
 import { LocalStorageService, SearchService } from '../shared';
+import { User } from '../signup/user.class';
 
 @Component({
   selector: 'app-edit-profile-component',
@@ -22,7 +23,7 @@ export class EditProfileComponent implements OnInit {
   public getLocationsSubscribe: Subscription;
   public getGenresSubscribe: Subscription;
   public checkModel: any;
-  public user: any;
+  public user: User;
   public localStorageUserProfile: any;
   public countries: any[];
   public genders: any[];
@@ -52,7 +53,6 @@ export class EditProfileComponent implements OnInit {
       featuredShows: false,
       alertIfMessage: true
     };
-
     const userProfile: any = this.userProfileService.getItem('profile');
     if (userProfile) {
       this.localStorageUserProfile = JSON.parse(userProfile);
@@ -72,16 +72,14 @@ export class EditProfileComponent implements OnInit {
           console.error(res.error);
           return;
         }
-        this.countries = res.data;
+        this.countries = res.countries;
       });
 
     this.getGenresSubscribe = this.searchService.getMusicStyles()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.genres = res.data.genres;
+      .subscribe(res => {
+        this.genres = res;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
   }
 
@@ -89,14 +87,11 @@ export class EditProfileComponent implements OnInit {
     const newAvatarLink: any = {newAvatarLink: newLink, email: this.user.email};
 
     this.editProfileAvatarServiceSubscribe = this.editProfileService.editUserAvatar(newAvatarLink)
-      .subscribe((res): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-        this.getUser(this.localStorageUserProfile.email);
+      .subscribe(res => {
+              this.getUser(this.localStorageUserProfile.email);
         this.smModal.hide();
+      }, err => {
+        console.error('something went wrong: ', err);
       });
   }
 
@@ -113,18 +108,16 @@ export class EditProfileComponent implements OnInit {
     };
 
     this.editProfileServiceSubscribe = this.editProfileService.editUser(userData)
-      .subscribe((res): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-        this.userUpdateSuccess = !res.error;
+      .subscribe(res => {
+        this.userUpdateSuccess = true;
 
         this.user.firstName = userData.userUpdateSet.firstName;
         this.user.lastName = userData.userUpdateSet.lastName;
         this.user.country = userData.userUpdateSet.country;
         this.user.city = userData.userUpdateSet.city;
+      }, err => {
+        this.userUpdateSuccess = false;
+        console.error('something went wrong: ', err);
       });
   }
 
@@ -142,17 +135,15 @@ export class EditProfileComponent implements OnInit {
     };
 
     this.editProfileAdditionalServiceSubscribe = this.editProfileService.editUser(userData)
-      .subscribe((res): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-        this.userUpdateSuccess = !res.error;
+      .subscribe(res => {
+        this.userUpdateSuccess = true;
 
         this.user.website = userData.userUpdateSet.website;
         this.user.groupName = userData.userUpdateSet.groupName;
         this.user.username = userData.userUpdateSet.username;
+      }, err => {
+        this.userUpdateSuccess = false;
+        console.error('something went wrong: ', err);
       });
   }
 
@@ -170,17 +161,15 @@ export class EditProfileComponent implements OnInit {
     };
 
     this.editProfileAdditionalServiceSubscribe = this.editProfileService.editUser(userData)
-      .subscribe((res): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-        this.userUpdateSuccess = !res.error;
+      .subscribe(res => {
+        this.userUpdateSuccess = true;
 
         this.user.contacts.phone = userData.userUpdateSet.contacts.phone;
         this.user.contacts.skype = userData.userUpdateSet.contacts.skype;
         this.user.contacts.hangouts = userData.userUpdateSet.contacts.hangouts;
+      }, err => {
+        this.userUpdateSuccess = false;
+        console.error('something went wrong: ', err);
       });
   }
 
@@ -194,27 +183,22 @@ export class EditProfileComponent implements OnInit {
     };
 
     this.editProfileAdditionalServiceSubscribe = this.editProfileService.editUser(userData)
-      .subscribe((res): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-        this.userUpdateSuccess = !res.error;
+      .subscribe(res => {
+        this.userUpdateSuccess = true;
 
         this.user.biography = userData.userUpdateSet.biography;
+      }, err => {
+        this.userUpdateSuccess = false;
+        console.error('something went wrong: ', err);
       });
   }
 
-  public getUser(email: string): void {
+  getUser(email: string): void {
     this.getProfileServiceSubscribe = this.editProfileService.getUser(email)
-      .subscribe((res): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-        this.user = res.data;
+      .subscribe(res => {
+        this.user = new User(res);
+      }, err => {
+        console.error('something went wrong: ', err);
       });
   }
 }

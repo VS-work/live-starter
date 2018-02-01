@@ -29,7 +29,7 @@ export class LaunchComponent implements OnInit, OnDestroy {
   @ViewChild(FileUploaderComponent) posterUploader: FileUploaderComponent;
   userProfile: User;
   funded = 0;
-  genres: MultipleGenres[];
+  genres: MultipleGenres[] = [];
   locations: Country[];
   activeStep = 1;
   eventServiceSubscribe: Subscription;
@@ -91,15 +91,14 @@ export class LaunchComponent implements OnInit, OnDestroy {
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe(res => {
-        const styles = res.data;
-        this.genres = styles.genres.map((genre: string) => ({isChecked: false, value: genre}));
+        this.genres = res.map((genre: string) => ({isChecked: false, value: genre}));
       }, err => {
         console.error('something went wrong: ', err);
       });
 
     this.searchServiceSubscribe = this.searchService.getLocations()
       .subscribe(res => {
-        this.locations = res.data;
+        this.locations = res.countries;
       }, err => {
         console.error('something went wrong: ', err);
       });
