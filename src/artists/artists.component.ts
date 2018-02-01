@@ -52,12 +52,10 @@ export class ArtistsComponent implements OnInit {
       });
 
     this.getGenresListSubscribe = this.searchService.getMusicStyles()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.genres = res.data.genres;
+      .subscribe(res => {
+        this.genres = res;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
 
     this.getLocationsListSubscribe = this.searchService.getLocations()
@@ -66,7 +64,7 @@ export class ArtistsComponent implements OnInit {
           console.error(res.error);
           return;
         }
-        this.locations = res.data;
+        this.locations = res.countries;
       });
 
     if (!getDataFromLocalStorage) {

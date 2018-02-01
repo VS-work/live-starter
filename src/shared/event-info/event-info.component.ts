@@ -35,7 +35,7 @@ export class EventInfoComponent implements OnDestroy {
   getArtist(artistId: string): void {
     this.getUserSubcribe = this.userServise.getUser({_id: artistId})
       .subscribe(res => {
-        this.artistProfile = new User(res.data);
+        this.artistProfile = new User(res);
         this.artistStatisctics = {
           likes: this.artistProfile.statistics.likes.liked,
           followers: this.artistProfile.statistics.followers,

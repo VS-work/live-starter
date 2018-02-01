@@ -71,9 +71,9 @@ export class AuthService {
               localStorage.removeItem('tempProfile');
               localStorage.removeItem('isLogin');
 
-              this.userProfileService.setItem('profile', res.data);
+              this.userProfileService.setItem('profile', res);
 
-              this.userProfileEmitter.emit(new User(res.data));
+              this.userProfileEmitter.emit(new User(res));
             }, err => {
               console.error('something went wrong', err);
             });

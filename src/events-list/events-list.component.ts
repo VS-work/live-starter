@@ -59,13 +59,10 @@ export class EventsListComponent implements OnInit {
     this.findEventsByQuery(this.queryToFindShow);
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        const styles: any = res.data;
-        this.genres = styles.genres;
+      .subscribe(res => {
+        this.genres = res;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
 
     this.searchServiceSubscribe = this.searchService.getLocations()
@@ -74,7 +71,7 @@ export class EventsListComponent implements OnInit {
           console.error(res.error);
           return;
         }
-        this.locations = res.data;
+        this.locations = res.countries;
       });
 
     this.getEventsDataSubcribe = this.searchService.getNonLiveEventsAmountData()

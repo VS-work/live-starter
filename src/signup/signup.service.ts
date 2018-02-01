@@ -18,20 +18,24 @@ export class SignUpService {
   }
 
   signupUser(query: User): Observable<any> {
-    return this.http.post(`${Config.api}/signup`, query);
+    return this.http.post(`${Config.api}/signup`, query)
+      .catch(err => Observable.throw(err));
   }
 
   isEmailExist(query: {email: string}): Observable<any> {
-    return this.http.post(`${Config.api}/signup/check-email`, query);
+    return this.http.post(`${Config.api}/signup/check-email`, query)
+      .catch(err => Observable.throw(err));
   }
 
   signupGetLocations(): Observable<any> {
-    return this.http.get(`${Config.api}/signup/get-locations`);
+    return this.http.get(`${Config.api}/signup/get-locations`)
+      .catch(err => Observable.throw(err));
   }
 
   getUser(data: GetUserData): Observable<any> {
     const query = Config.objToQuery(data);
 
-    return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`);
+    return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`)
+      .catch(err => Observable.throw(err));
   }
 }

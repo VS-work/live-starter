@@ -61,15 +61,12 @@ export class FirstStepComponent implements OnDestroy {
     };
 
     this.isEmailExistSignupServiceSubscribe = this.signupService.isEmailExist(signupData)
-      .subscribe((res: any) => {
-        if (res.error) {
-          this.signupForm.password = '';
-          this.userErrorMessage = res.error;
-          return;
-        }
-
+      .subscribe(res => {
         this.auth.signUp(signupData.email, signupData.password);
         this.userErrorMessage = '';
+      }, err => {
+        this.signupForm.password = '';
+        this.userErrorMessage = err;
       });
   }
 

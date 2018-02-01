@@ -29,14 +29,10 @@ export class SearchComponent implements OnInit {
     const clearSearchData: any = this.localStorageService.getItem('homePageSearchData');
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-        const styles: any = res.data;
-        this.styles = styles.genres;
+      .subscribe(res => {
+        this.styles = res;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
 
     if (clearSearchData) {

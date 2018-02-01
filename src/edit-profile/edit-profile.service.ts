@@ -1,35 +1,30 @@
-import { Inject, Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {  Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import  'rxjs/add/observable/throw'
+
 import { Config } from '../app.config';
-import 'rxjs/add/observable/of';
+import { User } from 'signup/user.class';
 
 @Injectable()
 export class EditProfileService {
-  public http: Http;
 
-  public constructor(@Inject(Http) http: Http) {
-    this.http = http;
+  constructor(private http: HttpClient) {
+
   }
 
-  public getUser(query: any): Observable<any> {
-    return this.http.get(`${Config.api}/edit-profile/get-user-data?email=${query}`).map((res: any) => {
-      let parseRes = JSON.parse(res._body);
-      return {err: parseRes.error, data: parseRes.data};
-    });
+  getUser(query: any): Observable<User> {
+    return this.http.get(`${Config.api}/edit-profile/get-user-data?email=${query}`)
+      .catch(err => Observable.throw(err));
   }
 
-  public editUser(query: any): Observable<any> {
-    return this.http.post(`${Config.api}/edit-profile/edit-user-data`, query).map((res: any) => {
-      let parseRes = JSON.parse(res._body);
-      return {err: parseRes.error, data: parseRes.data};
-    });
+  editUser(query: any): Observable<any> {
+    return this.http.post(`${Config.api}/edit-profile/edit-user-data`, query)
+      .catch(err => Observable.throw(err));
   }
 
-  public editUserAvatar(query: any): Observable<any> {
-    return this.http.post(`${Config.api}/edit-profile/edit-user-avatar`, query).map((res: any) => {
-      let parseRes = JSON.parse(res._body);
-      return {err: parseRes.error, data: parseRes.data};
-    });
+  editUserAvatar(query: any): Observable<any> {
+    return this.http.post(`${Config.api}/edit-profile/edit-user-avatar`, query)
+      .catch(err => Observable.throw(err));
   }
 }
