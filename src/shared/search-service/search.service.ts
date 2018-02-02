@@ -11,11 +11,11 @@ import { ShowInfo } from '../show-info/info.interface';
 import { User } from '../../signup/user.class';
 import { Location } from '../../interfaces/country.interface';
 
-export interface CustomResponse { // should be deleted after rework all methods
-  success?: boolean;
-  error?: string;
-  err?: string;
-  data: any;
+export interface QueryToFindArtists {
+  findByGenre?: string[];
+  findByName?: string;
+  findByLocation?: string;
+  findByType?: string;
 }
 
 @Injectable()
@@ -43,6 +43,11 @@ export class SearchService {
       .catch(err => Observable.of(err));
   }
 
+  getGenres(): Observable<string[]> {
+    return this.http.get(`${Config.api}/get-genres`)
+      .catch(err => Observable.of(err));
+  }
+
   getLocations(): Observable<Location> {
     return this.http.get(`${Config.api}/get-locations`)
       .catch(err => Observable.of(err));
@@ -65,9 +70,14 @@ export class SearchService {
       .catch(err => Observable.of(err));
   }
 
-  getArtistsList(query: string): Observable<CustomResponse> {  // need rework
-    return this.http.get(`${Config.api}/get-artists-list?${query}`)
-      .map((res: CustomResponse) => res)
+  getArtistsByQuery(query: QueryToFindArtists): Observable<ShowInfo[]> {
+    const querySting = Config.objToQuery(query);
+    return this.http.get(`${Config.api}/get-artists-by-query?${querySting}`)
+      .catch(err => Observable.throw(err));
+  }
+
+  getArtisAmount(): Observable<number> {
+    return this.http.get(`${Config.api}/get-artists-amount`)
       .catch(err => Observable.throw(err));
   }
 }

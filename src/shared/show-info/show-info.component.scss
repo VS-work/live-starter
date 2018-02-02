@@ -558,6 +558,14 @@
   line-height: 32px;
 }
 
+.doesnt-have-event {
+  display: block;
+  color: $orange;
+  font-size: 16px;
+  line-height: 1.3;
+  text-align: center;
+}
+
 .live-evt {
   position: absolute;
   top: 10px;

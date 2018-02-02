@@ -1,5 +1,5 @@
 <div class="show-info-container" [class.small]="isSmall" [class.user-info]="!isEvent" >
-  <span class="live-evt" *ngIf="show.live">live</span>
+  <span class="live-evt" *ngIf="show && show.live">live</span>
   <div class="when-container">
     <div class="time-to-go" *ngIf="isEvent">
       <ng-template [ngIf]="!show.completed" [ngIfElse]="copletedDate">
@@ -97,7 +97,7 @@
 
   <ng-template #nextShow>
     <div class="purchase-container">
-      <div class="box">
+      <div class="box" *ngIf="show; else noNextShow">
         <div class="purchase-wrapper">
           <h6 class="title-nex-show">{{'Next Show' | uppercase}}</h6>
           <div class="next-show-time-to-go">{{date.dayNum}} {{date.month}} {{date.time}}</div>
@@ -114,6 +114,17 @@
           </ng-template>
         </div>
       </div>
+
+      <ng-template #noNextShow>
+        <div class="box">
+          <div class="purchase-wrapper">
+            <span class="doesnt-have-event">This artist doesn't have events at the monent</span>
+          </div>
+          <div class="buy-ticket-container">
+            <div class="show-bought">Don't worry be happy</div>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </ng-template>
 </div>

@@ -1,0 +1,99 @@
+@import "../variables.scss";
+
+.artist-item {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+
+  & > * {
+    width: 100%;
+  }
+}
+
+.no-artists {
+  font-size: 35px;
+  font-weight: 700;
+  color: $liteGray;
+  text-align: center;
+  margin: 100px;
+}
+
+.explore {
+  margin: 20px 0;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 500;
+}
+
+.artists-amount {
+  font-weight: 700;
+}
+
+.search-filter-header {
+  background-color: $liteBlueGray;
+}
+
+.show-attrs-filter {
+	display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > * {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+  }
+}
+
+.filter-drpdwn {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 0 10px;
+}
+
+.title {
+	margin: 0 8px;
+	display: inline-flex;
+	align-self: center;
+}
+
+.btn-filter {
+	width: 120px;
+	background-color: $white;
+	border: 1px solid $darkGray;
+}
+
+.reset-filters {
+	margin-left: 40px;
+}
+
+.btn-with-icon {
+  color: $orange;
+  font-size: 22px;
+  cursor: pointer;
+  height: 100%;
+}
+
+@media (max-width: map-get($grid-breakpoints, customxs)) {
+  .artist-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, lg)) {
+  .artist-item {
+    justify-content: flex-end;
+
+    & > * {
+      width: auto;
+    }
+
+    &:nth-child(even) {
+      justify-content: flex-start;
+    }
+  }
+}

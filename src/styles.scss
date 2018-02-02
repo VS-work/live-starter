@@ -96,6 +96,11 @@ input, textarea {
   }
 }
 
+.btn-with-icon {
+  background: transparent;
+  border: none;
+}
+
 .custom-overlay {
   display: none;
   position: fixed;
@@ -137,4 +142,88 @@ input, textarea {
     font-weight: 700;
     color: inherit;
   }
+}
+
+.custom-dropdown-select {
+  width: 100%;
+  position: relative;
+
+  .selected-item {
+    overflow: hidden;
+    display: block;
+  }
+
+  .dropdown-toggle {
+    cursor: pointer;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    &:after {
+      position: absolute;
+      right: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+  }
+
+  .dropdown-menu {
+    padding: 0 !important;
+  }
+
+  .dropdown-item {
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+
+    &:active {
+      color: inherit;
+    }
+
+    &:hover {
+      background-color: #ffe7c7;
+    }
+
+    & > [type = "radio"] {
+      display: none;
+
+      &:checked + label {
+        background-color: $hoverBg;
+      }
+    }
+
+    & > [type = 'checkbox'] {
+      display: none;
+
+      &:checked + label {
+        background-color: $hoverBg;
+      }
+    }
+
+    label {
+      cursor: pointer;
+      width: 100%;
+      display: block;
+      margin: 0;
+      padding: 10px;
+    }
+  }
+}
+
+.drodown-custom-scroll {
+  max-height: 200px;
+  overflow: hidden;
+  overflow-y: auto;
+  width: auto;
+  min-width: 100%;
+}
+
+.custom-container {
+  width: 100%;
+  max-width: 1140px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }

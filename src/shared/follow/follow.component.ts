@@ -29,9 +29,17 @@ export class FollowComponent implements OnDestroy {
 
   }
 
-  getCurrentUser(followingId: string): void {
+  getCurrentUser(followingId: string): void | undefined {
     try {
-      this.currentUser = new User(JSON.parse(localStorage.getItem('profile')));
+      const userProfile = localStorage.getItem('profile');
+
+      if (!userProfile) {
+        this.currentUser = null;
+
+        return undefined;
+      }
+
+      this.currentUser = new User(JSON.parse(userProfile));
       this.rqstObj = {
         follower: this.currentUser._id,
         following: followingId,
@@ -47,15 +55,15 @@ export class FollowComponent implements OnDestroy {
     }
   }
 
-  follow(): void {
-    if (!this.rqstObj.follower) {
+  follow(): void | undefined {
+    if (!this.currentUser || !this.rqstObj.follower) {
       const toastOptions: ToastOptions = {
         ...customToastOptions,
         ...{title: 'Error', msg: `Unregistered user can't follow anything. Please sign up or sign in.`}
       };
       this.toastyService.error(toastOptions);
 
-      return;
+      return undefined;
     }
 
     if (this.rqstObj.follower === this.rqstObj.following) {
@@ -65,7 +73,7 @@ export class FollowComponent implements OnDestroy {
       };
       this.toastyService.error(toastOptions);
 
-      return;
+      return undefined;
     }
 
     this.followingSubscribe = this.followService.followUser(this.rqstObj)
