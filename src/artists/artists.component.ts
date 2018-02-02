@@ -1,163 +1,171 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SearchService, LocalStorageService } from '../shared';
-import { Config } from '../app.config';
+import { Country } from '../interfaces/country.interface';
+import { User } from '../signup/user.class';
+import { ShowInfo } from '../shared/show-info/info.interface';
+import { Show } from '../event-launch/event-launch.model';
+import { MultipleGenres } from '../event-launch/multipleGenres.interface';
+import { QueryToFindArtists } from '../shared/search-service/search.service';
+
+const defaultQuery: QueryToFindArtists = {
+  findByGenre: [],
+  findByName: '',
+  findByLocation: '',
+  findByType: ''
+};
 
 @Component({
   selector: 'app-artists-component',
   templateUrl: './artists.component.html',
-  styleUrls: ['./artists.component.css']
+  styleUrls: ['./artists.component.scss']
 })
 
-export class ArtistsComponent implements OnInit {
-  private router: Router;
+export class ArtistsComponent implements OnInit, OnDestroy {
+  genres: MultipleGenres[] = [];
+  locations: Country[] ;
+  eventTypes: string[] = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
+  artistsInfo: ShowInfo[] = [];
+  aritstsAmount: number;
+  queryToFindArtists: QueryToFindArtists ;
+  subsribeManager = new Subscription();
 
-  public genres: any[];
-  public locations: any[];
-  public eventTypes: any[];
-
-  public searchService: SearchService;
-  public localStorageService: LocalStorageService;
-  public getArtistsListSubscribe: Subscription;
-  public getArtistsAmountSubscribe: Subscription;
-  public getGenresListSubscribe: Subscription;
-  public getLocationsListSubscribe: Subscription;
-
-  public artistByName: string;
-  public aritstsAmount: number;
-  public queryToFindArtists: any = {};
-  public artists: any[];
-
-  public constructor(router: Router,
-                     searchService: SearchService,
-                     localStorageService: LocalStorageService) {
-    this.router = router;
-    this.searchService = searchService;
-    this.localStorageService = localStorageService;
+  constructor(private router: Router,
+              private searchService: SearchService,
+              private localStorageService: LocalStorageService) {
   }
 
-  ngOnInit(): void {
-    this.eventTypes = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
-    const getDataFromLocalStorage: any = JSON.parse(this.localStorageService.getItem('homePageSearchData'));
+  ngOnInit() {
+    try {
+      const homePageSearchData = this.localStorageService.getItem('homePageSearchData');
+      this.queryToFindArtists = JSON.parse(homePageSearchData) || {...defaultQuery};
+    } catch (err) {
+      this.queryToFindArtists = {...defaultQuery};
+      console.error('something went wrong: ', err);
+    }
 
-    this.getArtistsAmountSubscribe = this.searchService.getArtistsList('')
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.aritstsAmount = res.data.amount;
-      });
-
-    this.getGenresListSubscribe = this.searchService.getMusicStyles()
+    const artistsAmountSubscribe = this.searchService.getArtisAmount()
       .subscribe(res => {
-        this.genres = res;
+        this.aritstsAmount = res;
       }, err => {
         console.error('something went wrong: ', err);
       });
 
-    this.getLocationsListSubscribe = this.searchService.getLocations()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.locations = res.countries;
+    this.subsribeManager.add(artistsAmountSubscribe);
+
+    const genresListSubscribe = this.searchService.getGenres()
+      .subscribe(res => {
+        this.genres = ['Select all'].concat(res)
+         .map((genre: string) => ({isChecked: false, value: genre}));
+      }, err => {
+        console.error('something went wrong: ', err);
       });
 
-    if (!getDataFromLocalStorage) {
-      this.getArtistsListSubscribe = this.searchService.getArtistsList('')
-        .subscribe((res: any): void => {
-          if (res.error) {
-            console.error(res.error);
-            return;
-          }
-          this.artists = res.data.artists;
+    this.subsribeManager.add(genresListSubscribe);
+
+    const locationsListSubscribe = this.searchService.getLocations()
+      .subscribe(res => {
+        const selectAll = {
+          id: 'select all',
+          name: 'Select all',
+          sortname: 'Select all',
+          _id: 'select all'
+        };
+        this.locations = [selectAll].concat(res.countries);
+      }, err => {
+        this.locations = [];
+        console.error('something went wrong: ', err);
+      });
+
+    this.subsribeManager.add(locationsListSubscribe);
+
+    this.getArtists();
+  }
+
+  getArtists(): void {
+    const query: QueryToFindArtists = this.parseQuery();
+    const artistsListSubscribe = this.searchService.getArtistsByQuery(query)
+      .subscribe((res: ShowInfo[]) => {
+        this.artistsInfo = res.map((item: ShowInfo) => {
+          return {
+            isEvent: false,
+            user: new User(item.user),
+            show: item.show ? new Show(item.show) : null
+          };
         });
-      return;
-    }
-
-    const query: any = Config.objToQuery(getDataFromLocalStorage);
-    this.queryToFindArtists.findByGenre = getDataFromLocalStorage.findByGenre || '';
-    this.queryToFindArtists.findByName = getDataFromLocalStorage.findByName || '';
-    this.artistByName = getDataFromLocalStorage.findByName || '';
-
-    this.getArtistsListSubscribe = this.searchService.getArtistsList(query)
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.artists = res.data.artists;
+      }, err => {
+        this.artistsInfo = [];
+        console.error('something went wrong: ', err);
       });
+
+    this.subsribeManager.add(artistsListSubscribe);
   }
 
-  public goTo(): void {
-    this.router.navigate(['artist-profile']);
-  }
-
-  public findArtistsByQuery(findByQuery: any): void {
-    const rawQuery: any = {
-      findByName: this.artistByName,
-      findByLocation: findByQuery.findByLocation,
-      findByGenre: findByQuery.findByGenre,
-      findByType: findByQuery.findByType
+  parseQuery(): QueryToFindArtists {
+    const parsedQuery = {
+      ...this.queryToFindArtists
     };
 
-    if (!findByQuery.findByName || this.artistByName === undefined || this.artistByName === '') {
-      delete rawQuery.findByName;
+    if (parsedQuery.findByLocation === '' || parsedQuery.findByLocation === 'Select all') {
+      delete parsedQuery.findByLocation;
     }
 
-    if (!findByQuery.findByGenre || findByQuery.findByGenre === undefined || findByQuery.findByGenre === 'Select all') {
-      delete rawQuery.findByGenre;
+    if (parsedQuery.findByType === '' || parsedQuery.findByType === 'Select all') {
+      delete parsedQuery.findByType;
     }
 
-    if (!findByQuery.findByLocation || findByQuery.findByLocation === undefined || findByQuery.findByLocation === 'Select all') {
-      delete rawQuery.findByLocation;
+    if (!parsedQuery.findByName.trim().length) {
+      delete parsedQuery.findByName;
     }
 
-    if (!findByQuery.findByType || findByQuery.findByType === undefined || findByQuery.findByType === 'Select all') {
-      delete rawQuery.findByType;
+    if (!parsedQuery.findByGenre.length) {
+      delete parsedQuery.findByGenre;
     }
 
-    const query: any = Config.objToQuery(rawQuery);
+    return parsedQuery;
+  }
 
-    this.getArtistsListSubscribe = this.searchService.getArtistsList(query)
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
+
+  pushGenreToList(genre: string): void {
+    if (genre !== 'Select all') {
+      const index = this.queryToFindArtists.findByGenre.indexOf(genre);
+      if (index !== -1) {
+        this.queryToFindArtists.findByGenre.splice(index, 1);
+      }
+
+      if (index === -1) {
+        this.queryToFindArtists.findByGenre.push(genre);
+      }
+    }
+
+    if (genre === 'Select all') {
+      const isSelectAll = this.genres[0].isChecked;
+      this.genres = this.genres.map(item => {
+        return {
+          ...item,
+          isChecked: isSelectAll ? true : false
         }
-        this.artists = res.data.artists;
       });
 
-    this.localStorageService.removeItem('homePageSearchData');
+      this.queryToFindArtists.findByGenre = isSelectAll ?  this.genres.map(item => item.value)
+        .filter(item => item !== 'Select all') : [];
+    }
+    this.getArtists();
   }
 
-  public pushNameToList(namePush: string): void {
-    this.queryToFindArtists.findByName = namePush;
-    this.findArtistsByQuery(this.queryToFindArtists);
+  resetFilters(): void {
+    this.genres = this.genres.map(item => {
+      return {
+        ...item,
+        isChecked: false
+      }
+    });
+    this.queryToFindArtists = {...defaultQuery};
   }
 
-  public pushGenreToList(genrePush: string): void {
-    this.queryToFindArtists.findByGenre = genrePush;
-    this.findArtistsByQuery(this.queryToFindArtists);
-  }
-
-  public pushLocationToList(locationPush: string): void {
-    this.queryToFindArtists.findByLocation = locationPush;
-    this.findArtistsByQuery(this.queryToFindArtists);
-  }
-
-  public pushTypeToList(showTypePush: string): void {
-    this.queryToFindArtists.findByType = showTypePush;
-    this.findArtistsByQuery(this.queryToFindArtists);
-  }
-
-  public resetFilters(): void {
-    this.queryToFindArtists = {};
-    this.findArtistsByQuery(this.queryToFindArtists);
+  ngOnDestroy() {
+    this.subsribeManager.unsubscribe();
   }
 }

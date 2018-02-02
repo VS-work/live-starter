@@ -200,63 +200,6 @@
   }
 }
 
-.custom-dropdown-select {
-  width: 100%;
-  position: relative;
-
-  .dropdown-toggle {
-    cursor: pointer;
-    padding-right: 20px;
-    padding-left: 20px;
-
-    &:after {
-      position: absolute;
-      right: 7px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-  }
-
-  .dropdown-menu {
-    padding: 0 !important;
-  }
-
-  .dropdown-item {
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    font-size: 15px;
-
-    &:active {
-      color: inherit;
-    }
-
-    &:hover {
-      background-color: #ffe7c7;
-    }
-
-    & > [type = "radio"] {
-      display: none;
-    }
-
-    label {
-      cursor: pointer;
-      width: 100%;
-      display: block;
-      margin: 0;
-      padding: 10px;
-    }
-  }
-}
-
-.drodown-custom-scroll {
-  max-height: 200px;
-  overflow: hidden;
-  overflow-y: auto;
-  width: 100%;
-}
-
 label {
   width: 100%;
 }

@@ -1,151 +1,119 @@
 <div class="artists-container">
+
   <div class="search-filter-header">
-    <div class="container">
+    <div class="custom-container">
       <div class="show-attrs-filter">
 
-        <div class="filter-drpdwn">
-          <span class="title">Artist Name</span>
-          <form>
-            <input type="text"
-                   class="form-control"
-                   name="artistName"
-                   placeholder="Please enter artist name"
-                   [(ngModel)]="artistByName"
-                   required>
-          </form>
-          <img src="/assets/img/forma-1.svg"
-               alt="Search icon"
-               (click)="pushNameToList(artistByName)">
-        </div>
-
-        <div class="filter-drpdwn"><span class="title">Location</span>
-          <div class="btn-group" dropdown>
-            <button id="location-button" type="button" class="btn btn-filter" dropdownToggle>
-              {{queryToFindArtists.findByLocation || 'Select all'}} <span class="caret"></span>
+        <div class="left-side">
+          <div class="filter-drpdwn">
+            <span class="title">Artist Name</span>
+            <form>
+              <input type="text"
+                     class="form-control"
+                     name="artistName"
+                     placeholder="Please enter artist name"
+                     [(ngModel)]="queryToFindArtists.findByName"
+                     required>
+            </form>
+            <button class="btn-with-icon">
+              <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
             </button>
-            <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-              <div
-                  class="dropdown-item"
-                  (click)="pushLocationToList('Select all')"
-                  btnCheckbox>Select All
-              </div>
-              <div class="locations-list" *ngFor="let location of locations">
-                <div
-                    class="dropdown-item"
-                    (click)="pushLocationToList(location.country)"
-                    btnCheckbox>{{location.country}}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
-        <div class="filter-drpdwn"><span class="title">Genre</span>
-          <div class="btn-group" dropdown>
-            <button id="genre-button" type="button" class="btn btn-filter" dropdownToggle>
-              {{queryToFindArtists.findByGenre || 'Select all'}} <span class="caret"></span>
-            </button>
-            <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-              <div
-                  class="dropdown-item"
-                  (click)="pushGenreToList('Select all')"
-                  btnCheckbox>Select All
-              </div>
-              <div class="genres-list" *ngFor="let genre of genres">
-                <div
-                    class="dropdown-item"
-                    (click)="pushGenreToList(genre)"
-                    btnCheckbox>{{genre}}
-                </div>
-              </div>
+        <div class="right-side">
+          <div class="filter-drpdwn"><span class="title">Location</span>
+            <div class="btn-group custom-dropdown-select" dropdown>
+              <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                <span class="selected-item">{{queryToFindArtists?.findByLocation || 'Select all'}}</span>
+                <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                <li role="menuitem" *ngFor="let location of locations" class="dropdown-item">
+                  <input type="radio"
+                         name="showLocation"
+                         [id]="location.id"
+                         [value]="location.name"
+                         [(ngModel)]="queryToFindArtists.findByLocation"
+                         required/>
+                  <label [for]="location.id">{{location.name}}</label>
+                </li>
+              </ul>
             </div>
           </div>
-        </div>
 
-        <div class="filter-drpdwn"><span class="title">Sort by</span>
-          <div class="btn-group" dropdown>
-            <button id="sortedby-button" type="button" class="btn btn-filter" dropdownToggle>
-              {{queryToFindArtists.findByType || 'Select all'}}<span class="caret"></span>
-            </button>
-            <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-              <div
-                  class="dropdown-item"
-                  (click)="pushTypeToList('Select all')"
-                  btnCheckbox>Select All
-              </div>
-              <div class="types-list" *ngFor="let eventType of eventTypes">
-                <div
-                    class="dropdown-item"
-                    (click)="pushTypeToList(eventType)"
-                    btnCheckbox>{{eventType}}
-                </div>
-              </div>
+          <div class="filter-drpdwn" *ngIf="genres">
+            <span class="title">Genre</span>
+            <div class="btn-group custom-dropdown-select" dropdown>
+              <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+              <span class="selected-item"
+                    *ngIf="!queryToFindArtists.findByGenre.length; else selectedGenres">
+                Select all
+              </span>
+                <ng-template #selectedGenres>
+                  <div class="selected-item">
+                    {{queryToFindArtists.findByGenre}}
+                  </div>
+                </ng-template>
+                <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                <li role="menuitem" *ngFor="let genre of genres; let i = index" class="dropdown-item">
+                  <input type="checkbox"
+                         name="showLocation"
+                         [id]="'genre' + i"
+                         [value]="genre.value"
+                         [(ngModel)]="genre.isChecked"
+                         [checked]="genre.isChecked"
+                         (change)="pushGenreToList(genre.value)"
+                         required/>
+                  <label [for]="'genre' + i">{{genre.value}}</label>
+                </li>
+              </ul>
             </div>
           </div>
-        </div>
 
-        <button class="reset-filters" (click)="resetFilters()">Reset</button>
+          <div class="filter-drpdwn"><span class="title">Sort by</span>
+            <div class="btn-group custom-dropdown-select" dropdown>
+              <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                <span class="selected-item">{{queryToFindArtists?.findByType || 'Select all'}}</span>
+                <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                <li role="menuitem" *ngFor="let type of eventTypes" class="dropdown-item">
+                  <input type="radio"
+                         name="showLocation"
+                         [id]="type"
+                         [value]="type"
+                         [(ngModel)]="queryToFindArtists.findByType"
+                         required/>
+                  <label [for]="type">{{type}}</label>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <button class="reset-filters" (click)="resetFilters()">Reset</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="container">
+  <div class="custom-container">
     <div class="explore">
       Explore <span class="artists-amount">{{aritstsAmount}}</span> Artists Around The World
     </div>
 
-    <div class="no-artists" *ngIf="artists && artists.length === 0">No Artists by your request
-    </div>
 
-    <div class="artists-list">
-      <div class="artist row" *ngFor="let artist of artists">
-        <div class="ai-container col-lg-9 col-md-9 col-xs-8 col-sm-9">
-          <div class="artist-avatar">
-            <img [src]="artist?.avatar"
-                 alt="avatar">
-          </div>
-          <div class="info-container ">
-            <div class="artist-info">
-              <div class="artist-name" (click)="goTo()">{{artist?.firstName}} {{artist?.lastName}}</div>
-              <div class="artist-position">{{artist?.position}}</div>
-              <div class="artist-genres"><span class="genres">Genres: </span>{{artist?.genres}}</div>
-            </div>
 
-            <div class="artist-short-info-container">{{artist?.biography}}</div>
-          </div>
-        </div>
-
-        <div class="show-container col-md-3 col-xs-4 col-sm-3">
-          <div class="show-info">
-            <div class="next-show">
-              Next Show
-            </div>
-
-            <div class="show-date">
-              14 October EST 02:00pm
-            </div>
-
-            <div class="show-info-container">
-              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
-                <div class="num-container">$72</div>
-                <div class="item-container">per ticket</div>
-              </div>
-              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
-                <div class="num-container">20</div>
-                <div class="item-container">tickets left</div>
-              </div>
-              <div class="purchase-data-container col-lg-4 col-md-4 col-sm-4">
-                <div class="num-container">56%</div>
-                <div class="item-container">funded</div>
-              </div>
-            </div>
-
-            <div class="purchase-container">
-              <button class="purchase-button">Pledge ticket</button>
-            </div>
-          </div>
-        </div>
+    <div class="row" *ngIf="artistsInfo && artistsInfo.length; else emptypage">
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-12 artist-item" *ngFor="let info of artistsInfo">
+        <app-show-info [info]="info"></app-show-info>
       </div>
     </div>
+
+    <ng-template #emptypage>
+      <div class="no-artists">No Artists by your request</div>
+    </ng-template>
   </div>
 </div>

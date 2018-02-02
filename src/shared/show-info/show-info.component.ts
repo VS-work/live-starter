@@ -26,8 +26,11 @@ export class ShowInfoComponent {
 
     this.isEvent = data.isEvent;
     this.show = data.show;
-    this.parseDate(this.show.timePerformance.start);
-    this.purchaseParams = {eventId: this.show._id, userId: this.currentUser._id};
+
+    if (this.show) {
+      this.parseDate(this.show.timePerformance.start);
+      this.purchaseParams = {eventId: this.show._id, userId: this.currentUser ? this.currentUser._id : null};
+    }
 
     if (!this.isEvent) {
       this.user = data.user;
