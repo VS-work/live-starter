@@ -23,6 +23,6 @@ jobs:
       script:
         - echo "Build!";
         - npm install;
-        - ng build;
+        - ng build --prod;
         - echo "deploy to firebase"
         - firebase deploy --token $livestarter
