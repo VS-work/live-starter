@@ -4,7 +4,7 @@
     <strong>Well done!</strong> You successfully updated your profile.
   </alert>
 
-  <div class="container">
+  <div class="container" *ngIf="user">
     <div class="row">
       <div class="menu col-lg-2 col-md-2 col-sm-2 col-xs-2">
         <div class="profile" scrollTo scrollTargetSelector="#profile">Profile</div>
@@ -38,24 +38,20 @@
                   </div>
 
                   <div class="data-container user-country">
-                    <div class="field-title">Country</div>
-                    <div class="filter-drpdwn">
-                      <div class="btn-group" dropdown>
-                        <button id="location-button" type="button" class="btn btn-filter" dropdownToggle>
-                          {{user?.country || 'Select country'}} <span class="caret"></span>
+                    <div class="form-group">
+                      <label class="field-title">Country</label>
+                      <div class="btn-group custom-dropdown-select" dropdown>
+                        <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                          {{user.country || 'Select country'}} <span class="caret"></span>
                         </button>
-                        <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-                          <div class="locations-list" *ngFor="let country of countries">
-                            <div class="dropdown-item"
-                                 (click)="user.country = country.alias || country.country"
-                                 btnCheckbox>{{country.alias || country.country}}
-                            </div>
-                          </div>
-                        </div>
+                        <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                          <li role="menuitem" *ngFor="let country of countries" class="dropdown-item">
+                            <label class="item-text" [(ngModel)]="user.country" [btnRadio]="country.name">{{country.name}}</label>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
-
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="data-container user-lastname">
@@ -111,71 +107,105 @@
         <div id="additional" class="edit-profile">
           <div class="title">Additional Information</div>
 
-          <div class="additional-info-container">
-            <div class="data-container">
-              <div class="field-title">User name</div>
+          <div class="who-are-you">Who are you?</div>
+
+          <ul class="custom-tabs">
+            <li class="custom-tab-item"
+                [class.active]="user.type === userType.type"
+                *ngFor="let userType of userTypes"
+                (click)="changeUserType(userType.type)">
+              <img src="/assets/img/musician-fan.png" alt="Fan" *ngIf="userType.type === 'fan'; else atristImg">
+
+              <ng-template #atristImg>
+                <img src="/assets/img/musicians.png" alt="Musician">
+              </ng-template>
+
+              <span class="tab-title">I'm a {{userType.title}}</span>
+
+              <div class="question-icon" placement="left" [tooltip]="userType.description">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+              </div>
+            </li>
+          </ul>
+
+          <div class="fan-container row" *ngIf="user.type === 'fan'">
+            <div class="form-group col-lg-4 col-md-6">
+              <label for="nickname" class="field-title">Nickname</label>
               <input type="text"
-                     placeholder="Username"
-                     [value]="user?.username"
-                     #username>
+                     id="nickname"
+                     class="form-control"
+                     placeholder="Your nickname"
+                     name="username"
+                     [(ngModel)]="user.username"/>
             </div>
 
-            <div class="data-container user-city">
-              <div class="field-title">Group Name</div>
-              <input type="text"
-                     placeholder="Band name"
-                     [value]="user?.groupName === undefined ? '' : user?.groupName"
-                     #groupName>
-            </div>
-            <div class="data-container">
-              <div class="field-title">Gender</div>
-              <div class="filter-drpdwn">
-                <div class="btn-group" dropdown>
-                  <button type="button" class="btn btn-filter" dropdownToggle>
-                    {{user?.gender || 'Select gender'}} <span class="caret"></span>
-                  </button>
-                  <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-                    <div class="locations-list" *ngFor="let gender of genders">
-                      <div class="dropdown-item"
-                           (click)="user.gender = gender"
-                           btnCheckbox>{{gender}}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div class="form-group col-lg-4 col-md-6">
+              <label class="field-title">Gender</label>
+              <div class="btn-group custom-dropdown-select" dropdown>
+                <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                  {{user?.gender || 'Select gender'}} <span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                  <li role="menuitem" *ngFor="let gender of genders" class="dropdown-item">
+                    <label class="item-text" [(ngModel)]="user.gender" [btnRadio]="gender">{{gender}}</label>
+                  </li>
+                </ul>
               </div>
             </div>
 
-            <div class="data-container">
-              <div class="field-title">Position</div>
-              <div class="filter-drpdwn">
-                <div class="btn-group" dropdown>
-                  <button type="button" class="btn btn-filter" dropdownToggle>
-                    {{user?.position || 'Select position'}} <span class="caret"></span>
-                  </button>
-                  <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-                    <div *ngFor="let position of positions">
-                      <div class="dropdown-item"
-                           (click)="user.position = position"
-                           btnCheckbox>{{position}}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="data-container">
-              <div class="field-title">Website</div>
+            <div class="form-group col-lg-4 col-md-6">
+              <label for="website" class="field-title">Website</label>
               <input type="text"
+                     id="website"
+                     class="form-control"
                      placeholder="Website"
-                     [value]="user?.website === undefined ? '' : user?.website"
-                     #userWebsite>
+                     name="website"
+                     [(ngModel)]="user.website"/>
             </div>
           </div>
 
-          <button type="submit"
-                  class="submit-button"
-                  (click)="updateUserAdditional(userWebsite.value, groupName.value, username.value)">
+          <div class="artist-container row" *ngIf="user.type === 'artist'">
+            <div class="form-group col-lg-4 col-md-6">
+              <label for="nickname" class="field-title">Brand name</label>
+              <input type="text"
+                     id="brand-name"
+                     class="form-control"
+                     placeholder="Artist or Brand name"
+                     name="groupName"
+                     [(ngModel)]="user.groupName"/>
+            </div>
+
+            <div class="form-group col-lg-4 col-md-6">
+              <label class="field-title">Genres</label>
+              <div class="btn-group custom-dropdown-select" dropdown>
+                <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                  <div class="selected-item">
+                    {{user.genres.length ? user.genres : 'Select genres'}}
+                  </div>
+                  <span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                  <li role="menuitem" *ngFor="let genre of genres" class="dropdown-item">
+                    <div class="item-text" btnCheckbox [(ngModel)]="genre.isChecked" (click)="chooseGenre()">{{genre.value}}</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="form-group col-lg-4 col-md-6">
+              <label for="userwebsite" class="field-title">Website</label>
+              <input type="text"
+                     id="userwebsite"
+                     class="form-control"
+                     placeholder="Website"
+                     name="website"
+                     [(ngModel)]="user.website"/>
+            </div>
+          </div>
+
+          <button type="button"
+                  class="btn-with-border small btn-orange"
+                  (click)="updateUserAdditional()">
             Submit
           </button>
         </div>

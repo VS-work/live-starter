@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 
 import { SearchService } from '../shared';
-import { Config } from '../app.config';
-import { User } from '../signup/user.class';
+import { User } from '../user-service/user.model';
 import { Show } from '../event-launch/event-launch.model';
 import { ShowInfo } from '../shared/show-info/info.interface';
 

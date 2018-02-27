@@ -86,9 +86,10 @@ input, textarea {
   }
 
   &.small {
-    font-size: 14px;
-    padding: 5px 15px;
-    height: 32px;
+    font-size: 16px;
+    padding: 2px 20px;
+    height: 28px;
+    font-weight: bold;
   }
 
   &.long {
@@ -148,6 +149,10 @@ input, textarea {
   width: 100%;
   position: relative;
 
+  .btn-filter {
+    width: 100% !important;
+  }
+
   .selected-item {
     overflow: hidden;
     display: block;
@@ -164,7 +169,6 @@ input, textarea {
       top: 50%;
       transform: translateY(-50%);
     }
-
   }
 
   .dropdown-menu {
@@ -172,10 +176,10 @@ input, textarea {
   }
 
   .dropdown-item {
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    font-size: 15px;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0  !important;
+    font-size: 15px  !important;
 
     &:active {
       color: inherit;
@@ -201,12 +205,16 @@ input, textarea {
       }
     }
 
-    label {
+    label, .item-text {
       cursor: pointer;
       width: 100%;
       display: block;
       margin: 0;
       padding: 10px;
+
+      &.active {
+        background-color: $hoverBg;
+      }
     }
   }
 }
@@ -226,4 +234,8 @@ input, textarea {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+}
+
+.current-user-dropdown {
+  cursor: pointer;
 }

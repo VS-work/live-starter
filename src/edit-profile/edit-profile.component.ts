@@ -4,12 +4,25 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { EditProfileService } from './edit-profile.service';
 import { LocalStorageService, SearchService } from '../shared';
-import { User } from '../signup/user.class';
+import { User } from '../user-service/user.model';
+import { MultipleGenres } from '../event-launch/multipleGenres.interface';
+import { USER_TYPES, UserType } from '../user-service/user-type.model';
+
+interface UpdatiingUserData {
+  email: string;
+  userUpdateSet: {
+    website: string;
+    username?: string;
+    gender?: string;
+    groupName?: string;
+    genres?: string[];
+  }
+}
 
 @Component({
   selector: 'app-edit-profile-component',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  styleUrls: ['./edit-profile.component.scss']
 })
 
 export class EditProfileComponent implements OnInit {
@@ -23,13 +36,15 @@ export class EditProfileComponent implements OnInit {
   public getLocationsSubscribe: Subscription;
   public getGenresSubscribe: Subscription;
   public checkModel: any;
-  public user: User;
   public localStorageUserProfile: any;
   public countries: any[];
-  public genders: any[];
   public positions: any[];
-  public genres: any[];
   public userUpdateSuccess: boolean;
+  user: User = null;
+  genres: MultipleGenres[];
+  genders: string[] = ['Male', 'Female', 'Other'];
+
+  userTypes: UserType[] = USER_TYPES;
 
   @ViewChild('smModal') public smModal: ModalDirective;
 
@@ -42,7 +57,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.genders = ['male', 'female', 'other'];
     this.positions = ['Singer', 'Song Writer', 'Actor', 'Musician', 'Poet'];
 
     this.checkModel = {
@@ -67,17 +81,15 @@ export class EditProfileComponent implements OnInit {
     }
 
     this.getLocationsSubscribe = this.searchService.getLocations()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
+      .subscribe(res => {
         this.countries = res.countries;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
 
     this.getGenresSubscribe = this.searchService.getMusicStyles()
       .subscribe(res => {
-        this.genres = res;
+        this.genres = this.genres = res.map((genre: string) => ({isChecked: false, value: genre}));
       }, err => {
         console.error('something went wrong: ', err);
       });
@@ -121,18 +133,24 @@ export class EditProfileComponent implements OnInit {
       });
   }
 
-  public updateUserAdditional(userWebsite: string, groupName: string, username: string): void {
+  public updateUserAdditional(): void {
     this.userUpdateSuccess = false;
-    let userData = {
+    let userData: UpdatiingUserData = {
       email: this.user.email,
       userUpdateSet: {
-        gender: this.user.gender,
-        position: this.user.position,
-        website: typeof userWebsite === 'undefined' ? this.user.website : userWebsite,
-        groupName: typeof groupName === 'undefined' ? this.user.groupName : groupName,
-        username: typeof username === 'undefined' ? this.user.username : username
+        website: this.user.website
       }
     };
+
+    if (this.user.type === 'fan') {
+      userData.userUpdateSet.username = this.user.username;
+      userData.userUpdateSet.gender = this.user.gender;
+    }
+
+    if (this.user.type === 'artist') {
+      userData.userUpdateSet.groupName = this.user.groupName;
+      userData.userUpdateSet.genres = this.user.genres;
+    }
 
     this.editProfileAdditionalServiceSubscribe = this.editProfileService.editUser(userData)
       .subscribe(res => {
@@ -197,8 +215,27 @@ export class EditProfileComponent implements OnInit {
     this.getProfileServiceSubscribe = this.editProfileService.getUser(email)
       .subscribe(res => {
         this.user = new User(res);
+        this.parseGenres();
       }, err => {
         console.error('something went wrong: ', err);
       });
+  }
+
+  parseGenres(): void {
+    this.genres = this.genres.map((genre: MultipleGenres) => {
+      const ischecked = this.user.genres.indexOf(genre.value) !== -1;
+
+      return {isChecked: ischecked, value: genre.value}
+    })
+  }
+
+  changeUserType(type: string): void {
+    this.user.type = type;
+  }
+
+  chooseGenre(): void {
+    this.user.genres = this.genres
+      .filter(genre => genre.isChecked)
+      .map(genre => genre.value);
   }
 }

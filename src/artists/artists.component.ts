@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { SearchService, LocalStorageService } from '../shared';
 import { Country } from '../interfaces/country.interface';
-import { User } from '../signup/user.class';
+import { User } from '../user-service/user.model';
 import { ShowInfo } from '../shared/show-info/info.interface';
 import { Show } from '../event-launch/event-launch.model';
 import { MultipleGenres } from '../event-launch/multipleGenres.interface';

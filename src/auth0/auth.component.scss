@@ -1,0 +1,22 @@
+@import "../variables.scss";
+
+.current-user-container {
+  position: relative;
+  padding: 5px 0 5px 10px;
+}
+
+.current-user-dropdown {
+  cursor: pointer;
+}
+
+.auth-btn-container {
+  & > *:first-child {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, lg)) {
+  .custom-dropdown-menu {
+    width: 100%;
+  }
+}

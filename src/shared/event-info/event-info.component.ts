@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { User } from '../../signup/user.class';
-import { SignUpService } from '../../signup/signup.service';
+import { User } from '../../user-service/user.model';
 import { Statistics } from '../statistics/statistics.interface';
 import { EventInfo } from './event-info.interface';
 import { ShortUserInfo } from '../short-user-info/short-user-info.interface';
+import { UserService } from '../../user-service/user.service';
 
 @Component({
   selector: 'app-event-info',
@@ -28,7 +28,7 @@ export class EventInfoComponent implements OnDestroy {
   getUserSubcribe: Subscription;
   shortUserInfo: ShortUserInfo;
 
-  constructor(private userServise: SignUpService) {
+  constructor(private userServise: UserService) {
 
   }
 

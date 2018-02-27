@@ -111,7 +111,7 @@ export class User {
     this.lastName = user.lastName || '';
     this.gender = user.gender || '';
     this.role = user.role || 'user';
-    this.type = user.type || '';
+    this.type = user.type || 'fan';
     this.position = user.position || '';
     this.city = user.city || '';
     this.country = user.country || '';

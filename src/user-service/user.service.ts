@@ -4,31 +4,26 @@ import { Observable } from 'rxjs/Observable';
 import  'rxjs/add/observable/throw'
 
 import { Config } from '../app.config';
-import { User } from './user.class';
+import { ParsedProfile } from '../auth0/parsed-profile.interface';
 
-interface GetUserData {
+export interface GetUserData {
   email?: string;
   _id?: string;
 }
 
 @Injectable()
-export class SignUpService {
+export class UserService {
 
   constructor(private http: HttpClient) {
   }
 
-  signupUser(query: User): Observable<any> {
+  signupUser(query: ParsedProfile): Observable<any> {
     return this.http.post(`${Config.api}/signup`, query)
       .catch(err => Observable.throw(err));
   }
 
   isEmailExist(query: {email: string}): Observable<any> {
     return this.http.post(`${Config.api}/signup/check-email`, query)
-      .catch(err => Observable.throw(err));
-  }
-
-  signupGetLocations(): Observable<any> {
-    return this.http.get(`${Config.api}/signup/get-locations`)
       .catch(err => Observable.throw(err));
   }
 

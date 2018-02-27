@@ -88,65 +88,11 @@
 
 .login-container {
   padding-left: 10px;
-
-  .btn-with-border {
-    font-size: 18px;
-    padding: 5px 25px;
-    height: auto;
-  }
-
-  & > *:not(:last-child) {
-    margin-right: 10px;
-  }
-}
-
-.current-user-container {
-  position: relative;
-  padding: 5px 0 5px 10px;
-}
-
-.current-user-dropdown {
-  cursor: pointer;
-}
-
-.modal-header h4 {
-  color: $darkBlue;
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.login-by-socials, .login-devider-container {
-  text-align: center;
-}
-
-.socials-container {
-  padding: 10px 0;
-  display: flex;
-  justify-content: space-around;
-}
-
-.social-button {
-  color: $mediumBlue;
-  background: transparent;
-  border: none;
-  display: block;
-  font-size: 58px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.btn-container {
-  display: flex;
-  justify-content: center;
 }
 
 @media (max-width: map-get($grid-breakpoints, lg)) {
   .menu-icon {
     display: block;
-  }
-
-  .current-user-container {
-    padding: 5px 10px;
   }
 
   .login-container {
@@ -183,10 +129,6 @@
     align-items: flex-start;
 
     & > * {
-      width: 100%;
-    }
-
-    .custom-dropdown-menu {
       width: 100%;
     }
   }

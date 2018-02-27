@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import { Config } from '../../app.config';
 import { Show } from '../../event-launch/event-launch.model';
 import { ShowInfo } from '../show-info/info.interface';
-import { User } from '../../signup/user.class';
+import { User } from '../../user-service/user.model';
 import { Location } from '../../interfaces/country.interface';
 
 export interface QueryToFindArtists {
