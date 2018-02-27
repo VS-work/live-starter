@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import  'rxjs/add/observable/throw'
 
 import { Config } from '../app.config';
-import { User } from 'signup/user.class';
+import { User } from '../user-service/user.model';
+
 
 @Injectable()
 export class EditProfileService {

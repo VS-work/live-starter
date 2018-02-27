@@ -8,7 +8,7 @@ import { Config } from '../app.config';
 import { LaunchEvent } from '../event-launch/event-launch.interface';
 import { Show } from '../event-launch/event-launch.model';
 import { ShowInfo } from '../shared/show-info/info.interface';
-import { User } from '../signup/user.class';
+import { User } from '../user-service/user.model';
 
 @Component({
   selector: 'app-events-list-component',

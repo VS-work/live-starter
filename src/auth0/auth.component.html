@@ -1,0 +1,31 @@
+<div class="current-user-container" *ngIf="isAuthenticated && userProfile; else loginContainer">
+  <div dropdown>
+    <div class="current-user-dropdown" dropdownToggle>
+     <app-short-user-info [info]="shortUserInfo" [isLocation]="false"></app-short-user-info>
+    </div>
+    <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="custom-dropdown-menu dropdown-menu dropdown-menu-right">
+      <li role="menuitem"><a class="dropdown-item" routerLink="/edit-profile" routerLinkActive="active" (click)="hideMenu()">My account</a></li>
+      <li role="menuitem"><a class="dropdown-item" routerLink="/my-events" routerLinkActive="active" (click)="hideMenu()">My events</a></li>
+      <li role="menuitem"><a class="dropdown-item" routerLink="/" routerLinkActive="active" (click)="hideMenu()">Payments</a></li>
+      <li role="menuitem"><a class="dropdown-item" routerLink="/my-followings" routerLinkActive="active" (click)="hideMenu()">Following</a></li>
+      <li class="divider dropdown-divider"></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="logout($event)">Log out</a></li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #loginContainer>
+  <div class="auth-btn-container">
+    <button type="button"
+            class="btn-with-border btn-orange"
+            (click)="showAuthModal()">
+      Log In
+    </button>
+
+    <button type="button"
+            class="btn-with-border btn-orange"
+            (click)="showSignUpModal()">
+      Sign Up
+    </button>
+  </div>
+</ng-template>

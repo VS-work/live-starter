@@ -13,12 +13,12 @@ import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '../header';
-import { SignUpService } from '../signup';
 import { SharedModule, LocalStorageService } from '../shared';
-import { AuthService } from '../auth';
 import { routing } from '../routes';
 import { FooterComponent } from '../footer';
-import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.module';
+import { AuthGuard } from '../auth0/auth.guard';
+import { AuthModule } from '../auth0/auth.module';
+
 
 @NgModule({
   declarations: [
@@ -39,12 +39,11 @@ import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.m
     SharedModule,
     routing,
     RouterModule,
-    ShortUserInfoModule
+    AuthModule,
   ],
   providers: [
-    SignUpService,
-    AuthService,
-    LocalStorageService
+    LocalStorageService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { ShowInfoDate } from './showInfoDate.interface';
 import { Config } from '../../app.config';
 import { Show } from '../../event-launch/event-launch.model';
-import { User } from '../../signup/user.class';
+import { User } from '../../user-service/user.model';
 import { Statistics } from '../statistics/statistics.interface';
 import { LocalStorageService } from '../index';
 import { ShowInfo } from './info.interface';

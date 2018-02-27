@@ -16,7 +16,7 @@ import { Country } from '../interfaces/country.interface';
 import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
 import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
 import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
-import { User } from '../signup/user.class';
+import { User } from '../user-service/user.model';
 import { EventInfo } from '../shared/event-info/event-info.interface';
 import { Show } from './event-launch.model';
 

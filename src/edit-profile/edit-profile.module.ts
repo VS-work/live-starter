@@ -7,6 +7,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { TooltipModule } from 'ngx-bootstrap';
 
 import { EditProfileComponent } from './edit-profile.component';
 import { EditProfileService } from './edit-profile.service';
@@ -26,7 +27,8 @@ import { routing } from '../modules/edit-profile.routing';
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   providers: [EditProfileService],
   exports: []

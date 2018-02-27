@@ -1,3 +1,74 @@
+@import "../variables.scss";
+
+:host >>> .tooltip {
+  width: 150px;
+}
+
+.custom-tabs {
+	display: flex;
+	justify-content: center;
+  margin-bottom: 15px;
+  position: relative;
+
+	.custom-tab-item {
+		width: 150px;
+		height: 150px;
+		cursor: pointer;
+		opacity: .5;
+		transition: opacity .3s;
+		margin: 0 10px;
+		text-align: center;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		padding: 10px;
+		border: 2px solid $liteBorder;
+		border-radius: 10px;
+		box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.36);
+
+		img {
+			width: 100px;
+			height: 90px;
+		}
+
+		&.active {
+			opacity: 1;
+		}
+	}
+
+	.tab-title {
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+
+  .question-icon {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 22px;
+    color: $liteGray;
+    line-height: 1;
+  }
+
+  bs-tooltip-container {
+    width: 150px !important;
+  }
+}
+
+.who-are-you {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.btn-filter {
+	cursor: pointer;
+}
+
 .edit-user-profile {
 	padding: 20px 0;
 	background: #fafafb;
