@@ -50,6 +50,11 @@ input, textarea {
   }
 }
 
+.field-title {
+  color: $liteGray;
+  font-weight: bold;
+}
+
 .bottom-separator {
   display: block;
   border-bottom: 1px solid $liteGray;
@@ -142,6 +147,12 @@ input, textarea {
     background: inherit;
     font-weight: 700;
     color: inherit;
+  }
+
+  .btn-filter {
+    width: 100%;
+    background-color: $white;
+    border: 1px solid $darkGray;
   }
 }
 
