@@ -1,0 +1,48 @@
+@import "../variables.scss";
+
+.contacts-page-container {
+  padding: 15px 0;
+}
+
+.page-title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.contacts-title {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.contacts-text-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: $liteGray;
+  line-height: 2;
+  margin-bottom: 15px;
+}
+
+.request-message {
+  height: 100px;
+}
+
+.btn-filter {
+  width: 100%;
+  background-color: $white;
+  border: 1px solid #49494c;
+}
+
+.map-container {
+  width: 100%;
+  height: 346px;
+  padding: 20px;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5)
+}
+
+.custom-column {
+  & > * {
+    margin-bottom: 20px;
+  }
+}

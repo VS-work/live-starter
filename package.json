@@ -29,6 +29,7 @@
     "@angular/service-worker": "5.0.3",
     "@types/auth0-js": "^8.11.2",
     "@types/auth0-lock": "^10.16.3",
+    "@types/googlemaps": "3.30.7",
     "@types/lodash": "4.14.74",
     "angular2-jwt": "0.2.3",
     "auth0-js": "9.2.1",
