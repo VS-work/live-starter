@@ -10,7 +10,7 @@ import { User } from '../../user-service/user.model';
 import { Statistics } from '../statistics/statistics.interface';
 import { LocalStorageService } from '../index';
 import { ShowInfo } from './info.interface';
-import { PurchaseParams } from '../purchase-container/purchase-container.interface';
+import { PurchaseParamsModel } from '../purchase-container/purchase-container.model';
 
 @Component({
   selector: 'app-show-info',
@@ -29,7 +29,7 @@ export class ShowInfoComponent {
 
     if (this.show) {
       this.parseDate(this.show.timePerformance.start);
-      this.purchaseParams = {eventId: this.show._id, userId: this.currentUser ? this.currentUser._id : null};
+      this.purchaseParams = new PurchaseParamsModel(this.show._id, this.currentUser ? this.currentUser._id : null);
     }
 
     if (!this.isEvent) {
@@ -55,7 +55,7 @@ export class ShowInfoComponent {
   statistics: Statistics;
   isEvent: boolean;
   isGoToEventPage = true;
-  purchaseParams: PurchaseParams;
+  purchaseParams: PurchaseParamsModel;
 
   constructor(private router: Router,
               private localStorageService: LocalStorageService) {

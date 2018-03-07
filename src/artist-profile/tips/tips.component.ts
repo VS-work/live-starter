@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { forEach } from 'lodash';
+
+import forEach from 'lodash-es/forEach'
 
 @Component({
   selector: 'app-tips-tab',

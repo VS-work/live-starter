@@ -20,11 +20,14 @@
   <div class="main-info">
     <div class="event-info" *ngIf="isEvent; else atristInfo">
       <div class="info-top">
-        <span class="show-name" (click)="gotoAnotherPage(isGoToEventPage)">{{show?.name}}</span>
+        <a [routerLink]="['/show-page']" [queryParams]="{id: show._id}" class="show-name">{{show?.name}}</a>
         <app-statistics [statistics]="show.statistics" [id]="show._id"></app-statistics>
       </div>
 
-      <div class="show-creator" (click)="gotoAnotherPage(!isGoToEventPage)">by <span>{{show?.creator}}</span></div>
+      <div class="show-creator" (click)="gotoAnotherPage(!isGoToEventPage)">
+        by
+        <a [routerLink]="['/artist-profile']" [queryParams]="{id: show?.creator}">{{show?.creator}}</a>
+      </div>
     </div>
 
     <ng-template #atristInfo>
@@ -47,8 +50,7 @@
       </div>
     </ng-template>
 
-
-    <div class="show-decription">{{sliceDescription(242)}} <span class="read-more" (click)="gotoAnotherPage()">Read more »</span></div>
+    <div class="show-decription">{{sliceDescription(242)}} <a [routerLink]="['/show-page']" [queryParams]="{id: show?._id}" class="read-more">Read more »</a></div>
   </div>
 
   <div class="purchase-container" *ngIf="isEvent; else nextShow">

@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="show-page-container">
-    <div class="back-links" routerLink="/events">
-      <img src="/assets/img/back.png" alt=""> Back to Shows
-    </div>
-    <div class="show-view">
-      <app-wowza-player [showData]="currentShow"></app-wowza-player>
+  <a class="back-links" routerLink="/events">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Shows
+  </a>
+  <div class="show-page-container flex-lg-row">
+
+    <div class="show-information">
       <div class="show-screen-viewer">
-        <img [src]="getImgUrl(currentShow?.posters[0])" alt="event poster">
+        <img class="big-poster" [src]="getImgUrl(currentShow?.posters[0])" alt="event poster">
 
         <div class="show-screen-viewer-header">
           <div class="show-short-data">
@@ -20,66 +20,18 @@
 
           <app-statistics [statistics]="currentShow?.statistics" [id]="currentShow?._id"></app-statistics>
         </div>
-
-        <div class="show-timer-container">
-          <div class="time-togo">
-            {{currentShow?.datePerformance}}
-          </div>
-
-          <div class="time-left">
-            <div class="days">
-              <div class="number-container">05</div>
-              <div class="item-container">Days</div>
-            </div>
-            <div class="dbl-dots">:</div>
-            <div class="hours">
-              <div class="number-container">13</div>
-              <div class="item-container">Hours</div>
-            </div>
-            <div class="dbl-dots">:</div>
-            <div class="minutes">
-              <div class="number-container">08</div>
-              <div class="item-container">Minutes</div>
-            </div>
-          </div>
-        </div>
+        <app-timer [datePerformance]="currentShow?.datePerformance"></app-timer>
 
       </div>
+      <!--<app-wowza-player [showData]="currentShow"></app-wowza-player>-->
 
       <div class="communication-container">
-        <div class="share-container">
-          <div class="share-word">Share:</div>
-          <div class="fb-share">
-            <img src="/assets/img/fb-icon.png" alt="">
-            <div class="shares-number">192</div>
-          </div>
-          <div class="tw-share">
-            <img src="/assets/img/tw-icon.png" alt="">
-            <div class="shares-number">201</div>
-          </div>
-          <div class="gg-share">
-            <img src="/assets/img/gg-icon.png" alt="">
-            <div class="shares-number">144</div>
-          </div>
-          <div class="pr-share">
-            <img src="/assets/img/pr-icon.png" alt="">
-            <div class="shares-number">22</div>
-          </div>
-
-          <div class="more-btn">
-            <img src="/assets/img/three-dots.png" alt="">
-            <div class="shares-number">More</div>
-          </div>
-
-          <div class="get-link">
-            <img src="/assets/img/get-link.png" alt="">
-            <div class="shares-number">Get link</div>
-          </div>
-        </div>
-        <div class="discuss">
-          <img src="/assets/img/chat0icon.png" alt="">
+        <app-share-container class="share-box"></app-share-container>
+        <button type="button ml-auto"
+                class="btn-with-border btn-orange">
+          <i class="fa fa-comments-o" aria-hidden="true"></i>
           Discuss
-        </div>
+        </button>
       </div>
 
       <div *ngIf="currentShow?.description.length" class="show-description">
@@ -99,101 +51,48 @@
       </div>
     </div>
 
-    <aside class="aside">
+    <div class="aside">
       <app-event-info [eventInfo]="eventInfo" [isFollowing]="true"></app-event-info>
 
-      <div class="tickets-container">
-        <div class="purchase-container">
-          <button class="purchase-button">PURCHASE</button>
-          <div class="reminder-before-show">
+      <div class="container-with-border-bottom align-center">
+        <app-purchase *ngIf="currentShow" class="purchase-container" [purchaseParams]="purchaseParams"
+                      [isFree]="currentShow.isFreeForMe"
+                      (isBought)="setShowIsBought($event)"></app-purchase>
 
-            <div class="reminder-star">
-              <button class="btn-alerts"
-                      [(ngModel)]="checkModel"
-                      btnCheckbox></button>
-              <span class="remind-me-text"
-                    tooltip="We'll send you a reminder 48 hours before live show">Remind me</span>
-            </div>
-          </div>
-        </div>
+        <label class="remind-me"
+               tooltip="We'll send you a reminder 48 hours before live show"
+               [(ngModel)]="isRemindMe"
+               btnCheckbox
+               (click)="remindMe()">
+          <i class="fa fa-star" [class.fa-star]="isRemindMe" [class.fa-star-o]="!isRemindMe" aria-hidden="true"></i>
+          Remind me
+        </label>
       </div>
 
-      <div class="tip-artist">
-        <div class="tip-title">Tip artist</div>
+      <div class="container-with-border-bottom">
+        <h5 class="container-title">Tips</h5>
+        <app-tips-container></app-tips-container>
+      </div>
 
-        <div class="tip-controls">
-          <div class="donation-container">
-            <span class="text">Give</span>
-            <div class="filter-drpdwn">
-              <div class="btn-group" dropdown>
-                <button type="button" class="btn btn-filter" dropdownToggle>
-                  ${{donation}} <span class="caret"></span>
-                </button>
-                <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
+      <div class="similar-shows-container" *ngIf="similarEvents.length">
+        <h5 class="container-title">Similar shows</h5>
 
-                  <div class="donation-list" *ngFor="let donate of donates">
-                    <div
-                        class="dropdown-item"
-                        (click)="pushDonateNumber(donate)"
-                        btnCheckbox>${{donate}}
-                    </div>
-                  </div>
-                  <div class="dropdown-item"
-                       (click)="pushDonateNumber(100)"
-                       btnCheckbox>Other...
-                  </div>
-                </div>
+        <ul class="similar-shows">
+          <li class="similar-shows-item" *ngFor="let show of similarEvents">
+            <div class="poster-container">
+              <img [src]="getImgUrl(show?.posters[0])" alt="poster">
+            </div>
+            <div class="info-container">
+              <div class="info-date">14 October EST 02:00pm</div>
+              <a [routerLink]="['/show-page']" [queryParams]="{id: show._id}" class="info-title">{{show.name}}</a>
+              <div class="info-artist">
+                by
+                <a [routerLink]="['/artist-profile']" [queryParams]="{id: show.creator}">{{show.creator}}</a>
               </div>
             </div>
-
-            <span class="text">per</span>
-            <div class="filter-drpdwn">
-              <div class="btn-group" dropdown>
-                <button type="button" class="btn btn-filter" dropdownToggle>
-                  {{donationPeriod}} <span class="caret"></span>
-                </button>
-                <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-
-                  <div class="donation-list" *ngFor="let period of donationPeriodList">
-                    <div
-                        class="dropdown-item"
-                        (click)="pushDonatePeriod(period)"
-                        btnCheckbox>{{period}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="support">Support</button>
-        </div>
-
-        <div class="pledge-info">
-          <span class="list-title">The official package includes:</span>
-          <ul>
-            <li class="list-item">
-              A heartfelt "thank you"</li>
-            <li class="list-item">
-              An discount of 10% for the next show</li>
-            <li class="list-item">
-              Access to the LiveStarter page - where all of your messages/questions will be answered!</li>
-          </ul>
-        </div>
+          </li>
+        </ul>
       </div>
-
-      <div class="similar-shows">
-        <div class="title-similar-shows">Similar Shows</div>
-        <div class="similar-shows-list">
-          <div class="similar-show" *ngFor="let show of similarEvents">
-            <img src="https://pbs.twimg.com/media/CIsedskUMAAMA7G.jpg" alt="show-img">
-            <div class="show-data">
-              <div class="show-date">{{show.datePerformance || 'No date of performance'}}</div>
-              <div class="show-name">{{show.name || 'No Show Name'}}</div>
-              <div class="show-by" routerLink="/artist-profile">by <span>{{show.artist || 'No artist data'}}</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
+    </div>
   </div>
 </div>

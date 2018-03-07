@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { filter } from 'lodash';
+
+import filter from 'lodash-es/filter';
 
 export interface Country {
   _id: string;

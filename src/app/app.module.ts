@@ -19,7 +19,6 @@ import { FooterComponent } from '../footer';
 import { AuthGuard } from '../auth0/auth.guard';
 import { AuthModule } from '../auth0/auth.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,

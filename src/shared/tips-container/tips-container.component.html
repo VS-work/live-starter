@@ -1,0 +1,40 @@
+<div class="tips-controll">
+  <div class="donation-container">
+    <label class="title">Give</label>
+    <div class="btn-group custom-dropdown-select" dropdown>
+      <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+        {{donation}}
+      </button>
+      <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+        <li role="menuitem" *ngFor="let item of donates" class="dropdown-item">
+          <label name="typeUser" class="item-text" [(ngModel)]="donation" [btnRadio]="item">{{item}}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="donation-period-container">
+    <label class="title">Per</label>
+    <div class="btn-group custom-dropdown-select" dropdown>
+      <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+        {{donationPeriod}}
+      </button>
+      <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+        <li role="menuitem" *ngFor="let item of donationPeriodList" class="dropdown-item">
+          <label name="typeUser" class="item-text" [(ngModel)]="donationPeriod" [btnRadio]="item">{{item}}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <button class="btn-with-border btn-orange xs">Support</button>
+</div>
+
+<div class="pledge-info">
+  <span class="list-title">The official package includes:</span>
+  <ul>
+    <li class="list-item">A heartfelt "thank you"</li>
+    <li class="list-item">An discount of 10% for the next show</li>
+    <li class="list-item">Access to the LiveStarter page - where all of your messages/questions will be answered!</li>
+  </ul>
+</div>

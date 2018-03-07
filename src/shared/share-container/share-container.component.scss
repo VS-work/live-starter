@@ -1,0 +1,37 @@
+@import "../../variables.scss";
+
+.share-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  padding: 0 12px;
+  align-items: center;
+  border-radius: 20px;
+  border: 1px solid $liteGray;
+  line-height: 1;
+
+  .share-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .share-word {
+    padding: 8px;
+  }
+
+  .clickable-item {
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .fa {
+      color: $liteGray;
+      font-size: 20px;
+      margin-right: 5px;
+    }
+  }
+}

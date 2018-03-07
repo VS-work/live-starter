@@ -1,16 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { Subscription } from 'rxjs/Subscription';
-import { head } from 'lodash';
 
-import * as moment from 'moment';
+import head from 'lodash-es/head';
 
 import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { EventInfo } from '../shared/event-info/event-info.interface';
 import { Show } from '../event-launch/event-launch.model';
+import { PurchaseParamsModel } from '../shared/purchase-container/purchase-container.model';
+import { UserService } from '../user-service/user.service';
+import { User } from '../user-service/user.model';
 
 @Component({
   selector: 'app-show-page-component',
@@ -19,44 +21,34 @@ import { Show } from '../event-launch/event-launch.model';
 })
 
 export class ShowPageComponent implements OnInit, OnDestroy {
-  getEventsDataSubcribe: Subscription;
-  getCurrentShowSubcribe: Subscription;
-  checkModel: boolean;
-  donates: number[];
-  donationPeriodList: string[];
+  subscriptionManager: Subscription = new Subscription();
   currentShow: Show;
-  donation: number;
-  donationPeriod: string;
   audios: SafeHtml = [];
   videos: SafeHtml = [];
-  eventsData: Show[];
   eventInfo: EventInfo;
-  similarEvents: Show[];
+  similarEvents: Show[] = [];
+  purchaseParams: PurchaseParamsModel;
+  currentUser: User = null;
+  isRemindMe = false;
 
   constructor( private router: Router,
                private searchService: SearchService,
                private localStorageService: LocalStorageService,
-               private domSanitizer: DomSanitizer) {
+               private domSanitizer: DomSanitizer,
+               private userService: UserService,
+               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.checkModel = true;
-    this.donation = 2;
-    this.donationPeriod = 'month';
-    this.donates = [2, 5, 7, 10, 15, 20, 30, 50];
-    this.donationPeriodList = ['year', 'month', 'week', 'day'];
-
-    try {
-      const getCurrentShowFromLocalStorage = JSON.parse(this.localStorageService.getItem('currentShow'));
-      this.getCurrentShow(getCurrentShowFromLocalStorage);
-    } catch (err) {
-      console.error('something went wrong: ', err);
-    }
+    this.route.queryParams
+      .subscribe(params => {
+        this.currentUser = this.userService.getUserFromLocalStorage();
+        this.getCurrentShow({findById: params.id});
+      });
   }
 
   getCurrentShow(rawQuery: {[key: string]: any}): void {
-
-    this.getCurrentShowSubcribe = this.searchService.getEventsList(rawQuery)
+    const getCurrentShowSubcribe = this.searchService.getEventsList(rawQuery)
       .subscribe(res => {
         this.currentShow = new Show(head(res));
         this.getSimilarEvents();
@@ -71,35 +63,35 @@ export class ShowPageComponent implements OnInit, OnDestroy {
         this.currentShow.wowza = {
           id: 'bshjwppf',
           player_hls_playback_url: 'https://10e8f0.entrypoint.cloud.wowza.com/app-8de5/ngrp:03bae8e8_all/playlist.m3u8'
-        }; // should be delete
+        }; // should be delete in the future
+
+        this.purchaseParams = new PurchaseParamsModel(this.currentShow._id, this.currentUser ? this.currentUser._id : null);
       }, err => {
+        this.purchaseParams = null;
         console.error('something went wrong: ', err);
       });
+
+    this.subscriptionManager.add(getCurrentShowSubcribe);
   }
 
   getSimilarEvents(): void {
+    const minDate = new Date();
+    minDate.setHours(0, 0, 0);
+
     const query = {
       genres: this.currentShow.genres,
       limit: 10,
-      minDate: moment(new Date()).format('dddd, MMMM DD YYYY'),
+      minDate,
       exceptById: this.currentShow._id
     };
 
-    this.getEventsDataSubcribe = this.searchService.getEventsList(query)
+    const getEventsDataSubcribe = this.searchService.getEventsList(query)
       .subscribe((res: Show[]) => {
         this.similarEvents = res.map(show => new Show(show));
-        this.eventsData = res;
       }, err => {
         console.error('something went wrong: ', err);
       });
-  }
-
-  pushDonateNumber(donateNumberPush: number): void {
-    this.donation = donateNumberPush;
-  }
-
-  pushDonatePeriod(donatePeriodPush: string): void {
-    this.donationPeriod = donatePeriodPush;
+    this.subscriptionManager.add(getEventsDataSubcribe)
   }
 
   parseEmbeddingfiles(embeddingFiles: string[], isVideo = false): SafeHtml[] {
@@ -111,11 +103,19 @@ export class ShowPageComponent implements OnInit, OnDestroy {
   }
 
   getImgUrl(fileName: string): string {
-    return `${Config.api}/uploads/posters/${fileName}`;
+    const file = fileName && fileName.length ? fileName : 'default_show_img.jpg';
+    return `${Config.api}/uploads/posters/${file}`;
+  }
+
+  setShowIsBought(isBought: boolean): void {
+    this.currentShow.isBought = isBought;
+  }
+
+  remindMe(): void {
+    // should be functionality for reminding user about this event
   }
 
   ngOnDestroy() {
-    this.getEventsDataSubcribe.unsubscribe();
-    this.getCurrentShowSubcribe.unsubscribe();
+    this.subscriptionManager.unsubscribe();
   }
 }
