@@ -1,0 +1,62 @@
+@import "../../variables.scss";
+
+.show-timer-container {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-togo {
+	width: auto;
+	color: $white;
+	font-size: 15px;
+	font-weight: 400;
+	height: 26px;
+	padding: 0 15px;
+  background-color: rgba($darkBlue, .6);
+	border: 1px solid $white;
+	border-radius: 10px;
+	text-align: center;
+  margin-bottom: 15px;
+}
+
+.time-left {
+  color: $white;
+  font-size: 15px;
+  font-weight: 400;
+  display: inline-flex;
+  justify-content: space-between;
+	padding: 15px 15px 10px 15px;
+	border-radius: 20px;
+  box-sizing: border-box;
+	text-align: center;
+  background-color: rgba($darkBlue, .6);
+  border: 1px solid $white;
+}
+
+.number-container {
+  color: $darkBlue;
+	border: 1px solid $darkBlue;
+	border-radius: 10px;
+	background-color: rgba($white, .6);
+	font-size: 40px;
+	font-weight: 700;
+	padding: 0 10px;
+	margin: 0 5px;
+}
+
+.dbl-dots {
+	font-size: 40px;
+	font-weight: 700;
+}
+
+.item-container {
+	text-transform: uppercase;
+}

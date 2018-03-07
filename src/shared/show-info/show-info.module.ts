@@ -6,10 +6,12 @@ import { FundingContainerModule } from '../funding-container/funding-container.m
 import { CommonModule } from '@angular/common';
 import { FollowModule } from '../follow/follow.module';
 import { PurchaseContainerModule } from '../purchase-container/purchase-container.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     StatisticsModule,
     FundingContainerModule,
     FollowModule,

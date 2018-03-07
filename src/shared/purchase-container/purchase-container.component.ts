@@ -1,26 +1,43 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PurchaseParams } from './purchase-container.interface';
-import { PurchaseContainerService } from './purchase-container.service';
 
 import { ToastOptions, ToastyService } from 'ng2-toasty';
+
+import { PurchaseParamsModel } from './purchase-container.model';
+import { PurchaseContainerService } from './purchase-container.service';
 import { customToastOptions } from '../models/toasty-options.model';
+import { AuthService } from '../../auth0/auth.service';
 
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase-container.component.html',
-  styleUrls: []
+  styleUrls: ['./purchase-container.component.scss']
 })
 export class PurchaseContainerComponent {
-  @Input() purchaseParams: PurchaseParams;
+  @Input() purchaseParams: PurchaseParamsModel;
   @Input() isFree = false;
   @Output() isBought: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private purchaseContainerService: PurchaseContainerService, private toastyService: ToastyService) {
+  constructor(private purchaseContainerService: PurchaseContainerService,
+              private toastyService: ToastyService,
+              private auth: AuthService) {
 
   }
 
   getFreeTicket(): void | undefined {
-    if (!this.purchaseParams.eventId || !this.purchaseParams.userId) {
+    if (!this.purchaseParams.userId) {
+      const toastOptions: ToastOptions = {
+        ...customToastOptions,
+        ...{
+          title: 'Info',
+          msg: 'You are not authorized to perform this command'
+        }
+      };
+      this.toastyService.error(toastOptions);
+      this.auth.showAuthModal();
+      return undefined;
+    }
+
+    if (!this.purchaseParams.eventId) {
       return undefined;
     }
 
@@ -42,7 +59,6 @@ export class PurchaseContainerComponent {
         }
 
         this.toastyService.info(toastOptions);
-        this.isBought.emit(false);
       }, err => {
         console.error('something went wrong', err);
       });

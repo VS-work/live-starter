@@ -1,0 +1,42 @@
+@import "../../variables.scss";
+
+.tips-controll {
+  display: flex;
+  font-size: 12px;
+
+  & > *:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  button {
+    align-self: flex-end;
+  }
+
+  label {
+    padding-right: 3px;
+    margin: 0;
+  }
+}
+
+.pledge-info {
+	padding: 10px 0;
+
+  .list-title {
+    color: $liteGray;
+    font-size: 12px;
+  }
+
+  .list-item {
+    color: $liteGray;
+    font-size: 10px;
+  }
+}
+
+.custom-dropdown-select {
+  width: 78px;
+
+  .dropdown-toggle {
+    padding: 2px 20px 2px 10px;
+    font-size: 14px;
+  }
+}
