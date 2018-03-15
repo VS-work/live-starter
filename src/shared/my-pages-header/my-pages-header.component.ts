@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 
 export class MyPagesHeaderComponent {
-  @Input() isCreateBtn = false;
+  @Input() isCreateBtnActive = false;
 }

@@ -1,0 +1,49 @@
+@import "../variables.scss";
+
+.custom-container {
+  width: 100%;
+  max-width: 1140px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 0 auto;
+}
+
+.show-name {
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.show-item {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+
+  & > * {
+    width: 100%;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, customxs)) {
+  .show-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+    justify-content: center !important;
+  }
+}
+
+
+@media (max-width: map-get($grid-breakpoints, lg)) {
+  .show-item {
+    justify-content: flex-end;
+
+    & > * {
+      width: auto;
+    }
+
+    &:nth-child(even) {
+      justify-content: flex-start;
+    }
+  }
+}

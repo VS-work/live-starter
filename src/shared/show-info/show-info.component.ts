@@ -47,6 +47,7 @@ export class ShowInfoComponent {
   };
   @Input() isSmall = false;
   @Input() isMyEvents = false;
+  @Input() isEventAdministratedByCurrentUser = false;
 
   date: ShowInfoDate;
   show: Show;
