@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import  'rxjs/add/operator/catch';
-import  'rxjs/add/observable/throw';
+import { catchError } from 'rxjs/operators';
 
 import { LikeRequestObj } from './statistics.interface';
 import { Config } from '../../app.config';
@@ -16,13 +15,17 @@ export class StatisticsService {
 
   setShowLike(rqstObg: LikeRequestObj): Observable<any> {
     return this.http.post(`${Config.api}/show-like`, JSON.stringify(rqstObg), Config.httpOptions)
-      .map((res: CustomResponse) => res)
-      .catch(err => Observable.throw(err));
+      .pipe(catchError(err => {
+        console.error('something went wrong: ', err);
+        return Observable.throw(err.error)
+      }));
   }
 
   setArtistLike(rqstObg: LikeRequestObj): Observable<any> {
     return this.http.post(`${Config.api}/artist-like`, JSON.stringify(rqstObg), Config.httpOptions)
-      .map((res: CustomResponse) => res)
-      .catch(err => Observable.throw(err));
+      .pipe(catchError(err => {
+        console.error('something went wrong: ', err);
+        return Observable.throw(err.error)
+      }));
   }
 }

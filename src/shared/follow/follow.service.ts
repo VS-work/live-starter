@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import  'rxjs/add/operator/catch';
-import  'rxjs/add/observable/throw';
+import { catchError } from 'rxjs/operators';
 
 import { Config } from '../../app.config';
 import { FollowResponse, FollowRqstObj } from './follow.interface';
@@ -16,11 +15,17 @@ export class FollowService {
 
   followUser(rqstObj: FollowRqstObj): Observable<FollowResponse> {
     return this.http.post(`${Config.api}/follow-user`, JSON.stringify(rqstObj), Config.httpOptions)
-      .catch(err => Observable.throw(err));
+      .pipe(catchError(err => {
+        console.error('something went wrong: ', err);
+        return Observable.throw(err.error)
+      }));
   }
 
   checkFollowed(rqstObj: FollowRqstObj): Observable<FollowResponse> {
     return this.http.post(`${Config.api}/check-followed`, JSON.stringify(rqstObj), Config.httpOptions)
-      .catch(err => Observable.throw(err));
+      .pipe(catchError(err => {
+        console.error('something went wrong: ', err);
+        return Observable.throw(err.error)
+      }));
   }
 }

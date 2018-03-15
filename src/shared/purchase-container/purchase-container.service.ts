@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import  'rxjs/add/operator/catch';
-import  'rxjs/add/observable/throw';
+import { catchError } from 'rxjs/operators';
 
 import { Config } from '../../app.config';
 import { PurchaseParamsModel, PurchaseResponce } from './purchase-container.model';
@@ -17,6 +16,9 @@ export class PurchaseContainerService {
   getFreeTicket(queryObj: PurchaseParamsModel): Observable<PurchaseResponce> {
     const query = Config.objToQuery(queryObj);
     return this.http.get(`${Config.api}/get-free-ticket?${query}`)
-      .catch(err => Observable.throw(err));
+      .pipe(catchError(err => {
+        console.error('something went wrong: ', err);
+        return Observable.throw(err.error)
+      }));
   }
 }
