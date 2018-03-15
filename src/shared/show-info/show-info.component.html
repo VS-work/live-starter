@@ -54,28 +54,40 @@
   </div>
 
   <div class="purchase-container" *ngIf="isEvent; else nextShow">
-    <div class="box" *ngIf="isMyEvents; else notMyEvents">
+    <div class="box" *ngIf="isMyEvents || isEventAdministratedByCurrentUser; else notMyEvents">
       <div class="purchase-wrapper">
         <div *ngIf="show.live; else notLiveNow" class="live-now">
           <div class="live-now-title">Now Live!</div>
-          <button type="button" class="btn-with-border btn-orange small long">{{'View show' | uppercase}}</button>
+
+          <ng-template #notMyOwnShows>
+            <a routerLink="/home" class="btn-with-border btn-orange small long">{{'View show' | uppercase}}</a>
+          </ng-template>
         </div>
         <ng-template #notLiveNow>
           <div *ngIf="show.completed; else notCompleted" class="flex-container flex-center">
-            <button type="button" class="btn-with-border btn-orange small long">{{'Replay' | uppercase}}</button>
+            <div class="live-now-title">Finished</div>
           </div>
           <ng-template #notCompleted>
             <app-funding-container [fundingParams]="show.tickets" [isFree]="show.isFree"></app-funding-container>
           </ng-template>
         </ng-template>
       </div>
-      <div class="buy-ticket-container" *ngIf="!isMyEvents">
-        <app-purchase [purchaseParams]="purchaseParams"
-                      (isBought)="setShowIsBought($event, show)"
-                      *ngIf="!show.completed && !show.isBought">
-        </app-purchase>
-        <span class="show-bought" *ngIf="!show.completed && show.isBought">You have already bought the ticket</span>
-        <span class="show-completed" *ngIf="show.completed">Finished!</span>
+
+      <div class="event-button-container">
+        <div class="buy-ticket-container" *ngIf="!isMyEvents && !isEventAdministratedByCurrentUser">
+          <app-purchase [purchaseParams]="purchaseParams"
+                        (isBought)="setShowIsBought($event, show)"
+                        *ngIf="!show.completed && !show.isBought">
+          </app-purchase>
+          <span class="show-bought" *ngIf="!show.completed && show.isBought">You have already bought the ticket</span>
+          <span class="show-completed" *ngIf="show.completed">Finished!</span>
+        </div>
+
+        <a routerLink="/home"
+           *ngIf="isEventAdministratedByCurrentUser; else notMyOwnShows"
+           class="btn-with-border btn-orange small long">
+          {{'Manage show' | uppercase}}
+        </a>
       </div>
     </div>
 

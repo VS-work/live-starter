@@ -14,7 +14,7 @@ import { ShowInfo } from '../shared/show-info/info.interface';
 export class MyEventsComponent {
   shows: ShowInfo[] = [];
   userProfile: User;
-  isCreateBtn = true;
+  isCreateBtnActive = true;
   isMyEvents = true;
 
   constructor (private searchService: SearchService) {

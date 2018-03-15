@@ -7,6 +7,11 @@ export const routes: Routes = [
   {path: 'launch', loadChildren: '../event-launch/event-launch.module#EventLaunchModule',  canActivate: [AuthGuard]},
   {path: 'my-events', loadChildren: '../my-events/my-events.module#MyEventsModule', canActivate: [AuthGuard]},
   {path: 'my-followings', loadChildren: '../my-followings/my-followings.module#MyFollowingsModule', canActivate: [AuthGuard]},
+  {
+    path: 'my-current-shows',
+    loadChildren: '../events-administrating-by-me/events-administrating-by-me.module#EventsAdministratingByMeModule',
+    canActivate: [AuthGuard]
+  },
   {path: 'edit-profile', loadChildren: '../edit-profile/edit-profile.module#EditProfileModule', canActivate: [AuthGuard]},
   {path: 'home', loadChildren: '../home/home.module#HomeModule'},
   {path: 'artists', loadChildren: '../artists/artists.module#ArtistsModule'},
