@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 
 import { LocalStorageService } from '../shared';
+import { MenuItem } from './menuItem.interface';
+import { MenuTitles, RouterLinks } from '../enums/router-links.emum';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +14,32 @@ import { LocalStorageService } from '../shared';
 export class HeaderComponent {
   isShowSideMenu = false;
   isHomePage = true;
+  mainMenuItems: MenuItem[] = [
+    {
+      title: MenuTitles.Artists,
+      link: `/${RouterLinks.Artists}`
+    },
+    {
+      title: MenuTitles.Events,
+      link: `/${RouterLinks.Events}`
+    },
+    {
+      title: MenuTitles.HowItWorks,
+      link: `/${RouterLinks.HowItWorks}`
+    },
+    {
+      title: MenuTitles.CreateEvent,
+      link: `/${RouterLinks.CreateEvent}`
+    },
+    {
+      title: MenuTitles.Blog,
+      link: `/${RouterLinks.Blog}`
+    },
+    {
+      title: MenuTitles.Contact,
+      link: `/${RouterLinks.Contact}`
+    },
+  ];
 
   constructor(private localStorageService: LocalStorageService,
               private router: Router) {

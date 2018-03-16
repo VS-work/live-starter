@@ -17,12 +17,9 @@
       <div class="side-menu-container">
         <nav class="menu-container">
           <ul class="main-menu">
-            <li class="main-menu-item"><a routerLink="/artists" routerLinkActive="active" (click)="hideMenu()">Artists</a></li>
-            <li class="main-menu-item"><a routerLink="/events" routerLinkActive="active" (click)="hideMenu()">Events</a></li>
-            <li class="main-menu-item"><a routerLink="/how-it-works" routerLinkActive="active" (click)="hideMenu()">How It Works</a></li>
-            <li class="main-menu-item"><a routerLink="/launch" routerLinkActive="active" (click)="hideMenu()">Create Event</a></li>
-            <li class="main-menu-item"><a routerLink="/blog" routerLinkActive="active" (click)="hideMenu()">Blog</a></li>
-            <li class="main-menu-item"><a routerLink="/contact" routerLinkActive="active" (click)="hideMenu()">Contact</a></li>
+            <li class="main-menu-item" *ngFor="let menuItem of mainMenuItems">
+              <a [routerLink]="menuItem.link" routerLinkActive="active" (click)="hideMenu()">{{menuItem.title}}</a>
+            </li>
           </ul>
         </nav>
 
