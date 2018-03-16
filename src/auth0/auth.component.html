@@ -4,12 +4,15 @@
      <app-short-user-info [info]="shortUserInfo" [isLocation]="false"></app-short-user-info>
     </div>
     <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="custom-dropdown-menu dropdown-menu dropdown-menu-right">
-      <li role="menuitem"><a class="dropdown-item" routerLink="/edit-profile" routerLinkActive="active" (click)="hideMenu()">My account</a></li>
-      <li role="menuitem"><a class="dropdown-item" routerLink="/my-events" routerLinkActive="active" (click)="hideMenu()">My events</a></li>
-      <li role="menuitem"><a class="dropdown-item" routerLink="/my-current-shows" routerLinkActive="active" (click)="hideMenu()">My current shows</a></li>
-      <li role="menuitem"><a class="dropdown-item" routerLink="/home" routerLinkActive="active" (click)="hideMenu()">Payments</a></li>
-      <li role="menuitem"><a class="dropdown-item" routerLink="/my-followings" routerLinkActive="active" (click)="hideMenu()">Following</a></li>
-      <li class="divider dropdown-divider"></li>
+      <li *ngFor="let menuItem of mainMenuItems">
+        <a [routerLink]="menuItem.link"
+           routerLinkActive="active"
+           (click)="hideMenu()"
+           class="dropdown-item">
+          {{menuItem.title}}
+        </a>
+      </li>
+     <li class="divider dropdown-divider"></li>
       <li role="menuitem"><a class="dropdown-item" (click)="logout($event)">Log out</a></li>
     </ul>
   </div>

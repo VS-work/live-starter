@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 import { ShortUserInfo } from '../shared/short-user-info/short-user-info.interface';
 import { User } from '../user-service/user.model';
 import { Subscription } from 'rxjs/Subscription';
+import { MenuItem } from '../header/menuItem.interface';
+import { MenuTitles, RouterLinks } from '../enums/router-links.emum';
 
 @Component({
   selector: 'app-auth',
@@ -17,6 +19,28 @@ export class AuthComponent implements OnInit, OnDestroy {
   shortUserInfo: ShortUserInfo;
   userProfile: User;
   subscriptionManager: Subscription = new Subscription();
+  mainMenuItems: MenuItem[] = [
+    {
+      title: MenuTitles.MyAccount,
+      link: `/${RouterLinks.MyAccount}`
+    },
+    {
+      title: MenuTitles.MyEvents,
+      link: `/${RouterLinks.MyEvents}`
+    },
+    {
+      title: MenuTitles.MyCurrentShows,
+      link: `/${RouterLinks.MyCurrentShows}`
+    },
+    {
+      title: MenuTitles.Payments,
+      link: `/${RouterLinks.Payments}`
+    },
+    {
+      title: MenuTitles.MyFollowing,
+      link: `/${RouterLinks.MyFollowing}`
+    }
+  ];
 
   constructor(private authService: AuthService) {
     this.authService.handleAuthentication();
