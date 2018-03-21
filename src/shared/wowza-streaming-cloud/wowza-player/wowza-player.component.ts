@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
-import { WowzaCloudService } from '../wowza-cloud.service';
-import { LaunchEvent } from '../../../event-launch/event-launch.interface';
+import { Component, Input } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
+
 import { PlayerConfig } from './player-config.interface';
+import { Show } from '../../show-service/show.model';
+import { WowzaPlayerService } from './wowza-player.service';
 
 @Component({
   selector: 'app-wowza-player',
@@ -10,38 +12,46 @@ import { PlayerConfig } from './player-config.interface';
 })
 export class WowzaPlayerComponent {
   @Input()
-  set showData(showParams: LaunchEvent) {
+  set showData(showParams: Show) {
     if (!showParams) {
       return;
     }
 
     this.playerTemplateId = `wowza-player-${showParams.wowza.id}`;
-    this._showParams = showParams;
+    this.showParams = showParams;
 
     Promise.resolve(null)
       .then(() => {
         this.initPlayer();
       });
-
   }
 
-  private _showParams: LaunchEvent;
-  player: any;
+  showParams: Show = null;
+  player: any = null;
   playerTemplateId = 'wowza-player';
 
-  constructor(private wowzaCloudService: WowzaCloudService) {
+  constructor(private wowzaPlayerService: WowzaPlayerService,
+              private router: Router) {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationStart) || ! this.player) {
+        return;
+      }
 
+      this.player.destroy(this.playerTemplateId);
+    });
   }
 
   initPlayer(): void {
-    this.player = this.wowzaCloudService.initPlayer(this.parsePlayerConfig(), this.playerTemplateId);
+    this.player = this.wowzaPlayerService.initPlayer(this.parsePlayerConfig(), this.playerTemplateId);
   }
 
   parsePlayerConfig(): PlayerConfig {
     return {
-      title: this._showParams.name,
-      description: this._showParams.description,
-      sourceURL: this._showParams.wowza.player_hls_playback_url,
+      title: this.showParams.name,
+      description: this.showParams.description,
+      // sourceURL: this.showParams.wowza.player_hls_playback_url, // should be uncommented when we have Wowza licence
+      sourceURL: 'https://fe159f.entrypoint.cloud.wowza.com/app-77cf/ngrp:cfb45107_all/playlist.m3u8',
+      // should be deleted when we have Wowza licence
       autoPlay: false,
       volume: 20,
       mute: false,

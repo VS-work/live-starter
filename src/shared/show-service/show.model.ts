@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { WowzaResponse } from '../wowza-streaming-cloud/new-stream.model';
 
 class DefaultTimePerformance {
   start: string = moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a');
@@ -62,10 +63,7 @@ export class Show {
     viewers: number;
     followers: number;
   };
-  wowza: {
-    id: string;
-    [key: string]: any
-  };
+  wowza: WowzaResponse;
 
   constructor(eventData?: Show) {
     this._id = eventData ? eventData._id : null;

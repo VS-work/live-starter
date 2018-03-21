@@ -11,6 +11,9 @@ export enum RouterLinks {
   Payments = 'home',
   MyFollowing = 'my-followings',
   Home = 'home',
+  ManageLiveStream = 'manage-live-stream',
+  ArtistProfile = 'artist-profile',
+  ShowPage = 'show-page'
 }
 
 export enum MenuTitles {

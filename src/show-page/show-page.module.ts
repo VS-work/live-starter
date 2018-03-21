@@ -9,19 +9,20 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { ShowPageComponent } from './show-page.component';
 import { routing } from '../modules/show-page.routing';
-import { WowzaCloudModule } from '../shared/wowza-streaming-cloud/wowza-cloud.module';
 import { StatisticsModule } from '../shared/statistics/statistics.module';
 import { EventInfoModule } from '../shared/event-info/event-info.module';
 import { TimerModule } from '../shared/timer/timer.module';
 import { ShareContainerModule } from '../shared/share-container/share-container.module';
 import { PurchaseContainerModule } from '../shared/purchase-container/purchase-container.module';
 import { TipsContainerModule } from '../shared/tips-container/tips-container.module';
+import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 
 
 @NgModule({
   declarations: [
     ShowPageComponent
   ],
+  providers: [WowzaCloudService],
   imports: [
     routing,
     CommonModule,
@@ -30,7 +31,6 @@ import { TipsContainerModule } from '../shared/tips-container/tips-container.mod
     ButtonsModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    WowzaCloudModule,
     StatisticsModule,
     EventInfoModule,
     TimerModule,

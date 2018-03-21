@@ -23,6 +23,7 @@ export class ListOfEncodersComponent {
   };
 
   @Output() setEncoder: EventEmitter<string> = new EventEmitter();
+  @Output() cancelEditEncoder: EventEmitter<string> = new EventEmitter();
   isNewEvent = true;
   encoders: Encoder[] = [...encoders];
 
@@ -56,6 +57,7 @@ export class ListOfEncodersComponent {
     if (this.activeEncoders.active !== this.activeEncoders.default) {
       this.activeEncoders.active = this.activeEncoders.default;
       this.activeEncoders.activeDevice = this.setActiveDevice(this.activeEncoders.active);
+      this.cancelEditEncoder.emit(this.activeEncoders.active);
     }
   }
 

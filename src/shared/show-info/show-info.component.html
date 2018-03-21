@@ -20,13 +20,13 @@
   <div class="main-info">
     <div class="event-info" *ngIf="isEvent; else atristInfo">
       <div class="info-top">
-        <a [routerLink]="['/show-page']" [queryParams]="{id: show._id}" class="show-name">{{show?.name}}</a>
+        <a [routerLink]="showPageLink" [queryParams]="{id: show._id}" class="show-name">{{show?.name}}</a>
         <app-statistics [statistics]="show.statistics" [id]="show._id"></app-statistics>
       </div>
 
       <div class="show-creator" (click)="gotoAnotherPage(!isGoToEventPage)">
         by
-        <a [routerLink]="['/artist-profile']" [queryParams]="{id: show?.creator}">{{show?.creator}}</a>
+        <a [routerLink]="artistProfileLink" [queryParams]="{id: show?.creator}">{{show?.creator}}</a>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
       </div>
     </ng-template>
 
-    <div class="show-decription">{{sliceDescription(242)}} <a [routerLink]="['/show-page']" [queryParams]="{id: show?._id}" class="read-more">Read more »</a></div>
+    <div class="show-decription">{{sliceDescription(242)}} <a [routerLink]="showPageLink" [queryParams]="{id: show?._id}" class="read-more">Read more »</a></div>
   </div>
 
   <div class="purchase-container" *ngIf="isEvent; else nextShow">
@@ -60,7 +60,7 @@
           <div class="live-now-title">Now Live!</div>
 
           <ng-template #notMyOwnShows>
-            <a routerLink="/home" class="btn-with-border btn-orange small long">{{'View show' | uppercase}}</a>
+            <a [routerLink]="manageLiveStreamLink" class="btn-with-border btn-orange small long">{{'View show' | uppercase}}</a>
           </ng-template>
         </div>
         <ng-template #notLiveNow>
@@ -83,7 +83,7 @@
           <span class="show-completed" *ngIf="show.completed">Finished!</span>
         </div>
 
-        <a routerLink="/home"
+        <a [routerLink]="manageLiveStreamLink" [queryParams]="{id: show._id}"
            *ngIf="isEventAdministratedByCurrentUser; else notMyOwnShows"
            class="btn-with-border btn-orange small long">
           {{'Manage show' | uppercase}}

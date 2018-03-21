@@ -1,0 +1,55 @@
+<div class="custom-container">
+  <div class="top-part" *ngIf="currentShow">
+    <div class="show-title">{{currentShow.name}}</div>
+    <div class="date-performance">{{currentShow.timePerformance.start}}</div>
+  </div>
+
+  <div class="stream-container" *ngIf="currentShow && currentShow.wowza">
+    <div class="btns-container">
+      <button type="button" class="btn-with-border btn-orange small" [disabled]="isStartedStream" (click)="startLiveStream()">Start the live stream</button>
+      <button type="button" class="btn-with-border btn-orange small" [disabled]="!isStartedStream" (click)="stopLiveStream()">Stop the live stream</button>
+    </div>
+
+    <app-wowza-player *ngIf="currentShow" [showData]="currentShow"></app-wowza-player>
+
+    <ul class="connection-info-list">
+      <li *ngIf="currentShow.wowza?.encoder">
+        <span>You chose <strong>{{currentShow.wowza.encoder}}</strong> for encoding video</span>
+        <button type="button"
+                class="btn-with-border btn-orange small"
+                (click)="editEncoder()">
+          {{!isEditEncoder ? 'Edit encoder' : 'Stop Editing encoder'}}
+        </button>
+        <app-list-of-encoders *ngIf="isEditEncoder"
+                              [encoder]="currentShow.wowza.encoder"
+                              (setEncoder)="changeEncoder($event)"
+                              (cancelEditEncoder)="cancelEditEncoder()">
+        </app-list-of-encoders>
+      </li>
+      <li *ngIf="currentShow.wowza?.connection_code">
+        <strong>Connection code:</strong> {{currentShow.wowza.connection_code}}
+        <button type="button" class="btn-with-border btn-orange small" (click)="regenerateConnectionCode()">Regenerate Connection Code</button>
+      </li>
+      <li *ngIf="!currentShow.wowza?.source_connection_information?.disable_authentication">
+        <div><strong>Username:</strong> {{currentShow.wowza?.source_connection_information?.username}}</div>
+      </li>
+      <li *ngIf="!currentShow.wowza?.source_connection_information?.disable_authentication">
+        <div>
+          <span>
+            <strong>Password:</strong> *****
+            <span class="show-pass" (click)="showHidePassword()">
+              <i class="fa"
+                 [class.fa-eye-slash]="this.isShowPassword"
+                 [class.fa-eye]="!this.isShowPassword"
+                 aria-hidden="true"></i>
+            </span>
+
+            <span class="password-container" *ngIf="this.isShowPassword">
+              {{currentShow.wowza?.source_connection_information?.password}}
+            </span>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
