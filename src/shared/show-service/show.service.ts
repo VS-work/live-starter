@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Config } from '../../app.config';
 import { NewEventResponse, Show } from './show.model';
@@ -21,6 +22,7 @@ export class ShowService {
     return this.http.post(`${Config.api}/save-event`, query)
       .pipe(catchError(err => {
         console.error('something went wrong: ', err);
+
         return Observable.throw(err.error)
       }));
   }
@@ -29,8 +31,28 @@ export class ShowService {
     const newQuery = {...query, userId: this.userProfile ? this.userProfile._id : ''};
 
     return this.http.get(`${Config.api}/get-events-list-by-query?${Config.objToQuery(newQuery)}`)
-      .pipe(catchError(err => {
+      .pipe(
+        map((shows: Show[]) => {
+          shows.map(show => new Show(show));
+
+          return shows;
+        }),
+        catchError(err => {
         console.error('something went wrong: ', err);
+
+        return Observable.throw(err.error)
+      }));
+  }
+
+  getEventForManage(query: {[key: string]: any}): Observable<Show> {
+    const newQuery = {...query, userId: this.userProfile ? this.userProfile._id : ''};
+
+    return this.http.get(`${Config.api}/get-events-list-by-query?${Config.objToQuery(newQuery)}`)
+      .pipe(
+        map(shows => new Show(shows[0])),
+        catchError(err => {
+        console.error('something went wrong: ', err);
+
         return Observable.throw(err.error)
       }));
   }

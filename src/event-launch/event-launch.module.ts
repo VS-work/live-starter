@@ -13,10 +13,12 @@ import { LaunchComponent } from './event-launch.component';
 import { routing } from '../modules/launch.routing';
 import { EventService } from './event.service';
 import { SharedModule, SearchService } from '../shared';
-import { WowzaCloudModule } from '../shared/wowza-streaming-cloud/wowza-cloud.module';
+
 import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module';
 import { MultipleInputsModule } from '../shared/multiple-inputs/multiple-inputs.module';
 import { EventInfoModule } from '../shared/event-info/event-info.module';
+import { ListOfEncodersModule } from '../shared/wowza-streaming-cloud/list-of-encoders/list-of-encoders.module';
+import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import { EventInfoModule } from '../shared/event-info/event-info.module';
     FormsModule,
     RouterModule,
     SharedModule,
-    WowzaCloudModule,
+    ListOfEncodersModule,
     FileUploaderModule,
     MultipleInputsModule,
     EventInfoModule,
@@ -38,7 +40,11 @@ import { EventInfoModule } from '../shared/event-info/event-info.module';
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot()
   ],
-  providers: [EventService, SearchService],
+  providers: [
+    EventService,
+    SearchService,
+    WowzaCloudService
+  ],
   exports: [
     LaunchComponent
   ]

@@ -11,6 +11,7 @@ import { Statistics } from '../statistics/statistics.interface';
 import { LocalStorageService } from '../index';
 import { ShowInfo } from './info.interface';
 import { PurchaseParamsModel } from '../purchase-container/purchase-container.model';
+import { RouterLinks } from '../../enums/router-links.emum';
 
 @Component({
   selector: 'app-show-info',
@@ -57,6 +58,9 @@ export class ShowInfoComponent {
   isEvent: boolean;
   isGoToEventPage = true;
   purchaseParams: PurchaseParamsModel;
+  manageLiveStreamLink = `/${RouterLinks.ManageLiveStream}`;
+  artistProfileLink = `/${RouterLinks.ArtistProfile}`;
+  showPageLink = `/${RouterLinks.ShowPage}`;
 
   constructor(private router: Router,
               private localStorageService: LocalStorageService) {

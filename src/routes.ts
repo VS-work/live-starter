@@ -13,14 +13,19 @@ export const routes: Routes = [
     loadChildren: '../events-administrating-by-me/events-administrating-by-me.module#EventsAdministratingByMeModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: RouterLinks.ManageLiveStream,
+    loadChildren: '../manage-live-stream/manage-live-stream.module#ManageLiveStreamModule',
+    canActivate: [AuthGuard]
+  },
   {path: RouterLinks.MyAccount, loadChildren: '../edit-profile/edit-profile.module#EditProfileModule', canActivate: [AuthGuard]},
   {path: RouterLinks.Home, loadChildren: '../home/home.module#HomeModule'},
   {path: RouterLinks.Artists, loadChildren: '../artists/artists.module#ArtistsModule'},
-  {path: 'artist-profile', loadChildren: '../artist-profile/artist-profile.module#ArtistProfileModule'},
+  {path: RouterLinks.ArtistProfile, loadChildren: '../artist-profile/artist-profile.module#ArtistProfileModule'},
   {path: 'fan-profile', loadChildren: '../fan-profile/fan-profile.module#FanProfileModule'},
   {path: RouterLinks.Blog, loadChildren: '../blog/blog.module#BlogModule'},
   {path: 'about', loadChildren: '../about/about.module#AboutModule'},
-  {path: 'show-page', loadChildren: '../show-page/show-page.module#ShowPageModule'},
+  {path: RouterLinks.ShowPage, loadChildren: '../show-page/show-page.module#ShowPageModule'},
   {path: RouterLinks.HowItWorks, loadChildren: '../how-it-works/how-it-works.module#HowItWorksModule'},
   {path: 'faq', loadChildren: '../faq/faq.module#FAQModule'},
   {path: 'help-support', loadChildren: '../help-support/help-support.module#HelpSupportModule'},

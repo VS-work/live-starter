@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { mergeMap } from 'rxjs/operators';
 
 import { FileItem } from 'ng2-file-upload';
 import * as moment from 'moment';
@@ -19,6 +20,7 @@ import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
 import { User } from '../user-service/user.model';
 import { EventInfo } from '../shared/event-info/event-info.interface';
 import { Show } from './event-launch.model';
+import { NewStreamModel } from '../shared/wowza-streaming-cloud/new-stream.model';
 
 @Component({
   selector: 'app-launch-component',
@@ -41,12 +43,7 @@ export class LaunchComponent implements OnInit, OnDestroy {
     start: new Date(),
     end: new Date(),
   };
-  wowzaObj = {
-    aspect_ratio_height: 1080,
-    aspect_ratio_width: 1920,
-    encoder: 'wowza_gocoder',
-    name: ''
-  };
+  wowzaObj = new NewStreamModel();
   uploaderImgs: FileItem[] = [];
   posterConfig: FileConfig = {
     isMultiple: false,
@@ -165,18 +162,19 @@ export class LaunchComponent implements OnInit, OnDestroy {
     this.launchEvent.timePerformance.start = moment(this.timePerformance.start).format('dddd, MMMM DD YYYY, h:mm:ss a');
     this.launchEvent.timePerformance.end = moment(this.timePerformance.end).format('dddd, MMMM DD YYYY, h:mm:ss a');
 
-    const newStreamSubscription = this.wowzaCloudService.newStream(this.wowzaObj)
-      .subscribe(liveStream => {
-        this.launchEvent.wowza.id = liveStream.live_stream.id;
-        this.eventServiceSubscribe = this.eventService.saveNewEvent(this.launchEvent)
-          .subscribe(res => {
-            this.posterUploader.sendFiles(res.newId);
-            this.router.navigate(['events']);
-          }, err => {
-            console.error('something went wrong: ', err);
-          });
+    const newLiveSreamWowza = this.wowzaCloudService.newLiveStream(this.wowzaObj)
+      .pipe(
+        mergeMap(res => {
+          this.launchEvent.wowza.id = res.id;
+
+          return this.eventService.saveNewEvent(this.launchEvent);
+        }),
+      )
+      .subscribe(res => {
+        this.posterUploader.sendFiles(res.newId);
+        this.router.navigate(['events']);
       }, err => {
-        console.log('err start stream', err);
+        console.error('something went wrong: ', err);
       });
   }
 

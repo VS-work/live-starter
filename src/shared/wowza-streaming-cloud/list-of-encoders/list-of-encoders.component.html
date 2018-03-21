@@ -1,13 +1,16 @@
 <div class="devises-container">
+
   <div class="form-group">
-    <label>Choose device type:</label>
+    <label class="field-title">Choose device type:</label>
     <div class="btn-group custom-dropdown-select" dropdown>
       <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
         {{activeEncoders.activeDevice.title || 'Select device'}}<span class="caret"></span>
       </button>
-      <ul *dropdownMenu class="dropdown-menu" role="menu">
+      <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
         <li role="menuitem" *ngFor="let device of devicess" class="dropdown-item" (click)="changeActiveDevice(device)">
-          {{device.title}}
+          <label name="deviceType" class="item-text">
+            {{device.title}}
+          </label>
         </li>
       </ul>
     </div>
@@ -20,14 +23,14 @@
   </alert>
 </ng-template>
 
-<div class="encoders-container">
-  <ng-template [ngIf]="!isNewEvent">
-    <button class="btn btn-primary"
+<div class="encoders-container" >
+  <ng-template [ngIf]="!isNewEvent && activeEncoders.active !== activeEncoders.default">
+    <button class="btn-with-border btn-orange small"
             (click)="saveChanges()"
             [disabled]="activeEncoders.active === activeEncoders.default">
       Save Encoder
     </button>
-    <button class="btn btn-primary"
+    <button class="btn-with-border btn-orange small"
             (click)="cancelChanges()"
             [disabled]="activeEncoders.active === activeEncoders.default">
       Cancel

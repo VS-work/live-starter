@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
 import { WowzaCloudConfig } from './wowza-cloud.config';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { newStreamObj } from './new-stream.model';
+import { catchError, map } from 'rxjs/operators';
+
+import {
+  LiveStreamConnectionCode,
+  LiveStreamStatus,
+  NewStreamModel,
+  WowzaResponse
+} from './new-stream.model';
 
 declare let WowzaPlayer: any;
 
@@ -10,73 +17,114 @@ declare let WowzaPlayer: any;
 export class WowzaCloudService {
   private url = WowzaCloudConfig.API_URL;
 
-  constructor(private http: Http) {
+  private rqstOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'wsc-api-key': WowzaCloudConfig.API_KEY,
+      'wsc-access-key': WowzaCloudConfig.ACCESS_KEY
+    })
+  };
+
+  constructor(private http: HttpClient) {
   }
 
-  private setWowzaOptions(): RequestOptions {
-    return new RequestOptions({
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'wsc-api-key': WowzaCloudConfig.API_KEY,
-        'wsc-access-key': WowzaCloudConfig.ACCESS_KEY
-      })
-    });
+  newLiveStream(params: NewStreamModel): Observable<WowzaResponse> {
+    const rqstBody = {live_stream: params};
+
+    return this.http.post(`${this.url}/live_streams/`, JSON.stringify(rqstBody), this.rqstOptions)
+      .pipe(
+        map((res: {live_stream: WowzaResponse}) => res.live_stream),
+        catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
   }
 
-  getStream(id: string): Observable<any> {
-    return this.http.get(`${this.url}live_streams/${id}`, this.setWowzaOptions())
-      .map(res => res.json().live_stream);
+  getLiveStream(id: string): Observable<WowzaResponse> {
+    return this.http.get(`${this.url}live_streams/${id}`, this.rqstOptions)
+      .pipe(
+        map((res: {live_stream: WowzaResponse}) => res.live_stream),
+        catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
   }
 
-  getStreams(): Observable<any> {
-    return this.http.get(`${this.url}live_streams`, this.setWowzaOptions())
-      .map(res => res.json().live_streams);
+  startLiveStream(id: string): Observable<LiveStreamStatus> {
+    return this.http.put(`${this.url}live_streams/${id}/start`, JSON.stringify({}), this.rqstOptions)
+      .pipe(
+        map((res: {live_stream: LiveStreamStatus}) => res.live_stream),
+        catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
   }
 
-  getStreamState(id: string): Observable<any> {
-    return this.http.get(`${this.url}live_streams/${id}/state`, this.setWowzaOptions())
-      .map(res => res.json().live_stream.state);
+  stopLiveStream(id: string): Observable<LiveStreamStatus> {
+    return this.http.put(`${this.url}live_streams/${id}/stop`, JSON.stringify({}), this.rqstOptions)
+      .pipe(
+        map((res: {live_stream: LiveStreamStatus}) => res.live_stream),
+        catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
   }
 
-  updateStream(id: string, updatingObj: Object): Observable<any> {
-    return this.http.patch(`${this.url}live_streams/${id}`,
-      JSON.stringify({live_stream: updatingObj}), this.setWowzaOptions())
-      .map(res => res.json().live_stream);
+  deleteLiveStream(id: string): Observable<null> {
+    return this.http.delete(`${this.url}/live_streams/${id}`, this.rqstOptions)
+      .pipe(catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
   }
 
-  startStream(id: string): Observable<any> {
-    return this.http.put(`${this.url}live_streams/${id}/start`, JSON.stringify({}), this.setWowzaOptions())
-      .map(res => res.json());
+  updateLiveStream(id: string, updatingObj: Object): Observable<WowzaResponse> {
+    const rqstBody = {live_stream: updatingObj};
+
+    return this.http.patch(`${this.url}live_streams/${id}`, JSON.stringify(rqstBody), this.rqstOptions)
+      .pipe(
+        map((res: {live_stream: WowzaResponse}) => res.live_stream),
+        catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
   }
 
-  stopStream(id: string): Observable<any> {
-    return this.http.put(`${this.url}live_streams/${id}/stop`, JSON.stringify({}), this.setWowzaOptions())
-      .map(res => res.json());
+  getLiveStreamState(id: string): Observable<LiveStreamStatus> {
+    return this.http.get(`${this.url}live_streams/${id}/state`, this.rqstOptions)
+      .pipe(
+        map((res: {live_stream: LiveStreamStatus}) => res.live_stream),
+        catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
   }
 
-  regenerateConnectionCode(id: string): Observable<any> {
-    return this.http.put(`${this.url}live_streams/${id}/regenerate_connection_code`, JSON.stringify({}), this.setWowzaOptions())
-      .map(res => res.json().live_stream.connection_code);
-  }
+  regenerateConnectionCode(id: string): Observable<LiveStreamConnectionCode> {
+    return this.http.put(`${this.url}live_streams/${id}/regenerate_connection_code`, JSON.stringify({}), this.rqstOptions)
+      .pipe(
+        map((res: {live_stream: LiveStreamConnectionCode}) => res.live_stream),
+        catchError(err => {
+          console.error('something went wrong: ', err);
 
-  newStream(params: any): Observable<any> {
-    const rqstBody = {live_stream: {...newStreamObj.live_stream, ...params}};
-
-    return this.http.post(`${this.url}/live_streams/`, JSON.stringify(rqstBody), this.setWowzaOptions())
-      .map(res => res.json());
-  }
-
-  deleteStream(id: string): Observable<any> {
-    return this.http.delete(`${this.url}/live_streams/${id}`, this.setWowzaOptions())
-      .map(res => res.json());
-  }
-
-  initPlayer(stream: any, cssSelector: string) {
-    return WowzaPlayer.create(cssSelector, {
-      ...{license: WowzaCloudConfig.PLAYER_LICENCE},
-      ...stream
-    });
+          return Observable.throw(err.error)
+        })
+      );
   }
 
 }

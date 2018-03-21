@@ -1,0 +1,47 @@
+@import "../variables.scss";
+
+.custom-container {
+  width: 100%;
+  max-width: 1140px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.show-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.date-performance {
+  margin-bottom: 10px;
+}
+
+.btns-container {
+  & > * {
+    margin-bottom: 10px;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
+
+.connection-info-list {
+  & > * {
+    padding: 5px 0;
+  }
+}
+
+.show-pass {
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 10px;
+}
+
+.password-container {
+  background: rgba($orange, .5);
+  padding: 3px 5px;
+}
