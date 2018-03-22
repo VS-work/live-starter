@@ -255,6 +255,7 @@
   }
 
   .buy-ticket-container {
+    padding-top: 10px;
     position: relative;
     width: 100%;
 
@@ -382,6 +383,7 @@
 
 @media (max-width: 1199px) {
   .buy-ticket-container {
+    padding-top: 10px;
     position: relative;
     width: 100%;
 
@@ -556,6 +558,8 @@
   color: $orange;
   font-size: 16px;
   line-height: 32px;
+  display: block;
+  text-align: center;
 }
 
 .doesnt-have-event {
