@@ -1,0 +1,221 @@
+<div class="custom-container">
+  <h2 class="page-title">My Profile</h2>
+
+  <div class="custom-container-body">
+    <div class="container-information" *ngIf="currentUser">
+      <div class="container-information-header">Profile Details</div>
+      <div class="container-information-body">
+        <form #mainUserData="ngForm" novalidate (ngSubmit)="saveMainDataChanges(mainUserData)">
+          <div class="row">
+            <div class="form-group col-md-4">
+              <div class="avatar-container">
+                <img class="avatar" [src]="currentUser.avatar" alt="avatar">
+                <button class="upload-photo">
+                  <i class="fa fa-upload"></i>
+                  Upload Photo
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group col-md-8 biography-container">
+              <label for="biography" class="field-title">Biography</label>
+              <textarea name="biography"
+                        id="biography"
+                        class="form-control"
+                        placeholder="Type text about your life"
+                        [(ngModel)]="changableData.biography"></textarea>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fullName" class="field-title">Full Name</label>
+                <input type="text"
+                       id="fullName"
+                       class="form-control"
+                       placeholder="Full name"
+                       name="firstName"
+                       [(ngModel)]="changableData.username"
+                       #fullName="ngModel"
+                       required/>
+                <div class="invalid-feedback"
+                     [class.visible]="!fullName.valid && fullName.dirty">
+                  Field can't be empty
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="field-title">E-mail</label>
+                <input type="text"
+                       id="email"
+                       class="form-control"
+                       placeholder="Your E-mail"
+                       name="email"
+                       [pattern]="pattern.Email"
+                       [(ngModel)]="changableData.email"
+                       #email="ngModel"
+                       required/>
+                <div class="invalid-feedback"
+                     [class.visible]="!email.valid && email.dirty">
+                  Field can't be empty
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone" class="field-title">Phone</label>
+                <input type="text"
+                       id="phone"
+                       class="form-control"
+                       placeholder="Your phone number"
+                       name="phone"
+                       [(ngModel)]="changableData.contacts.phone"
+                       #phone="ngModel" />
+                <div class="invalid-feedback"
+                     [class.visible]="!phone.valid && phone.dirty">
+                  Field can't be empty
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="facebook" class="field-title">Facebook</label>
+                <input type="text"
+                       id="facebook"
+                       class="form-control"
+                       placeholder="Link to your Facebook account"
+                       name="facebook"
+                       [(ngModel)]="changableData.socials.facebook"
+                       #facebook="ngModel" />
+                <div class="invalid-feedback"
+                     [class.visible]="!facebook.valid && facebook.dirty">
+                  Field can't be empty
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="google" class="field-title">Google+</label>
+                <input type="text"
+                       id="google"
+                       class="form-control"
+                       placeholder="Link to your Google+ account"
+                       name="google"
+                       [(ngModel)]="changableData.socials.google"
+                       #google="ngModel" />
+                <div class="invalid-feedback"
+                     [class.visible]="!google.valid && google.dirty">
+                  Field can't be empty
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="twitter" class="field-title">Twitter</label>
+                <input type="text"
+                       id="twitter"
+                       class="form-control"
+                       placeholder="Link to your Twitter account"
+                       name="twitter"
+                       [(ngModel)]="changableData.socials.twitter"
+                       #twitter="ngModel" />
+                <div class="invalid-feedback"
+                     [class.visible]="!twitter.valid && twitter.dirty">
+                  Field can't be empty
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-with-border btn-orange" [disabled]="!mainUserData.dirty">Save changes</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="container-information">
+      <div class="container-information-header">Alerts / E-mail notifications</div>
+      <div class="container-information-body">
+        <form #notificationsForm="ngForm" novalidate (ngSubmit)="saveNotifications(notificationsForm)">
+          <ul class="notification-list row">
+            <li class="notification-item custom-checkbox form-group col-sm-6">
+              <input type="checkbox"
+                     id="recomendedShows"
+                     class="custom-checkbox-input"
+                     name="recomendedShows"
+                     [(ngModel)]="notifications.recommendedArtitsShows"/>
+              <label for="recomendedShows" class="custom-checkbox-label">
+                Recommended Artists Shows
+              </label>
+            </li>
+            <li class="notification-item custom-checkbox form-group col-sm-6">
+              <input type="checkbox"
+                     id="featuredShows"
+                     class="custom-checkbox-input"
+                     name="featuredShows"
+                     [(ngModel)]="notifications.featuredShows" />
+              <label for="featuredShows" class="custom-checkbox-label">
+                Featured Shows
+              </label>
+            </li>
+            <li class="notification-item custom-checkbox form-group col-sm-6">
+              <input type="checkbox"
+                     id="alertMeAboutMessage"
+                     class="custom-checkbox-input"
+                     name="alertMeAboutMessage"
+                     [(ngModel)]="notifications.alertMeAboutMessage" />
+              <label for="alertMeAboutMessage" class="custom-checkbox-label">
+                Alert me if someone wrote me
+              </label>
+            </li>
+            <li class="notification-item custom-checkbox form-group col-sm-6">
+              <input type="checkbox"
+                     id="showAlreadyBegun"
+                     class="custom-checkbox-input"
+                     name="showAlreadyBegun"
+                     [(ngModel)]="notifications.showAlreadyBegun" />
+              <label for="showAlreadyBegun" class="custom-checkbox-label">
+                Show already begun
+              </label>
+            </li>
+            <li class="notification-item custom-checkbox form-group col-sm-6">
+              <input type="checkbox"
+                     id="followingArtistCreateNewEvent"
+                     class="custom-checkbox-input"
+                     name="followingArtistCreateNewEvent"
+                     [(ngModel)]="notifications.followingArtistCreatesNewEvent" />
+              <label for="followingArtistCreateNewEvent" class="custom-checkbox-label">
+                Following artists create new event
+              </label>
+            </li>
+            <li class="notification-item notification-with-dropdown form-group col-sm-6">
+              <div class="custom-checkbox">
+                <input type="checkbox"
+                       id="showWillBegin"
+                       class="custom-checkbox-input"
+                       name="showWillBegin"
+                       [(ngModel)]="notifications.showBeginIn.isNotification" />
+                <label for="showWillBegin" class="custom-checkbox-label">Show will begin in</label>
+              </div>
+
+              <div class="custom-dropdown-box">
+                <div class="btn-group custom-dropdown-select" dropdown [isDisabled]="!notifications.showBeginIn.isNotification">
+                  <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                    {{notifications.showBeginIn.timeperiod || 'Choose period'}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                    <li role="menuitem" *ngFor="let timePeriod of timePeriods" class="dropdown-item">
+                      <label name="timePeriod" class="item-text" [(ngModel)]="notifications.showBeginIn.timeperiod" [btnRadio]="timePeriod">{{timePeriod}}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <button type="submit" class="btn-with-border btn-orange" [disabled]="!notificationsForm.dirty">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

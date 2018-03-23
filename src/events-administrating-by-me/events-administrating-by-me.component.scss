@@ -1,19 +1,10 @@
 @import "../variables.scss";
 
-.custom-container {
-  width: 100%;
-  max-width: 1140px;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin: 0 auto;
-}
-
 .show-name {
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
 }
-
 
 .show-item {
   margin-bottom: 20px;
@@ -32,7 +23,6 @@
     justify-content: center !important;
   }
 }
-
 
 @media (max-width: map-get($grid-breakpoints, lg)) {
   .show-item {
