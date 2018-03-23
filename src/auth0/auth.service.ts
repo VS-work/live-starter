@@ -65,7 +65,7 @@ export class AuthService implements OnDestroy {
     this.userProfile$.next(this.userProfile);
 
     if (profile) {
-      localStorage.setItem('profile', JSON.stringify(profile));
+      this.userService.setUserToLocalStorage(profile);
     }
   }
 

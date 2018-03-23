@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { Config } from '../app.config';
 import { ParsedProfile } from '../auth0/parsed-profile.interface';
 import { User } from './user.model';
+import { UpdateUserProfileRequestObject, UpdateUserProfileResponseObject } from './update-user-profile.interface';
 
 export interface GetUserData {
   email?: string;
@@ -19,32 +20,54 @@ export class UserService {
   }
 
   signupUser(query: ParsedProfile): Observable<any> {
-    return this.http.post(`${Config.api}/signup`, query)
+    return this.http.post(`${Config.api}/signup`, query, Config.httpOptions)
       .pipe(catchError(err => {
         console.error('something went wrong: ', err);
+
         return Observable.throw(err.error)
       }));
   }
 
   isEmailExist(query: {email: string}): Observable<any> {
-    return this.http.post(`${Config.api}/signup/check-email`, query)
+    return this.http.post(`${Config.api}/signup/check-email`, query, Config.httpOptions)
       .pipe(catchError(err => {
         console.error('something went wrong: ', err);
+
         return Observable.throw(err.error)
       }));
   }
 
   getUser(data: GetUserData): Observable<any> {
     const query = Config.objToQuery(data);
-
     return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`)
       .pipe(catchError(err => {
         console.error('something went wrong: ', err);
+
         return Observable.throw(err.error)
       }));
   }
 
-  getUserFromLocalStorage() {
+  updateUser(data: UpdateUserProfileRequestObject): Observable<UpdateUserProfileResponseObject> {
+    return this.http.put(`${Config.api}/update-user-profile`, data, Config.httpOptions)
+      .pipe(catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
+  }
+
+  updateUserNotifications(data: UpdateUserProfileRequestObject): Observable<UpdateUserProfileResponseObject> {
+    return this.http.put(`${Config.api}/update-user-notifications`, data, Config.httpOptions)
+      .pipe(catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        })
+      );
+  }
+
+  getUserFromLocalStorage(): User {
     try {
       const currentUserProfile = JSON.parse(localStorage.getItem('profile'));
 
@@ -57,5 +80,9 @@ export class UserService {
       console.error('something went wrong: ', err);
       return null;
     }
+  }
+
+  setUserToLocalStorage(profile: User): void {
+    localStorage.setItem('profile', JSON.stringify(profile));
   }
 }
