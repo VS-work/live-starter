@@ -30,7 +30,7 @@ export const routes: Routes = [
   {path: 'faq', loadChildren: '../faq/faq.module#FAQModule'},
   {path: 'help-support', loadChildren: '../help-support/help-support.module#HelpSupportModule'},
   {path: RouterLinks.Events, loadChildren: '../events-list/events-list.module#EventsListModule'},
-  {path: RouterLinks.HowItWorks, loadChildren: '../contacts-livestarter/contacts-livestarter.module#LiveStarterContactsModule'},
+  {path: RouterLinks.Contact, loadChildren: '../contacts-livestarter/contacts-livestarter.module#LiveStarterContactsModule'},
   {path: '**', redirectTo: 'home'}
 ];
 
