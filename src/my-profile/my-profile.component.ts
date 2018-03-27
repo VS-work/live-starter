@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -11,6 +11,9 @@ import { UserService } from '../user-service/user.service';
 import { ChangableData } from './changable-data.model';
 import { customToastOptions } from '../shared/models/toasty-options.model';
 import { UpdateUserProfileRequestObject } from '../user-service/update-user-profile.interface';
+import { CropImageComponent } from '../shared/crop-image/crop-image.component';
+import { UploadFilesService } from '../shared/upload-files/upload-files.service';
+import { UploadFile } from '../shared/upload-files/upload-file.model';
 
 @Component({
   selector: 'app-my-profile',
@@ -18,6 +21,8 @@ import { UpdateUserProfileRequestObject } from '../user-service/update-user-prof
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnDestroy {
+  @ViewChild('cropImgModal', undefined) cropper: CropImageComponent;
+
   subscriptionManager: Subscription = new Subscription();
   pattern = Pattern;
   currentUser: User;
@@ -25,7 +30,10 @@ export class MyProfileComponent implements OnDestroy {
   notifications: Notifications;
   timePeriods: string[] = ['1hrs', '2hrs', '3hrs', '4hrs', '5hrs'];
 
-  constructor(private userService: UserService, private toastyService: ToastyService) {
+
+  constructor(private userService: UserService,
+              private toastyService: ToastyService,
+              private uploadFilesService: UploadFilesService) {
     this.currentUser = this.userService.getUserFromLocalStorage();
 
     const getUserNotificationsSubscription  = this.userService.getUsersNotifications(this.currentUser._id)
@@ -57,7 +65,8 @@ export class MyProfileComponent implements OnDestroy {
         this.currentUser.contacts.phone = this.changableData.contacts.phone;
         this.currentUser.socials = {...this.changableData.socials};
 
-        this.userService.setUserToLocalStorage(this.currentUser);
+        const isEmitUpdateUserAccount = true;
+        this.userService.setUserToLocalStorage(this.currentUser, isEmitUpdateUserAccount);
 
         const toastOptions: ToastOptions = {
           ...customToastOptions,
@@ -107,6 +116,29 @@ export class MyProfileComponent implements OnDestroy {
     };
 
     this.changableData = new ChangableData(changableData);
+  }
+
+  setImgFile($event: Event): void {
+    this.cropper.setImage($event);
+  }
+
+  saveNewAvatar(fileObj: UploadFile): void {
+    fileObj.userId = this.currentUser._id;
+
+    const uploadAvatarSubscription = this.uploadFilesService.uploadAvatar(fileObj)
+      .subscribe(res => {
+        this.currentUser.avatar = res.imageUrl ? res.imageUrl : this.currentUser.avatar;
+        const isEmitUpdateUserAccount = true;
+        this.userService.setUserToLocalStorage(this.currentUser, isEmitUpdateUserAccount);
+
+        const toastOptions: ToastOptions = {
+          ...customToastOptions,
+          ...{title: 'Success', msg: res.message}
+        };
+        this.toastyService.success(toastOptions);
+      });
+
+    this.subscriptionManager.add(uploadAvatarSubscription);
   }
 
   ngOnDestroy() {

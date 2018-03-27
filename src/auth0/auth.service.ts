@@ -42,6 +42,18 @@ export class AuthService implements OnDestroy {
   constructor(private router: Router,
               private userService: UserService) {
     this.isAuthenticated();
+
+    this.userService.updateUserAccount.subscribe((res: boolean): void | undefined => {
+      const userFromLocalStorage = this.userService.getUserFromLocalStorage();
+
+      if (! res || !userFromLocalStorage ) {
+        return undefined;
+      }
+
+      const isUpdateLocalstorage = false;
+
+      this.setUserProfile(userFromLocalStorage, isUpdateLocalstorage);
+    });
   }
 
   showAuthModal(): void {
@@ -60,11 +72,12 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  setUserProfile(profile?: User): void {
+  setUserProfile(profile?: User, isUpdateToLocalstorage = true): void {
+
     this.userProfile = profile ? new User(profile) : null;
     this.userProfile$.next(this.userProfile);
 
-    if (profile) {
+    if (profile && isUpdateToLocalstorage) {
       this.userService.setUserToLocalStorage(profile);
     }
   }

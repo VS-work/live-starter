@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { routing } from '../modules/my-profile.routing';
 import { MyProfileComponent } from './my-profile.component';
-import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { CropImageModule } from '../shared/crop-image/crop-image.module';
+import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module';
 
 @NgModule({
   imports: [
@@ -13,7 +16,9 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     CommonModule,
     FormsModule,
     BsDropdownModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    CropImageModule,
+    FileUploaderModule
   ],
   providers: [],
   declarations: [
