@@ -7,6 +7,7 @@ import { Config } from '../app.config';
 import { ParsedProfile } from '../auth0/parsed-profile.interface';
 import { User } from './user.model';
 import { UpdateUserProfileRequestObject, UpdateUserProfileResponseObject } from './update-user-profile.interface';
+import { Notifications } from '../my-profile/notification.model';
 
 export interface GetUserData {
   email?: string;
@@ -41,6 +42,19 @@ export class UserService {
     const query = Config.objToQuery(data);
     return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`)
       .pipe(catchError(err => {
+        console.error('something went wrong: ', err);
+
+        return Observable.throw(err.error)
+      }));
+  }
+
+  getUsersNotifications(userId: {userId: string}): Observable<Notifications> {
+    const query = Config.objToQuery({userId});
+
+    return this.http.get(`${Config.api}/get-user-notifications?${query}`)
+      .pipe(
+        map((res: Notifications) => new Notifications(res)),
+        catchError(err => {
         console.error('something went wrong: ', err);
 
         return Observable.throw(err.error)

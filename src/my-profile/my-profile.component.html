@@ -132,7 +132,7 @@
       </div>
     </div>
 
-    <div class="container-information">
+    <div class="container-information" *ngIf="notifications">
       <div class="container-information-header">Alerts / E-mail notifications</div>
       <div class="container-information-body">
         <form #notificationsForm="ngForm" novalidate (ngSubmit)="saveNotifications(notificationsForm)">
