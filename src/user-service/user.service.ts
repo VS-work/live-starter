@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
@@ -16,6 +16,7 @@ export interface GetUserData {
 
 @Injectable()
 export class UserService {
+  updateUserAccount: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private http: HttpClient) {
   }
@@ -96,7 +97,11 @@ export class UserService {
     }
   }
 
-  setUserToLocalStorage(profile: User): void {
+  setUserToLocalStorage(profile: User, isEmitUpdateUserAccount = false): void {
     localStorage.setItem('profile', JSON.stringify(profile));
+
+    if (isEmitUpdateUserAccount) {
+      this.updateUserAccount.emit(true);
+    }
   }
 }
