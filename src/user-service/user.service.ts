@@ -48,7 +48,7 @@ export class UserService {
       }));
   }
 
-  getUsersNotifications(userId: {userId: string}): Observable<Notifications> {
+  getUsersNotifications(userId: string): Observable<Notifications> {
     const query = Config.objToQuery({userId});
 
     return this.http.get(`${Config.api}/get-user-notifications?${query}`)
