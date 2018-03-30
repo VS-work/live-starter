@@ -14,6 +14,7 @@ import { UpdateUserProfileRequestObject } from '../user-service/update-user-prof
 import { CropImageComponent } from '../shared/crop-image/crop-image.component';
 import { UploadFilesService } from '../shared/upload-files/upload-files.service';
 import { UploadFile } from '../shared/upload-files/upload-file.model';
+import { DatePickerConfigModel } from './date-picker-config.model';
 
 @Component({
   selector: 'app-my-profile',
@@ -28,6 +29,7 @@ export class MyProfileComponent implements OnDestroy {
   currentUser: User;
   changableData: ChangableData;
   notifications: Notifications;
+  birthdayConfig: DatePickerConfigModel = new DatePickerConfigModel({maxDate: new Date(), currentValue: undefined});
   timePeriods: string[] = ['1hrs', '2hrs', '3hrs', '4hrs', '5hrs'];
 
 
@@ -48,7 +50,7 @@ export class MyProfileComponent implements OnDestroy {
   }
 
   saveMainDataChanges(form: NgForm): void | undefined {
-    if (form.invalid || !form.dirty) {
+    if (form.invalid || !form.dirty && !this.birthdayConfig.isChanged) {
       return undefined;
     }
 
@@ -59,6 +61,7 @@ export class MyProfileComponent implements OnDestroy {
 
     const updateUserSubscription = this.userService.updateUser(rqstObj)
       .subscribe(res => {
+        this.birthdayConfig.isChanged = false;
         this.currentUser.username = this.changableData.username;
         this.currentUser.email = this.changableData.email;
         this.currentUser.biography = this.changableData.biography;
@@ -105,8 +108,13 @@ export class MyProfileComponent implements OnDestroy {
   }
 
   setChangableData(): void {
+    this.birthdayConfig.currentValue = this.currentUser.birthday;
+
     const changableData: ChangableData = {
       username: this.currentUser.username,
+      firstName: this.currentUser.firstName,
+      lastName: this.currentUser.lastName,
+      birthday: this.currentUser.birthday,
       email: this.currentUser.email,
       biography: this.currentUser.biography,
       contacts: {
@@ -139,6 +147,16 @@ export class MyProfileComponent implements OnDestroy {
       });
 
     this.subscriptionManager.add(uploadAvatarSubscription);
+  }
+
+  changeBirthday(date: Date): void {
+    if (date.getTime() !== this.changableData.birthday.getTime()) {
+      this.birthdayConfig.isChanged = true;
+    }
+    const newDate = new Date(date.getTime());
+    newDate.setHours(0, 0, 0);
+    this.changableData.birthday = new Date (newDate);
+    console.log(this.changableData.birthday)
   }
 
   ngOnDestroy() {

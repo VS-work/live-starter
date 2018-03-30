@@ -1,3 +1,6 @@
+import { environment } from '../environments/environment';
+import { RouterLinks } from '../enums/router-links.emum';
+
 interface UserInterface {
   _id?: string;
   active?: boolean;
@@ -14,6 +17,8 @@ interface UserInterface {
   country?: string;
   groupName?: string;
   website?: string;
+  profileUrl?: string;
+  birthday?: Date;
   joinDate?: Date;
   biography?: string;
   contacts?: {
@@ -25,6 +30,7 @@ interface UserInterface {
     google: string;
     facebook: string;
     twitter: string;
+    instagram: string;
   };
   statistics?: {
     likes: {
@@ -66,6 +72,8 @@ export class User {
   country: string;
   groupName: string;
   website: string;
+  profileUrl: string;
+  birthday: Date;
   joinDate: Date;
   biography: string;
   contacts: {
@@ -77,6 +85,7 @@ export class User {
     google: string;
     facebook: string;
     twitter: string;
+    instagram: string
   };
   statistics: {
     likes: {
@@ -117,10 +126,11 @@ export class User {
     this.country = user.country || '';
     this.groupName = user.groupName || '';
     this.website = user.website || '';
+    this.birthday = user.birthday ? new Date(user.birthday) : undefined;
     this.joinDate = user.joinDate || new Date();
     this.biography = user.biography || '';
     this.contacts = user.contacts || {phone: '', skype: '', hangouts: ''};
-    this.socials = user.socials || {google: '', facebook: '', twitter: ''};
+    this.socials = user.socials || {google: '', facebook: '', twitter: '', instagram: ''};
     this.statistics = user.statistics ||
       {
         likes: {
@@ -141,5 +151,8 @@ export class User {
     this.audios = user.audios || [];
     this.photos = user.photos || [];
     this.genres = user.genres || [];
+
+    const typeUserLink = user.type === 'fan' ? RouterLinks.FanProfile : RouterLinks.ArtistProfile;
+    this.profileUrl = `${environment.frontendPath}/${typeUserLink}/${this._id}`;
   }
 }

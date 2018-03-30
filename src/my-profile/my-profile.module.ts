@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { routing } from '../modules/my-profile.routing';
 import { MyProfileComponent } from './my-profile.component';
@@ -18,7 +19,8 @@ import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module
     BsDropdownModule.forRoot(),
     ButtonsModule.forRoot(),
     CropImageModule,
-    FileUploaderModule
+    FileUploaderModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [],
   declarations: [
