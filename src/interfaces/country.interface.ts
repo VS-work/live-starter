@@ -9,9 +9,8 @@ export interface City {
   _id: string;
   city: string;
   country: string;
-  lat: number;
-  lng: number;
-  alias: number;
+  lat: string;
+  lng: string;
 }
 
 export interface Location {

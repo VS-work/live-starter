@@ -3,9 +3,14 @@
 
   <div class="custom-container-body">
     <div class="container-information" *ngIf="currentUser">
-      <div class="container-information-header">Profile Details</div>
-      <div class="container-information-body">
-        <form #mainUserData="ngForm" novalidate (ngSubmit)="saveMainDataChanges(mainUserData)">
+      <div class="container-information-header row">
+        <span class="col-sm-6">Profile Details</span>
+        <div *ngIf="currentUser.type === 'fan'" class="claim-artist-page col-sm-6">
+          <button type="button" class="btn-with-border btn-orange">Claim your artist page</button>
+        </div>
+      </div>
+      <div class="container-information-body row">
+        <form #mainUserData="ngForm" class="col-12" novalidate (ngSubmit)="saveMainDataChanges(mainUserData)">
           <div class="row">
             <div class="form-group col-md-4">
               <div class="avatar-container">
@@ -25,11 +30,10 @@
               <label for="biography" class="field-title">Biography</label>
               <textarea name="biography"
                         id="biography"
-                        class="form-control"
+                        class="form-control biography-field"
                         placeholder="Type text about your life"
                         [(ngModel)]="changableData.biography"></textarea>
             </div>
-
           </div>
 
           <div class="row">
@@ -90,11 +94,11 @@
                          name="birthday"
                          class="form-control"
                          disabled="disabled"
-                         [(bsValue)]="birthdayConfig.currentValue"
-                         [maxDate]="birthdayConfig.maxDate"
+                         [(bsValue)]="dateOfBirthConfig.currentValue"
+                         [maxDate]="dateOfBirthConfig.maxDate"
                          #birthday="bsDatepicker"
                          bsDatepicker
-                         (bsValueChange)="changeBirthday($event)"/>
+                         (bsValueChange)="changeDateOfBirth($event)"/>
 
                   <div class="input-group-btn">
                     <button class="btn icon-calendar" type="button" (click)="birthday.show()">
@@ -123,18 +127,43 @@
                 </div>
               </div>
 
-              <div class="form-group">
-                <label for="phone" class="field-title">Phone</label>
-                <input type="text"
-                       id="phone"
-                       class="form-control"
-                       placeholder="Your phone number"
-                       name="phone"
-                       [(ngModel)]="changableData.contacts.phone"
-                       #phone="ngModel" />
-                <div class="invalid-feedback"
-                     [class.visible]="!phone.valid && phone.dirty">
-                  Field can't be empty
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="field-title">Country</label>
+                  <div class="btn-group custom-dropdown-select" dropdown>
+                    <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                      <span class="checkedValue">{{changableData.location.country.name || 'Select country'}}</span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                      <li role="menuitem" *ngFor="let country of countries" class="dropdown-item">
+                        <label name="county"
+                               class="item-text"
+                               [(ngModel)]="changableData.location.country"
+                               [btnRadio]="country"
+                               (ngModelChange)="countryChanged($event)">
+                          {{country.name}}
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="field-title">City</label>
+                  <div class="btn-group custom-dropdown-select" dropdown [isDisabled]="!cities.length">
+                    <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
+                      <span class="checkedValue">{{changableData.location.city.name || 'Select city'}}</span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
+                      <li role="menuitem" *ngFor="let city of cities" class="dropdown-item">
+                        <label name="county" class="item-text"
+                               [(ngModel)]="changableData.location.city"
+                               [btnRadio]="city">
+                          {{city.name}}
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -215,19 +244,34 @@
                   Field can't be empty
                 </div>
               </div>
+
+              <div class="form-group">
+                <label for="phone" class="field-title">Phone</label>
+                <input type="text"
+                       id="phone"
+                       class="form-control"
+                       placeholder="Your phone number"
+                       name="phone"
+                       [(ngModel)]="changableData.contacts.phone"
+                       #phone="ngModel" />
+                <div class="invalid-feedback"
+                     [class.visible]="!phone.valid && phone.dirty">
+                  Field can't be empty
+                </div>
+              </div>
             </div>
           </div>
 
           <button type="submit" class="btn-with-border btn-orange"
-                  [disabled]="!mainUserData.dirty && !this.birthdayConfig.isChanged">Save changes</button>
+                  [disabled]="!mainUserData.dirty && !this.dateOfBirthConfig.isChanged">Save changes</button>
         </form>
       </div>
     </div>
 
     <div class="container-information" *ngIf="notifications">
-      <div class="container-information-header">Alerts / E-mail notifications</div>
-      <div class="container-information-body">
-        <form #notificationsForm="ngForm" novalidate (ngSubmit)="saveNotifications(notificationsForm)">
+      <div class="container-information-header row">Alerts / E-mail notifications</div>
+      <div class="container-information-body row">
+        <form #notificationsForm="ngForm" class="col-12" novalidate (ngSubmit)="saveNotifications(notificationsForm)">
           <ul class="notification-list row">
             <li class="notification-item custom-checkbox form-group col-sm-6">
               <input type="checkbox"

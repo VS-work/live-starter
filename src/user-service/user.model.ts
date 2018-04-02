@@ -1,5 +1,6 @@
 import { environment } from '../environments/environment';
-import { RouterLinks } from '../enums/router-links.emum';
+import { RouterLinks } from '../enums';
+import { City, Country } from '../shared/models';
 
 interface UserInterface {
   _id?: string;
@@ -18,9 +19,13 @@ interface UserInterface {
   groupName?: string;
   website?: string;
   profileUrl?: string;
-  birthday?: Date;
+  dateOfBirth?: Date;
   joinDate?: Date;
   biography?: string;
+  location?: {
+    country: Country;
+    city: City
+  };
   contacts?: {
     phone: string;
     skype: string;
@@ -73,9 +78,13 @@ export class User {
   groupName: string;
   website: string;
   profileUrl: string;
-  birthday: Date;
+  dateOfBirth: Date;
   joinDate: Date;
   biography: string;
+  location: {
+    country: Country;
+    city: City
+  };
   contacts: {
     phone: string;
     skype: string;
@@ -85,7 +94,7 @@ export class User {
     google: string;
     facebook: string;
     twitter: string;
-    instagram: string
+    instagram: string;
   };
   statistics: {
     likes: {
@@ -126,9 +135,16 @@ export class User {
     this.country = user.country || '';
     this.groupName = user.groupName || '';
     this.website = user.website || '';
-    this.birthday = user.birthday ? new Date(user.birthday) : undefined;
+    this.dateOfBirth = user.dateOfBirth ? new Date(user.dateOfBirth) : undefined;
     this.joinDate = user.joinDate || new Date();
     this.biography = user.biography || '';
+    this.location = user.location ? {
+        country: new Country(user.location.country),
+        city: new City(user.location.city)
+      } : {
+        country: new Country(),
+        city: new City()
+      };
     this.contacts = user.contacts || {phone: '', skype: '', hangouts: ''};
     this.socials = user.socials || {google: '', facebook: '', twitter: '', instagram: ''};
     this.statistics = user.statistics ||

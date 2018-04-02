@@ -14,7 +14,9 @@ import { UpdateUserProfileRequestObject } from '../user-service/update-user-prof
 import { CropImageComponent } from '../shared/crop-image/crop-image.component';
 import { UploadFilesService } from '../shared/upload-files/upload-files.service';
 import { UploadFile } from '../shared/upload-files/upload-file.model';
-import { DatePickerConfigModel } from './date-picker-config.model';
+import { LocationService } from '../shared/servises';
+import { City, Country, DatePickerConfigModel } from '../shared/models';
+
 
 @Component({
   selector: 'app-my-profile',
@@ -28,29 +30,62 @@ export class MyProfileComponent implements OnDestroy {
   pattern = Pattern;
   currentUser: User;
   changableData: ChangableData;
+  dateOfBirthConfig: DatePickerConfigModel = new DatePickerConfigModel({maxDate: new Date(), currentValue: undefined});
   notifications: Notifications;
-  birthdayConfig: DatePickerConfigModel = new DatePickerConfigModel({maxDate: new Date(), currentValue: undefined});
+  countries: Country[] = [];
+  cities: City[] = [];
   timePeriods: string[] = ['1hrs', '2hrs', '3hrs', '4hrs', '5hrs'];
 
 
   constructor(private userService: UserService,
               private toastyService: ToastyService,
-              private uploadFilesService: UploadFilesService) {
+              private uploadFilesService: UploadFilesService,
+              private locationService: LocationService) {
     this.currentUser = this.userService.getUserFromLocalStorage();
+    this.setChangableData();
+    this.getCountries();
+    this.getNoitifications();
 
+    if (this.currentUser.location.city) {
+      this.getCities(this.currentUser.location.country.sortname);
+    }
+  }
+
+  getNoitifications(): void {
     const getUserNotificationsSubscription  = this.userService.getUsersNotifications(this.currentUser._id)
       .subscribe(notifications => {
         this.notifications = notifications;
       }, err => {
         console.error('something went wrong: ', err);
       });
-    this.setChangableData();
 
     this.subscriptionManager.add(getUserNotificationsSubscription);
   }
 
+  getCountries(): void {
+    const getCountriesSubscription  = this.locationService.getCountries()
+      .subscribe(countries => {
+        this.countries = countries;
+      }, err => {
+        console.error('something went wrong: ', err);
+      });
+
+    this.subscriptionManager.add(getCountriesSubscription);
+  }
+
+  getCities(countryCode: string): void {
+    const getCitiesSubscription  = this.locationService.getCities(countryCode)
+      .subscribe(cities => {
+        this.cities = cities;
+      }, err => {
+        console.error('something went wrong: ', err);
+      });
+
+    this.subscriptionManager.add(getCitiesSubscription);
+  }
+
   saveMainDataChanges(form: NgForm): void | undefined {
-    if (form.invalid || !form.dirty && !this.birthdayConfig.isChanged) {
+    if (form.invalid || !form.dirty && !this.dateOfBirthConfig.isChanged) {
       return undefined;
     }
 
@@ -61,12 +96,15 @@ export class MyProfileComponent implements OnDestroy {
 
     const updateUserSubscription = this.userService.updateUser(rqstObj)
       .subscribe(res => {
-        this.birthdayConfig.isChanged = false;
+        this.dateOfBirthConfig.isChanged = false;
         this.currentUser.username = this.changableData.username;
         this.currentUser.email = this.changableData.email;
         this.currentUser.biography = this.changableData.biography;
+        this.currentUser.dateOfBirth = this.changableData.dateOfBirth;
         this.currentUser.contacts.phone = this.changableData.contacts.phone;
         this.currentUser.socials = {...this.changableData.socials};
+        this.currentUser.location.country = new Country(this.changableData.location.country);
+        this.currentUser.location.city = new City(this.changableData.location.city);
 
         const isEmitUpdateUserAccount = true;
         this.userService.setUserToLocalStorage(this.currentUser, isEmitUpdateUserAccount);
@@ -108,19 +146,20 @@ export class MyProfileComponent implements OnDestroy {
   }
 
   setChangableData(): void {
-    this.birthdayConfig.currentValue = this.currentUser.birthday;
+    this.dateOfBirthConfig.currentValue = this.currentUser.dateOfBirth;
 
     const changableData: ChangableData = {
       username: this.currentUser.username,
       firstName: this.currentUser.firstName,
       lastName: this.currentUser.lastName,
-      birthday: this.currentUser.birthday,
+      dateOfBirth: this.currentUser.dateOfBirth,
       email: this.currentUser.email,
       biography: this.currentUser.biography,
       contacts: {
         phone: this.currentUser.contacts.phone
       },
-      socials: {...this.currentUser.socials}
+      socials: {...this.currentUser.socials},
+      location: {...this.currentUser.location}
     };
 
     this.changableData = new ChangableData(changableData);
@@ -149,17 +188,23 @@ export class MyProfileComponent implements OnDestroy {
     this.subscriptionManager.add(uploadAvatarSubscription);
   }
 
-  changeBirthday(date: Date): void {
-    if (date.getTime() !== this.changableData.birthday.getTime()) {
-      this.birthdayConfig.isChanged = true;
+  changeDateOfBirth(date: Date): void {
+    if (!this.changableData.dateOfBirth || date.getTime() !== this.changableData.dateOfBirth.getTime()) {
+      this.dateOfBirthConfig.isChanged = true;
     }
     const newDate = new Date(date.getTime());
     newDate.setHours(0, 0, 0);
-    this.changableData.birthday = new Date (newDate);
-    console.log(this.changableData.birthday)
+    this.changableData.dateOfBirth = new Date (newDate);
   }
 
   ngOnDestroy() {
     this.subscriptionManager.unsubscribe();
+  }
+
+  countryChanged(evt: Country): void {
+    this.cities = [];
+    this.changableData.location.city = new City();
+
+    this.getCities(evt.sortname);
   }
 }
