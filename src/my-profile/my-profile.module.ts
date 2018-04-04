@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { routing } from '../modules/my-profile.routing';
 import { MyProfileComponent } from './my-profile.component';
 import { CropImageModule } from '../shared/crop-image/crop-image.module';
 import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module';
+import { LocationService } from '../shared/servises';
 
 @NgModule({
   imports: [
@@ -18,9 +20,10 @@ import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module
     BsDropdownModule.forRoot(),
     ButtonsModule.forRoot(),
     CropImageModule,
-    FileUploaderModule
+    FileUploaderModule,
+    BsDatepickerModule.forRoot()
   ],
-  providers: [],
+  providers: [LocationService],
   declarations: [
     MyProfileComponent
   ]

@@ -21,8 +21,8 @@ export class AuthComponent implements OnInit, OnDestroy {
   subscriptionManager: Subscription = new Subscription();
   mainMenuItems: MenuItem[] = [
     {
-      title: MenuTitles.MyAccount,
-      link: `/${RouterLinks.MyAccount}`
+      title: MenuTitles.MyProfile,
+      link: `/${RouterLinks.MyProfile}`
     },
     {
       title: MenuTitles.MyEvents,

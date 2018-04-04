@@ -14,6 +14,7 @@ export enum RouterLinks {
   Home = 'home',
   ManageLiveStream = 'manage-live-stream',
   ArtistProfile = 'artist-profile',
+  FanProfile = 'fan-profile',
   ShowPage = 'show-page'
 }
 
