@@ -13,6 +13,7 @@ import { EditProfileComponent } from './edit-profile.component';
 import { EditProfileService } from './edit-profile.service';
 import { SharedModule } from '../shared';
 import { routing } from '../modules/edit-profile.routing';
+import { LocationService } from '../shared/servises';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,10 @@ import { routing } from '../modules/edit-profile.routing';
     AlertModule.forRoot(),
     TooltipModule.forRoot()
   ],
-  providers: [EditProfileService],
+  providers: [
+    EditProfileService,
+    LocationService
+  ],
   exports: []
 })
 

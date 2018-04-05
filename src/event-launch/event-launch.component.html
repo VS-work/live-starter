@@ -69,12 +69,12 @@
                 </button>
                 <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
                   <li role="menuitem" *ngFor="let location of locations" class="dropdown-item">
-                    <label [for]="location.id">{{location.name}}</label>
+                    <label [for]="location.sortname">{{location.name}}</label>
                     <input type="radio"
                            name="showLocation"
                            [(ngModel)]="launchEvent.location.country"
                            #showLocation="ngModel"
-                           [id]="location.id"
+                           [id]="location.sortname"
                            [value]="location.name"
                            required/>
                   </li>

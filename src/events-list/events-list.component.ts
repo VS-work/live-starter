@@ -9,6 +9,8 @@ import { LaunchEvent } from '../event-launch/event-launch.interface';
 import { Show } from '../event-launch/event-launch.model';
 import { ShowInfo } from '../shared/show-info/info.interface';
 import { User } from '../user-service/user.model';
+import { LocationService } from '../shared/servises';
+import { Country } from '../shared/models';
 
 @Component({
   selector: 'app-events-list-component',
@@ -26,7 +28,7 @@ export class EventsListComponent implements OnInit {
   public isColumn = true;
   public eventTypes: any[];
   public genres: any[];
-  public locations: any[];
+  public locations: Country[];
   public eventsData: any[];
   public shows: ShowInfo[] = [];
   public datesAround: any[];
@@ -41,6 +43,7 @@ export class EventsListComponent implements OnInit {
 
   public constructor(router: Router,
                      searchService: SearchService,
+                     private locationService: LocationService,
                      localStorageService: LocalStorageService) {
     this.router = router;
     this.searchService = searchService;
@@ -65,13 +68,11 @@ export class EventsListComponent implements OnInit {
         console.error('something went wrong: ', err);
       });
 
-    this.searchServiceSubscribe = this.searchService.getLocations()
-      .subscribe((res: any): void => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-        this.locations = res.countries;
+    this.searchServiceSubscribe = this.locationService.getCountries()
+      .subscribe(res => {
+        this.locations = res;
+      }, err => {
+        console.error('something went wrong: ', err);
       });
 
     this.getEventsDataSubcribe = this.searchService.getNonLiveEventsAmountData()

@@ -13,7 +13,6 @@ import { EventService } from './event.service';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 import { customToastOptions } from '../shared/models/toasty-options.model';
 import { MultipleGenres } from './multipleGenres.interface';
-import { Country } from '../interfaces/country.interface';
 import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
 import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
 import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
@@ -21,6 +20,8 @@ import { User } from '../user-service/user.model';
 import { EventInfo } from '../shared/event-info/event-info.interface';
 import { Show } from './event-launch.model';
 import { NewStreamModel } from '../shared/wowza-streaming-cloud/new-stream.model';
+import { LocationService } from '../shared/servises';
+import { Country } from '../shared/models';
 
 @Component({
   selector: 'app-launch-component',
@@ -73,7 +74,8 @@ export class LaunchComponent implements OnInit, OnDestroy {
               private userProfileService: LocalStorageService,
               private eventService: EventService,
               private wowzaCloudService: WowzaCloudService,
-              private toastyService: ToastyService) {}
+              private toastyService: ToastyService,
+              private locationService: LocationService) {}
 
   ngOnInit(): void {
     const userProfile = this.userProfileService.getItem('profile');
@@ -93,9 +95,9 @@ export class LaunchComponent implements OnInit, OnDestroy {
         console.error('something went wrong: ', err);
       });
 
-    this.searchServiceSubscribe = this.searchService.getLocations()
+    this.searchServiceSubscribe = this.locationService.getCountries()
       .subscribe(res => {
-        this.locations = res.countries;
+        this.locations = res;
       }, err => {
         console.error('something went wrong: ', err);
       });

@@ -7,7 +7,6 @@ import { Config } from '../../app.config';
 import { Show } from '../../event-launch/event-launch.model';
 import { ShowInfo } from '../show-info/info.interface';
 import { User } from '../../user-service/user.model';
-import { Location } from '../../interfaces/country.interface';
 
 export interface QueryToFindArtists {
   findByGenre?: string[];
@@ -46,14 +45,6 @@ export class SearchService {
 
   getGenres(): Observable<string[]> {
     return this.http.get(`${Config.api}/get-genres`)
-      .pipe(catchError(err => {
-        console.error('something went wrong: ', err);
-        return Observable.throw(err.error)
-      }));
-  }
-
-  getLocations(): Observable<Location> {
-    return this.http.get(`${Config.api}/get-locations`)
       .pipe(catchError(err => {
         console.error('something went wrong: ', err);
         return Observable.throw(err.error)
