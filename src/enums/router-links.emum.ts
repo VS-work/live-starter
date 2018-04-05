@@ -21,7 +21,7 @@ export enum RouterLinks {
 export enum MenuTitles {
   Artists = 'Artists',
   Events = 'Events',
-  HowItWorks = 'HowItWorks',
+  HowItWorks = 'How It Works',
   CreateEvent = 'Create event',
   Blog = 'Blog',
   Contact = 'Contact',
