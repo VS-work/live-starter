@@ -3,12 +3,13 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SearchService, LocalStorageService } from '../shared';
-import { Country } from '../interfaces/country.interface';
 import { User } from '../user-service/user.model';
 import { ShowInfo } from '../shared/show-info/info.interface';
 import { Show } from '../event-launch/event-launch.model';
 import { MultipleGenres } from '../event-launch/multipleGenres.interface';
 import { QueryToFindArtists } from '../shared/search-service/search.service';
+import { LocationService } from '../shared/servises';
+import { Country } from '../shared/models';
 
 const defaultQuery: QueryToFindArtists = {
   findByGenre: [],
@@ -34,6 +35,7 @@ export class ArtistsComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private searchService: SearchService,
+              private locationService: LocationService,
               private localStorageService: LocalStorageService) {
   }
 
@@ -65,15 +67,13 @@ export class ArtistsComponent implements OnInit, OnDestroy {
 
     this.subsribeManager.add(genresListSubscribe);
 
-    const locationsListSubscribe = this.searchService.getLocations()
+    const locationsListSubscribe = this.locationService.getCountries()
       .subscribe(res => {
         const selectAll = {
-          id: 'select all',
           name: 'Select all',
-          sortname: 'Select all',
-          _id: 'select all'
+          sortname: 'Select all'
         };
-        this.locations = [selectAll].concat(res.countries);
+        this.locations = [selectAll].concat(res);
       }, err => {
         this.locations = [];
         console.error('something went wrong: ', err);

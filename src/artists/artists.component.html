@@ -32,11 +32,11 @@
                 <li role="menuitem" *ngFor="let location of locations" class="dropdown-item">
                   <input type="radio"
                          name="showLocation"
-                         [id]="location.id"
+                         [id]="location.sortname"
                          [value]="location.name"
                          [(ngModel)]="queryToFindArtists.findByLocation"
                          required/>
-                  <label [for]="location.id">{{location.name}}</label>
+                  <label [for]="location.sortname">{{location.name}}</label>
                 </li>
               </ul>
             </div>

@@ -7,6 +7,8 @@ import { LocalStorageService, SearchService } from '../shared';
 import { User } from '../user-service/user.model';
 import { MultipleGenres } from '../event-launch/multipleGenres.interface';
 import { USER_TYPES, UserType } from '../user-service/user-type.model';
+import { LocationService } from '../shared/servises';
+import { Country } from '../shared/models';
 
 interface UpdatiingUserData {
   email: string;
@@ -37,7 +39,7 @@ export class EditProfileComponent implements OnInit {
   public getGenresSubscribe: Subscription;
   public checkModel: any;
   public localStorageUserProfile: any;
-  public countries: any[];
+  public countries: Country[];
   public positions: any[];
   public userUpdateSuccess: boolean;
   user: User = null;
@@ -50,7 +52,8 @@ export class EditProfileComponent implements OnInit {
 
   public constructor(editProfileService: EditProfileService,
                      userProfileService: LocalStorageService,
-                     searchService: SearchService) {
+                     searchService: SearchService,
+                     private locationService: LocationService) {
     this.editProfileService = editProfileService;
     this.userProfileService = userProfileService;
     this.searchService = searchService;
@@ -80,9 +83,9 @@ export class EditProfileComponent implements OnInit {
       this.getUser(this.localStorageUserProfile.email);
     }
 
-    this.getLocationsSubscribe = this.searchService.getLocations()
+    this.getLocationsSubscribe = this.locationService.getCountries()
       .subscribe(res => {
-        this.countries = res.countries;
+        this.countries = res;
       }, err => {
         console.error('something went wrong: ', err);
       });

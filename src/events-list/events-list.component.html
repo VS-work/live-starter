@@ -51,8 +51,8 @@
               <div class="locations-list" *ngFor="let location of locations">
                 <div
                     class="dropdown-item"
-                    (click)="pushLocationToList(location.country)"
-                    btnCheckbox>{{location.country}}
+                    (click)="pushLocationToList(location.name)"
+                    btnCheckbox>{{location.name}}
                 </div>
               </div>
             </div>
