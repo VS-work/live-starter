@@ -21,7 +21,7 @@
                 <label for="avatar" class="upload-photo">
                   <i class="fa fa-upload"></i>
                   Upload Photo
-                  <input type="file" id="avatar" (change)="setImgFile($event)">
+                  <input type="file" id="avatar" [accept]="mimeTypes" (change)="setImgFile($event)">
                 </label>
               </div>
             </div>
