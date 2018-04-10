@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ModalModule } from 'ngx-bootstrap';
-import { ImageCropperComponent } from 'ngx-img-cropper';
+import { ImageCropperModule } from 'ngx-img-cropper';
 
 import { CropImageComponent } from './crop-image.component';
 import { UploadFilesService } from '../upload-files/upload-files.service';
@@ -10,11 +10,11 @@ import { UploadFilesService } from '../upload-files/upload-files.service';
 @NgModule({
   imports: [
     CommonModule,
+    ImageCropperModule,
     ModalModule.forRoot()
   ],
   declarations: [
-    CropImageComponent,
-    ImageCropperComponent
+    CropImageComponent
   ],
   providers: [UploadFilesService],
   exports: [CropImageComponent]

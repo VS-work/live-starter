@@ -35,6 +35,7 @@ export class MyProfileComponent implements OnDestroy {
   countries: Country[] = [];
   cities: City[] = [];
   timePeriods: string[] = ['1hrs', '2hrs', '3hrs', '4hrs', '5hrs'];
+  mimeTypes = 'image/gif, image/jpeg, image/pjpeg, image/x-png, image/png, image/svg+xml';
 
 
   constructor(private userService: UserService,
