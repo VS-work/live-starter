@@ -17,7 +17,6 @@ import { PurchaseContainerModule } from '../shared/purchase-container/purchase-c
 import { TipsContainerModule } from '../shared/tips-container/tips-container.module';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 
-
 @NgModule({
   declarations: [
     ShowPageComponent

@@ -1,3 +1,5 @@
+import { LinkWithEmbedCode } from '../shared/show-service/show.model';
+
 export interface LaunchEvent {
   _id?: string;
   name: string;
@@ -6,8 +8,8 @@ export interface LaunchEvent {
   artist: string;
   genres: string[];
   posters: string[];
-  audios: string[];
-  videos: string[];
+  audios: LinkWithEmbedCode[];
+  videos: LinkWithEmbedCode[];
   appreciations: string[];
   info: string;
   live: boolean;

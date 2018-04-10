@@ -25,6 +25,16 @@ export interface NewEventResponse {
   newId: string;
 }
 
+export class LinkWithEmbedCode {
+  link = '';
+  embedCode = '';
+
+  constructor(data: LinkWithEmbedCode) {
+    this.link = data.link;
+    this.embedCode = data.embedCode;
+  }
+}
+
 export class Show {
   _id?: string;
   name: string;
@@ -34,8 +44,8 @@ export class Show {
   info: string;
   genres: string[];
   posters: string[];
-  audios: string[];
-  videos: string[];
+  audios: LinkWithEmbedCode[];
+  videos: LinkWithEmbedCode[];
   appreciations: string[];
   live: boolean;
   completed: boolean;
