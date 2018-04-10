@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 
 import { LaunchEvent } from './event-launch.interface';
+import { LinkWithEmbedCode } from '../shared/show-service/show.model';
 
 const defaulttickets = {
   count: 0,
@@ -30,8 +31,8 @@ export class Show {
   info: string;
   genres: string[];
   posters: string[];
-  audios: string[];
-  videos: string[];
+  audios: LinkWithEmbedCode[];
+  videos: LinkWithEmbedCode[];
   appreciations: string[];
   live: boolean;
   completed: boolean;

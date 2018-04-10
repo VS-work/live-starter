@@ -9,10 +9,10 @@ import head from 'lodash-es/head';
 import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
 import { EventInfo } from '../shared/event-info/event-info.interface';
-import { Show } from '../event-launch/event-launch.model';
 import { PurchaseParamsModel } from '../shared/purchase-container/purchase-container.model';
 import { UserService } from '../user-service/user.service';
 import { User } from '../user-service/user.model';
+import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
 
 @Component({
   selector: 'app-show-page-component',
@@ -94,12 +94,8 @@ export class ShowPageComponent implements OnInit, OnDestroy {
     this.subscriptionManager.add(getEventsDataSubcribe)
   }
 
-  parseEmbeddingfiles(embeddingFiles: string[], isVideo = false): SafeHtml[] {
-    return embeddingFiles.map(embeddingFile => {
-      const file = !isVideo ? embeddingFile
-        : embeddingFile.replace('<iframe', '<iframe class="embed-responsive-item"');
-      return this.domSanitizer.bypassSecurityTrustHtml(file);
-    });
+  parseEmbeddingfiles(embeddingFiles: LinkWithEmbedCode[], isVideo = false): SafeHtml[] {
+    return embeddingFiles.map(embeddingFile => this.domSanitizer.bypassSecurityTrustHtml(embeddingFile.embedCode));
   }
 
   getImgUrl(fileName: string): string {

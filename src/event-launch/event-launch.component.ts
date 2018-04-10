@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, combineAll, combineLatest } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 import { FileItem } from 'ng2-file-upload';
 import * as moment from 'moment';
@@ -18,10 +19,13 @@ import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.com
 import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
 import { User } from '../user-service/user.model';
 import { EventInfo } from '../shared/event-info/event-info.interface';
-import { Show } from './event-launch.model';
 import { NewStreamModel } from '../shared/wowza-streaming-cloud/new-stream.model';
 import { LocationService } from '../shared/servises';
 import { Country } from '../shared/models';
+import { Pattern } from '../enums';
+import { OembedService } from '../shared/servises/oembed/oembed.service';
+import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-launch-component',
@@ -58,16 +62,18 @@ export class LaunchComponent implements OnInit, OnDestroy {
   };
   embedVideoConfig: FieldConfig = {
     label: 'Embed videos',
-    errorMsg: `Field is not valid! Try to use "<iframe src=""></iframe>"`,
-    embedPattern: '^(<iframe.*? src=")(.*?)(\\??)(.*?)(".*)()(<\\/iframe>)$'
+    errorMsg: `Field is not valid! You can use only Youtube and Vimeo links`,
+    embedPattern: Pattern.YoutubeOrVimeoUrl
   };
   embedAudioConfig: FieldConfig = {
     label: 'Embed audios',
-    errorMsg: `Field is not valid! Try to use "<iframe src=""></iframe>"`,
-    embedPattern: '^(<iframe.*? src=")(.*?)(\\??)(.*?)(".*)()(<\\/iframe>)$'
+    errorMsg: `Field is not valid! You can use only SoundCloud link`,
+    embedPattern: Pattern.SoundCloudUrl
   };
   eventInfo: EventInfo;
   launchEvent: Show = new Show();
+  audios: string[] = [];
+  videos: string[] = [];
 
   constructor(private router: Router,
               private searchService: SearchService,
@@ -75,7 +81,9 @@ export class LaunchComponent implements OnInit, OnDestroy {
               private eventService: EventService,
               private wowzaCloudService: WowzaCloudService,
               private toastyService: ToastyService,
-              private locationService: LocationService) {}
+              private locationService: LocationService,
+              private oembedService: OembedService) {
+  }
 
   ngOnInit(): void {
     const userProfile = this.userProfileService.getItem('profile');
@@ -160,6 +168,16 @@ export class LaunchComponent implements OnInit, OnDestroy {
       return undefined;
     }
 
+    const parsedAudioLinksToEmbedCode = this.parseLinkToEmbedCode(this.audios)
+      .subscribe(res => {
+        this.launchEvent.audios = res;
+      });
+
+    const parsedVideoLinksToEmbedCode = this.parseLinkToEmbedCode(this.videos)
+      .subscribe(res => {
+        this.launchEvent.videos = res;
+      });
+
     this.wowzaObj.name = this.launchEvent.name;
     this.launchEvent.timePerformance.start = moment(this.timePerformance.start).format('dddd, MMMM DD YYYY, h:mm:ss a');
     this.launchEvent.timePerformance.end = moment(this.timePerformance.end).format('dddd, MMMM DD YYYY, h:mm:ss a');
@@ -214,11 +232,21 @@ export class LaunchComponent implements OnInit, OnDestroy {
   }
 
   setVideosArr(videos: string[]): void {
-    this.launchEvent.videos = videos;
+    this.videos = videos;
   }
 
   setAudiosArr(audios: string[]): void {
-    this.launchEvent.audios = audios;
+    this.audios = audios;
+  }
+
+  parseLinkToEmbedCode(links: string[]): Observable<LinkWithEmbedCode[]> {
+    const arrayOfObservableWithParsedLink = links.map(link => {
+      return this.oembedService.getEmbedCode(link)
+    });
+
+    const concatedObservable = of(...arrayOfObservableWithParsedLink);
+
+    return concatedObservable.pipe(combineAll());
   }
 
   checkFreeEvent(): void | undefined {
