@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -11,7 +10,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { LaunchComponent } from './event-launch.component';
 import { routing } from '../modules/launch.routing';
-import { EventService } from './event.service';
 import { SharedModule, SearchService } from '../shared';
 
 import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module';
@@ -21,6 +19,7 @@ import { ListOfEncodersModule } from '../shared/wowza-streaming-cloud/list-of-en
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 import { LocationService } from '../shared/servises';
 import { OembedService } from '../shared/servises/oembed/oembed.service';
+import { ShowService } from '../shared/show-service/show.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { OembedService } from '../shared/servises/oembed/oembed.service';
   ],
   imports: [
     routing,
-    HttpModule,
     CommonModule,
     FormsModule,
     RouterModule,
@@ -43,7 +41,7 @@ import { OembedService } from '../shared/servises/oembed/oembed.service';
     TimepickerModule.forRoot()
   ],
   providers: [
-    EventService,
+    ShowService,
     SearchService,
     WowzaCloudService,
     LocationService,

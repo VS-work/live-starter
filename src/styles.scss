@@ -160,18 +160,21 @@ input, textarea {
   .btn-filter {
     width: 100%;
     background-color: $white;
-    border: 1px solid $darkGray;
+    border: 1px solid $fieldsBorder;
+    color: $fieldsColor;
   }
 }
 
 .custom-dropdown-select {
   width: 100%;
   position: relative;
+  color: $fieldsColor;
 
   .btn-filter {
     width: 100% !important;
     background-color: $white;
-    border: 1px solid $darkGray;
+    border: 1px solid $fieldsBorder;
+    color: $fieldsColor;
   }
 
   .checkedValue {
@@ -206,6 +209,7 @@ input, textarea {
     padding: 0 !important;
     margin: 0  !important;
     font-size: 15px  !important;
+    color: $fieldsColor;
 
     &:active {
       color: inherit;
@@ -272,6 +276,8 @@ input, textarea {
 }
 
 .custom-checkbox {
+  color: $fieldsColor;
+
   &-input {
     display: none;
 
@@ -285,7 +291,7 @@ input, textarea {
   }
 
   &-label {
-    padding-left: 20px;
+    padding: 5px 0 5px 20px;
     position: relative;
     cursor: pointer;
     margin: 0;
@@ -301,6 +307,44 @@ input, textarea {
       width: 18px;
       padding-top: 1px;
     }
+  }
+}
+
+.custom-radio-btn {
+  padding: 5px 0 5px 20px;
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  color: $fieldsColor;
+
+  &.active {
+    &:after {
+      display: block;
+    }
+  }
+
+  &:before, &:after {
+    font: normal normal normal 18px/1 FontAwesome;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-top: 1px;
+  }
+
+  &:before {
+    content: "\f1db";
+    left: 0;
+    height: 18px;
+    width: 18px;
+  }
+
+  &:after {
+    content: "\f00c";
+    font-size: 11px;
+    left: 2px;
+    height: 12px;
+    width: 11px;
+    display: none;
   }
 }
 
