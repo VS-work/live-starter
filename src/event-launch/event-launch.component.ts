@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { mergeMap, combineAll, combineLatest } from 'rxjs/operators';
+import { mergeMap, combineAll } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 import { FileItem } from 'ng2-file-upload';
-import * as moment from 'moment';
 import { ToastOptions, ToastyService } from 'ng2-toasty';
 
-import { SearchService, LocalStorageService } from '../shared';
-import { EventService } from './event.service';
+import { SearchService } from '../shared';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 import { customToastOptions } from '../shared/models/toasty-options.model';
 import { MultipleGenres } from './multipleGenres.interface';
@@ -22,24 +21,24 @@ import { EventInfo } from '../shared/event-info/event-info.interface';
 import { NewStreamModel } from '../shared/wowza-streaming-cloud/new-stream.model';
 import { LocationService } from '../shared/servises';
 import { Country } from '../shared/models';
-import { Pattern } from '../enums';
+import { Pattern, CrowdcampaignForSomeOtherArtist, CrowdcampaignForMySelf, CrowdCampaignType } from '../enums';
 import { OembedService } from '../shared/servises/oembed/oembed.service';
 import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
-import { Observable } from 'rxjs/Observable';
+import { UserService } from '../user-service/user.service';
+import { ShowService } from '../shared/show-service/show.service';
 
 @Component({
   selector: 'app-launch-component',
   templateUrl: './event-launch.component.html',
   styleUrls: ['./event-launch.component.scss']
 })
-export class LaunchComponent implements OnInit, OnDestroy {
+export class LaunchComponent implements OnInit {
   @ViewChild(FileUploaderComponent) posterUploader: FileUploaderComponent;
   userProfile: User;
   funded = 0;
   genres: MultipleGenres[] = [];
   locations: Country[];
   activeStep = 1;
-  eventServiceSubscribe: Subscription;
   searchServiceSubscribe: Subscription;
   isValidTimePicker = true;
   minDate: Date = new Date();
@@ -74,27 +73,27 @@ export class LaunchComponent implements OnInit, OnDestroy {
   launchEvent: Show = new Show();
   audios: string[] = [];
   videos: string[] = [];
+  crowdcampaignForSomeOtherArtist: CrowdCampaignType = CrowdcampaignForSomeOtherArtist;
+  crowdCampaignTypes: CrowdCampaignType[] = [CrowdcampaignForMySelf, CrowdcampaignForSomeOtherArtist];
+  checkedCrowdCampaignType: CrowdCampaignType = CrowdcampaignForMySelf;
 
   constructor(private router: Router,
               private searchService: SearchService,
-              private userProfileService: LocalStorageService,
-              private eventService: EventService,
+              private showService: ShowService,
               private wowzaCloudService: WowzaCloudService,
               private toastyService: ToastyService,
               private locationService: LocationService,
-              private oembedService: OembedService) {
+              private oembedService: OembedService,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
-    const userProfile = this.userProfileService.getItem('profile');
+    this.userProfile = this.userService.getUserFromLocalStorage();
 
-    if (userProfile) {
-      this.setUserInfo(userProfile);
-    }
-
-    this.userProfileService.getItemEvent().subscribe((userData) => {
-      this.setUserInfo(userData.value);
-    });
+    this.userService.updateUserAccount
+      .subscribe(() => {
+        this.userProfile = this.userService.getUserFromLocalStorage();
+      });
 
     this.searchServiceSubscribe = this.searchService.getMusicStyles()
       .subscribe(res => {
@@ -111,18 +110,8 @@ export class LaunchComponent implements OnInit, OnDestroy {
       });
 
     this.checkFreeEvent();
-  }
 
-  setUserInfo(profile: string) {
-    try {
-      this.userProfile = new User(JSON.parse(profile));
-    } catch (e) {
-      console.error('something went wrong: ', e);
-    }
-  }
-
-  ngOnDestroy() {
-
+    this.changeCrowfundingType(this.checkedCrowdCampaignType);
   }
 
   isActiveStep(step: number): boolean {
@@ -179,15 +168,17 @@ export class LaunchComponent implements OnInit, OnDestroy {
       });
 
     this.wowzaObj.name = this.launchEvent.name;
-    this.launchEvent.timePerformance.start = moment(this.timePerformance.start).format('dddd, MMMM DD YYYY, h:mm:ss a');
-    this.launchEvent.timePerformance.end = moment(this.timePerformance.end).format('dddd, MMMM DD YYYY, h:mm:ss a');
+    this.launchEvent.timePerformance.start = this.showService.getDateAccordingToTimeZone({date: this.timePerformance.start});
+    this.launchEvent.timePerformance.end = this.showService.getDateAccordingToTimeZone({date: this.timePerformance.end});
+    this.launchEvent.datePerformance = new Date(this.launchEvent.timePerformance.start).getTime();
+    this.launchEvent.dateCreated = new Date().getTime();
 
     const newLiveSreamWowza = this.wowzaCloudService.newLiveStream(this.wowzaObj)
       .pipe(
         mergeMap(res => {
           this.launchEvent.wowza.id = res.id;
 
-          return this.eventService.saveNewEvent(this.launchEvent);
+          return this.showService.saveNewEvent(this.launchEvent);
         }),
       )
       .subscribe(res => {
@@ -207,7 +198,6 @@ export class LaunchComponent implements OnInit, OnDestroy {
   }
 
   changeDate(date: Date): void {
-    this.launchEvent.datePerformance = date.getTime();
     const startHrs = this.timePerformance.start.getHours();
     const startMinutes = this.timePerformance.start.getMinutes();
     const endHrs = this.timePerformance.end.getHours();
@@ -218,12 +208,9 @@ export class LaunchComponent implements OnInit, OnDestroy {
       end: new Date(date.toISOString())
     };
 
-    this.timePerformance.start.setHours(startHrs);
-    this.timePerformance.start.setMinutes(startMinutes);
-    this.timePerformance.start.setSeconds(0);
-    this.timePerformance.end.setHours(endHrs);
-    this.timePerformance.end.setMinutes(endMinutes);
-    this.timePerformance.end.setSeconds(0);
+    this.timePerformance.start.setHours(startHrs, startMinutes, 0, 0);
+    this.timePerformance.end.setHours(endHrs, endMinutes, 0, 0);
+
     this.validateTimePickers();
   }
 
@@ -260,5 +247,15 @@ export class LaunchComponent implements OnInit, OnDestroy {
       ...this.launchEvent.tickets,
       ...tickets
     }
+  }
+
+  changeCrowfundingType(crowdCampaignType: CrowdCampaignType): void | undefined {
+    if (crowdCampaignType !== this.crowdcampaignForSomeOtherArtist) {
+      this.launchEvent.artist = this.userProfile.username;
+
+      return undefined;
+    }
+
+    this.launchEvent.artist = '';
   }
 }

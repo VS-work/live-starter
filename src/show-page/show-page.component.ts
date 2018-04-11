@@ -13,6 +13,7 @@ import { PurchaseParamsModel } from '../shared/purchase-container/purchase-conta
 import { UserService } from '../user-service/user.service';
 import { User } from '../user-service/user.model';
 import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
+import { ShowService } from '../shared/show-service/show.service';
 
 @Component({
   selector: 'app-show-page-component',
@@ -36,6 +37,7 @@ export class ShowPageComponent implements OnInit, OnDestroy {
                private localStorageService: LocalStorageService,
                private domSanitizer: DomSanitizer,
                private userService: UserService,
+               private showService: ShowService,
                private route: ActivatedRoute) {
   }
 
@@ -47,10 +49,10 @@ export class ShowPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCurrentShow(rawQuery: {[key: string]: any}): void {
-    const getCurrentShowSubcribe = this.searchService.getEventsList(rawQuery)
+  getCurrentShow(rawQuery: {findById: string}): void {
+    const getCurrentShowSubcribe = this.showService.getEventsListByQuery(rawQuery)
       .subscribe(res => {
-        this.currentShow = new Show(head(res));
+        this.currentShow = head(res);
         this.getSimilarEvents();
         this.eventInfo = {
           showLocation: this.currentShow.location.country,
@@ -85,12 +87,13 @@ export class ShowPageComponent implements OnInit, OnDestroy {
       exceptById: this.currentShow._id
     };
 
-    const getEventsDataSubcribe = this.searchService.getEventsList(query)
-      .subscribe((res: Show[]) => {
-        this.similarEvents = res.map(show => new Show(show));
+    const getEventsDataSubcribe = this.showService.getEventsListByQuery(query)
+      .subscribe(res => {
+        this.similarEvents = res;
       }, err => {
         console.error('something went wrong: ', err);
       });
+
     this.subscriptionManager.add(getEventsDataSubcribe)
   }
 

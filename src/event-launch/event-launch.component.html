@@ -46,7 +46,39 @@
 
           <div class="inputs col-lg-4 col-md-12">
             <div class="form-group">
-              <label for="show-title">Give an event a title:</label>
+              <span class="field-title">Are you starting a crowdcampaign for yourself or for some other artist to play?</span>
+              <div class="container-radio-fields">
+                <label name="whoomCrowdCampaign"
+                       class="custom-radio-btn"
+                       *ngFor="let campaignType of crowdCampaignTypes"
+                       [(ngModel)]="checkedCrowdCampaignType"
+                       [btnRadio]="campaignType"
+                       (click)="changeCrowfundingType(campaignType)">
+                  {{campaignType.title}}
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="checkedCrowdCampaignType === crowdcampaignForSomeOtherArtist">
+              <label class="field-title" for="artist-name">Band or Artist name:</label>
+              <input type="text"
+                     id="artist-name"
+                     class="form-control"
+                     placeholder="Please enter a artist name"
+                     name="artist"
+                     [(ngModel)]="launchEvent.artist"
+                     (change)="setEventInfo()"
+                     #artist="ngModel"
+                     required/>
+              <div
+                class="invalid-feedback"
+                [class.visible]="!artist.valid && (artist.dirty || eventForm.submitted)">
+                Field can't be empty. Please add artist
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="show-title" class="field-title">Give an event a title:</label>
               <input type="text"
                      id="show-title"
                      class="form-control"
@@ -58,31 +90,6 @@
               <div
                 [class]="!showName.valid && (showName.dirty || eventForm.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
                 Field can't be empty
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Event location:</label>
-              <div class="btn-group custom-dropdown-select" dropdown>
-                <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
-                  {{launchEvent.location.country || 'Select location'}} <span class="caret"></span>
-                </button>
-                <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
-                  <li role="menuitem" *ngFor="let location of locations" class="dropdown-item">
-                    <label [for]="location.sortname">{{location.name}}</label>
-                    <input type="radio"
-                           name="showLocation"
-                           [(ngModel)]="launchEvent.location.country"
-                           #showLocation="ngModel"
-                           [id]="location.sortname"
-                           [value]="location.name"
-                           required/>
-                  </li>
-                </ul>
-              </div>
-              <div
-                [class]="!launchEvent.location.country.length && eventForm.submitted ? 'invalid-feedback visible':'invalid-feedback'">
-                Choose a location
               </div>
             </div>
 
@@ -99,7 +106,7 @@
             </div>
 
             <div class="form-group">
-              <label for="show-tickets">How many people would join me:</label>
+              <label for="show-tickets" class="field-title">How many people would join me:</label>
               <input type="number"
                      id="show-tickets"
                      class="form-control"
@@ -118,7 +125,7 @@
             </div>
 
             <div class="form-group">
-              <label for="price">They willing to pay per ticket:</label>
+              <label for="price" class="field-title">They willing to pay per ticket:</label>
               <input type="number"
                      id="price"
                      class="form-control"
@@ -137,7 +144,7 @@
             </div>
 
             <div class="form-group">
-              <label for="ticketsSold">Amount of sold tickets to perform the show 0:</label>
+              <label for="ticketsSold" class="field-title">Amount of sold tickets to perform the show 0:</label>
               <input type="number"
                      id="ticketsSold"
                      class="form-control"
@@ -168,23 +175,6 @@
       <form class="row" #eventFormStep2="ngForm">
         <div class="col-lg-12 col-xl-9">
           <div class="name-date-container row">
-            <div class="form-group col-sm-12 col-md-6">
-              <label for="artist-name">Artist Name:</label>
-              <input type="text"
-                     id="artist-name"
-                     class="form-control"
-                     placeholder="Please enter a artist name"
-                     name="artist"
-                     [(ngModel)]="launchEvent.artist"
-                     (change)="setEventInfo()"
-                     #artist="ngModel"
-                     required/>
-              <div
-                [class]="!artist.valid && (artist.dirty || eventFormStep2.submitted) ? 'invalid-feedback visible':'invalid-feedback'">
-                Field can't be empty. Please add artist
-              </div>
-            </div>
-
             <div class="form-group col-sm-12 col-md-6 date-picker">
               <label class="input-label">Planned date and time to start:</label>
               <div class="input-group">
@@ -251,13 +241,13 @@
           </div>
 
           <app-multiple-inputs class="form-group"
-                               [defaultvalues]="this.launchEvent.audios"
+                               [defaultvalues]="this.audios"
                                [config]="embedAudioConfig"
                                (changeValues)="setAudiosArr($event)">
           </app-multiple-inputs>
 
           <app-multiple-inputs class="form-group"
-                               [defaultvalues]="this.launchEvent.videos"
+                               [defaultvalues]="this.videos"
                                [config]="embedVideoConfig"
                                (changeValues)="setVideosArr($event)">
           </app-multiple-inputs>

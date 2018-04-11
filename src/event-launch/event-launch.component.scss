@@ -100,12 +100,6 @@
   margin-bottom: 10px;
 }
 
-.btn-filter {
-  width: 100%;
-  background-color: #fff;
-  border: 1px solid #49494c;
-}
-
 .goToSecondStep {
   text-align: center;
 }
@@ -208,4 +202,19 @@ label {
   box-shadow: none !important;
   width: 55px;
   cursor: pointer;
+}
+
+.container-radio-fields {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  & > * {
+    width: auto;
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
 }

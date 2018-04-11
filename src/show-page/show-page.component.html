@@ -20,7 +20,7 @@
 
           <app-statistics [statistics]="currentShow?.statistics" [id]="currentShow?._id"></app-statistics>
         </div>
-        <app-timer [datePerformance]="currentShow?.datePerformance"></app-timer>
+        <app-timer [datePerformance]="currentShow?.timePerformance.start"></app-timer>
 
       </div>
       <!--<app-wowza-player [showData]="currentShow"></app-wowza-player>-->
