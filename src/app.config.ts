@@ -15,8 +15,8 @@ export class Config {
   static api = environment.api;
 
   public static objToQuery(data:  { [key: string]: any }): string {
-    return Object.keys(data).map((k: string) => {
-      return encodeURIComponent(k) + '=' + data[k];
-    }).join('&');
+    return Object.keys(data)
+      .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`)
+      .join('&');
   }
 }

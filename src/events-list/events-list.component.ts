@@ -6,11 +6,11 @@ import * as moment from 'moment';
 import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
 import { LaunchEvent } from '../event-launch/event-launch.interface';
-import { Show } from '../event-launch/event-launch.model';
 import { ShowInfo } from '../shared/show-info/info.interface';
 import { User } from '../user-service/user.model';
 import { LocationService } from '../shared/servises';
 import { Country } from '../shared/models';
+import { Show } from '../shared/show-service/show.model';
 
 @Component({
   selector: 'app-events-list-component',

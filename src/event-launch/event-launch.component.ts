@@ -2,25 +2,20 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { mergeMap, combineAll } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 import { FileItem } from 'ng2-file-upload';
 import { ToastOptions, ToastyService } from 'ng2-toasty';
 
-import { SearchService } from '../shared';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 import { customToastOptions } from '../shared/models/toasty-options.model';
-import { MultipleGenres } from './multipleGenres.interface';
 import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
 import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
 import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
 import { User } from '../user-service/user.model';
 import { EventInfo } from '../shared/event-info/event-info.interface';
 import { NewStreamModel } from '../shared/wowza-streaming-cloud/new-stream.model';
-import { LocationService } from '../shared/servises';
-import { Country } from '../shared/models';
 import { Pattern, CrowdcampaignForSomeOtherArtist, CrowdcampaignForMySelf, CrowdCampaignType } from '../enums';
 import { OembedService } from '../shared/servises/oembed/oembed.service';
 import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
@@ -34,12 +29,10 @@ import { ShowService } from '../shared/show-service/show.service';
 })
 export class LaunchComponent implements OnInit {
   @ViewChild(FileUploaderComponent) posterUploader: FileUploaderComponent;
+  @ViewChild('evtHashtags') evtHashtags: NgForm;
   userProfile: User;
   funded = 0;
-  genres: MultipleGenres[] = [];
-  locations: Country[];
   activeStep = 1;
-  searchServiceSubscribe: Subscription;
   isValidTimePicker = true;
   minDate: Date = new Date();
   bsValue: Date = new Date();
@@ -76,13 +69,13 @@ export class LaunchComponent implements OnInit {
   crowdcampaignForSomeOtherArtist: CrowdCampaignType = CrowdcampaignForSomeOtherArtist;
   crowdCampaignTypes: CrowdCampaignType[] = [CrowdcampaignForMySelf, CrowdcampaignForSomeOtherArtist];
   checkedCrowdCampaignType: CrowdCampaignType = CrowdcampaignForMySelf;
+  hashtags = '';
+  patterns = Pattern;
 
   constructor(private router: Router,
-              private searchService: SearchService,
               private showService: ShowService,
               private wowzaCloudService: WowzaCloudService,
               private toastyService: ToastyService,
-              private locationService: LocationService,
               private oembedService: OembedService,
               private userService: UserService) {
   }
@@ -95,20 +88,6 @@ export class LaunchComponent implements OnInit {
         this.userProfile = this.userService.getUserFromLocalStorage();
       });
 
-    this.searchServiceSubscribe = this.searchService.getMusicStyles()
-      .subscribe(res => {
-        this.genres = res.map((genre: string) => ({isChecked: false, value: genre}));
-      }, err => {
-        console.error('something went wrong: ', err);
-      });
-
-    this.searchServiceSubscribe = this.locationService.getCountries()
-      .subscribe(res => {
-        this.locations = res;
-      }, err => {
-        console.error('something went wrong: ', err);
-      });
-
     this.checkFreeEvent();
 
     this.changeCrowfundingType(this.checkedCrowdCampaignType);
@@ -119,8 +98,7 @@ export class LaunchComponent implements OnInit {
   }
 
   goToNextStep(eventForm: NgForm): void | undefined {
-    this.launchEvent.genres = this.genres.filter(genre => genre.isChecked).map(genre => genre.value);
-    if (eventForm.invalid || !this.launchEvent.genres.length) {
+    if (eventForm.invalid) {
       const toastOptions: ToastOptions = {...customToastOptions, ...{title: 'Error', msg: 'Form is not valid'}};
       this.toastyService.error(toastOptions);
       return undefined;
@@ -140,9 +118,8 @@ export class LaunchComponent implements OnInit {
 
   setEventInfo(): void {
     this.eventInfo = {
-      showLocation: this.launchEvent.location.country,
       artistId: this.launchEvent.creator,
-      showGenres: this.launchEvent.genres,
+      showHashtags: this.launchEvent.hashtags,
       tickets: this.launchEvent.tickets
     };
   }
@@ -257,5 +234,17 @@ export class LaunchComponent implements OnInit {
     }
 
     this.launchEvent.artist = '';
+  }
+
+  convertHashtagsToList(evtHashtags: NgForm): void | undefined {
+    this.hashtags = this.hashtags.trim();
+
+    if (evtHashtags.invalid) {
+      return undefined;
+    }
+
+    this.launchEvent.hashtags = this.hashtags
+      .trim()
+      .split(' ');
   }
 }

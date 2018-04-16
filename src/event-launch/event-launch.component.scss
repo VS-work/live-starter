@@ -26,6 +26,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  & > * {
+    width: 100%;
+  }
 }
 
 .display-data {
@@ -45,38 +49,6 @@
     &:last-child {
       padding-right: 10px;
     }
-  }
-}
-
-.genres-selector {
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.group-genres {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-
-  & > * {
-    margin: 5px;
-  }
-}
-
-.genre-button {
-  color: #62686b;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 20px;
-  border-radius: 10px;
-  border: 1px solid #62686b;
-  background-color: transparent;
-  padding: 0 10px;
-  cursor: pointer;
-
-  &:hover, &.active {
-    background-color: #e3e3ef;
-    color: #62686b;
   }
 }
 
@@ -168,16 +140,6 @@
     font-weight: 600;
     line-height: 17px;
     cursor: pointer;
-  }
-}
-
-.artists-genres {
-  color: #8e8e9a;
-  font-size: 12px;
-  margin: 10px 0;
-
-  .genres {
-    font-weight: 700;
   }
 }
 

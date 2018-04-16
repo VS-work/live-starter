@@ -9,9 +9,5 @@ import { ShortUserInfo } from './short-user-info.interface';
 })
 export class ShortUserInfoComponent {
   @Input() info: ShortUserInfo;
-  @Input() isLocation = true;
 
-  constructor() {
-
-  }
 }

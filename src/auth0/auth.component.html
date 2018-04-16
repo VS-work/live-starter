@@ -1,7 +1,7 @@
 <div class="current-user-container" *ngIf="isAuthenticated && userProfile; else loginContainer">
   <div dropdown>
     <div class="current-user-dropdown" dropdownToggle>
-     <app-short-user-info [info]="shortUserInfo" [isLocation]="false"></app-short-user-info>
+     <app-short-user-info [info]="shortUserInfo"></app-short-user-info>
     </div>
     <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="custom-dropdown-menu dropdown-menu dropdown-menu-right">
       <li *ngFor="let menuItem of mainMenuItems">
