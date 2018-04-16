@@ -46,7 +46,6 @@ export class EventInfoComponent implements OnDestroy {
         this.shortUserInfo = {
           avatar: this.artistProfile.avatar,
           username: this.artistProfile.username,
-          showLocation: this.info.showLocation
         };
       });
   }

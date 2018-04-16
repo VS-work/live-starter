@@ -4,7 +4,7 @@ import { SearchService } from '../shared';
 import { User } from '../user-service/user.model';
 import { Config } from '../app.config';
 import { ShowInfo } from '../shared/show-info/info.interface';
-import { Show } from '../event-launch/event-launch.model';
+import { Show } from '../shared/show-service/show.model';
 
 @Component({
   selector: 'app-my-followins',

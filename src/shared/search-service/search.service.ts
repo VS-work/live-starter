@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 
 import { Config } from '../../app.config';
-import { Show } from '../../event-launch/event-launch.model';
+import { Show } from '../show-service/show.model';
 import { ShowInfo } from '../show-info/info.interface';
 import { User } from '../../user-service/user.model';
 

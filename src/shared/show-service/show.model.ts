@@ -44,6 +44,7 @@ export class Show {
   info: string;
   genres: string[];
   posters: string[];
+  hashtags: string[];
   audios: LinkWithEmbedCode[];
   videos: LinkWithEmbedCode[];
   appreciations: string[];
@@ -52,9 +53,6 @@ export class Show {
   isFree: boolean;
   isFreeForMe: boolean;
   isBought: boolean;
-  location: {
-    country: string;
-  };
   dateCreated: number;
   datePerformance: number;
   timePerformance: {
@@ -84,6 +82,7 @@ export class Show {
     this.info = eventData ? eventData.info : '';
     this.genres = eventData ? eventData.genres : [];
     this.posters = eventData ? eventData.posters : [];
+    this.hashtags = eventData ? eventData.hashtags : [];
     this.audios = eventData ? eventData.audios : [];
     this.videos = eventData ? eventData.videos : [];
     this.appreciations = eventData ? eventData.appreciations : [];
@@ -92,7 +91,6 @@ export class Show {
     this.isFree = eventData ? eventData.isFree : false;
     this.isFreeForMe = eventData ? eventData.isFreeForMe : false;
     this.isBought = eventData ? eventData.isBought : false;
-    this.location = eventData ? eventData.location : {country: ''};
     this.dateCreated = eventData ? eventData.dateCreated : new Date().getTime();
     this.datePerformance = eventData ? eventData.datePerformance : new Date().getTime();
     this.timePerformance = eventData ? eventData.timePerformance : new DefaultTimePerformance();

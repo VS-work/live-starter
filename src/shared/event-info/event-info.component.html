@@ -7,10 +7,10 @@
     </div>
   </div>
 
-  <div class="genres-container">
-    <span class="genres">Genres:</span>
-    <span *ngFor="let genre of info?.showGenres; last as isLast">
-      {{isLast ? genre : genre + ', '}}
+  <div class="hashtags-container" *ngIf="info && info.showHashtags.length">
+    <span class="hashtag">Hashtags:</span>
+    <span *ngFor="let hashtag of info?.showHashtags; last as isLast">
+      {{isLast ? hashtag : hashtag + '&nbsp;'}}
     </span>
   </div>
 

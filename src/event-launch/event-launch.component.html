@@ -42,6 +42,26 @@
                 Choose one or more genres
               </div>
             </div>
+
+            <div class="tags-container">
+              <div class="form-group">
+                <label for="hashTags" class="field-title">Hashtags:</label>
+                <input type="text"
+                       id="hashtags"
+                       class="form-control"
+                       placeholder="Please enter a #hashtags"
+                       [(ngModel)]="hashtags"
+                       #evtHashtags="ngModel"
+                       name="tags-field"
+                       [pattern]="patterns.Hashtags"
+                       (blur)="convertHashtagsToList(evtHashtags)"
+                       required/>
+                <div class="invalid-feedback"
+                  [class.visible]="!evtHashtags.valid && (evtHashtags.dirty || eventForm.submitted)">
+                  Please add at least one #hashtag
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="inputs col-lg-4 col-md-12">

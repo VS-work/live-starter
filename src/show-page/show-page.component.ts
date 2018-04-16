@@ -55,9 +55,8 @@ export class ShowPageComponent implements OnInit, OnDestroy {
         this.currentShow = head(res);
         this.getSimilarEvents();
         this.eventInfo = {
-          showLocation: this.currentShow.location.country,
           artistId: this.currentShow.creator,
-          showGenres: this.currentShow.genres,
+          showHashtags: this.currentShow.hashtags,
           tickets: this.currentShow.tickets
         };
         this.audios = this.parseEmbeddingfiles(this.currentShow.audios);
@@ -76,12 +75,16 @@ export class ShowPageComponent implements OnInit, OnDestroy {
     this.subscriptionManager.add(getCurrentShowSubcribe);
   }
 
-  getSimilarEvents(): void {
+  getSimilarEvents(): void |undefined {
+    if (!this.currentShow.hashtags.length) {
+      return undefined;
+    }
+
     const minDate = new Date();
     minDate.setHours(0, 0, 0);
 
     const query = {
-      genres: this.currentShow.genres,
+      hashtags: this.currentShow.hashtags,
       limit: 10,
       minDate,
       exceptById: this.currentShow._id

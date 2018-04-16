@@ -5,11 +5,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { SearchService, LocalStorageService } from '../shared';
 import { User } from '../user-service/user.model';
 import { ShowInfo } from '../shared/show-info/info.interface';
-import { Show } from '../event-launch/event-launch.model';
+
 import { MultipleGenres } from '../event-launch/multipleGenres.interface';
 import { QueryToFindArtists } from '../shared/search-service/search.service';
 import { LocationService } from '../shared/servises';
 import { Country } from '../shared/models';
+import { Show } from '../shared/show-service/show.model';
 
 const defaultQuery: QueryToFindArtists = {
   findByGenre: [],
