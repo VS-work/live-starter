@@ -18,6 +18,7 @@ import { routing } from '../routes';
 import { FooterComponent } from '../footer';
 import { AuthGuard } from '../auth0/auth.guard';
 import { AuthModule } from '../auth0/auth.module';
+import { ShowService } from '../shared/show-service/show.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AuthModule } from '../auth0/auth.module';
   ],
   providers: [
     LocalStorageService,
-    AuthGuard
+    AuthGuard,
+    ShowService
   ],
   bootstrap: [AppComponent]
 })

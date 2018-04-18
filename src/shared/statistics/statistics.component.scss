@@ -10,10 +10,21 @@
 
   & > * {
     padding: 0px 7px;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .statistics-title {
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .statistics-value {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: baseline;
 
     .fa {
       padding-right: 5px;
@@ -26,4 +37,28 @@
     cursor: pointer;
   }
 
+}
+
+@media (min-width: map-get($grid-breakpoints, sm)) {
+  .statistics-container {
+    &.with-title {
+
+      & > * {
+        padding: 0 15px;
+      }
+
+      .statistics-title {
+        font-size: 18px;
+      }
+
+      .statistics-value {
+        font-size: 18px;
+        color: $darkGray;
+
+        .fa {
+          font-size: 18px;
+        }
+      }
+    }
+  }
 }

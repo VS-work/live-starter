@@ -14,6 +14,8 @@ import { UserService } from '../user-service/user.service';
 import { User } from '../user-service/user.model';
 import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
 import { ShowService } from '../shared/show-service/show.service';
+import { StatisticsItem } from '../shared/statistics/statistics.interface';
+import { STATISTICS_LIKES, STATISTICS_FOLLOWERS } from '../shared/statistics/statistics-types.model';
 
 @Component({
   selector: 'app-show-page-component',
@@ -31,6 +33,7 @@ export class ShowPageComponent implements OnInit, OnDestroy {
   purchaseParams: PurchaseParamsModel;
   currentUser: User = null;
   isRemindMe = false;
+  statistics: StatisticsItem[] = [];
 
   constructor( private router: Router,
                private searchService: SearchService,
@@ -59,6 +62,11 @@ export class ShowPageComponent implements OnInit, OnDestroy {
           showHashtags: this.currentShow.hashtags,
           tickets: this.currentShow.tickets
         };
+        this.statistics = [
+          {...STATISTICS_LIKES, ...{value: this.currentShow.statistics.likes}},
+          {...STATISTICS_FOLLOWERS, ...{value: this.currentShow.statistics.followers}}
+        ];
+
         this.audios = this.parseEmbeddingfiles(this.currentShow.audios);
         this.videos = this.parseEmbeddingfiles(this.currentShow.videos);
         this.currentShow.wowza = {

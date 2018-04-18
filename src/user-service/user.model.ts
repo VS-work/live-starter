@@ -169,6 +169,6 @@ export class User {
     this.genres = user.genres || [];
 
     const typeUserLink = user.type === 'fan' ? RouterLinks.FanProfile : RouterLinks.ArtistProfile;
-    this.profileUrl = `${environment.frontendPath}/${typeUserLink}/${this._id}`;
+    this.profileUrl = `${environment.frontendPath}/${typeUserLink}?id=${this._id}`;
   }
 }

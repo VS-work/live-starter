@@ -20,6 +20,9 @@ export class FollowComponent implements OnDestroy {
     }
     this.getCurrentUser(userId);
   };
+
+  @Input() withIcon = true;
+
   followingSubscribe: Subscription;
   currentUser: User;
   rqstObj: FollowRqstObj;

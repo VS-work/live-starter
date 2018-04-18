@@ -1,33 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-import { SharedModule } from '../shared';
-import { FanProfileComponent } from './fan-profile.component';
-import { BiographyComponent } from './bio/bio.component';
-import { CommentsComponent } from './comments/comments.component';
-import { ShowsComponent } from './shows/shows.component';
-import { FanProfileService } from './fan-profile.service';
 import { routing } from '../modules/fan-profile.routing';
+import { FanProfileComponent } from './fan-profile.component';
+import { ShowInfoModule } from '../shared/show-info/show-info.module';
+import { FollowModule } from '../shared/follow/follow.module';
+import { StatisticsModule } from '../shared/statistics/statistics.module';
 
 @NgModule({
   declarations: [
     FanProfileComponent,
-    BiographyComponent,
-    CommentsComponent,
-    ShowsComponent
-  ],
+ ],
   imports: [
     routing,
     CommonModule,
-    SharedModule,
-    ButtonsModule.forRoot(),
     TabsModule.forRoot(),
-    FormsModule
+    ShowInfoModule,
+    FollowModule,
+    StatisticsModule
   ],
-  providers: [FanProfileService],
+  providers: [],
   exports: []
 })
 export class FanProfileModule {

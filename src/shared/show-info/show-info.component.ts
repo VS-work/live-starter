@@ -3,15 +3,21 @@ import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 
-import { ShowInfoDate } from './showInfoDate.interface';
 import { Config } from '../../app.config';
+import { UserService } from '../../user-service/user.service';
 import { Show } from '../show-service/show.model';
-import { User } from '../../user-service/user.model';
-import { Statistics } from '../statistics/statistics.interface';
-import { LocalStorageService } from '../index';
-import { ShowInfo } from './info.interface';
 import { PurchaseParamsModel } from '../purchase-container/purchase-container.model';
+import { User } from '../../user-service/user.model';
 import { RouterLinks } from '../../enums/router-links.emum';
+import { StatisticsItem } from '../statistics/statistics.interface';
+import { ShowInfo } from './info.interface';
+import { ShowInfoDate } from './showInfoDate.interface';
+import {
+  STATISTICS_FOLLOWERS,
+  STATISTICS_LIKES,
+  STATISTICS_SHOWS,
+  STATISTICS_VIEWERS
+} from '../statistics/statistics-types.model';
 
 @Component({
   selector: 'app-show-info',
@@ -32,19 +38,26 @@ export class ShowInfoComponent {
       this.parseDate(this.show.timePerformance.start);
       this.purchaseParams = new PurchaseParamsModel(this.show._id, this.currentUser ? this.currentUser._id : null);
     }
-
     if (!this.isEvent) {
       this.user = data.user;
-      this.statistics = {
-        likes: this.user.statistics.likes.liked,
-        followers: this.user.statistics.followers,
-        viewers: this.user.statistics.viewers,
-        shows: this.user.shows.owned
-      };
+      this.userProfileLink = this.user.type === 'fan' ? `/${RouterLinks.FanProfile}` : `/${RouterLinks.ArtistProfile}`;
+      this.statistics = [
+        {...STATISTICS_VIEWERS, ...{value: this.user.statistics.viewers}},
+        {...STATISTICS_LIKES, ...{value: this.user.statistics.likes.liked}},
+        {...STATISTICS_FOLLOWERS, ...{value: this.user.statistics.followers}},
+        {...STATISTICS_SHOWS, ...{value: this.user.shows.owned}}
+      ];
       return;
     }
-    this.user = new User({_id: this.show.creator});
-    this.statistics = this.show.statistics;
+    const userSubscription = this.userService.getUser({_id: this.show.creator});
+    userSubscription.subscribe(user => {
+      this.user = user;
+      this.userProfileLink = this.user.type === 'fan' ? `/${RouterLinks.FanProfile}` : `/${RouterLinks.ArtistProfile}`;
+    });
+    this.statistics = [
+      {...STATISTICS_LIKES, ...{value: this.show.statistics.likes}},
+      {...STATISTICS_FOLLOWERS, ...{value: this.show.statistics.followers}}
+    ];
   };
   @Input() isSmall = false;
   @Input() isMyEvents = false;
@@ -54,28 +67,16 @@ export class ShowInfoComponent {
   show: Show;
   user: User;
   currentUser: User;
-  statistics: Statistics;
+  statistics: StatisticsItem[] = [];
   isEvent: boolean;
-  isGoToEventPage = true;
   purchaseParams: PurchaseParamsModel;
   manageLiveStreamLink = `/${RouterLinks.ManageLiveStream}`;
-  artistProfileLink = `/${RouterLinks.ArtistProfile}`;
+  userProfileLink: string;
   showPageLink = `/${RouterLinks.ShowPage}`;
 
   constructor(private router: Router,
-              private localStorageService: LocalStorageService) {
-    try {
-      const currentUserProfile = JSON.parse(this.localStorageService.getItem('profile'));
-      if (!currentUserProfile) {
-        this.currentUser = null;
-        return;
-      }
-
-      this.currentUser = new User(currentUserProfile);
-    } catch (err) {
-      this.currentUser = null;
-      console.error('something went wrong: ', err);
-    }
+              private userService: UserService) {
+    this.currentUser = this.userService.getUserFromLocalStorage();
   }
 
   parseDate(date: string): void {
@@ -101,29 +102,6 @@ export class ShowInfoComponent {
     }
 
     return `${Config.api}/uploads/posters/${this.show.posters[0]}`;
-  }
-
-  gotoAnotherPage(isEvent = this.isEvent): void | undefined {
-    let path = '/show-page';
-
-    if (!isEvent) {
-      path = 'artist-profile';
-      const setcurrentUser = {
-        _id: this.user._id
-      };
-      this.localStorageService.setItem('currentUser', setcurrentUser);
-    }
-
-    if (isEvent) {
-      const setCurrentShowData = {
-        findById: this.show._id,
-        findByName: this.show.name,
-        findByCreator: this.show.creator
-      };
-      this.localStorageService.setItem('currentShow', setCurrentShowData);
-    }
-
-    this.router.navigate([path]);
   }
 
   setShowIsBought(evt: boolean, show: Show): void {

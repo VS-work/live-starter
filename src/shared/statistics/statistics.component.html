@@ -1,18 +1,15 @@
-<div class="statistics-container">
-  <div class="viewers" *ngIf="!isEvent">
-    <i class="fa fa-eye" aria-hidden="true"></i>
-    {{statistics?.viewers}}
-  </div>
-  <div class="likes" (click)="setLike()">
-    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-    {{statistics?.likes || 0}}
-  </div>
-  <div class="followers">
-    <i class="fa fa-user" aria-hidden="true"></i>
-    {{statistics?.followers || 0}}
-  </div>
-  <div class="shows" *ngIf="!isEvent">
-    <i class="fa fa-play" aria-hidden="true"></i>
-    {{statistics?.shows || 0}}
+<div class="statistics-container" [class.with-title]="isTitle">
+  <div class="statistics-item"
+       [class.likes]="item.title === 'Likes'"
+       *ngFor="let item of statistics"
+       (click)="setLike(item)">
+    <div class="statistics-value"
+         [tooltip]="item.tooltip"
+         [isDisabled]="isTitle"
+         placement="bottom">
+      <i class="fa {{item.icon}}" aria-hidden="true"></i>
+      {{item.value}}
+    </div>
+    <div class="statistics-title" *ngIf="isTitle">{{item.title}}</div>
   </div>
 </div>
