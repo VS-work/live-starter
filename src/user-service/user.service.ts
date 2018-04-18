@@ -39,10 +39,12 @@ export class UserService {
       }));
   }
 
-  getUser(data: GetUserData): Observable<any> {
+  getUser(data: GetUserData): Observable<User> {
     const query = Config.objToQuery(data);
     return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`)
-      .pipe(catchError(err => {
+      .pipe(
+        map(user => new User(user)),
+        catchError(err => {
         console.error('something went wrong: ', err);
 
         return Observable.throw(err.error)

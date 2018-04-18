@@ -1,4 +1,4 @@
 <div class="email-follow">
-  <i class="fa fa-envelope-o" aria-hidden="true"></i>
+  <i class="fa fa-envelope-o" *ngIf="withIcon" aria-hidden="true"></i>
   <button type="button" (click)="follow()">{{btnText}}</button>
 </div>

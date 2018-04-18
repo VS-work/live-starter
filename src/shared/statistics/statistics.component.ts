@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LikeRequestObj, Statistics } from './statistics.interface';
-import { StatisticsService } from './statistics.service';
-import { User } from '../../edit-profile/user.interface';
+
 import { ToastOptions, ToastyService } from 'ng2-toasty';
+
+import { StatisticsService } from './statistics.service';
+import { UserService } from '../../user-service/user.service';
+import { User } from '../../user-service/user.model';
 import { customToastOptions } from '../models/toasty-options.model';
+import { LikeRequestObj, StatisticsItem } from './statistics.interface';
 
 @Component({
   selector: 'app-statistics',
@@ -11,36 +14,27 @@ import { customToastOptions } from '../models/toasty-options.model';
   styleUrls: ['../../my-events/styles.scss', './statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
-  @Input() statistics: Statistics;
+  @Input() statistics: StatisticsItem[] = [];
   @Input() id: string;
   @Input() isEvent = true;
+  @Input() isTitle = false;
   user: User;
 
-  constructor(private statisticsService: StatisticsService, private toastyService: ToastyService) {
+  constructor(private statisticsService: StatisticsService,
+              private toastyService: ToastyService,
+              private userService: UserService) {
 
   }
 
   ngOnInit() {
-    this.getcurrentUser();
+    this.user = this.userService.getUserFromLocalStorage();
   }
 
-  getcurrentUser(): void | undefined {
-    try {
-      const userProfile = localStorage.getItem('profile');
-
-      if (!userProfile) {
-        this.user = null;
-
-        return undefined;
-      }
-
-      this.user = JSON.parse(userProfile);
-    } catch (err) {
-      console.log('err: ', err);
+  setLike(item: StatisticsItem): void  {
+    if (item.title !== 'Likes') {
+      return;
     }
-  }
 
-  setLike(): void {
     if (!this.user) {
       const toastOptions: ToastOptions = {
         ...customToastOptions,
@@ -48,7 +42,7 @@ export class StatisticsComponent implements OnInit {
       };
       this.toastyService.error(toastOptions);
 
-      return undefined;
+      return;
     }
 
     const rqstObj: LikeRequestObj = {
@@ -59,18 +53,19 @@ export class StatisticsComponent implements OnInit {
     if (!this.isEvent) {
       this.statisticsService.setArtistLike(rqstObj)
         .subscribe(res => {
-          this.statistics.likes = res.likesCount;
+          item.value = res.likesCount;
         }, err => {
-          console.log('error', err);
+          console.error('something went wrong: ', err);
         });
+
       return;
     }
 
     this.statisticsService.setShowLike(rqstObj)
       .subscribe(res => {
-        this.statistics.likes = res.likesCount;
+        item.value = res.likesCount;
       }, err => {
-        console.log('error', err);
+        console.error('something went wrong: ', err);
       });
   }
 }

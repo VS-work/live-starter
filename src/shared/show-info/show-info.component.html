@@ -21,26 +21,20 @@
     <div class="event-info" *ngIf="isEvent; else atristInfo">
       <div class="info-top">
         <a [routerLink]="showPageLink" [queryParams]="{id: show._id}" class="show-name">{{show?.name}}</a>
-        <app-statistics [statistics]="show.statistics" [id]="show._id"></app-statistics>
+        <app-statistics [statistics]="statistics" [id]="show._id"></app-statistics>
       </div>
 
-      <div class="show-creator" (click)="gotoAnotherPage(!isGoToEventPage)">
+      <div class="show-creator">
         by
-        <a [routerLink]="artistProfileLink" [queryParams]="{id: show?.creator}">{{show?.creator}}</a>
+        <a [routerLink]="userProfileLink" [queryParams]="{id: show?.creator}">{{user?.username}}</a>
       </div>
     </div>
 
     <ng-template #atristInfo>
       <div class="info-top">
         <div class="left-part">
-          <span class="show-name" (click)="gotoAnotherPage(!isGoToEventPage)">{{user?.username}}</span>
+          <a class="show-name" [routerLink]="userProfileLink" [queryParams]="{id: show?.creator}">{{user?.username}}</a>
           <div class="kind-of-activity" *ngIf="user?.position">{{user?.position}}</div>
-          <div class="genres-container">
-            <span class="genres-title">Genres:</span>
-            <span *ngFor="let genre of user?.genres; last as isLast">
-              {{isLast ? genre : genre + ', '}}
-            </span>
-          </div>
         </div>
 
         <div class="right-part">
