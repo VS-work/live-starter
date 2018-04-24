@@ -8,10 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { ScrollToModule } from 'ng2-scroll-to';
 
 import { SearchComponent } from './search';
-import { FeaturedArtistsComponent, FeaturedArtistsService } from './featured-artists';
-import { PopularShowsComponent } from './popular-shows';
-import { ArtistsYouMayLikeComponent } from './artists-you-may-like';
-import { UpcomingShowsComponent } from './upcoming-shows';
 import { HowItWasComponent } from './how-it-was';
 import { WhatTheySayComponent } from './what-they-say';
 import { PrefooterComponent } from './prefooter';
@@ -30,10 +26,6 @@ import { WindowRefService } from './win-ref-service';
 @NgModule({
   declarations: [
     SearchComponent,
-    FeaturedArtistsComponent,
-    PopularShowsComponent,
-    ArtistsYouMayLikeComponent,
-    UpcomingShowsComponent,
     HowItWasComponent,
     WhatTheySayComponent,
     PrefooterComponent,
@@ -57,15 +49,10 @@ import { WindowRefService } from './win-ref-service';
   providers: [
     SearchService,
     LocalStorageService,
-    FeaturedArtistsService,
     WindowRefService
   ],
   exports: [
     SearchComponent,
-    FeaturedArtistsComponent,
-    PopularShowsComponent,
-    ArtistsYouMayLikeComponent,
-    UpcomingShowsComponent,
     HowItWasComponent,
     WhatTheySayComponent,
     PrefooterComponent,

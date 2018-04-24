@@ -552,22 +552,27 @@
   color: $orange;
   font-size: 18px;
   line-height: 32px;
+  display: block;
+  text-align: center;
 }
 
 .show-bought {
   color: $orange;
   font-size: 16px;
-  line-height: 32px;
+  line-height: 28px;
   display: block;
   text-align: center;
 }
 
 .doesnt-have-event {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 59px;
   color: $orange;
   font-size: 16px;
   line-height: 1.3;
-  text-align: center;
 }
 
 .live-evt {

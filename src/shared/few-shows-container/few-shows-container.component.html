@@ -1,0 +1,18 @@
+<div class="shows-container">
+  <div class="shows-container-head d-flex flex-wrap justify-content-between align-items-center">
+    <h4 class="title">{{config.title}}</h4>
+    <button type="button" class="btn-with-border btn-dark-blue small" (click)="seeMore()">
+      See more
+      <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="shows-container-body">
+    <div class="row" *ngIf="config.items.length">
+      <div class="col-12 col-sm-6 col-lg-4 show-item"
+           *ngFor="let item of config.items">
+        <app-show-info [info]="item" [isSmall]="true"></app-show-info>
+      </div>
+    </div>
+  </div>
+</div>

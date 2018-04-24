@@ -1,16 +1,20 @@
 <div class="prefooter-container row">
   <div class="fans col-md-6">
     <div class="info-container fan col-md-9">
-        <img src="assets/img/fan.png" alt="">
+      <div class="prefooter-icon-container">
+        <img class="prefooter-icon" src="assets/img/fan.png" alt="">
+      </div>
       <div class="info">Fans, demand your favorite artists and get access to exclusive perks</div>
-      <button class="back-to-top" (click)="signUp()">Sign up</button>
+      <button class="btn-with-border btn-white" (click)="signUp()">{{'Sign up' | uppercase}}</button>
     </div>
   </div>
   <div class="artists col-md-6">
     <div class="info-container artist col-md-9">
-        <img src="assets/img/artist.png" alt="">
+      <div class="prefooter-icon-container">
+        <img class="prefooter-icon" src="assets/img/artist.png" alt="">
+      </div>
       <div class="info">Artists, know where your fanbase and superfans are and engage with them for free</div>
-      <button>Learn More</button>
+      <button class="btn-with-border btn-white">{{'Learn More' | uppercase}}</button>
     </div>
   </div>
 </div>
