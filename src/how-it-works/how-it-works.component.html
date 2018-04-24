@@ -1,240 +1,49 @@
-<div class="how-it-works-container-fans" *ngIf="!forArtists">
-  <div class="container">
-    <div class="title-body">
-      <span class="forwhom-text orange-underlined-text">For fans</span>
-      <span class="forwhom-text" (click)="goToArtists()">/For artists</span>
+<div class="how-it-works-container">
+  <div class="custom-container">
+    <div class="title-body" btnRadioGroup [(ngModel)]="activeCustomTab">
+      <label class="forwhom-text"
+             *ngFor="let tab of tabs"
+             (click)="changeTab()"
+             [btnRadio]="tab">
+        {{tab.title}}
+      </label>
     </div>
 
-    <div class="how-it-works-list row">
-      <div class="notes-row-container col-md-6">
-        <div class="sayer-note">
-          <div class="sayer-avatar">
-            <img src="http://theglorious.com/wp-content/uploads/2014/04/BD-in-SF-FB-01-350x350.jpg"
-                 alt="">
-            <span class="arrow"></span>
+    <div class="how-it-works-notes-list row" *ngIf="!!pageInfo?.notes?.length">
+      <div class="note-container col-lg-6" *ngFor="let note of pageInfo.notes">
+        <div class="note">
+          <div class="note-img">
+            <img [src]="note.img" [alt]="note.title">
           </div>
-          <div class="info-container">
-            <div class="sayer-info">
-              <div class="sayer-name">Explore</div>
-            </div>
-            <div class="note-container">
-              Search the artist you would like to see in a live stream event.
-            </div>
-          </div>
-        </div>
 
-        <div class="sayer-note">
-          <div class="sayer-avatar">
-            <img
-                src="http://hulafrogportal.com/sugar/hulafrogphoto/gky_uploads/2014/11/230-x-230px-9-14-hands-making-heart-at-concert.jpg"
-                alt="">
-            <span class="arrow"></span>
-          </div>
-          <div class="info-container">
-            <div class="sayer-info">
-              <div class="sayer-name">Share</div>
-            </div>
-            <div class="note-container">
-              Spread the world to your friends.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="notes-row-container col-md-6">
-        <div class="sayer-note">
-          <div class="sayer-avatar">
-            <img src="http://latinoxradio.com/wp-content/uploads/2016/04/mobile-phone-iphone-music-38295-760x760.jpeg"
-                 alt="">
-            <span class="arrow"></span>
-          </div>
-          <div class="info-container">
-            <div class="sayer-info">
-              <div class="sayer-name">Create</div>
-            </div>
-            <div class="note-container">
-              If there is not a scheduled event for the artist, click and create one.
-            </div>
-          </div>
-        </div>
-
-        <div class="sayer-note">
-          <div class="sayer-avatar">
-            <img src="http://images.apple.com/macbook/wireless/images/macbook_wireless_og.jpg"
-                 alt="">
-            <span class="arrow"></span>
-          </div>
-          <div class="info-container">
-            <div class="sayer-info">
-              <div class="sayer-name">Watch</div>
-            </div>
-            <div class="note-container">
-              Enjoy the live streamed event by the selected artist.
-            </div>
+          <div class="note-info">
+            <h5 class="note-title">{{note.title}}</h5>
+            <p class="note-text">{{note.description}}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="how-it-works-container-artists" *ngIf="forArtists">
-  <div class="container">
-    <div class="title-body">
-      <span class="forwhom-text" (click)="goToArtists()">For fans</span>
-      <span class="forwhom-text orange-underlined-text">/For artists</span>
+  <div class="benefits-container" [class.for-artist]="activeCustomTab === tabs[0]" *ngIf="!!pageInfo?.benefits && !!pageInfo.benefits?.list?.length">
+    <div class="img-contaner">
+      <img src="/assets/img/benefits-fans.png" alt="benefits">
     </div>
 
-    <div class="how-it-works-list row">
-      <div class="notes-row-container col-md-6">
-        <div class="sayer-note">
-          <div class="sayer-avatar">
-            <img src="http://theglorious.com/wp-content/uploads/2014/04/BD-in-SF-FB-01-350x350.jpg"
-                 alt="">
-            <span class="arrow"></span>
-          </div>
-          <div class="info-container">
-            <div class="sayer-info">
-              <div class="sayer-name">Explore</div>
-            </div>
-            <div class="note-container">
-              Search the most active fans you would like to play for.
-            </div>
-          </div>
-        </div>
-
-        <div class="sayer-note">
-          <div class="sayer-avatar">
-            <img
-                src="http://hulafrogportal.com/sugar/hulafrogphoto/gky_uploads/2014/11/230-x-230px-9-14-hands-making-heart-at-concert.jpg"
-                alt="">
-            <span class="arrow"></span>
-          </div>
-          <div class="info-container">
-            <div class="sayer-info">
-              <div class="sayer-name">Share</div>
-            </div>
-            <div class="note-container">
-              Spread the world to your friends.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="notes-row-container col-md-6">
-        <div class="sayer-note">
-          <div class="sayer-avatar">
-            <img src="http://latinoxradio.com/wp-content/uploads/2016/04/mobile-phone-iphone-music-38295-760x760.jpeg"
-                 alt="">
-            <span class="arrow"></span>
-          </div>
-          <div class="info-container">
-            <div class="sayer-info">
-              <div class="sayer-name">Create</div>
-            </div>
-            <div class="note-container">
-              If there is not a scheduled event for the artist, click and create one.
-            </div>
-          </div>
-        </div>
-
-        <div class="sayer-note">
-          <div class="sayer-avatar">
-            <img src="http://images.apple.com/macbook/wireless/images/macbook_wireless_og.jpg"
-                 alt="">
-            <span class="arrow"></span>
-          </div>
-          <div class="info-container">
-            <div class="sayer-info">
-              <div class="sayer-name">Watch</div>
-            </div>
-            <div class="note-container">
-              Offer the live streamed event by the selected fans.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="benefits-container-fans" *ngIf="!forArtists">
-  <div class="background-image-container">
-    <img src="/assets/img/benefits-fans.png" alt="">
-  </div>
-  <div class="benefits-title">
-    <div class="orange-frame">
-      <div class="title-head">Benefits for fans</div>
-      <div class="benefits">
-        <div class="benefit-container">
-          <img src="/assets/img/front-row-seat.png" alt="">
-          <div class="benefit-title">Front row seat</div>
-          <div class="benefit-text">Every fan experiences a front row seat to an intimate backstage-like experience.
-          </div>
-        </div>
-
-        <div class="benefit-container">
-          <img src="/assets/img/satisfaction-guaranteed.png" alt="">
-          <div class="benefit-title">Satisfaction guaranteed</div>
-          <div class="benefit-text">If the live stream events does not happen for some reason we will provide a full
-            refund.
-          </div>
-        </div>
-
-        <div class="benefit-container">
-          <img src="/assets/img/fans-demand.png" alt="">
-          <div class="benefit-title">Fans demand</div>
-          <div class="benefit-text">Take charge and bring the artist you want to perform in an up-close live stream
-            event.
-          </div>
-        </div>
-
-        <div class="benefit-container">
-          <img src="/assets/img/chat-with-artists.png" alt="">
-          <div class="benefit-title">Chat with artists</div>
-          <div class="benefit-text">Because every performance at on LiveStarter is LIVE, you'll be abble to chat with
-            artists directly.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="benefits-container-artists" *ngIf="forArtists">
-  <div class="background-image-container">
-    <img src="/assets/img/benefits-fans.png" alt="">
-  </div>
-  <div class="benefits-title reverse">
-    <div class="orange-frame of-reverse">
-      <div class="reversed-artists">
-        <div class="title-head">Benefits for artists</div>
+    <div class="benefits-info-container custom-container">
+      <div class="benefits-info">
         <div class="benefits">
-          <div class="benefit-container">
-            <img src="/assets/img/minimize-your-financial-risk1-copy.png" alt="">
-            <div class="benefit-title">Minimize your financial risk</div>
-            <div class="benefit-text">Takes the risk out booking live venues in far-off places and eliminates logistical touring nightmares.
-            </div>
-          </div>
+          <div class="benefits-title">{{pageInfo.benefits.title}}</div>
 
-          <div class="benefit-container">
-            <img src="/assets/img/perform-for-your-fans-from-around-the-world.png" alt="">
-            <div class="benefit-title">Perform from around the World</div>
-            <div class="benefit-text">Intimate live stream performances with true fans from all around the world at the all at the same moment.
-            </div>
-          </div>
-
-          <div class="benefit-container">
-            <img src="/assets/img/engage-with-your-fans-more-often.png" alt="">
-            <div class="benefit-title">Engage with your fans more often</div>
-            <div class="benefit-text">Interact with your fans LIVE at anytime and from anywhere.
-            </div>
-          </div>
-
-          <div class="benefit-container">
-            <img src="/assets/img/build-your-fanbase-more-easily.png" alt="">
-            <div class="benefit-title">Build your fanbase more easily</div>
-            <div class="benefit-text">Passionate fans will get the world out to others when you make yourself more available via live stream performance.
-            </div>
-          </div>
+          <ul class="benefits-list row">
+            <li class="benefit col-md-6" *ngFor="let benefit of pageInfo.benefits.list">
+              <div class="benefit-icon">
+                <img [src]="benefit.icon" [alt]="benefit.title">
+              </div>
+              <h6 class="benefit-title">{{benefit.title}}</h6>
+              <div class="benefit-description">{{benefit.desciption}}</div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
