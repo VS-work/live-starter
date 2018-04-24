@@ -1,0 +1,11 @@
+.home-container {
+	width: 100%;
+	background-color: #fafafb;
+}
+
+.container-few-shows {
+  & > * {
+    display: block;
+    margin-bottom: 35px;
+  }
+}

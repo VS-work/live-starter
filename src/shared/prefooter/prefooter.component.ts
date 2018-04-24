@@ -6,7 +6,7 @@ import { Config } from '../../app.config';
 @Component({
   selector: 'app-prefooter',
   templateUrl: './prefooter.component.html',
-  styleUrls: ['./prefooter.component.css']
+  styleUrls: ['./prefooter.component.scss']
 })
 
 export class PrefooterComponent {

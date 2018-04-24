@@ -1,14 +1,14 @@
+
 <app-search></app-search>
 
 <div class="home-container">
-  <div class="container">
-    <app-featured-artists></app-featured-artists>
-    <app-popular-shows></app-popular-shows>
-    <app-artists-you-may-like></app-artists-you-may-like>
-    <app-upcoming-shows></app-upcoming-shows>
+  <div class="container-few-shows custom-container">
+    <ng-template ngFor let-configShows [ngForOf]="shows">
+      <app-few-shows-container *ngIf="configShows.items.length" [config]="configShows"></app-few-shows-container>
+    </ng-template>
   </div>
 
-  <app-how-it-was></app-how-it-was>
+  <!--<app-how-it-was></app-how-it-was>-->
   <app-what-they-say></app-what-they-say>
   <app-prefooter></app-prefooter>
 </div>

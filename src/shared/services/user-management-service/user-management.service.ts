@@ -11,6 +11,8 @@ import { ShowInfo } from '../../show-info/info.interface';
 import { Show } from '../show-management-service/show.model';
 
 export interface GetUserData {
+  withNextShow?: boolean;
+  limit?: number;
   email?: string;
   _id?: string;
 }
@@ -46,6 +48,27 @@ export class UserManagementService {
     return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`)
       .pipe(
         map(user => new User(user)),
+        catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        }));
+  }
+
+  getUsersWithNextShow(data: GetUserData): Observable<ShowInfo[]> {
+    const query = Config.objToQuery(data);
+
+    return this.http.get(`${Config.api}/get-users-by-query?${query}`)
+      .pipe(
+        map((res: ShowInfo[]) => {
+          return res.map(result => {
+            return {
+              isEvent: false,
+              user: new User(result.user),
+              show: result.show ? new Show(result.show) : null
+            };
+          });
+        }),
         catchError(err => {
           console.error('something went wrong: ', err);
 
