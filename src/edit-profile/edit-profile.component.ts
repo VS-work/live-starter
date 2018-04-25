@@ -4,10 +4,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { EditProfileService } from './edit-profile.service';
 import { LocalStorageService, SearchService } from '../shared';
-import { User } from '../user-service/user.model';
+import { User, USER_TYPES, UserType } from '../shared/services/user-service';
 import { MultipleGenres } from '../event-launch/multipleGenres.interface';
-import { USER_TYPES, UserType } from '../user-service/user-type.model';
-import { LocationService } from '../shared/servises';
+import { LocationService } from '../shared/services';
 import { Country } from '../shared/models';
 
 interface UpdatiingUserData {

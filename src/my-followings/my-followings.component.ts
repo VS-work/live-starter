@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
-import { SearchService } from '../shared';
-import { User } from '../user-service/user.model';
 import { Config } from '../app.config';
+import { User, UserService } from '../shared/services/user-service';
 import { ShowInfo } from '../shared/show-info/info.interface';
-import { Show } from '../shared/show-service/show.model';
 
 @Component({
   selector: 'app-my-followins',
@@ -16,24 +14,21 @@ export class MyFollowingsComponent {
   userProfile: User;
   followings: ShowInfo[] = [];
 
-  constructor (private searchService: SearchService) {
-    try {
-      this.userProfile = new User(JSON.parse(localStorage.getItem('profile')));
-      const query: string = Config.objToQuery({follower: this.userProfile._id});
-      this.searchService.getUserFollowings(query).subscribe(res => {
-        this.followings = res.map((following: ShowInfo) => {
-          return {
-            user: new User(following.user),
-            show: new Show(following.show),
-            isEvent: false
-          };
-        });
-      }, err => {
-        console.error('something went wrong: ', err);
-      })
-    } catch (err) {
-      this.userProfile = null;
-      console.error('something went wrong: ', err);
+  constructor(private userService: UserService) {
+    this.userProfile = this.userService.getUserFromLocalStorage();
+
+    if (!this.userProfile) {
+      return;
     }
+
+    const query: string = Config.objToQuery({follower: this.userProfile._id});
+
+    const userFollowingsSubscription = this.userService.getUserFollowings(query);
+
+    userFollowingsSubscription.subscribe(res => {
+      this.followings = res;
+    }, err => {
+      console.error('something went wrong: ', err);
+    })
   }
 }

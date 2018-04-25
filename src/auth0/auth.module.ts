@@ -6,7 +6,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AuthComponent } from './auth.component';
 import { AuthService } from './auth.service';
-import { UserService } from '../user-service/user.service';
+import { UserService } from '../shared/services/user-service';
 import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.module';
 
 @NgModule({

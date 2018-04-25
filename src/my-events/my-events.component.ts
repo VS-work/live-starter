@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { SearchService } from '../shared';
-import { User } from '../user-service/user.model';
+import { User } from '../shared/services/user-service';
 import { Show } from '../shared/show-service/show.model';
 import { ShowInfo } from '../shared/show-info/info.interface';
 

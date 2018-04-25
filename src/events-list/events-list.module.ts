@@ -12,7 +12,7 @@ import { SharedModule, SearchService } from '../shared';
 import { routing } from '../modules/events-list.routing';
 import { PurchaseContainerModule } from '../shared/purchase-container/purchase-container.module';
 import { ShowInfoModule } from '../shared/show-info/show-info.module';
-import { LocationService } from '../shared/servises';
+import { LocationService } from '../shared/services';
 
 @NgModule({
   declarations: [

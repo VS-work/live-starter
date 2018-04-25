@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 import { Config } from '../app.config';
 import { CallbackForm } from './callbackForm.model';
-import { User } from '../user-service/user.model';
+import { User } from '../shared/services/user-service';
 
 interface CallbackResponse {
   message: string;

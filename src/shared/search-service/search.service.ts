@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Config } from '../../app.config';
 import { Show } from '../show-service/show.model';
 import { ShowInfo } from '../show-info/info.interface';
-import { User } from '../../user-service/user.model';
+import { User } from '../services/user-service';
 
 export interface QueryToFindArtists {
   findByGenre?: string[];
@@ -69,25 +69,9 @@ export class SearchService {
       }));
   }
 
-  getUserFollowings(query: string): Observable<ShowInfo[]> {
-    return this.http.get(`${Config.api}/get-user-followings?${query}`)
-      .pipe(catchError(err => {
-        console.error('something went wrong: ', err);
-        return Observable.throw(err.error)
-      }));
-  }
-
   getArtistsByQuery(query: QueryToFindArtists): Observable<ShowInfo[]> {
     const querySting = Config.objToQuery(query);
     return this.http.get(`${Config.api}/get-artists-by-query?${querySting}`)
-      .pipe(catchError(err => {
-        console.error('something went wrong: ', err);
-        return Observable.throw(err.error)
-      }));
-  }
-
-  getArtisAmount(): Observable<number> {
-    return this.http.get(`${Config.api}/get-artists-amount`)
       .pipe(catchError(err => {
         console.error('something went wrong: ', err);
         return Observable.throw(err.error)

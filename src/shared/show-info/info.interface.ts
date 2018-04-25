@@ -1,5 +1,5 @@
 import { Show } from '../show-service/show.model';
-import { User } from '../../user-service/user.model';
+import { User } from '../services/user-service';
 
 export interface ShowInfo {
   isEvent?: boolean;

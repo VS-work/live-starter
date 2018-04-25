@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
 
-import { Config } from '../app.config';
-import { ParsedProfile } from '../auth0/parsed-profile.interface';
-import { User } from './user.model';
-import { UpdateUserProfileRequestObject, UpdateUserProfileResponseObject } from './update-user-profile.interface';
-import { Notifications } from '../my-profile/notification.model';
+import { Config } from '../../../app.config';
+import { ParsedProfile } from '../../../auth0/parsed-profile.interface';
+import { Notifications } from '../../../my-profile/notification.model';
+import { User, UpdateUserProfileRequestObject, UpdateUserProfileResponseObject } from '../user-service';
+import { ShowInfo } from '../../show-info/info.interface';
+import { Show } from '../../show-service/show.model';
 
 export interface GetUserData {
   email?: string;
@@ -30,7 +31,7 @@ export class UserService {
       }));
   }
 
-  isEmailExist(query: {email: string}): Observable<any> {
+  isEmailExist(query: { email: string }): Observable<any> {
     return this.http.post(`${Config.api}/signup/check-email`, query, Config.httpOptions)
       .pipe(catchError(err => {
         console.error('something went wrong: ', err);
@@ -41,14 +42,15 @@ export class UserService {
 
   getUser(data: GetUserData): Observable<User> {
     const query = Config.objToQuery(data);
+
     return this.http.get(`${Config.api}/edit-profile/get-user-data?${query}`)
       .pipe(
         map(user => new User(user)),
         catchError(err => {
-        console.error('something went wrong: ', err);
+          console.error('something went wrong: ', err);
 
-        return Observable.throw(err.error)
-      }));
+          return Observable.throw(err.error)
+        }));
   }
 
   getUsersNotifications(userId: string): Observable<Notifications> {
@@ -58,6 +60,34 @@ export class UserService {
       .pipe(
         map((res: Notifications) => new Notifications(res)),
         catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        }));
+  }
+
+  getUserFollowings(query: string): Observable<ShowInfo[]> {
+    return this.http.get(`${Config.api}/get-user-followings?${query}`)
+      .pipe(
+        map((res: ShowInfo[]) => {
+          return res.map((following: ShowInfo) => {
+            return {
+              user: new User(following.user),
+              show: new Show(following.show),
+              isEvent: false
+            };
+          });
+        }),
+        catchError(err => {
+          console.error('something went wrong: ', err);
+
+          return Observable.throw(err.error)
+        }));
+  }
+
+  getUsersAmount(query: string): Observable<number> {
+    return this.http.get(`${Config.api}/get-users-amount?${query}`)
+      .pipe(catchError(err => {
         console.error('something went wrong: ', err);
 
         return Observable.throw(err.error)
@@ -95,6 +125,7 @@ export class UserService {
       return new User(currentUserProfile);
     } catch (err) {
       console.error('something went wrong: ', err);
+
       return null;
     }
   }

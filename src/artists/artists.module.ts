@@ -9,7 +9,7 @@ import { ArtistsComponent } from './artists.component';
 import { routing } from '../modules/artists.routing';
 import { SharedModule, SearchService, LocalStorageService } from '../shared';
 import { ShowInfoModule } from '../shared/show-info/show-info.module';
-import { LocationService } from '../shared/servises';
+import { LocationService } from '../shared/services';
 
 @NgModule({
   declarations: [
