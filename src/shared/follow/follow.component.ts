@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ToastOptions, ToastyService } from 'ng2-toasty';
 
 import { FollowService } from './follow.service';
-import { User } from '../../user-service/user.model';
+import { User } from '../services/user-service';
 import { customToastOptions } from '../models/toasty-options.model';
 import { FollowResponse, FollowRqstObj } from './follow.interface';
 

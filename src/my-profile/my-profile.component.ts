@@ -4,18 +4,15 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { ToastOptions, ToastyService } from 'ng2-toasty';
 
+import { CropImageComponent } from '../shared/crop-image/crop-image.component';
 import { Pattern } from '../enums/patterns.emum';
-import { User } from '../user-service/user.model';
 import { Notifications } from './notification.model';
-import { UserService } from '../user-service/user.service';
 import { ChangableData } from './changable-data.model';
 import { customToastOptions } from '../shared/models/toasty-options.model';
-import { UpdateUserProfileRequestObject } from '../user-service/update-user-profile.interface';
-import { CropImageComponent } from '../shared/crop-image/crop-image.component';
-import { UploadFilesService } from '../shared/upload-files/upload-files.service';
-import { UploadFile } from '../shared/upload-files/upload-file.model';
-import { LocationService } from '../shared/servises';
 import { City, Country, DatePickerConfigModel } from '../shared/models';
+import { User, UserService, UpdateUserProfileRequestObject } from '../shared/services/user-service';
+import { UploadFilesService, UploadFile } from '../shared/upload-files';
+import { LocationService } from '../shared/services';
 
 
 @Component({
@@ -85,9 +82,9 @@ export class MyProfileComponent implements OnDestroy {
     this.subscriptionManager.add(getCitiesSubscription);
   }
 
-  saveMainDataChanges(form: NgForm): void | undefined {
+  saveMainDataChanges(form: NgForm): void {
     if (form.invalid || !form.dirty && !this.dateOfBirthConfig.isChanged) {
-      return undefined;
+      return;
     }
 
     const rqstObj: UpdateUserProfileRequestObject = {
@@ -124,7 +121,7 @@ export class MyProfileComponent implements OnDestroy {
 
   saveNotifications(form: NgForm): void {
     if (form.invalid || !form.dirty) {
-      return undefined;
+      return;
     }
 
     const rqstObj: UpdateUserProfileRequestObject = {

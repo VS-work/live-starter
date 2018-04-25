@@ -13,13 +13,12 @@ import { customToastOptions } from '../shared/models/toasty-options.model';
 import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
 import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
 import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
-import { User } from '../user-service/user.model';
+import { User, UserService } from '../shared/services/user-service';
 import { EventInfo } from '../shared/event-info/event-info.interface';
 import { NewStreamModel } from '../shared/wowza-streaming-cloud/new-stream.model';
 import { Pattern, CrowdcampaignForSomeOtherArtist, CrowdcampaignForMySelf, CrowdCampaignType } from '../enums';
-import { OembedService } from '../shared/servises/oembed/oembed.service';
+import { OembedService } from '../shared/services';
 import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
-import { UserService } from '../user-service/user.service';
 import { ShowService } from '../shared/show-service/show.service';
 
 @Component({

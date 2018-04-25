@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as moment from 'moment';
 
-import { UserService } from '../user-service/user.service';
-import { User } from '../user-service/user.model';
+import { User, UserService } from '../shared/services/user-service';
 import { ShowService } from '../shared/show-service/show.service';
 import { Show } from '../shared/show-service/show.model';
 import { ShowInfo } from '../shared/show-info/info.interface';

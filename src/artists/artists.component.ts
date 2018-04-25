@@ -3,14 +3,16 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SearchService, LocalStorageService } from '../shared';
-import { User } from '../user-service/user.model';
+import { User } from '../shared/services/user-service';
 import { ShowInfo } from '../shared/show-info/info.interface';
 
 import { MultipleGenres } from '../event-launch/multipleGenres.interface';
 import { QueryToFindArtists } from '../shared/search-service/search.service';
-import { LocationService } from '../shared/servises';
+import { LocationService } from '../shared/services';
 import { Country } from '../shared/models';
 import { Show } from '../shared/show-service/show.model';
+import { UserService } from '../shared/services/user-service/user.service';
+import { Config } from '../app.config';
 
 const defaultQuery: QueryToFindArtists = {
   findByGenre: [],
@@ -30,12 +32,13 @@ export class ArtistsComponent implements OnInit, OnDestroy {
   locations: Country[] ;
   eventTypes: string[] = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
   artistsInfo: ShowInfo[] = [];
-  aritstsAmount: number;
+  aritstsAmount = 0;
   queryToFindArtists: QueryToFindArtists ;
   subsribeManager = new Subscription();
 
   constructor(private router: Router,
               private searchService: SearchService,
+              private userService: UserService,
               private locationService: LocationService,
               private localStorageService: LocalStorageService) {
   }
@@ -49,7 +52,9 @@ export class ArtistsComponent implements OnInit, OnDestroy {
       console.error('something went wrong: ', err);
     }
 
-    const artistsAmountSubscribe = this.searchService.getArtisAmount()
+    const query: string = Config.objToQuery({type: 'artist'});
+
+    const artistsAmountSubscribe = this.userService.getUsersAmount(query)
       .subscribe(res => {
         this.aritstsAmount = res;
       }, err => {

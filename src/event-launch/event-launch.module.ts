@@ -17,8 +17,7 @@ import { MultipleInputsModule } from '../shared/multiple-inputs/multiple-inputs.
 import { EventInfoModule } from '../shared/event-info/event-info.module';
 import { ListOfEncodersModule } from '../shared/wowza-streaming-cloud/list-of-encoders/list-of-encoders.module';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
-import { LocationService } from '../shared/servises';
-import { OembedService } from '../shared/servises/oembed/oembed.service';
+import { LocationService, OembedService } from '../shared/services';
 import { ShowService } from '../shared/show-service/show.service';
 
 @NgModule({

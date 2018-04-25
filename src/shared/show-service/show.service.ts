@@ -7,8 +7,7 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment-timezone';
 import { Config } from '../../app.config';
 import { NewEventResponse, Show } from './show.model';
-import { User } from '../../user-service/user.model';
-import { UserService } from '../../user-service/user.service';
+import { User, UserService } from '../services/user-service';
 import { ConfigForTransformDateAccordingToTimeZone } from './config-for-transform-date-according-to-time-zone.interface';
 
 @Injectable()

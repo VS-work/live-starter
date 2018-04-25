@@ -13,7 +13,7 @@ import { EditProfileComponent } from './edit-profile.component';
 import { EditProfileService } from './edit-profile.service';
 import { SharedModule } from '../shared';
 import { routing } from '../modules/edit-profile.routing';
-import { LocationService } from '../shared/servises';
+import { LocationService } from '../shared/services';
 
 @NgModule({
   declarations: [

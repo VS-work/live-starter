@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 import { Config } from '../../app.config';
-import { UserService } from '../../user-service/user.service';
+import { UserService, User } from '../services/user-service';
 import { Show } from '../show-service/show.model';
 import { PurchaseParamsModel } from '../purchase-container/purchase-container.model';
-import { User } from '../../user-service/user.model';
-import { RouterLinks } from '../../enums/router-links.emum';
+import { RouterLinks } from '../../enums';
 import { StatisticsItem } from '../statistics/statistics.interface';
 import { ShowInfo } from './info.interface';
 import { ShowInfoDate } from './showInfoDate.interface';

@@ -1,6 +1,6 @@
-import { environment } from '../environments/environment';
-import { RouterLinks } from '../enums';
-import { City, Country } from '../shared/models';
+import { environment } from '../../../environments/environment';
+import { RouterLinks } from '../../../enums';
+import { City, Country } from '../../models';
 
 interface UserInterface {
   _id?: string;

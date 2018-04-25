@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 
 import { AuthService } from './auth.service';
 import { ShortUserInfo } from '../shared/short-user-info/short-user-info.interface';
-import { User } from '../user-service/user.model';
+import { User } from '../shared/services/user-service';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuItem } from '../header/menuItem.interface';
 import { MenuTitles, RouterLinks } from '../enums/router-links.emum';

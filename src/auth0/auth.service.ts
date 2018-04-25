@@ -1,14 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import Auth0Lock from 'auth0-lock';
 
 import { AUTH_CONFIG } from './auth.config';
 import { Config } from '../app.config';
-import { User } from '../user-service/user.model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { UserService } from '../user-service/user.service';
+import { User, UserService } from '../shared/services/user-service';
 import { ParsedProfile } from './parsed-profile.interface';
 
 interface CustomAuthResult extends AuthResult {
@@ -43,17 +42,19 @@ export class AuthService implements OnDestroy {
               private userService: UserService) {
     this.isAuthenticated();
 
-    this.userService.updateUserAccount.subscribe((res: boolean): void | undefined => {
-      const userFromLocalStorage = this.userService.getUserFromLocalStorage();
+    const updateAccountSubscription = this.userService.updateUserAccount;
+    updateAccountSubscription
+      .subscribe((res: boolean): void => {
+        const userFromLocalStorage = this.userService.getUserFromLocalStorage();
 
-      if (! res || !userFromLocalStorage ) {
-        return undefined;
-      }
+        if (!res || !userFromLocalStorage) {
+          return;
+        }
 
-      const isUpdateLocalstorage = false;
+        const isUpdateLocalstorage = false;
 
-      this.setUserProfile(userFromLocalStorage, isUpdateLocalstorage);
-    });
+        this.setUserProfile(userFromLocalStorage, isUpdateLocalstorage);
+      });
   }
 
   showAuthModal(): void {
@@ -132,7 +133,7 @@ export class AuthService implements OnDestroy {
     return new Date().getTime() < expiresAt;
   }
 
-  isAuthenticated(): void | undefined {
+  isAuthenticated(): void {
     if (this.authenticated) {
       this.setLoggedIn(true);
       const profile = localStorage.getItem('profile');
@@ -146,7 +147,7 @@ export class AuthService implements OnDestroy {
           console.error('something went wrong: ', e);
         }
 
-        return undefined;
+        return;
       }
 
       const tempProfile = localStorage.getItem('tempProfile');
@@ -164,16 +165,16 @@ export class AuthService implements OnDestroy {
           console.error('something went wrong: ', e);
         }
 
-        return undefined;
+        return;
       }
 
-      return undefined;
+      return;
     }
 
     this.logout();
   }
 
-  isUserExist(profile: auth0.Auth0UserProfile): void | undefined {
+  isUserExist(profile: auth0.Auth0UserProfile): void {
     this.userService.isEmailExist({email: profile.email})
       .subscribe(res => {
         if (res.isAlreadyExist) {
@@ -184,7 +185,7 @@ export class AuthService implements OnDestroy {
 
           this.subscriptionManager.add(userSubscribe);
 
-          return undefined;
+          return;
         }
 
         const parsedUser: ParsedProfile = this.parseProfile(profile);

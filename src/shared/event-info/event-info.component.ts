@@ -1,11 +1,10 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { User } from '../../user-service/user.model';
+import { User, UserService } from '../services/user-service';
 import { StatisticsItem } from '../statistics/statistics.interface';
 import { EventInfo } from './event-info.interface';
 import { ShortUserInfo } from '../short-user-info/short-user-info.interface';
-import { UserService } from '../../user-service/user.service';
 import {
   STATISTICS_FOLLOWERS, STATISTICS_LIKES, STATISTICS_SHOWS,
   STATISTICS_VIEWERS

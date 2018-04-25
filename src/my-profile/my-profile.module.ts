@@ -10,7 +10,7 @@ import { routing } from '../modules/my-profile.routing';
 import { MyProfileComponent } from './my-profile.component';
 import { CropImageModule } from '../shared/crop-image/crop-image.module';
 import { FileUploaderModule } from '../shared/file-uploader/file-uploader.module';
-import { LocationService } from '../shared/servises';
+import { LocationService } from '../shared/services';
 
 @NgModule({
   imports: [

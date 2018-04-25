@@ -3,8 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ToastOptions, ToastyService } from 'ng2-toasty';
 
 import { StatisticsService } from './statistics.service';
-import { UserService } from '../../user-service/user.service';
-import { User } from '../../user-service/user.model';
+import { UserService, User } from '../services/user-service';
 import { customToastOptions } from '../models/toasty-options.model';
 import { LikeRequestObj, StatisticsItem } from './statistics.interface';
 

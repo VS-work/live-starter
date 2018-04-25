@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 
 import { Config } from '../app.config';
-import { User } from '../user-service/user.model';
+import { User } from '../shared/services/user-service';
 
 
 @Injectable()
