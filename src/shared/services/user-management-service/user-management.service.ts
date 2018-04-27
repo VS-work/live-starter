@@ -6,9 +6,9 @@ import { catchError, map } from 'rxjs/operators';
 import { Config } from '../../../app.config';
 import { ParsedProfile } from '../../../auth0/parsed-profile.interface';
 import { Notifications } from '../../../my-profile/notification.model';
-import { User, UpdateUserProfileRequestObject, UpdateUserProfileResponseObject } from '../user-service';
+import { User, UpdateUserProfileRequestObject, UpdateUserProfileResponseObject } from './';
 import { ShowInfo } from '../../show-info/info.interface';
-import { Show } from '../../show-service/show.model';
+import { Show } from '../show-management-service/show.model';
 
 export interface GetUserData {
   email?: string;
@@ -16,7 +16,7 @@ export interface GetUserData {
 }
 
 @Injectable()
-export class UserService {
+export class UserManagementService {
   updateUserAccount: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private http: HttpClient) {

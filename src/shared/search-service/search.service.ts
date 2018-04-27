@@ -4,9 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 
 import { Config } from '../../app.config';
-import { Show } from '../show-service/show.model';
 import { ShowInfo } from '../show-info/info.interface';
-import { User } from '../services/user-service';
+import { User } from '../services/user-management-service';
 
 export interface QueryToFindArtists {
   findByGenre?: string[];
@@ -45,24 +44,6 @@ export class SearchService {
 
   getGenres(): Observable<string[]> {
     return this.http.get(`${Config.api}/get-genres`)
-      .pipe(catchError(err => {
-        console.error('something went wrong: ', err);
-        return Observable.throw(err.error)
-      }));
-  }
-
-  getNonLiveEventsAmountData(): Observable<number> {
-    return this.http.get(`${Config.api}/get-non-live-events-amount`)
-      .pipe(catchError(err => {
-        console.error('something went wrong: ', err);
-        return Observable.throw(err.error)
-      }));
-  }
-
-  getEventsList(query: {[key: string]: any}): Observable<Show[]> {
-    const newQuery = {...query, userId: this.userProfile ? this.userProfile._id : ''};
-
-    return this.http.get(`${Config.api}/get-events-list-by-query?${Config.objToQuery(newQuery)}`)
       .pipe(catchError(err => {
         console.error('something went wrong: ', err);
         return Observable.throw(err.error)

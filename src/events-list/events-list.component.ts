@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 
 import { SearchService, LocalStorageService } from '../shared';
-import { LaunchEvent } from '../event-launch/event-launch.interface';
 import { ShowInfo } from '../shared/show-info/info.interface';
 import { LocationService } from '../shared/services';
 import { Country } from '../shared/models';
-import { Show } from '../shared/show-service/show.model';
+import { Show } from '../shared/services/show-management-service';
+import { ShowManagementService } from '../shared/services/show-management-service';
 
 @Component({
   selector: 'app-events-list-component',
@@ -40,6 +40,7 @@ export class EventsListComponent implements OnInit {
   };
 
   public constructor(router: Router,
+                     private showManagementService: ShowManagementService,
                      searchService: SearchService,
                      private locationService: LocationService,
                      localStorageService: LocalStorageService) {
@@ -73,7 +74,7 @@ export class EventsListComponent implements OnInit {
         console.error('something went wrong: ', err);
       });
 
-    this.getEventsDataSubcribe = this.searchService.getNonLiveEventsAmountData()
+    this.getEventsDataSubcribe = this.showManagementService.getEventsAmountData()
       .subscribe(res => {
         this.nonLiveEventsAmount = res;
       }, err => {
@@ -121,9 +122,9 @@ export class EventsListComponent implements OnInit {
       delete rawQuery.findByType;
     }
 
-    this.getEventsDataSubcribe = this.searchService.getEventsList(rawQuery)
+    this.getEventsDataSubcribe = this.showManagementService.getEventsInfoListByQuery(rawQuery)
       .subscribe(res => {
-        this.shows = res.map(show => ({isEvent: true, show: new Show(show)}));
+        this.shows = res;
       }, err => {
         console.error('something went wrong: ', err);
       });
@@ -148,7 +149,7 @@ export class EventsListComponent implements OnInit {
     this.findEventsByQuery(this.queryToFindShow);
   }
 
-  public setCurrentShow(show: LaunchEvent): void {
+  public setCurrentShow(show: Show): void {
     const setCurrentShowData: any = {findById: show._id, findByName: show.name, findByCreator: show.creator};
     this.localStorageService.setItem('currentShow', setCurrentShowData);
   }

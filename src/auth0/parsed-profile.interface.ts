@@ -5,4 +5,4 @@ export interface ParsedProfile {
   firstName: string;
   lastName: string;
   gender: string;
-};
+}

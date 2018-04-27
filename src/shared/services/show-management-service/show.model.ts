@@ -1,10 +1,11 @@
 import * as moment from 'moment';
-import { WowzaResponse } from '../wowza-streaming-cloud/new-stream.model';
+
+import { WowzaResponse } from '../../wowza-streaming-cloud/new-stream.model';
 
 class DefaultTimePerformance {
   start: string = moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a');
   end: string = moment(new Date()).format('dddd, MMMM DD YYYY, h:mm:ss a');
-};
+}
 
 class Defaulttickets {
   count = 0;
@@ -12,13 +13,13 @@ class Defaulttickets {
   ticketsToFund = 0;
   ticketsSold = 0;
   fundedPercentage = 0;
-};
+}
 
 class DefaultStatistics {
   likes = 0;
   viewers = 0;
   followers = 0;
-};
+}
 
 export interface NewEventResponse {
   message: string;

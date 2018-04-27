@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 
 import { PlayerConfig } from './player-config.interface';
-import { Show } from '../../show-service/show.model';
+import { Show } from '../../services/show-management-service/show.model';
 import { WowzaPlayerService } from './wowza-player.service';
 
 @Component({

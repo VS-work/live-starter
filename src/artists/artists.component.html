@@ -42,37 +42,6 @@
             </div>
           </div>
 
-          <div class="filter-drpdwn" *ngIf="genres">
-            <span class="title">Genre</span>
-            <div class="btn-group custom-dropdown-select" dropdown>
-              <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">
-              <span class="selected-item"
-                    *ngIf="!queryToFindArtists.findByGenre.length; else selectedGenres">
-                Select all
-              </span>
-                <ng-template #selectedGenres>
-                  <div class="selected-item">
-                    {{queryToFindArtists.findByGenre}}
-                  </div>
-                </ng-template>
-                <span class="caret"></span>
-              </button>
-              <ul *dropdownMenu class="dropdown-menu drodown-custom-scroll" role="menu">
-                <li role="menuitem" *ngFor="let genre of genres; let i = index" class="dropdown-item">
-                  <input type="checkbox"
-                         name="showLocation"
-                         [id]="'genre' + i"
-                         [value]="genre.value"
-                         [(ngModel)]="genre.isChecked"
-                         [checked]="genre.isChecked"
-                         (change)="pushGenreToList(genre.value)"
-                         required/>
-                  <label [for]="'genre' + i">{{genre.value}}</label>
-                </li>
-              </ul>
-            </div>
-          </div>
-
           <div class="filter-drpdwn"><span class="title">Sort by</span>
             <div class="btn-group custom-dropdown-select" dropdown>
               <button dropdownToggle type="button" class="btn btn-filter dropdown-toggle">

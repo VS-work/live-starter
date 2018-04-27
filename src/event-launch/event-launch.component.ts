@@ -13,13 +13,12 @@ import { customToastOptions } from '../shared/models/toasty-options.model';
 import { FileConfig } from '../shared/file-uploader/fileUploader.interface';
 import { FileUploaderComponent } from '../shared/file-uploader/file-uploader.component';
 import { FieldConfig } from '../shared/multiple-inputs/fieldConfig.interface';
-import { User, UserService } from '../shared/services/user-service';
+import { User, UserManagementService } from '../shared/services/user-management-service';
 import { EventInfo } from '../shared/event-info/event-info.interface';
 import { NewStreamModel } from '../shared/wowza-streaming-cloud/new-stream.model';
 import { Pattern, CrowdcampaignForSomeOtherArtist, CrowdcampaignForMySelf, CrowdCampaignType } from '../enums';
 import { OembedService } from '../shared/services';
-import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
-import { ShowService } from '../shared/show-service/show.service';
+import { ShowManagementService, LinkWithEmbedCode, Show } from '../shared/services/show-management-service';
 
 @Component({
   selector: 'app-launch-component',
@@ -72,19 +71,19 @@ export class LaunchComponent implements OnInit {
   patterns = Pattern;
 
   constructor(private router: Router,
-              private showService: ShowService,
+              private showManagementService: ShowManagementService,
               private wowzaCloudService: WowzaCloudService,
               private toastyService: ToastyService,
               private oembedService: OembedService,
-              private userService: UserService) {
+              private userManagementService: UserManagementService) {
   }
 
   ngOnInit(): void {
-    this.userProfile = this.userService.getUserFromLocalStorage();
+    this.userProfile = this.userManagementService.getUserFromLocalStorage();
 
-    this.userService.updateUserAccount
+    this.userManagementService.updateUserAccount
       .subscribe(() => {
-        this.userProfile = this.userService.getUserFromLocalStorage();
+        this.userProfile = this.userManagementService.getUserFromLocalStorage();
       });
 
     this.checkFreeEvent();
@@ -144,8 +143,8 @@ export class LaunchComponent implements OnInit {
       });
 
     this.wowzaObj.name = this.launchEvent.name;
-    this.launchEvent.timePerformance.start = this.showService.getDateAccordingToTimeZone({date: this.timePerformance.start});
-    this.launchEvent.timePerformance.end = this.showService.getDateAccordingToTimeZone({date: this.timePerformance.end});
+    this.launchEvent.timePerformance.start = this.showManagementService.getDateAccordingToTimeZone({date: this.timePerformance.start});
+    this.launchEvent.timePerformance.end = this.showManagementService.getDateAccordingToTimeZone({date: this.timePerformance.end});
     this.launchEvent.datePerformance = new Date(this.launchEvent.timePerformance.start).getTime();
     this.launchEvent.dateCreated = new Date().getTime();
 
@@ -154,7 +153,7 @@ export class LaunchComponent implements OnInit {
         mergeMap(res => {
           this.launchEvent.wowza.id = res.id;
 
-          return this.showService.saveNewEvent(this.launchEvent);
+          return this.showManagementService.saveNewEvent(this.launchEvent);
         }),
       )
       .subscribe(res => {

@@ -16,7 +16,6 @@ import { ShareContainerModule } from '../shared/share-container/share-container.
 import { PurchaseContainerModule } from '../shared/purchase-container/purchase-container.module';
 import { TipsContainerModule } from '../shared/tips-container/tips-container.module';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
-import { ShowService } from '../shared/show-service/show.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { ShowService } from '../shared/show-service/show.service';
   ],
   providers: [
     WowzaCloudService,
-    ShowService
   ],
   imports: [
     routing,

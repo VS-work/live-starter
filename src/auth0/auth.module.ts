@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AuthComponent } from './auth.component';
 import { AuthService } from './auth.service';
-import { UserService } from '../shared/services/user-service';
+import { UserManagementService } from '../shared/services/user-management-service';
 import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.module';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.m
   ],
   providers: [
     AuthService,
-    UserService
+    UserManagementService
   ],
   imports: [
     RouterModule,

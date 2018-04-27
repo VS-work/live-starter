@@ -23,25 +23,6 @@
                 <div class="item-container">Min. tickets</div>
               </div>
             </div>
-            <div class="genres-selector">
-              <label>Choose genres which you have been playing:</label>
-              <ul class="group-genres">
-                <li class="genre-item" *ngFor="let currentGenre of genres;">
-                  <button
-                    type="button"
-                    [name]="currentGenre.value"
-                    class="genre-button"
-                    [(ngModel)]="currentGenre.isChecked"
-                    btnCheckbox>
-                    {{currentGenre.value}}
-                  </button>
-                </li>
-              </ul>
-              <div
-                [class]="!launchEvent.genres.length && eventForm.submitted ? 'invalid-feedback visible':'invalid-feedback'">
-                Choose one or more genres
-              </div>
-            </div>
 
             <div class="tags-container">
               <div class="form-group">

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Config } from '../app.config';
-import { User, UserService } from '../shared/services/user-service';
+import { User, UserManagementService } from '../shared/services/user-management-service';
 import { ShowInfo } from '../shared/show-info/info.interface';
 
 @Component({
@@ -14,8 +14,8 @@ export class MyFollowingsComponent {
   userProfile: User;
   followings: ShowInfo[] = [];
 
-  constructor(private userService: UserService) {
-    this.userProfile = this.userService.getUserFromLocalStorage();
+  constructor(private userManagementService: UserManagementService) {
+    this.userProfile = this.userManagementService.getUserFromLocalStorage();
 
     if (!this.userProfile) {
       return;
@@ -23,7 +23,7 @@ export class MyFollowingsComponent {
 
     const query: string = Config.objToQuery({follower: this.userProfile._id});
 
-    const userFollowingsSubscription = this.userService.getUserFollowings(query);
+    const userFollowingsSubscription = this.userManagementService.getUserFollowings(query);
 
     userFollowingsSubscription.subscribe(res => {
       this.followings = res;

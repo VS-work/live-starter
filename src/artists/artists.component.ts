@@ -2,17 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { SearchService, LocalStorageService } from '../shared';
-import { User } from '../shared/services/user-service';
 import { ShowInfo } from '../shared/show-info/info.interface';
-
-import { MultipleGenres } from '../event-launch/multipleGenres.interface';
-import { QueryToFindArtists } from '../shared/search-service/search.service';
-import { LocationService } from '../shared/services';
-import { Country } from '../shared/models';
-import { Show } from '../shared/show-service/show.model';
-import { UserService } from '../shared/services/user-service/user.service';
 import { Config } from '../app.config';
+import { Country } from '../shared/models';
+import { SearchService, LocalStorageService } from '../shared';
+import { User } from '../shared/services/user-management-service';
+import { LocationService } from '../shared/services';
+import { Show } from '../shared/services/show-management-service';
+import { UserManagementService } from '../shared/services/user-management-service';
+import { QueryToFindArtists } from '../shared/search-service/search.service';
 
 const defaultQuery: QueryToFindArtists = {
   findByGenre: [],
@@ -28,7 +26,7 @@ const defaultQuery: QueryToFindArtists = {
 })
 
 export class ArtistsComponent implements OnInit, OnDestroy {
-  genres: MultipleGenres[] = [];
+  genres: any[] = [];
   locations: Country[] ;
   eventTypes: string[] = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
   artistsInfo: ShowInfo[] = [];
@@ -38,7 +36,7 @@ export class ArtistsComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private searchService: SearchService,
-              private userService: UserService,
+              private userManagementService: UserManagementService,
               private locationService: LocationService,
               private localStorageService: LocalStorageService) {
   }
@@ -54,7 +52,7 @@ export class ArtistsComponent implements OnInit, OnDestroy {
 
     const query: string = Config.objToQuery({type: 'artist'});
 
-    const artistsAmountSubscribe = this.userService.getUsersAmount(query)
+    const artistsAmountSubscribe = this.userManagementService.getUsersAmount(query)
       .subscribe(res => {
         this.aritstsAmount = res;
       }, err => {
