@@ -18,7 +18,7 @@ import { routing } from '../routes';
 import { FooterComponent } from '../footer';
 import { AuthGuard } from '../auth0/auth.guard';
 import { AuthModule } from '../auth0/auth.module';
-import { ShowService } from '../shared/show-service/show.service';
+import { ShowManagementService } from '../shared/services/show-management-service';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { ShowService } from '../shared/show-service/show.service';
   providers: [
     LocalStorageService,
     AuthGuard,
-    ShowService
+    ShowManagementService
   ],
   bootstrap: [AppComponent]
 })

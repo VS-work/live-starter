@@ -18,7 +18,6 @@ import { EventInfoModule } from '../shared/event-info/event-info.module';
 import { ListOfEncodersModule } from '../shared/wowza-streaming-cloud/list-of-encoders/list-of-encoders.module';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 import { LocationService, OembedService } from '../shared/services';
-import { ShowService } from '../shared/show-service/show.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { ShowService } from '../shared/show-service/show.service';
     TimepickerModule.forRoot()
   ],
   providers: [
-    ShowService,
     SearchService,
     WowzaCloudService,
     LocationService,

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
 import { _throw } from 'rxjs/observable/throw';
 
-import { LinkWithEmbedCode } from '../../show-service/show.model';
+import { LinkWithEmbedCode } from '../show-management-service';
 
 interface OEmbedResponseObj {
   width?: number;

@@ -6,13 +6,12 @@ import { Subscription } from 'rxjs/Subscription';
 
 import head from 'lodash-es/head';
 
-import { SearchService, LocalStorageService } from '../shared';
 import { Config } from '../app.config';
+import { SearchService, LocalStorageService } from '../shared';
 import { EventInfo } from '../shared/event-info/event-info.interface';
 import { PurchaseParamsModel } from '../shared/purchase-container/purchase-container.model';
-import { UserService, User } from '../shared/services/user-service';
-import { LinkWithEmbedCode, Show } from '../shared/show-service/show.model';
-import { ShowService } from '../shared/show-service/show.service';
+import { UserManagementService, User } from '../shared/services/user-management-service';
+import { ShowManagementService, LinkWithEmbedCode, Show } from '../shared/services/show-management-service';
 import { StatisticsItem } from '../shared/statistics/statistics.interface';
 import { STATISTICS_LIKES, STATISTICS_FOLLOWERS } from '../shared/statistics/statistics-types.model';
 
@@ -38,21 +37,21 @@ export class ShowPageComponent implements OnInit, OnDestroy {
                private searchService: SearchService,
                private localStorageService: LocalStorageService,
                private domSanitizer: DomSanitizer,
-               private userService: UserService,
-               private showService: ShowService,
+               private userManagementService: UserManagementService,
+               private showManagementService: ShowManagementService,
                private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
-        this.currentUser = this.userService.getUserFromLocalStorage();
+        this.currentUser = this.userManagementService.getUserFromLocalStorage();
         this.getCurrentShow({findById: params.id});
       });
   }
 
   getCurrentShow(rawQuery: {findById: string}): void {
-    const getCurrentShowSubcribe = this.showService.getEventsListByQuery(rawQuery)
+    const getCurrentShowSubcribe = this.showManagementService.getEventsListByQuery(rawQuery)
       .subscribe(res => {
         this.currentShow = head(res);
         this.getSimilarEvents();
@@ -97,7 +96,7 @@ export class ShowPageComponent implements OnInit, OnDestroy {
       exceptById: this.currentShow._id
     };
 
-    const getEventsDataSubcribe = this.showService.getEventsListByQuery(query)
+    const getEventsDataSubcribe = this.showManagementService.getEventsListByQuery(query)
       .subscribe(res => {
         this.similarEvents = res;
       }, err => {

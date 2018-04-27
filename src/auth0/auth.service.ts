@@ -7,7 +7,7 @@ import Auth0Lock from 'auth0-lock';
 
 import { AUTH_CONFIG } from './auth.config';
 import { Config } from '../app.config';
-import { User, UserService } from '../shared/services/user-service';
+import { User, UserManagementService } from '../shared/services/user-management-service';
 import { ParsedProfile } from './parsed-profile.interface';
 
 interface CustomAuthResult extends AuthResult {
@@ -39,13 +39,13 @@ export class AuthService implements OnDestroy {
   subscriptionManager: Subscription = new Subscription();
 
   constructor(private router: Router,
-              private userService: UserService) {
+              private userManagementService: UserManagementService) {
     this.isAuthenticated();
 
-    const updateAccountSubscription = this.userService.updateUserAccount;
+    const updateAccountSubscription = this.userManagementService.updateUserAccount;
     updateAccountSubscription
       .subscribe((res: boolean): void => {
-        const userFromLocalStorage = this.userService.getUserFromLocalStorage();
+        const userFromLocalStorage = this.userManagementService.getUserFromLocalStorage();
 
         if (!res || !userFromLocalStorage) {
           return;
@@ -79,7 +79,7 @@ export class AuthService implements OnDestroy {
     this.userProfile$.next(this.userProfile);
 
     if (profile && isUpdateToLocalstorage) {
-      this.userService.setUserToLocalStorage(profile);
+      this.userManagementService.setUserToLocalStorage(profile);
     }
   }
 
@@ -156,7 +156,7 @@ export class AuthService implements OnDestroy {
         try {
           const userTempProfile = JSON.parse(tempProfile);
 
-          const userSubscribe = this.userService.getUser({email: userTempProfile.email})
+          const userSubscribe = this.userManagementService.getUser({email: userTempProfile.email})
           .subscribe((user: User) => {
             this.setUserProfile(user);
           });
@@ -175,10 +175,10 @@ export class AuthService implements OnDestroy {
   }
 
   isUserExist(profile: auth0.Auth0UserProfile): void {
-    this.userService.isEmailExist({email: profile.email})
+    this.userManagementService.isEmailExist({email: profile.email})
       .subscribe(res => {
         if (res.isAlreadyExist) {
-          const userSubscribe = this.userService.getUser({email: profile.email})
+          const userSubscribe = this.userManagementService.getUser({email: profile.email})
             .subscribe((user: User) => {
               this.setUserProfile(user);
             });
@@ -189,11 +189,11 @@ export class AuthService implements OnDestroy {
         }
 
         const parsedUser: ParsedProfile = this.parseProfile(profile);
-        const subscribeUser = this.userService.signupUser(parsedUser)
+        const subscribeUser = this.userManagementService.signupUser(parsedUser)
           .subscribe((user: User) => {
             this.setUserProfile(user);
 
-            this.router.navigate(['/edit-profile']);
+            this.router.navigate(['/my-profile']);
           }, err => {
             console.error('something went wrong: ', err);
           });

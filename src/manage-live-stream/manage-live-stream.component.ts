@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Show } from '../shared/show-service/show.model';
-import { ShowService } from '../shared/show-service/show.service';
+import { Show, ShowManagementService } from '../shared/services/show-management-service';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
 
 @Component({
@@ -20,7 +19,7 @@ export class ManageLiveStreamComponent implements OnInit, OnDestroy {
   isShowPassword = false;
 
   constructor(private route: ActivatedRoute,
-              private showService: ShowService,
+              private showManagementService: ShowManagementService,
               private wowzaCloudService: WowzaCloudService) {
   }
 
@@ -36,7 +35,7 @@ export class ManageLiveStreamComponent implements OnInit, OnDestroy {
   }
 
   getCurrentShow(rawQuery: {[key: string]: any}): void {
-    const getCurrentShowSubcribtion = this.showService.getEventForManage(rawQuery)
+    const getCurrentShowSubcribtion = this.showManagementService.getEventForManage(rawQuery)
       .subscribe(res => {
         this.currentShow = res;
         this.liveStreamId = res.wowza.id;

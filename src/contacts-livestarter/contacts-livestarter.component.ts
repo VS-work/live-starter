@@ -9,7 +9,7 @@ import { Pattern } from '../enums/patterns.emum';
 import { ContactsLivestarterService } from './contacts-livestarter.service';
 import { CallbackForm } from './callbackForm.model';
 import { customToastOptions } from '../shared/models/toasty-options.model';
-import { User, USER_TYPES, UserType } from '../shared/services/user-service';
+import { User, USER_TYPES, UserType } from '../shared/services/user-management-service';
 
 @Component({
   selector: 'app-contacts-livestarter-component',

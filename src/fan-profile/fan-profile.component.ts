@@ -3,11 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as moment from 'moment';
 
-import { User, UserService } from '../shared/services/user-service';
-import { ShowService } from '../shared/show-service/show.service';
-import { Show } from '../shared/show-service/show.model';
+import { User, UserManagementService } from '../shared/services/user-management-service';
+import { Show, ShowManagementService, EventByQuery } from '../shared/services/show-management-service';
 import { ShowInfo } from '../shared/show-info/info.interface';
-import { EventByQuery } from '../shared/show-service/event-by-query.interface';
 import { StatisticsItem } from '../shared/statistics/statistics.interface';
 import {
   STATISTICS_FOLLOWERS,
@@ -33,8 +31,8 @@ export class FanProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private userService: UserService,
-              private showService: ShowService) {
+              private userManagementService: UserManagementService,
+              private showManagementService: ShowManagementService) {
 
   }
 
@@ -47,7 +45,7 @@ export class FanProfileComponent implements OnInit {
           return;
         }
 
-        const userSubscription = this.userService.getUser({_id: params.id});
+        const userSubscription = this.userManagementService.getUser({_id: params.id});
 
         userSubscription
           .filter(res => res instanceof User)
@@ -86,7 +84,7 @@ export class FanProfileComponent implements OnInit {
 
     const query: EventByQuery = {...this.query, ...{findByCompleted: false}};
 
-    const backedShowsSubscription = this.showService.getEventsListByQuery(query);
+    const backedShowsSubscription = this.showManagementService.getEventsListByQuery(query);
     backedShowsSubscription
       .filter(res => !!res.length && res[0] instanceof Show)
       .subscribe(res => {
@@ -103,7 +101,7 @@ export class FanProfileComponent implements OnInit {
 
     const query: EventByQuery = {...this.query, ...{findByCompleted: true}};
 
-    const attendedShowsSubscription = this.showService.getEventsListByQuery(query);
+    const attendedShowsSubscription = this.showManagementService.getEventsListByQuery(query);
     attendedShowsSubscription
       .filter(res => !!res.length && res[0] instanceof Show)
       .subscribe(res => {

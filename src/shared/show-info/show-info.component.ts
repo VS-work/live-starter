@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 import { Config } from '../../app.config';
-import { UserService, User } from '../services/user-service';
-import { Show } from '../show-service/show.model';
+import { UserManagementService, User } from '../services/user-management-service';
+import { Show } from '../services/show-management-service/show.model';
 import { PurchaseParamsModel } from '../purchase-container/purchase-container.model';
 import { RouterLinks } from '../../enums';
 import { StatisticsItem } from '../statistics/statistics.interface';
@@ -48,7 +48,7 @@ export class ShowInfoComponent {
       ];
       return;
     }
-    const userSubscription = this.userService.getUser({_id: this.show.creator});
+    const userSubscription = this.userManagementService.getUser({_id: this.show.creator});
     userSubscription.subscribe(user => {
       this.user = user;
       this.userProfileLink = this.user.type === 'fan' ? `/${RouterLinks.FanProfile}` : `/${RouterLinks.ArtistProfile}`;
@@ -74,8 +74,8 @@ export class ShowInfoComponent {
   showPageLink = `/${RouterLinks.ShowPage}`;
 
   constructor(private router: Router,
-              private userService: UserService) {
-    this.currentUser = this.userService.getUserFromLocalStorage();
+              private userManagementService: UserManagementService) {
+    this.currentUser = this.userManagementService.getUserFromLocalStorage();
   }
 
   parseDate(date: string): void {

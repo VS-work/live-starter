@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 import { SearchService } from '../shared';
-import { User } from '../shared/services/user-service';
-import { Show } from '../shared/show-service/show.model';
+import { User } from '../shared/services/user-management-service';
+import { Show } from '../shared/services/show-management-service';
 import { ShowInfo } from '../shared/show-info/info.interface';
+import { ShowManagementService } from '../shared/services/show-management-service';
 
 @Component({
   selector: 'app-my-events',
@@ -17,14 +18,13 @@ export class MyEventsComponent {
   isCreateBtnActive = true;
   isMyEvents = true;
 
-  constructor (private searchService: SearchService) {
+  constructor (private searchService: SearchService, private showManagementService: ShowManagementService) {
     try {
       this.userProfile = new User(JSON.parse(localStorage.getItem('profile')));
 
       const query = {findByBuyers: this.userProfile._id};
-      this.searchService.getEventsList(query).subscribe(res => {
-        this.shows = this.sortShows(res)
-          .map(show => ({isEvent: true, show: new Show(show)}));
+      this.showManagementService.getEventsInfoListByQuery(query).subscribe(res => {
+        this.shows = res;
       }, err => {
         console.log('error: ', err);
       })

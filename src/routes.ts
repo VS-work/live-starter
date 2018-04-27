@@ -18,7 +18,6 @@ export const routes: Routes = [
     loadChildren: '../manage-live-stream/manage-live-stream.module#ManageLiveStreamModule',
     canActivate: [AuthGuard]
   },
-  {path: RouterLinks.MyAccount, loadChildren: '../edit-profile/edit-profile.module#EditProfileModule', canActivate: [AuthGuard]},
   {path: RouterLinks.MyProfile, loadChildren: '../my-profile/my-profile.module#MyProfileModule', canActivate: [AuthGuard]},
   {path: RouterLinks.Home, loadChildren: '../home/home.module#HomeModule'},
   {path: RouterLinks.Artists, loadChildren: '../artists/artists.module#ArtistsModule'},

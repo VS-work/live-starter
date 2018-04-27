@@ -10,7 +10,7 @@ import { Notifications } from './notification.model';
 import { ChangableData } from './changable-data.model';
 import { customToastOptions } from '../shared/models/toasty-options.model';
 import { City, Country, DatePickerConfigModel } from '../shared/models';
-import { User, UserService, UpdateUserProfileRequestObject } from '../shared/services/user-service';
+import { User, UserManagementService, UpdateUserProfileRequestObject } from '../shared/services/user-management-service';
 import { UploadFilesService, UploadFile } from '../shared/upload-files';
 import { LocationService } from '../shared/services';
 
@@ -35,11 +35,11 @@ export class MyProfileComponent implements OnDestroy {
   mimeTypes = 'image/gif, image/jpeg, image/pjpeg, image/x-png, image/png, image/svg+xml';
 
 
-  constructor(private userService: UserService,
+  constructor(private userManagementService: UserManagementService,
               private toastyService: ToastyService,
               private uploadFilesService: UploadFilesService,
               private locationService: LocationService) {
-    this.currentUser = this.userService.getUserFromLocalStorage();
+    this.currentUser = this.userManagementService.getUserFromLocalStorage();
     this.setChangableData();
     this.getCountries();
     this.getNoitifications();
@@ -50,7 +50,7 @@ export class MyProfileComponent implements OnDestroy {
   }
 
   getNoitifications(): void {
-    const getUserNotificationsSubscription  = this.userService.getUsersNotifications(this.currentUser._id)
+    const getUserNotificationsSubscription  = this.userManagementService.getUsersNotifications(this.currentUser._id)
       .subscribe(notifications => {
         this.notifications = notifications;
       }, err => {
@@ -92,7 +92,7 @@ export class MyProfileComponent implements OnDestroy {
       updatedData: this.changableData
     };
 
-    const updateUserSubscription = this.userService.updateUser(rqstObj)
+    const updateUserSubscription = this.userManagementService.updateUser(rqstObj)
       .subscribe(res => {
         this.dateOfBirthConfig.isChanged = false;
         this.currentUser.username = this.changableData.username;
@@ -105,7 +105,7 @@ export class MyProfileComponent implements OnDestroy {
         this.currentUser.location.city = new City(this.changableData.location.city);
 
         const isEmitUpdateUserAccount = true;
-        this.userService.setUserToLocalStorage(this.currentUser, isEmitUpdateUserAccount);
+        this.userManagementService.setUserToLocalStorage(this.currentUser, isEmitUpdateUserAccount);
 
         const toastOptions: ToastOptions = {
           ...customToastOptions,
@@ -129,7 +129,7 @@ export class MyProfileComponent implements OnDestroy {
       updatedData: this.notifications
     };
 
-    const updateUserNotifications = this.userService.updateUserNotifications(rqstObj)
+    const updateUserNotifications = this.userManagementService.updateUserNotifications(rqstObj)
       .subscribe(res => {
         const toastOptions: ToastOptions = {
           ...customToastOptions,
@@ -174,7 +174,7 @@ export class MyProfileComponent implements OnDestroy {
       .subscribe(res => {
         this.currentUser.avatar = res.imageUrl ? res.imageUrl : this.currentUser.avatar;
         const isEmitUpdateUserAccount = true;
-        this.userService.setUserToLocalStorage(this.currentUser, isEmitUpdateUserAccount);
+        this.userManagementService.setUserToLocalStorage(this.currentUser, isEmitUpdateUserAccount);
 
         const toastOptions: ToastOptions = {
           ...customToastOptions,

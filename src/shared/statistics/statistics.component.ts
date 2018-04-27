@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ToastOptions, ToastyService } from 'ng2-toasty';
 
 import { StatisticsService } from './statistics.service';
-import { UserService, User } from '../services/user-service';
+import { UserManagementService, User } from '../services/user-management-service';
 import { customToastOptions } from '../models/toasty-options.model';
 import { LikeRequestObj, StatisticsItem } from './statistics.interface';
 
@@ -21,12 +21,12 @@ export class StatisticsComponent implements OnInit {
 
   constructor(private statisticsService: StatisticsService,
               private toastyService: ToastyService,
-              private userService: UserService) {
+              private userManagementService: UserManagementService) {
 
   }
 
   ngOnInit() {
-    this.user = this.userService.getUserFromLocalStorage();
+    this.user = this.userManagementService.getUserFromLocalStorage();
   }
 
   setLike(item: StatisticsItem): void  {
