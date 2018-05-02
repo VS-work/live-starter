@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { AuthGuard } from './auth0/auth.guard';
+
 import { RouterLinks } from './enums/router-links.emum';
 
 export const routes: Routes = [
@@ -21,7 +22,7 @@ export const routes: Routes = [
   {path: RouterLinks.MyProfile, loadChildren: '../my-profile/my-profile.module#MyProfileModule', canActivate: [AuthGuard]},
   {path: RouterLinks.Home, loadChildren: '../home/home.module#HomeModule'},
   {path: RouterLinks.Artists, loadChildren: '../artists/artists.module#ArtistsModule'},
-  {path: RouterLinks.ArtistProfile, loadChildren: '../artist-profile/artist-profile.module#ArtistProfileModule'},
+  {path: RouterLinks.ArtistProfile, loadChildren: '../public-user-profile/public-user-profile.module#PublicUserProfileModule'},
   {path: 'fan-profile', loadChildren: '../fan-profile/fan-profile.module#FanProfileModule'},
   {path: RouterLinks.Blog, loadChildren: '../blog/blog.module#BlogModule'},
   {path: 'about', loadChildren: '../about/about.module#AboutModule'},
