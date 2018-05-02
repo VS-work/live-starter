@@ -38,13 +38,19 @@
         {{currentShow?.description}}
       </div>
 
-      <ng-template ngFor let-audio [ngForOf]="audios">
-        <div class="songs-container" [innerHtml]="audio"></div>
-      </ng-template>
+      <div class="embed-file-container">
+        <app-embed-file-container
+          *ngFor="let audio of currentShow?.audios;"
+          [setFile]="audio">
+        </app-embed-file-container>
+      </div>
 
-      <ng-template ngFor let-video [ngForOf]="videos">
-        <div class="video-container embed-responsive embed-responsive-16by9" [innerHtml]="video"></div>
-      </ng-template>
+      <div class="embed-file-container">
+        <app-embed-file-container
+          *ngFor="let video of currentShow?.videos;"
+          [setFile]="video" [isVideo]="true">
+        </app-embed-file-container>
+      </div>
 
       <div *ngIf="currentShow?.info" class="show-footer">
         {{currentShow?.info}}

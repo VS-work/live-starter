@@ -16,6 +16,7 @@ import { ShareContainerModule } from '../shared/share-container/share-container.
 import { PurchaseContainerModule } from '../shared/purchase-container/purchase-container.module';
 import { TipsContainerModule } from '../shared/tips-container/tips-container.module';
 import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.service';
+import { EmbedFileContainerModule } from '../shared/embed-files-container/embed-file-container.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { WowzaCloudService } from '../shared/wowza-streaming-cloud/wowza-cloud.s
     TimerModule,
     ShareContainerModule,
     PurchaseContainerModule,
-    TipsContainerModule
+    TipsContainerModule,
+    EmbedFileContainerModule
   ]
 })
 
