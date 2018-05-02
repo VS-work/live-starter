@@ -74,7 +74,7 @@
           <tab heading="Bio">
             <div class="biography">{{user.biography}}</div>
           </tab>
-          <tab heading="Music">
+          <tab heading="Music" *ngIf="isUserArtist">
            <div class="embed-file-container" *ngIf="audios.length; else emptyAudios">
              <app-embed-file-container
                *ngFor="let audio of audios;"

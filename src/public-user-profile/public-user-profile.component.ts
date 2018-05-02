@@ -112,7 +112,7 @@ export class PublicUserProfileComponent implements OnInit {
 
     const attendedShowsSubscription = this.showManagementService.getEventsListByQuery(query);
     attendedShowsSubscription
-      .filter(res => !!res.length && res[0] instanceof Show)
+      .filter(res => res.length && res[0] instanceof Show)
       .subscribe(res => {
         this.attendedShows = res.map(show => this.getShowInfo(show));
       }, err => {

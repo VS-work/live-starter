@@ -24,8 +24,6 @@ import { STATISTICS_LIKES, STATISTICS_FOLLOWERS } from '../shared/statistics/sta
 export class ShowPageComponent implements OnInit, OnDestroy {
   subscriptionManager: Subscription = new Subscription();
   currentShow: Show;
-  audios: SafeHtml = [];
-  videos: SafeHtml = [];
   eventInfo: EventInfo;
   similarEvents: Show[] = [];
   purchaseParams: PurchaseParamsModel;
@@ -65,8 +63,6 @@ export class ShowPageComponent implements OnInit, OnDestroy {
           {...STATISTICS_FOLLOWERS, ...{value: this.currentShow.statistics.followers}}
         ];
 
-        this.audios = this.parseEmbeddingfiles(this.currentShow.audios);
-        this.videos = this.parseEmbeddingfiles(this.currentShow.videos);
         this.currentShow.wowza = {
           id: 'bshjwppf',
           player_hls_playback_url: 'https://10e8f0.entrypoint.cloud.wowza.com/app-8de5/ngrp:03bae8e8_all/playlist.m3u8'
@@ -104,10 +100,6 @@ export class ShowPageComponent implements OnInit, OnDestroy {
       });
 
     this.subscriptionManager.add(getEventsDataSubcribe)
-  }
-
-  parseEmbeddingfiles(embeddingFiles: LinkWithEmbedCode[], isVideo = false): SafeHtml[] {
-    return embeddingFiles.map(embeddingFile => this.domSanitizer.bypassSecurityTrustHtml(embeddingFile.embedCode));
   }
 
   getImgUrl(fileName: string): string {
