@@ -23,7 +23,7 @@ export const routes: Routes = [
   {path: RouterLinks.Home, loadChildren: '../home/home.module#HomeModule'},
   {path: RouterLinks.Artists, loadChildren: '../artists/artists.module#ArtistsModule'},
   {path: RouterLinks.ArtistProfile, loadChildren: '../public-user-profile/public-user-profile.module#PublicUserProfileModule'},
-  {path: 'fan-profile', loadChildren: '../fan-profile/fan-profile.module#FanProfileModule'},
+  {path: RouterLinks.FanProfile, loadChildren: '../public-user-profile/public-user-profile.module#PublicUserProfileModule'},
   {path: RouterLinks.Blog, loadChildren: '../blog/blog.module#BlogModule'},
   {path: 'about', loadChildren: '../about/about.module#AboutModule'},
   {path: RouterLinks.ShowPage, loadChildren: '../show-page/show-page.module#ShowPageModule'},
