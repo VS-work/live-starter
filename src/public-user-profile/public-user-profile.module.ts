@@ -1,0 +1,33 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
+import { routing } from '../modules/public-user-profile.routing';
+import { PublicUserProfileComponent } from './public-user-profile.component';
+import { ShowInfoModule } from '../shared/show-info/show-info.module';
+import { FollowModule } from '../shared/follow/follow.module';
+import { StatisticsModule } from '../shared/statistics/statistics.module';
+import { TipsContainerModule } from '../shared/tips-container/tips-container.module';
+import { EmbedFileContainerModule } from '../shared/embed-files-container/embed-file-container.module';
+
+@NgModule({
+  declarations: [
+    PublicUserProfileComponent,
+ ],
+  imports: [
+    routing,
+    CommonModule,
+    TabsModule.forRoot(),
+    ShowInfoModule,
+    FollowModule,
+    StatisticsModule,
+    TipsContainerModule,
+    EmbedFileContainerModule
+  ],
+  providers: [],
+  exports: []
+})
+export class PublicUserProfileModule {
+}
+
