@@ -4,12 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 
-import * as moment from 'moment-timezone';
-
 import { Config } from '../../../app.config';
 import { User, UserManagementService } from '../user-management-service';
-import { NewEventResponse, Show, ConfigForTransformDateAccordingToTimeZone } from './';
+import { NewEventResponse, Show } from './';
 import { ShowInfo } from '../../show-info/info.interface';
+import { parseDateAccordingToTimeZone } from '../../../assets/functions/parse-date-according-totime-zone';
 
 @Injectable()
 export class ShowManagementService {
@@ -123,21 +122,12 @@ export class ShowManagementService {
 
   private parseShowAccordingsToTimeZone(show: Show): Show {
     const dateFormat = 'dddd, MMMM DD YYYY, h:mm:ss a';
-    show.timePerformance.start = this.getDateAccordingToTimeZone({
+    show.timePerformance.start = parseDateAccordingToTimeZone({
       date: new Date(show.timePerformance.start),
       dateFormat
     });
-    show.timePerformance.end = this.getDateAccordingToTimeZone({date: new Date(show.timePerformance.end), dateFormat});
+    show.timePerformance.end = parseDateAccordingToTimeZone({date: new Date(show.timePerformance.end), dateFormat});
 
     return show;
-  }
-
-  getDateAccordingToTimeZone(config?: ConfigForTransformDateAccordingToTimeZone): string {
-    const dateFormat = config && config.dateFormat ? config.dateFormat : 'dddd, MMMM DD YYYY, h:mm:ss a ZZ';
-    const userTimeZone = config && config.timeZone ? config.timeZone : moment.tz.guess();
-
-    return (config && config.date ? moment(config.date) : moment())
-      .tz(userTimeZone)
-      .format(dateFormat);
   }
 }

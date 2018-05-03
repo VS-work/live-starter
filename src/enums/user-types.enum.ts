@@ -1,7 +1,9 @@
 export enum ArtistType {
-  type = 'artist'
+  type = 'artist',
+  title = 'Artist'
 }
 
 export enum FanType {
-  type = 'fan'
+  type = 'fan',
+  title = 'Fan'
 }

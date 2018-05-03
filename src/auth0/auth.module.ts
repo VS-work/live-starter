@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -14,7 +14,6 @@ import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.m
     AuthComponent,
   ],
   providers: [
-    AuthService,
     UserManagementService
   ],
   imports: [
@@ -29,4 +28,12 @@ import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.m
 })
 
 export class AuthModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AuthModule,
+      providers: [
+        AuthService
+      ]
+    };
+  }
 }

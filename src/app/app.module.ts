@@ -19,6 +19,7 @@ import { FooterComponent } from '../footer';
 import { AuthGuard } from '../auth0/auth.guard';
 import { AuthModule } from '../auth0/auth.module';
 import { ShowManagementService } from '../shared/services/show-management-service';
+import { CommentsService } from '../shared/services';
 
 @NgModule({
   declarations: [
@@ -39,12 +40,13 @@ import { ShowManagementService } from '../shared/services/show-management-servic
     SharedModule,
     routing,
     RouterModule,
-    AuthModule,
+    AuthModule.forRoot(),
   ],
   providers: [
     LocalStorageService,
     AuthGuard,
-    ShowManagementService
+    ShowManagementService,
+    CommentsService
   ],
   bootstrap: [AppComponent]
 })

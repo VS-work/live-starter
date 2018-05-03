@@ -1,0 +1,33 @@
+@import "../../variables.scss";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.comment-container {
+  height: 100%;
+  background-color: $white;
+  border: 1px solid $liteBorder;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
+  padding: 15px;
+}
+
+.comment-head {
+  padding-bottom: 15px;
+}
+
+.comment-body {
+  border-top: 1px solid $liteBorder;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.comment-text {
+  font-size: 14px;
+  color: $liteGray;
+  margin: 0;
+  padding-top: 15px;
+}
