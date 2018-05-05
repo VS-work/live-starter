@@ -85,6 +85,9 @@
               <div>Empty page</div>
             </ng-template>
           </tab>
+          <tab heading="Comments" *ngIf="isUserArtist" [active]="true">
+            <app-comments-tab [setCommentConfig]="user._id"></app-comments-tab>
+          </tab>
           <tab (select)="getBackedShows()">
             <ng-template tabHeading>
               <div class="">Backed</div>

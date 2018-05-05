@@ -2,5 +2,6 @@
   <img [src]="info?.avatar" alt="artist avatart" class="avatar">
   <div>
     <div class="artist-name">{{info?.username}}</div>
+    <div class="other-info" *ngIf="info?.type">{{info?.type}}</div>
   </div>
 </div>

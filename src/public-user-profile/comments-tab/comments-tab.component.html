@@ -1,0 +1,15 @@
+<div class="comments-tab-container">
+  <app-new-comment
+    *ngIf="commentConfig"
+    [commentConfig]="commentConfig"
+    (addComment)="addComment($event)">
+  </app-new-comment>
+
+  <h6 class="tab-title">Fan comments to related shows and art</h6>
+
+  <div class="comments-container row">
+    <div class="col-md-6 col-lg-4" *ngFor="let comment of comments">
+      <app-comment [setCommentData]="comment"></app-comment>
+    </div>
+  </div>
+</div>

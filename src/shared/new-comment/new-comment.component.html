@@ -1,0 +1,15 @@
+<div class="new-comment-container">
+  <form #newCommentForm="ngForm" novalidate (ngSubmit)="submitForm(newCommentForm)">
+    <div class="form-group">
+      <label for="new-comment" class="field-title">New comment</label>
+      <textarea name="newComment"
+                id="new-comment"
+                [(ngModel)]="newComment"
+                placeholder="Write a comment here"
+                #newComment1="ngModel"
+                required>
+        </textarea>
+    </div>
+    <button type="submit" class="btn-with-border btn-orange" [disabled]="!newCommentForm.dirty || newCommentForm.invalid">Send</button>
+  </form>
+</div>

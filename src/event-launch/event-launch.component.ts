@@ -19,6 +19,7 @@ import { NewStreamModel } from '../shared/wowza-streaming-cloud/new-stream.model
 import { Pattern, CrowdcampaignForSomeOtherArtist, CrowdcampaignForMySelf, CrowdCampaignType } from '../enums';
 import { OembedService } from '../shared/services';
 import { ShowManagementService, LinkWithEmbedCode, Show } from '../shared/services/show-management-service';
+import { parseDateAccordingToTimeZone } from '../assets/functions/parse-date-according-totime-zone';
 
 @Component({
   selector: 'app-launch-component',
@@ -143,8 +144,8 @@ export class LaunchComponent implements OnInit {
       });
 
     this.wowzaObj.name = this.launchEvent.name;
-    this.launchEvent.timePerformance.start = this.showManagementService.getDateAccordingToTimeZone({date: this.timePerformance.start});
-    this.launchEvent.timePerformance.end = this.showManagementService.getDateAccordingToTimeZone({date: this.timePerformance.end});
+    this.launchEvent.timePerformance.start = parseDateAccordingToTimeZone({date: this.timePerformance.start});
+    this.launchEvent.timePerformance.end = parseDateAccordingToTimeZone({date: this.timePerformance.end});
     this.launchEvent.datePerformance = new Date(this.launchEvent.timePerformance.start).getTime();
     this.launchEvent.dateCreated = new Date().getTime();
 
