@@ -12,11 +12,13 @@ import { TipsContainerModule } from '../shared/tips-container/tips-container.mod
 import { EmbedFileContainerModule } from '../shared/embed-files-container/embed-file-container.module';
 import { NewCommentModule } from '../shared/new-comment';
 import { CommentModule } from '../shared/comment';
+import { ShowsTabComponent } from './shows-tab/shows-tab.component';
 
 @NgModule({
   declarations: [
     PublicUserProfileComponent,
-    CommentsTabComponent
+    CommentsTabComponent,
+    ShowsTabComponent
  ],
   imports: [
     routing,

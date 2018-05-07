@@ -171,16 +171,6 @@
   }
 }
 
-.show-item {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-
-  & > * {
-    width: 100%;
-  }
-}
-
 .embed-file-container {
   & > * {
     display: block;
@@ -226,6 +216,37 @@
 
     & > * {
       width: auto;
+    }
+  }
+
+  .user-public-profile-tabs ::ng-deep {
+    .nav-tabs {
+      position: relative;
+      border: none;
+
+      .nav-link {
+        height: auto;
+        flex-direction: row;
+
+        & > *:not(:last-child) {
+          padding-right: 5px;
+        }
+
+        &.active {
+          border-color: $liteBorder;
+        }
+      }
+
+      &:before, &:after {
+        display: none;
+      }
+    }
+
+    .nav-justified {
+      .nav-item {
+        width: 100%;
+        flex-basis: auto;
+      }
     }
   }
 }

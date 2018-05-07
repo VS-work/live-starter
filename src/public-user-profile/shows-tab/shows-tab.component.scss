@@ -1,0 +1,26 @@
+@import "../../variables.scss";
+
+.tab-title {
+  color: $darkGray;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.shows-container {
+  & > * {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+}
+
+.show-item {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+
+  & > * {
+    width: 100%;
+  }
+}

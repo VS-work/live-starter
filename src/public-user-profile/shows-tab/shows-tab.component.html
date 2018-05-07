@@ -1,0 +1,11 @@
+<div class="shows-tab-container">
+  <div class="row" *ngIf="shows.length; else emptyShows">
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-12 show-item" *ngFor="let show of shows">
+      <app-show-info [info]="show" [isMyEvents]="true"></app-show-info>
+    </div>
+  </div>
+
+  <ng-template #emptyShows>
+    <div>Empty page</div>
+  </ng-template>
+</div>
