@@ -74,6 +74,7 @@
           <tab heading="Bio">
             <div class="biography">{{user.biography}}</div>
           </tab>
+
           <tab heading="Music" *ngIf="isUserArtist">
            <div class="embed-file-container" *ngIf="audios.length; else emptyAudios">
              <app-embed-file-container
@@ -85,41 +86,38 @@
               <div>Empty page</div>
             </ng-template>
           </tab>
-          <tab heading="Comments" *ngIf="isUserArtist" [active]="true">
-            <app-comments-tab [setCommentConfig]="user._id"></app-comments-tab>
-          </tab>
-          <tab (select)="getBackedShows()">
+
+          <tab (select)="getBackedShows()" *ngIf="true">
             <ng-template tabHeading>
               <div class="">Backed</div>
               <div class="">Shows</div>
             </ng-template>
 
-            <div class="row" *ngIf="backedShows.length; else emptyBackedShows">
-              <div class="col-12 col-sm-6 col-lg-4 col-xl-12 show-item" *ngFor="let show of backedShows">
-                <app-show-info [info]="show" [isMyEvents]="true"></app-show-info>
-              </div>
-            </div>
-
-            <ng-template #emptyBackedShows>
-              <div>Empty page</div>
-            </ng-template>
+            <app-shows-tab [shows]="backedShows"></app-shows-tab>
           </tab>
-          <tab (select)="getAttendedShows()">
+
+          <tab (select)="getAttendedShowsForFan()" *ngIf="!isUserArtist">
             <ng-template tabHeading>
              <div class="">Attended</div>
              <div class="">Shows</div>
             </ng-template>
 
-            <div class="row" *ngIf="attendedShows.length; else emptyBackedShows">
-              <div class="col-12 col-sm-6 col-lg-4 col-xl-12 show-item" *ngFor="let show of attendedShows">
-                <app-show-info [info]="show" [isMyEvents]="true"></app-show-info>
-              </div>
-            </div>
-
-            <ng-template #emptyBackedShows>
-              <div>Empty page</div>
-            </ng-template>
+            <app-shows-tab [shows]="attendedShows"></app-shows-tab>
           </tab>
+
+          <tab (select)="getComingsShows()" *ngIf="isUserArtist">
+            <ng-template tabHeading>
+              <div class="">Coming</div>
+              <div class="">Shows</div>
+            </ng-template>
+
+            <app-shows-tab [shows]="comingShows"></app-shows-tab>
+          </tab>
+
+          <tab heading="Comments" *ngIf="isUserArtist">
+            <app-comments-tab [setCommentConfig]="user._id"></app-comments-tab>
+          </tab>
+
         </tabset>
       </div>
     </div>

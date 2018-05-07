@@ -33,6 +33,7 @@ export class PublicUserProfileComponent implements OnInit {
   dateOfBirth: string;
   backedShows: ShowInfo[] = [];
   attendedShows: ShowInfo[] = [];
+  comingShows: ShowInfo[] = [];
   userStatistics: StatisticsItem[] = [];
   query: EventByQuery;
   audios: LinkWithEmbedCode[] = [];
@@ -67,6 +68,16 @@ export class PublicUserProfileComponent implements OnInit {
               {...STATISTICS_FOLLOWERS, ...{value: this.user.statistics.followers}},
               {...STATISTICS_SHOWS, ...{value: this.user.shows.owned}}
             ];
+
+            if (this.isUserArtist) {
+              this.query = {
+                findByCreator: this.user._id,
+                findByCompleted: false,
+              };
+
+              return;
+            }
+
             this.query = {
               findByBuyers: this.user._id,
               findByCompleted: false,
@@ -91,7 +102,7 @@ export class PublicUserProfileComponent implements OnInit {
       return;
     }
 
-    const query: EventByQuery = {...this.query, ...{findByCompleted: false}};
+    const query: EventByQuery = {...this.query, ...{findByCompleted: this.isUserArtist ? true : false}};
 
     const backedShowsSubscription = this.showManagementService.getEventsListByQuery(query);
     backedShowsSubscription
@@ -103,7 +114,7 @@ export class PublicUserProfileComponent implements OnInit {
       });
   }
 
-  getAttendedShows(): void {
+  getAttendedShowsForFan(): void {
     if (this.attendedShows.length) {
       return;
     }
@@ -115,6 +126,23 @@ export class PublicUserProfileComponent implements OnInit {
       .filter(res => res.length && res[0] instanceof Show)
       .subscribe(res => {
         this.attendedShows = res.map(show => this.getShowInfo(show));
+      }, err => {
+        console.error('something went wrong: ', err);
+      });
+  }
+
+  getComingsShows(): void {
+    if (this.comingShows.length) {
+      return;
+    }
+
+    const query: EventByQuery = {...this.query, ...{findByCompleted: false}};
+
+    const comingShowsSubscription = this.showManagementService.getEventsListByQuery(query);
+    comingShowsSubscription
+      .filter(res => res.length && res[0] instanceof Show)
+      .subscribe(res => {
+        this.comingShows = res.map(show => this.getShowInfo(show));
       }, err => {
         console.error('something went wrong: ', err);
       });
