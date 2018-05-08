@@ -2,5 +2,8 @@ export interface ShortUserInfo {
   avatar: string;
   username: string;
   showLocation?: string;
-  userType?: string;
+  location?: string;
+  type?: string;
+  date?: string;
+  amountTip?: string;
 }

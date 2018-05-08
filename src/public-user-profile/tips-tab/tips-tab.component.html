@@ -1,0 +1,13 @@
+<div class="tips-tab-container">
+  <div class="row tips-row" *ngIf="tipsInfo.length; else emptyTips">
+    <div class="col-md-6 col-lg-4" *ngFor="let tipInfo of tipsInfo">
+      <div class="tip-container">
+        <app-short-user-info [info]="tipInfo"></app-short-user-info>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyTips>
+    <div>Empty page</div>
+  </ng-template>
+</div>

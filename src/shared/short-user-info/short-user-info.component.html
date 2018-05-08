@@ -2,6 +2,11 @@
   <img [src]="info?.avatar" alt="artist avatart" class="avatar">
   <div>
     <div class="artist-name">{{info?.username}}</div>
-    <div class="other-info" *ngIf="info?.type">{{info?.type}}</div>
+    <div class="other-info" *ngIf="info?.type || info?.location">
+      <span class="userType"> {{info?.type}}</span>
+      <span class="location">{{info?.location}}</span>
+    </div>
+    <div class="other-info" *ngIf="info?.date">{{info?.date}}</div>
+    <div class="other-info" *ngIf="info?.amountTip">Tip: {{info?.amountTip}}</div>
   </div>
 </div>

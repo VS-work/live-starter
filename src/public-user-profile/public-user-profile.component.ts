@@ -19,6 +19,8 @@ import {
   STATISTICS_VIEWERS
 } from '../shared/statistics/statistics-types.model';
 import { ArtistType } from '../enums/user-types.enum';
+import { ShortUserInfo } from '../shared/short-user-info/short-user-info.interface';
+import { GetTipsQuery, TipsManagementService } from '../shared/services';
 
 @Component({
   selector: 'app-public-user-profile-component',
@@ -35,14 +37,15 @@ export class PublicUserProfileComponent implements OnInit {
   attendedShows: ShowInfo[] = [];
   comingShows: ShowInfo[] = [];
   userStatistics: StatisticsItem[] = [];
+  tipsInfo: ShortUserInfo[] = [];
   query: EventByQuery;
   audios: LinkWithEmbedCode[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private userManagementService: UserManagementService,
-              private showManagementService: ShowManagementService) {
-
+              private showManagementService: ShowManagementService,
+              private tipsManagementService: TipsManagementService) {
   }
 
   ngOnInit() {
@@ -146,6 +149,22 @@ export class PublicUserProfileComponent implements OnInit {
       }, err => {
         console.error('something went wrong: ', err);
       });
+  }
+
+  getTips(): void {
+    if (this.tipsInfo.length) {
+      return;
+    }
+
+    const query: GetTipsQuery = {
+      findByAddressee: this.user._id
+    };
+
+    const tipsInfo$ = this.tipsManagementService.getTips(query);
+
+    tipsInfo$.subscribe(tips => {
+      this.tipsInfo = tips;
+    });
   }
 
   getShowInfo(show: Show): ShowInfo {

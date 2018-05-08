@@ -13,12 +13,16 @@ import { EmbedFileContainerModule } from '../shared/embed-files-container/embed-
 import { NewCommentModule } from '../shared/new-comment';
 import { CommentModule } from '../shared/comment';
 import { ShowsTabComponent } from './shows-tab/shows-tab.component';
+import { TipsTabComponent } from './tips-tab/tips-tab.component';
+import { ShortUserInfoModule } from '../shared/short-user-info/short-user-info.module';
+import { TipsManagementService } from '../shared/services';
 
 @NgModule({
   declarations: [
     PublicUserProfileComponent,
     CommentsTabComponent,
-    ShowsTabComponent
+    ShowsTabComponent,
+    TipsTabComponent
  ],
   imports: [
     routing,
@@ -30,9 +34,12 @@ import { ShowsTabComponent } from './shows-tab/shows-tab.component';
     TipsContainerModule,
     EmbedFileContainerModule,
     NewCommentModule,
-    CommentModule
+    CommentModule,
+    ShortUserInfoModule
   ],
-  providers: [],
+  providers: [
+    TipsManagementService
+  ],
   exports: []
 })
 export class PublicUserProfileModule {
