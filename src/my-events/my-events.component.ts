@@ -26,7 +26,7 @@ export class MyEventsComponent {
       this.showManagementService.getEventsInfoListByQuery(query).subscribe(res => {
         this.shows = res;
       }, err => {
-        console.log('error: ', err);
+        console.error('something went wrong: ', err);
       })
     } catch (err) {
       this.userProfile = null;
