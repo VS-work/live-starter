@@ -33,7 +33,6 @@ export class CommentsTabComponent implements OnInit, OnDestroy {
     commentsSubscription
       .subscribe(res => {
         this.comments = res;
-        console.log(this.comments);
       }, err => {
         console.error('something went wrong: ', err);
       });

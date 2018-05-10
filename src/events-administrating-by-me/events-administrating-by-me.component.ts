@@ -23,7 +23,7 @@ export class EventsAdministratingByMeComponent {
         .subscribe(res => {
           this.shows = res
         }, err => {
-          console.log('error: ', err);
+          console.error('something went wrong: ', err);
         })
     }
   }

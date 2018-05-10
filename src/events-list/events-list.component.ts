@@ -130,10 +130,6 @@ export class EventsListComponent implements OnInit {
       });
   }
 
-  public displayLiveShowsFunc(): void {
-    console.log(this.displayLiveShows);
-  }
-
   public pushGenreToList(genrePush: string): void {
     this.queryToFindShow.findByGenre = genrePush;
     this.findEventsByQuery(this.queryToFindShow);
