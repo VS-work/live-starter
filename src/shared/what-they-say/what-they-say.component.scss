@@ -1,0 +1,61 @@
+@import "../../variables.scss";
+
+.what-they-say-container {
+	width: 100%;
+	display: block;
+	position: relative;
+	vertical-align: top;
+	padding: 30px 0;
+
+  .commas {
+    right: 30px;
+    top: -10px;
+    width: 77px;
+    position: absolute;
+  }
+}
+
+.what-they-say-title {
+	width: 100%;
+	text-align: right;
+  padding: 0 85px;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 77px;
+    height: 64px;
+    background-image: url('/assets/img/commas.svg');
+    background-size: cover;
+  }
+}
+
+.title-head {
+	width: 100%;
+	font-size: 25px;
+	font-weight: 600;
+	text-align: center;
+	color: $darkBlue;
+	line-height: 40px;
+  margin-bottom: 15px;
+}
+
+.comments-container {
+  & > * {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, sm)) {
+  .what-they-say-title {
+    padding: 0 10px;
+
+    &:after {
+      display: none;
+    }
+  }
+}

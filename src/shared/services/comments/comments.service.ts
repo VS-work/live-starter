@@ -16,6 +16,12 @@ export interface NewCommentRqstObj extends CommentConfig {
   dateCreated?: string;
 }
 
+export interface GetCommentsQuery {
+  limit?: number;
+  findByCommentator?: string;
+  findByCommentedUser?: string
+}
+
 @Injectable()
 export class CommentsService {
   constructor(private http: HttpClient) {
@@ -33,8 +39,8 @@ export class CommentsService {
       );
   }
 
-  getComments(): Observable<Comment[]> {
-    return this.http.get(`${Config.api}/get-comments`, Config.httpOptions)
+  getComments(query: GetCommentsQuery = {}): Observable<Comment[]> {
+    return this.http.get(`${Config.api}/get-comments?${Config.objToQuery(query)}`, Config.httpOptions)
       .pipe(
         map((comments: Comment[]) => comments.map(comment => new Comment(comment))),
         catchError(err => {

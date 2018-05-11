@@ -18,6 +18,16 @@ export class CommentsTabComponent implements OnInit, OnDestroy {
     this.userId = userId;
     this.currentUser = this.userManagementService.getUserFromLocalStorage();
     this.parseCommentConfig(this.userId);
+
+    const comments$ = this.commentsService.getComments({findByCommentedUser: this.userId});
+
+    comments$
+      .subscribe(res => {
+        this.comments = res;
+      }, err => {
+        console.error('something went wrong: ', err);
+      });
+
   };
   userId: string;
   comments: Comment[] = [];
@@ -28,14 +38,6 @@ export class CommentsTabComponent implements OnInit, OnDestroy {
   constructor(private commentsService: CommentsService,
               private userManagementService: UserManagementService,
               private authService: AuthService) {
-    const commentsSubscription = this.commentsService.getComments();
-
-    commentsSubscription
-      .subscribe(res => {
-        this.comments = res;
-      }, err => {
-        console.error('something went wrong: ', err);
-      });
   }
 
   ngOnInit() {

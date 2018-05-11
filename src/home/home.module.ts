@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared';
 import { routing } from '../modules/home.routing';
 import { FewShowsContainerModule } from '../shared/few-shows-container/few-shows-container.module';
-import { CommonModule } from '@angular/common';
+import { WhatTheySayModule } from '../shared/what-they-say/what-they-say.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     routing,
     SharedModule,
-    FewShowsContainerModule
+    FewShowsContainerModule,
+    WhatTheySayModule
   ],
   providers: []
 })
