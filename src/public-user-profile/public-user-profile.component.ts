@@ -71,6 +71,7 @@ export class PublicUserProfileComponent implements OnInit {
               {...STATISTICS_FOLLOWERS, ...{value: this.user.statistics.followers}},
               {...STATISTICS_SHOWS, ...{value: this.user.shows.owned}}
             ];
+            this.getUsersAudio();
 
             if (this.isUserArtist) {
               this.query = {
@@ -164,6 +165,14 @@ export class PublicUserProfileComponent implements OnInit {
 
     tipsInfo$.subscribe(tips => {
       this.tipsInfo = tips;
+    });
+  }
+
+  getUsersAudio() {
+    const audios$ = this.userManagementService.getAudios(this.user._id);
+
+    audios$.subscribe(res => {
+      this.audios = res;
     });
   }
 
