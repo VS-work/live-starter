@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { Config } from '../../app.config';
+import { AuthService } from '../../auth0/auth.service';
 
 @Component({
   selector: 'app-prefooter',
@@ -10,14 +9,11 @@ import { Config } from '../../app.config';
 })
 
 export class PrefooterComponent {
-  private router: Router;
-
-  public constructor(router: Router) {
-    this.router = router;
+  constructor(private authService: AuthService) {
   }
 
-  public signUp(): void {
-    this.router.navigate(['/first-step']);
+  signUp(): void {
+    this.authService.showSignUpModal();
   };
 }
 
