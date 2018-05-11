@@ -33,7 +33,7 @@
     <ng-template #atristInfo>
       <div class="info-top">
         <div class="left-part">
-          <a class="show-name" [routerLink]="userProfileLink" [queryParams]="{id: show?.creator}">{{user?.username}}</a>
+          <a class="show-name" [routerLink]="userProfileLink" [queryParams]="{id: show?.creator || user?._id}">{{user?.username}}</a>
           <div class="kind-of-activity" *ngIf="user?.position">{{user?.position}}</div>
         </div>
 
