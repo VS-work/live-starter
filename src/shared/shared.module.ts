@@ -9,7 +9,6 @@ import { ScrollToModule } from 'ng2-scroll-to';
 
 import { SearchComponent } from './search';
 import { HowItWasComponent } from './how-it-was';
-import { WhatTheySayComponent } from './what-they-say';
 import { PrefooterComponent } from './prefooter';
 import { ShowsTipComponent } from './show-tip';
 import { ShowsBackedComponent } from './show-backed';
@@ -27,7 +26,6 @@ import { WindowRefService } from './win-ref-service';
   declarations: [
     SearchComponent,
     HowItWasComponent,
-    WhatTheySayComponent,
     PrefooterComponent,
     ShowsTipComponent,
     ShowsBackedComponent,
@@ -54,7 +52,6 @@ import { WindowRefService } from './win-ref-service';
   exports: [
     SearchComponent,
     HowItWasComponent,
-    WhatTheySayComponent,
     PrefooterComponent,
     ShowsTipComponent,
     ShowsBackedComponent,

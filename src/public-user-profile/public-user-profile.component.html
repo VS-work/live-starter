@@ -115,7 +115,7 @@
           </tab>
 
           <tab heading="Comments" *ngIf="isUserArtist">
-            <app-comments-tab setCommentConfig="user._id"></app-comments-tab>
+            <app-comments-tab setCommentConfig="{{user._id}}"></app-comments-tab>
           </tab>
           <tab heading="Tips"
                *ngIf="isUserArtist"
