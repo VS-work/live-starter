@@ -137,6 +137,15 @@ export class UserManagementService {
       );
   }
 
+  getAudios(userId: string) {
+    return this.http.get(`${Config.api}/get-users-audios?userId=${userId}`)
+      .pipe(catchError(err => {
+        console.error('something went wrong: ', err);
+
+        return Observable.throw(err.error)
+      }));
+  }
+
   getUserFromLocalStorage(): User {
     try {
       const currentUserProfile = JSON.parse(localStorage.getItem('profile'));
