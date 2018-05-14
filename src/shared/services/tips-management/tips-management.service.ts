@@ -8,6 +8,7 @@ import { City, Country } from '../../models';
 import { ShortUserInfo } from '../../short-user-info/short-user-info.interface';
 import { ArtistType, FanType } from '../../../enums/user-types.enum';
 import { parseDateAccordingToTimeZone } from '../../../assets/functions/parse-date-according-totime-zone';
+import { RouterLinks } from '../../../enums';
 
 export interface NewTipRqstObj {
   addresser: string;
@@ -29,6 +30,7 @@ interface TipsResponse {
       city: City,
       country: Country
     };
+    _id: string
   };
   date: Date;
   amountTip: string;
@@ -67,6 +69,12 @@ export class TipsManagementService {
     return {
       avatar: tip.addresser.avatar,
       username: tip.addresser.username,
+      userProfileLink: {
+        routerLink: tip.addresser.type === FanType.type ? `/${RouterLinks.FanProfile}` : `/${RouterLinks.ArtistProfile}`,
+        queryParams: {
+          id: tip.addresser._id
+        }
+      },
       location: tip.addresser.location.country.name,
       type: tip.addresser.type === ArtistType.type ? ArtistType.title : FanType.title,
       date: parseDateAccordingToTimeZone({date: tip.date, dateFormat: 'dddd, MMMM DD YYYY'}),

@@ -9,6 +9,8 @@ import {
   STATISTICS_FOLLOWERS, STATISTICS_LIKES, STATISTICS_SHOWS,
   STATISTICS_VIEWERS
 } from '../statistics/statistics-types.model';
+import { FanType } from '../../enums/user-types.enum';
+import { RouterLinks } from '../../enums';
 
 @Component({
   selector: 'app-event-info',
@@ -49,6 +51,12 @@ export class EventInfoComponent implements OnDestroy {
         this.shortUserInfo = {
           avatar: this.artistProfile.avatar,
           username: this.artistProfile.username,
+          userProfileLink: {
+            routerLink: this.artistProfile.type === FanType.type ? `/${RouterLinks.FanProfile}` : `/${RouterLinks.ArtistProfile}`,
+            queryParams: {
+              id: this.artistProfile._id
+            }
+          },
         };
       });
   }
