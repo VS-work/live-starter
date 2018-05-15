@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { GetFAQsService } from './faq.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Faq, GetFAQsService } from './faq.service';
 
 @Component({
   selector: 'app-faq-component',
@@ -10,24 +9,19 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class FAQComponent implements OnInit {
-  public getFAQDada: GetFAQsService;
-  public getFAQDataSubcribe: Subscription;
-  public faqs: any[];
+  faqs: Faq[] = [];
 
-  public constructor(getFAQDada: GetFAQsService) {
-    this.getFAQDada = getFAQDada;
+  constructor(private getFAQDada: GetFAQsService) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit() {
+    const getFAQDataSubcribe$ = this.getFAQDada.getQsData();
 
-    this.getFAQDataSubcribe = this.getFAQDada.getQsData()
-      .subscribe((res) => {
-        if (res.error) {
-          console.error(res.error);
-          return;
-        }
-
-      this.faqs = res.data;
-    });
+    getFAQDataSubcribe$
+      .subscribe(res => {
+        this.faqs = res;
+      }, err => {
+        console.error('something went wrong: ', err);
+      });
   }
 }
