@@ -1,21 +1,37 @@
-import { Inject, Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { map, catchError } from 'rxjs/operators';
+
 import { Config } from '../app.config';
-import 'rxjs/add/observable/of';
+
+export class Faq {
+  _id: string;
+  position: string;
+  question: string;
+  answer: string;
+
+  constructor(faq: Faq) {
+    this._id = faq._id;
+    this.position = faq.position;
+    this.question = faq.question;
+    this.answer = faq.answer;
+  }
+}
 
 @Injectable()
 export class GetFAQsService {
-  public http: Http;
-
-  public constructor(@Inject(Http) http: Http) {
-    this.http = http;
+  constructor(private http: HttpClient) {
   }
 
-  public getQsData(): Observable<any> {
-    return this.http.get(`${Config.api}/getFAQs`).map((res: any) => {
-      let parseRes = JSON.parse(res._body);
-      return {err: parseRes.error, data: parseRes.data};
-    });
+  getQsData(): Observable<Faq[]> {
+    return this.http.get(`${Config.api}/getFAQs`)
+      .pipe(
+        map((data: Faq[]) => data.map(faq => new Faq(faq))),
+        catchError(err => {
+        console.error('something went wrong: ', err);
+
+        return Observable.throw(err.error)
+      }));
   }
 }
