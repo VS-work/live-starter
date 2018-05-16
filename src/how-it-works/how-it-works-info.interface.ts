@@ -33,7 +33,7 @@ export const FOR_ARTISTS: HowItWorksInfo = {
     {
       title: 'SHARE',
       description: 'Spread the world to your friends.',
-      img: 'http://hulafrogportal.com/sugar/hulafrogphoto/gky_uploads/2014/11/230-x-230px-9-14-hands-making-heart-at-concert.jpg'
+      img: 'https://celebmix.com/wp-content/uploads/2017/04/how-to-upload-music-and-promote-your-band-for-free-01.jpg'
     },
     {
       title: 'WATCH',
@@ -83,7 +83,7 @@ export const FOR_FANS: HowItWorksInfo = {
     {
       title: 'SHARE',
       description: 'Spread the world to your friends.',
-      img: 'http://hulafrogportal.com/sugar/hulafrogphoto/gky_uploads/2014/11/230-x-230px-9-14-hands-making-heart-at-concert.jpg'
+      img: 'https://celebmix.com/wp-content/uploads/2017/04/how-to-upload-music-and-promote-your-band-for-free-01.jpg'
     },
     {
       title: 'WATCH',
