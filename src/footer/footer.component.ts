@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  public constructor(private router: Router) {
+  isShowLink = false;
+
+  constructor(private router: Router) {
     this.router = router;
   }
 }
