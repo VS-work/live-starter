@@ -13,7 +13,6 @@ import { UserManagementService } from '../shared/services/user-management-servic
 import { QueryToFindArtists } from '../shared/search-service/search.service';
 
 const defaultQuery: QueryToFindArtists = {
-  findByGenre: [],
   findByName: '',
   findByLocation: '',
   findByType: ''
@@ -26,9 +25,8 @@ const defaultQuery: QueryToFindArtists = {
 })
 
 export class ArtistsComponent implements OnInit, OnDestroy {
-  genres: any[] = [];
   locations: Country[] ;
-  eventTypes: string[] = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
+  eventTypes: string[] = ['Popular', 'Newest', 'Most Funded'];
   artistsInfo: ShowInfo[] = [];
   aritstsAmount = 0;
   queryToFindArtists: QueryToFindArtists ;
@@ -60,16 +58,6 @@ export class ArtistsComponent implements OnInit, OnDestroy {
       });
 
     this.subsribeManager.add(artistsAmountSubscribe);
-
-    const genresListSubscribe = this.searchService.getGenres()
-      .subscribe(res => {
-        this.genres = ['Select all'].concat(res)
-         .map((genre: string) => ({isChecked: false, value: genre}));
-      }, err => {
-        console.error('something went wrong: ', err);
-      });
-
-    this.subsribeManager.add(genresListSubscribe);
 
     const locationsListSubscribe = this.locationService.getCountries()
       .subscribe(res => {
@@ -124,48 +112,10 @@ export class ArtistsComponent implements OnInit, OnDestroy {
       delete parsedQuery.findByName;
     }
 
-    if (!parsedQuery.findByGenre.length) {
-      delete parsedQuery.findByGenre;
-    }
-
     return parsedQuery;
   }
 
-
-  pushGenreToList(genre: string): void {
-    if (genre !== 'Select all') {
-      const index = this.queryToFindArtists.findByGenre.indexOf(genre);
-      if (index !== -1) {
-        this.queryToFindArtists.findByGenre.splice(index, 1);
-      }
-
-      if (index === -1) {
-        this.queryToFindArtists.findByGenre.push(genre);
-      }
-    }
-
-    if (genre === 'Select all') {
-      const isSelectAll = this.genres[0].isChecked;
-      this.genres = this.genres.map(item => {
-        return {
-          ...item,
-          isChecked: isSelectAll ? true : false
-        }
-      });
-
-      this.queryToFindArtists.findByGenre = isSelectAll ?  this.genres.map(item => item.value)
-        .filter(item => item !== 'Select all') : [];
-    }
-    this.getArtists();
-  }
-
   resetFilters(): void {
-    this.genres = this.genres.map(item => {
-      return {
-        ...item,
-        isChecked: false
-      }
-    });
     this.queryToFindArtists = {...defaultQuery};
   }
 
