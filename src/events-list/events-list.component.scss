@@ -9,6 +9,26 @@
 	background-color: #dadce8;
 }
 
+.date-picker-container {
+  position: relative;
+
+  .events-date-picker {
+    width: 50px;
+    height: 50px;
+    visibility: hidden;
+  }
+
+  .button-date-picker {
+    font-size: 25px;
+    line-height: 25px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+  }
+}
+
 .date-filter,
 .show-attrs-filter {
 	width: 100%;
@@ -17,6 +37,7 @@
 	display: inline-flex;
 	flex-wrap: nowrap;
 	flex-direction: row;
+  justify-content: space-between;
 	align-items: center;
 	border-bottom: 2px solid #8e8e9a;
 }
@@ -140,7 +161,6 @@ input:checked + .slider:before {
 
 .filter-drpdwn {
 	padding: 8px;
-	flex: 1 0;
 }
 
 .dropdown-item {

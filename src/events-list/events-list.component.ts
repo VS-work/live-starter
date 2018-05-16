@@ -5,9 +5,6 @@ import * as moment from 'moment';
 
 import { SearchService, LocalStorageService } from '../shared';
 import { ShowInfo } from '../shared/show-info/info.interface';
-import { LocationService } from '../shared/services';
-import { Country } from '../shared/models';
-import { Show } from '../shared/services/show-management-service';
 import { ShowManagementService } from '../shared/services/show-management-service';
 
 @Component({
@@ -20,13 +17,10 @@ export class EventsListComponent implements OnInit {
   private router: Router;
   public searchService: SearchService;
   public localStorageService: LocalStorageService;
-  public searchServiceSubscribe: Subscription;
   public getEventsDataSubcribe: Subscription;
 
   public isColumn = true;
-  public eventTypes: any[];
-  public genres: any[];
-  public locations: Country[];
+  public eventTypes: string[] = ['Popular', 'Newest', 'Most Funded'];
   public eventsData: any[];
   public shows: ShowInfo[] = [];
   public datesAround: any[];
@@ -42,7 +36,6 @@ export class EventsListComponent implements OnInit {
   public constructor(router: Router,
                      private showManagementService: ShowManagementService,
                      searchService: SearchService,
-                     private locationService: LocationService,
                      localStorageService: LocalStorageService) {
     this.router = router;
     this.searchService = searchService;
@@ -52,27 +45,11 @@ export class EventsListComponent implements OnInit {
   public ngOnInit(): void {
     this.datepickerShow = false;
 
-    this.eventTypes = ['Popular', 'Newest', 'End Date', 'Most Funded', 'Most Backed'];
-
     this.queryToFindShow = {
       dateShowPerformance: new Date()
     };
 
     this.findEventsByQuery(this.queryToFindShow);
-
-    this.searchServiceSubscribe = this.searchService.getMusicStyles()
-      .subscribe(res => {
-        this.genres = res;
-      }, err => {
-        console.error('something went wrong: ', err);
-      });
-
-    this.searchServiceSubscribe = this.locationService.getCountries()
-      .subscribe(res => {
-        this.locations = res;
-      }, err => {
-        console.error('something went wrong: ', err);
-      });
 
     this.getEventsDataSubcribe = this.showManagementService.getEventsAmountData()
       .subscribe(res => {
@@ -82,20 +59,18 @@ export class EventsListComponent implements OnInit {
       });
   }
 
-  public datePickerDropdown(): void {
-    this.datepickerShow = !this.datepickerShow;
-  }
-
   public setTodayDate(): void {
     this.queryToFindShow.dateShowPerformance = new Date();
     this.findEventsByQuery(this.queryToFindShow);
   }
 
-  public setDay(direction: boolean): void {
-    this.queryToFindShow.dateShowPerformance =
-      direction
-        ? moment(this.queryToFindShow.dateShowPerformance).add(1, 'day')
-        : moment(this.queryToFindShow.dateShowPerformance).add(-1, 'day');
+  setDay(direction: boolean): void {
+    const newDateString = direction
+      ? moment(this.queryToFindShow.dateShowPerformance).add(1, 'day')
+      : moment(this.queryToFindShow.dateShowPerformance).add(-1, 'day');
+
+    this.queryToFindShow.dateShowPerformance = new Date(newDateString.format('dddd, MMMM DD YYYY'));
+
     this.findEventsByQuery(this.queryToFindShow);
   }
 
@@ -130,23 +105,12 @@ export class EventsListComponent implements OnInit {
       });
   }
 
-  public pushGenreToList(genrePush: string): void {
-    this.queryToFindShow.findByGenre = genrePush;
-    this.findEventsByQuery(this.queryToFindShow);
-  }
-
-  public pushLocationToList(locationPush: string): void {
-    this.queryToFindShow.findByLocation = locationPush;
-    this.findEventsByQuery(this.queryToFindShow);
-  }
-
   public pushTypeToList(showTypePush: string): void {
     this.queryToFindShow.findByType = showTypePush;
     this.findEventsByQuery(this.queryToFindShow);
   }
 
-  public setCurrentShow(show: Show): void {
-    const setCurrentShowData: any = {findById: show._id, findByName: show.name, findByCreator: show.creator};
-    this.localStorageService.setItem('currentShow', setCurrentShowData);
+  changeDate(): void {
+    this.findEventsByQuery(this.queryToFindShow);
   }
 }

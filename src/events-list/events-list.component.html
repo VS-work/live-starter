@@ -2,12 +2,20 @@
   <div class="search-filter-header">
     <div class="container">
       <div class="date-filter">
-        <div class="datepicker-dropdown pdng-filter-items brdr-l brdr-r" (click)="datePickerDropdown()">
-          <img class="datepicker-icon" src="/assets/img/datepicker.png" alt="">
-          <div class="dp-dd" *ngIf="datepickerShow">
-            <datepicker [(ngModel)]="queryToFindShow.dateShowPerformance"
-                        [activeDate]="true"
-                        (selectionDone)="findEventsByQuery(queryToFindShow)"></datepicker>
+        <div class="date-picker">
+          <div class="date-picker-container">
+            <input type="text"
+                   name="datepicker"
+                   class="form-control events-date-picker"
+                   disabled="disabled"
+                   placement="bottom left"
+                   #eventsDP="bsDatepicker"
+                   bsDatepicker
+                   [(bsValue)]="queryToFindShow.dateShowPerformance"
+                   (bsValueChange)="changeDate($event)"/>
+            <button class="btn icon-calendar button-date-picker" type="button" (click)="eventsDP.show()">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
 
@@ -37,61 +45,12 @@
           </label>
         </div>
 
-        <div class="filter-drpdwn"><span class="title">Location</span>
-          <div class="btn-group" dropdown>
-            <button id="location-button" type="button" class="btn btn-filter" dropdownToggle>
-              {{queryToFindShow.findByLocation || 'Select all'}} <span class="caret"></span>
-            </button>
-            <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-              <div
-                  class="dropdown-item"
-                  (click)="pushLocationToList('Select all')"
-                  btnCheckbox>Select All
-              </div>
-              <div class="locations-list" *ngFor="let location of locations">
-                <div
-                    class="dropdown-item"
-                    (click)="pushLocationToList(location.name)"
-                    btnCheckbox>{{location.name}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="filter-drpdwn"><span class="title">Genre</span>
-          <div class="btn-group" dropdown>
-            <button id="genre-button" type="button" class="btn btn-filter" dropdownToggle>
-              {{queryToFindShow.findByGenre || 'Select all'}} <span class="caret"></span>
-            </button>
-            <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-              <div
-                  class="dropdown-item"
-                  (click)="pushGenreToList('Select all')"
-                  btnCheckbox>Select All
-              </div>
-              <div class="genres-list" *ngFor="let genre of genres">
-                <div
-                    class="dropdown-item"
-                    (click)="pushGenreToList(genre)"
-                    btnCheckbox>{{genre}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="filter-drpdwn"><span class="title">Sort by</span>
           <div class="btn-group" dropdown>
             <button id="sortedby-button" type="button" class="btn btn-filter" dropdownToggle>
-              {{queryToFindShow.findByType || 'Select all'}}<span class="caret"></span>
+              {{queryToFindShow.findByType || 'Select filter'}}<span class="caret"></span>
             </button>
             <div *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
-              <div
-                  class="dropdown-item"
-                  (click)="pushTypeToList('Select all')"
-                  btnCheckbox>Select All
-              </div>
               <div class="types-list" *ngFor="let eventType of eventTypes">
                 <div
                     class="dropdown-item"
