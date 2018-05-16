@@ -70,6 +70,7 @@
       <div class="event-button-container">
         <div class="buy-ticket-container" *ngIf="!isMyEvents && !isEventAdministratedByCurrentUser">
           <app-purchase [purchaseParams]="purchaseParams"
+                        [isFree]="show.isFree"
                         (isBought)="setShowIsBought($event, show)"
                         *ngIf="!show.completed && !show.isBought">
           </app-purchase>
@@ -93,6 +94,7 @@
 
         <div class="buy-ticket-container">
           <app-purchase [purchaseParams]="purchaseParams"
+                        [isFree]="show.isFree"
                         (isBought)="setShowIsBought($event, show)"
                         *ngIf="!show.completed && !show.isBought">
           </app-purchase>
@@ -113,6 +115,7 @@
         </div>
         <div class="buy-ticket-container">
           <app-purchase [purchaseParams]="purchaseParams"
+                        [isFree]="show.isFree"
                         (isBought)="setShowIsBought($event, show)"
                         *ngIf="!show.isBought; else alreadyBought">
           </app-purchase>

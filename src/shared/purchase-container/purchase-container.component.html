@@ -2,5 +2,5 @@
         class="btn-with-border btn-orange small long"
         (click)="getFreeTicket()"
         *ngIf="purchaseParams">
-  {{'Purchase' | uppercase}}
+  {{isFree ? 'Join': 'Purchase' | uppercase}}
 </button>
