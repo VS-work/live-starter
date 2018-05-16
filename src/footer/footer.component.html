@@ -20,9 +20,9 @@
           <h3 class="title">About LiveStarter</h3>
           <a routerLink="/how-it-works" class="footer-link how-it-was">How It Works</a>
           <a routerLink="/about" class="footer-link about">About Us</a>
-          <a routerLink="" class="footer-link careers">Careers</a>
-          <a routerLink="" class="footer-link brand">Brand</a>
-          <a routerLink="" class="footer-link press">Press</a>
+          <a routerLink="" class="footer-link careers" *ngIf="isShowLink">Careers</a>
+          <a routerLink="" class="footer-link brand" *ngIf="isShowLink">Brand</a>
+          <a routerLink="" class="footer-link press" *ngIf="isShowLink">Press</a>
           <a routerLink="/blog" class="footer-link blog">Blog</a>
         </div>
 
