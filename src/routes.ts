@@ -32,6 +32,7 @@ export const routes: Routes = [
   {path: 'help-support', loadChildren: '../help-support/help-support.module#HelpSupportModule'},
   {path: RouterLinks.Events, loadChildren: '../events-list/events-list.module#EventsListModule'},
   {path: RouterLinks.Contact, loadChildren: '../contacts-livestarter/contacts-livestarter.module#LiveStarterContactsModule'},
+  {path: RouterLinks.SearchResult, loadChildren: '../search-result/search-result.module#SearchResultModule'},
   {path: '**', redirectTo: 'home'}
 ];
 

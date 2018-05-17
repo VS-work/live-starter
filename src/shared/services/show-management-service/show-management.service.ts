@@ -120,7 +120,7 @@ export class ShowManagementService {
     });
   }
 
-  private parseShowAccordingsToTimeZone(show: Show): Show {
+  parseShowAccordingsToTimeZone(show: Show): Show {
     const dateFormat = 'dddd, MMMM DD YYYY, h:mm:ss a';
     show.timePerformance.start = parseDateAccordingToTimeZone({
       date: new Date(show.timePerformance.start),

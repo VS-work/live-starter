@@ -6,12 +6,9 @@
   <div class="search-button-container">
     <input type="search"
            placeholder=" Search your favorite musicians, bands... "
-           #searchByName>
+           [(ngModel)]="searchText">
     <img src="/assets/img/forma-1.svg"
          alt="Search icon"
-         (click)="searchArtistData({name: searchByName.value})">
+         (click)="searchArtistData()">
   </div>
-  <span *ngFor="let style of styles">
-    <button class="music-style-button-search" (click)="searchArtistData({genre: style})">{{style}}</button>
-  </span>
 </div>

@@ -1,0 +1,28 @@
+<div class="custom-container">
+  <div class="searchresult-container"
+       *ngIf="searchresult?.users.length || searchresult?.events.length; else emptyResult">
+
+    <div class="result-group" *ngIf="searchresult?.events.length">
+      <h6 class="result-group-title">Events</h6>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4 group-item" *ngFor="let showInfo of searchresult.events">
+          <app-show-info [info]="showInfo" [isSmall]="true"></app-show-info>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-group" *ngIf="searchresult?.users.length">
+      <h6 class="result-group-title">Artists</h6>
+
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4 group-item" *ngFor="let userInfo of searchresult.users">
+          <app-show-info [info]="userInfo" [isSmall]="true"></app-show-info>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyResult>
+    <p>Nothing to show</p>
+  </ng-template>
+</div>
