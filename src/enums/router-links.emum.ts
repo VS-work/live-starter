@@ -14,7 +14,8 @@ export enum RouterLinks {
   ManageLiveStream = 'manage-live-stream',
   ArtistProfile = 'artist-profile',
   FanProfile = 'fan-profile',
-  ShowPage = 'show-page'
+  ShowPage = 'show-page',
+  SearchResult = 'search-result'
 }
 
 export enum MenuTitles {
